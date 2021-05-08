@@ -1,4 +1,6 @@
-Harjoitustyö FS2021
+_Harjoitustyö FullStack2021_
+
+This is not DogeHouse. This will not send anyone or anything to the moon, but Mercury is in consideration.
 
 ## Kulttuurisome
 **Kenelle tarkoitettu:** 
@@ -11,7 +13,7 @@ Harjoitustyö FS2021
 - Löytää tarvittavat ihmiset projekteihin
 
 **Mistä mallia:**
-	GitHub, Facebook
+GitHub, Facebook
 
 **Kielet:**
 Suomi, Englanti
@@ -23,6 +25,8 @@ Suomi, Englanti
   - portfolio
     - kuvagalleria, videoita...
   - seinä (kuin facebookissa, yleisiä postauksia ym)
+  - Yhtyeen jäsenet yhdistetty profiileihin
+  - Yhtyeiden jäsenet voivat kirjautua yhtyeen profiiliin
 
 - Tapahtumat, kurssit
 
@@ -35,6 +39,19 @@ Suomi, Englanti
 - Explore
 
 - Search (events, people, groups)
+
+## Työkalut
+- React ja sairas määrä kirjastoja
+- TypeScript, JavaScript
+- MongoDB tai SQL
+- GraphQL
+- Jest, Cypress
+- CSS, SCSS tai Sass
+
+## Huomioitavaa
+- Browser support
+- Security
+- Validations
 
 
 
