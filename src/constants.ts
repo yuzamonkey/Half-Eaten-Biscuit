@@ -1,0 +1,1 @@
+export const TOKEN_NAME = 'kulttuurisome-user-token'

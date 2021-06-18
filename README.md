@@ -1,0 +1,1 @@
+Kulttuurisome frontend. Backend repo can be found [here](https://github.com/yuzamonkey/KulttuurisomeBack)

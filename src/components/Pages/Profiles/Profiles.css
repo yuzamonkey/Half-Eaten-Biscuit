@@ -1,0 +1,93 @@
+:root {
+  --bg-white: rgba(240, 240, 240, 1);
+  --blue: #0087a8;
+  --dark-blue: #005b72;
+  --grey: hsla(192, 17%, 60%, 0.52);
+  --black: #242424;
+  --dark-grey: #1e2729;
+}
+
+.profiles-container {
+  width: 100%;
+  height: calc(100vh - 100px);
+  display: flex;
+  justify-content: center;
+  overflow: scroll;
+  flex-flow: row wrap;
+}
+
+.profile-container {
+  width: 250px;
+  height: 350px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 10pt 1pt var(--grey);
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  transition: transform .2s;
+}
+
+.profile-container:hover {
+  transform: scale(1.025);
+}
+
+.upper-container {
+  width: 100%;
+  height: 50%;
+}
+
+.profile-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  padding-top: 15px;
+}
+
+.lower-container {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.name-container {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-name {
+  font-size: 2em;
+}
+
+.profiles-buttons-container {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.profiles-button {
+  margin: 10px;
+  padding: 10px;
+  color: var(--black);
+  border-style: none;
+  border-radius: 5px;
+  width: 100%; 
+}
+
+.to-profile-button {
+  background-color: var(--blue);
+}
