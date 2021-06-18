@@ -4,11 +4,8 @@ import './Navbar.css'
 import NotificationsDropdown from './Dropdowns/NotificationsDropdown'
 import ProfileOptionsDropdown from './Dropdowns/ProfileOptionsDropdown'
 
-interface NavbarProps {
-  logout: any
-}
 
-const Navbar = ({ logout }: NavbarProps) => {
+const Navbar = () => {
   const [click, setClick] = useState(false);
   const [showNotification, setShowNotifications] = useState(false)
   const [showProfileOptionsDropdown, setShowProfileOptionsDropdown] = useState(false)
@@ -84,7 +81,7 @@ const Navbar = ({ logout }: NavbarProps) => {
               className="dropdown-container">
               <p className="nav-links">Me ∆</p>
               <div className={showProfileOptionsDropdown ? "dropdown profile-options active" : "profile-options"}>
-                <ProfileOptionsDropdown logout={logout}/>
+                <ProfileOptionsDropdown />
               </div>
             </div>
           </ul>

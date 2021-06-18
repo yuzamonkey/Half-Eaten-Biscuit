@@ -1,12 +1,14 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { useApolloClient } from "@apollo/client";
 
-const ProfileOptionsDropdown = ({ logout }: any) => {
-  const history = useHistory()
+const ProfileOptionsDropdown = () => {
+  const client = useApolloClient()
 
-  const handleLogout = () => {
-    logout()
-    history.push('/')
+  const handleLogout = async () => {
+    await client.resetStore()
+    localStorage.clear()
+    //window.location.reload()
+    window.location.assign('/')
   }
 
   return (

@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client'
 
 import { ME } from '../../queries'
 
-const Welcome = ({logout}: any) => {
+const Welcome = () => {
 
   const result = useQuery(ME)
 
@@ -14,7 +14,6 @@ const Welcome = ({logout}: any) => {
   return (
     <div>
       <h1>Welcome <i>{result.data.me.username}</i></h1>
-      <button onClick={() => logout()}>Log out</button>
     </div>
   )
 }

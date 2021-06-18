@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { useApolloClient } from "@apollo/client";
 
 import Navbar from "./components/Navbar/Navbar";
 import Messages from "./components/Pages/Messages/Messages";
@@ -20,13 +19,7 @@ import Profile from "./components/Pages/Profiles/Profile/Profile";
 const App = () => {
   const localStorageItem = localStorage.getItem(TOKEN_NAME)
   const [token, setToken] = useState(localStorageItem);
-  const client = useApolloClient()
 
-  const logout = () => {
-    setToken(null)
-    localStorage.clear()
-    client.resetStore()
-  }
 
   return (
     <Router>
@@ -38,7 +31,7 @@ const App = () => {
         </Switch>
         :
         <>
-          <Navbar logout={logout}/>
+          <Navbar />
 
           <div className="pages">
             <Switch>
@@ -47,7 +40,7 @@ const App = () => {
               <Route path="/profiles" component={Profiles} />
               <Route path="/profile/:id" component={Profile} />
               <Route path="/settings" component={Settings} />
-              <Route path="/" component={() => <Welcome logout={logout}/>} />
+              <Route path="/" component={() => <Welcome />} />
             </Switch>
           </div>
         </>

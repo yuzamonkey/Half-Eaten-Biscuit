@@ -5,7 +5,7 @@ Goal for weeks 24-30 (7 weeks)
   => 25h / 5d = 5h / d = 2.5h+2.5h / d
 
 DIARY:
-  Week 24 ✅❌: Goals: Login from frontpage √, add queries, send and receive messages
+  Week 24 ✅❌: Goals: Login from frontpage, add queries, send and receive messages
     Mon: 
       AM: Build GraphQL backend, frontend planning, basic frontpage with signin link
       PM: Login working both backend and frontend with localStorage
@@ -16,8 +16,8 @@ DIARY:
       AM: Sign up and sign in, add jobqueries from backend and frontend
       PM: Mongo populate user and jobqueries, profile page
     Fri:
-      AM: Development environment, switch to actual repo
-      PM: Init testing
+      AM: Development environment, switch to actual repo, backend typescript init
+      PM: Fix typescript errors
   Week 25 ✅❌
   Week 26 ✅❌
   Week 27 ✅❌
@@ -41,5 +41,5 @@ DIARY:
 | 14.6. | 5   | GraphQL init, login |
 | 15.6. | 5   | Navbar rearrange, dropdowns, simple homepage  |
 | 17.6. | 5  | Sign in, jobqueries, profiles-page css |
-| 18.6. | 920-  |  |
+| 18.6. | 920-12 13-  |  |
 | =     | 32.0      |               |
