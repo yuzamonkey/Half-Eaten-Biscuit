@@ -11,7 +11,7 @@
 .msg-navigation {
   /* position: absolute; */
   background-color: var(--grey);
-  width: 250px;
+  width: 100%;
   height: calc(100vh - var(--navbar-height));
   display: flex;
   justify-content: center;

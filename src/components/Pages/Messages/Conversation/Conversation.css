@@ -1,0 +1,53 @@
+:root {
+  --bg-white: rgba(240, 240, 240, 1);
+  --blue: #0087a8;
+  --dark-blue: #005b72;
+  --grey: hsla(192, 17%, 60%, 0.52);
+  --dark-grey: #1e2729;
+  --black: #242424;
+  --navbar-height: 70px;
+  --mobile-width: 960px;
+}
+
+.conversation-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.conversation-info {
+  height: 100px;
+}
+
+.conversation-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: scroll;
+}
+
+.message-container {
+  margin: 10px;
+  padding: 10px;
+  max-width: 60ch;
+  background-color: lightcoral;
+  border-radius: 5px;
+}
+
+.message-container.user-sent {
+  background-color: lightgreen;
+  align-self: flex-end;
+}
+
+.conversation-input-container {
+  background-color: var(--grey);
+  height: 100px;
+}
+
+@media screen and (max-width: 960px) {
+  .conversation-container {
+    background-color: red;
+  }
+
+}

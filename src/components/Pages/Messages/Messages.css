@@ -16,7 +16,6 @@
 .msg-contacts-container {
   background-color: var(--grey);
   min-width: 250px;
-  max-width: 250px;
   height: calc(100vh - var(--navbar-height));
 }
 
@@ -24,4 +23,12 @@
   background-color: var(--bg-white);
   width: 100%;
   height: calc(100vh - var(--navbar-height));
+}
+
+@media screen and (max-width: 960px) {
+  .msg-contacts-container {
+    width: 100%;
+  }
+
+
 }

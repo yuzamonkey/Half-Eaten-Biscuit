@@ -8,7 +8,7 @@ const ProfileOptionsDropdown = () => {
     const result = await client.resetStore()
     console.log("LOGOUT RESULT", result)
     localStorage.clear()
-    //window.location.assign('/')
+    window.location.assign('/')
   }
 
   return (
