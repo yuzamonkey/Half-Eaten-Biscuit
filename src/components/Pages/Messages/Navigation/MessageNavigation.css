@@ -1,0 +1,53 @@
+:root {
+  --bg-white: rgba(240, 240, 240, 1);
+  --blue: #0087a8;
+  --dark-blue: #005b72;
+  --grey: hsla(192, 17%, 60%, 0.52);
+  --dark-grey: #1e2729;
+  --black: #242424;
+  --navbar-height: 70px;
+}
+
+.msg-navigation {
+  /* position: absolute; */
+  background-color: var(--grey);
+  width: 250px;
+  height: calc(100vh - var(--navbar-height));
+  display: flex;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+  /* Positive z-index makes navbar stay top. E.g. not behind text */
+}
+
+.msg-nav-container {
+  width: 100%;
+}
+
+.msg-nav-menu {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.msg-nav-item {
+  line-height: 4rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.msg-nav-links {
+  color: var(--black);
+  text-decoration: none;
+  display: table;
+  width: 100%;
+}
+
+.msg-nav-links:hover {
+  background: var(--blue);
+}
+
+.msg-active {
+  background-color: var(--dark-blue);
+  color: var(--bg-white);
+}

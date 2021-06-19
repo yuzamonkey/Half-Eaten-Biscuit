@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useMutation } from '@apollo/client'
 import { LOGIN } from '../../../queries'
 import { useHistory } from 'react-router-dom'
-import { TOKEN_NAME } from '../../../constants'
+import { TOKEN_NAME } from '../../../utils/constants'
 
 interface SignInProps {
   setToken: any;

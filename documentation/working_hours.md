@@ -16,8 +16,11 @@ DIARY:
       AM: Sign up and sign in, add jobqueries from backend and frontend
       PM: Mongo populate user and jobqueries, profile page
     Fri:
-      AM: Development environment, switch to actual repo, backend typescript init
-      PM: Fix typescript errors
+      AM: Development and testing environments, switch to actual repo, backend typescript init
+      PM: Fix typescript errors in backend, planning and init of messaging/conversations implementation
+    Sat:
+      AM: Messaging in backend
+      PM: Structure with css for messaging in frontend
   Week 25 ✅❌
   Week 26 ✅❌
   Week 27 ✅❌
@@ -35,11 +38,11 @@ DIARY:
 | 10.6. | 2         | Frontend |
 | 11.6. | 1         | Frontend |
 | 12.6. | 1.5       | Backend, Mongo init with REST APIs |
-| 13.6. | 0.5       | Backend structure planning |
-          == 17
+| 13.6. | 0.5 (=17) | Backend structure planning |
 | Week 24 ✅❌ |||   
 | 14.6. | 5   | GraphQL init, login |
 | 15.6. | 5   | Navbar rearrange, dropdowns, simple homepage  |
-| 17.6. | 5  | Sign in, jobqueries, profiles-page css |
-| 18.6. | 920-12 13-  |  |
-| =     | 32.0      |               |
+| 17.6. | 5   | Sign in, jobqueries, profiles-page css |
+| 18.6. | 5   | Switch repository from sandbox, Backend TypeScript init, planning of messaging implementation |
+| 19.6. | 2.5 1230-  | Implementing messaging front and backend |
+| =     | 37.0      |               |

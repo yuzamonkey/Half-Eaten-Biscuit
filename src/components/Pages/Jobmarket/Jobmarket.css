@@ -5,6 +5,7 @@
   --grey: hsla(192, 17%, 60%, 0.52);
   --black: #242424;
   --dark-grey: #1e2729;
+  --navbar-height: 70px;
 }
 
 .job-page {
@@ -25,7 +26,7 @@
   /* position: absolute; */
   background-color: var(--grey);
   width: 250px;
-  height: calc(100vh - 80px);
+  height: calc(100vh - var(--navbar-height));
   display: flex;
   justify-content: center;
   font-size: 1.5rem;

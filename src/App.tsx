@@ -9,17 +9,16 @@ import Profiles from "./components/Pages/Profiles/Profiles";
 import SignIn from "./components/Pages/Registrations/SignIn";
 import SignUp from "./components/Pages/Registrations/SignUp";
 import Home from "./components/Pages/Home/Home";
-import Welcome from "./components/Welcome/Welcome";
+import Welcome from "./components/Pages/Welcome/Welcome";
 import Settings from "./components/Pages/Settings/Settings";
 
 import './App.css';
-import { TOKEN_NAME } from "./constants";
+import { TOKEN_NAME } from "./utils/constants";
 import Profile from "./components/Pages/Profiles/Profile/Profile";
 
 const App = () => {
   const localStorageItem = localStorage.getItem(TOKEN_NAME)
   const [token, setToken] = useState(localStorageItem);
-
 
   return (
     <Router>

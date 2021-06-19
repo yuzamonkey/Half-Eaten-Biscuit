@@ -6,7 +6,7 @@ const SendQuery = () => {
 
   const [content, setContent] = useState('')
 
-  const [createQuery, result] = useMutation(CREATE_QUERY, {
+  const [createQuery] = useMutation(CREATE_QUERY, {
     onError: (error) => {
       //setError(error.graphQLErrors[0].message)
       console.log("Error at create query mutation: \n", error.graphQLErrors[0].message)
