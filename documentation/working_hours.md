@@ -7,7 +7,8 @@ Goal for weeks 24-30 (7 weeks)
 
 ## DIARY
   ### Week 24 ✅ 
-  Goals: Login from frontpage, add queries, send and receive messages
+  Login from frontpage, add jobmarketqueries, messages planning
+
     Mon: 
       AM: Build GraphQL backend, frontend planning, basic frontpage with signin link
       PM: Login working both backend and frontend with localStorage
@@ -23,9 +24,12 @@ Goal for weeks 24-30 (7 weeks)
     Sat:
       AM: Messaging in backend
       PM: Structure with css for messaging in frontend
+  
   ### Week 25 ✅❌
+  WTD: Messaging implementation, refactoring, typescript implementation, testing, deployment pipeline
+
     Mon:
-      AM: Messaging implementation from back to front
+      AM: Messaging implementation backend and frontend, figuring out how to use mongoose populate across levels
       PM:
   ### Week 26 ✅❌
   ### Week 27 ✅❌
@@ -52,7 +56,7 @@ Goal for weeks 24-30 (7 weeks)
 | 15.6. | 5   | Navbar rearrange, dropdowns, simple homepage  |
 | 17.6. | 5   | Sign in, jobqueries, profiles-page css |
 | 18.6. | 5   | Switch repository from sandbox, Backend TypeScript init, planning of messaging implementation |
-| 19.6. | 5  | Implementing messaging front and backend |
+| 19.6. | 5   | Implementing messaging front and backend |
 | Week 25 ✅ |||   
-| 21.6. | 830-  | Messaging |
-| =     | 42.0      |               |
+| 21.6. | 830-11, 13-  | Messaging |
+| =     | 47.0      |               |

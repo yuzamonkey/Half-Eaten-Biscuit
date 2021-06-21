@@ -27,6 +27,14 @@ export const ME = gql`
   }
 `
 
+export const MY_ID = gql`
+  query {
+    me {
+      id
+    }
+  }
+`
+
 export const CONVERSATION_INFOS = gql`
   query {
     me {
@@ -48,7 +56,10 @@ export const FIND_CONVERSATION = gql`
         id,
         username
       },
-      messages { 
+      messages {
+        sender {
+          id
+        }
         body 
       } 
     }
