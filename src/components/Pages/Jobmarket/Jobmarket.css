@@ -1,13 +1,3 @@
-:root {
-  --bg-white: rgba(240, 240, 240, 1);
-  --blue: #0087a8;
-  --dark-blue: #005b72;
-  --grey: hsla(192, 17%, 60%, 0.52);
-  --black: #242424;
-  --dark-grey: #1e2729;
-  --navbar-height: 70px;
-}
-
 .job-page {
   display: flex;
   flex-direction: row;

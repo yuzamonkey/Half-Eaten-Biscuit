@@ -1,11 +1,3 @@
-:root {
-  --bg-white: rgba(240, 240, 240, 1);
-  --blue: #0087a8;
-  --dark-blue: #005b72;
-
-  --navbar-height: 70px;
-}
-
 .navbar {
   background-color: var(--blue);
   height: var(--navbar-height);
