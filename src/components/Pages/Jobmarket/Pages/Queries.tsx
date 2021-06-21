@@ -41,7 +41,7 @@ const Queries = () => {
                 </div>
               </div>
               <div className="buttons-container">
-                <button className="card-button contact-button" onClick={handleButtonPress}>Contact {q.user.username}</button>
+                <button className="card-button jq-contact-button" onClick={handleButtonPress}>Contact {q.user.username}</button>
                 <button className="card-button more-info-button" onClick={handleButtonPress}>More info</button>
               </div>
             </div>

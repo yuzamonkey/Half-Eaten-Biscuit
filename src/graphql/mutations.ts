@@ -23,6 +23,14 @@ export const CREATE_QUERY = gql`
 }
 `
 
+export const NEW_CONVERSATION = gql`
+  mutation newConversation($receiverId: ID!) {
+    createConversation(receiverId: $receiverId) {
+      id
+    }
+  }
+`
+
 export const SEND_MESSAGE = gql`
   mutation sendMessage($id: ID!, $body: String!) {
     sendMessage(conversationId: $id, body: $body) {

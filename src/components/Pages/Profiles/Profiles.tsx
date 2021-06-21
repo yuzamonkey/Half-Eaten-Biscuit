@@ -1,24 +1,34 @@
 import React from 'react';
-import { useQuery } from '@apollo/client';
-
-import { ALL_USERS } from '../../../graphql/queries';
-import './Profiles.css'
+import { useQuery, useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
+import './Profiles.css'
+import { ALL_USERS, MY_ID } from '../../../graphql/queries';
+import { NEW_CONVERSATION } from '../../../graphql/mutations';
+
 const Profiles = () => {
-  const result = useQuery(ALL_USERS)
+  const allUsersResult = useQuery(ALL_USERS)
+  const myIdResult = useQuery(MY_ID)
+  const [newConversation] = useMutation(NEW_CONVERSATION)
   const history = useHistory()
 
-  if (result.loading) {
+  if (allUsersResult.loading || myIdResult.loading) {
     return <div>loading...</div>
   }
 
-  console.log("PROFILES RESULT", result)
+  const handleContactButtonPress = async (receiverId: any) => {
+    console.log("CONTACT BUTTON PRESSED FOR", receiverId)
+    //check for users conversations where only user is the receiver
+    const result = await newConversation({ variables: { receiverId } })
+    const newConversationId = result.data.createConversation.id
+    history.push(`/messages/${newConversationId}`)
+  }
+
   return (
     <div>
       <h1>Profiles</h1>
       <div className="profiles-container">
-        {result.data.allUsers.map((u: any) => {
+        {allUsersResult.data.allUsers.map((u: any) => {
           const profileUrl = `/profile/${u.id}`
           return (
             <div className="profile-container">
@@ -36,7 +46,10 @@ const Profiles = () => {
                 </div>
                 <div className="profiles-buttons-container">
                   <button className="profiles-button to-profile-button" onClick={() => history.push(profileUrl)}>To profile</button>
-                  <button className="profiles-button contact-button">Contact {u.username}</button>
+                  {u.id !== myIdResult.data.me.id
+                    ? <button className="profiles-button profiles-contact-button" onClick={() => handleContactButtonPress(u.id)}>Contact {u.username}</button>
+                    : <button className="profiles-button disabled-button" disabled>Contact {u.username}</button>
+                  }
                 </div>
               </div>
             </div>

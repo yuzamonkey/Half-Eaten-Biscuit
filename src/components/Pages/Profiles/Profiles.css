@@ -90,4 +90,12 @@
 
 .to-profile-button {
   background-color: var(--blue);
+  cursor: pointer;
+}
+.profiles-contact-button {
+  background-color: #42b371;
+  cursor: pointer;
+}
+.disabled-button {
+  background-color: lightsteelblue;
 }

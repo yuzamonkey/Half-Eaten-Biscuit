@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
-import { useMutation } from '@apollo/client'
+import { useQuery, useMutation } from '@apollo/client';
 
 import './Conversation.css'
 import { FIND_CONVERSATION, MY_ID } from '../../../../graphql/queries';

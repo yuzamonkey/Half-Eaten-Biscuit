@@ -26,11 +26,11 @@ Goal for weeks 24-30 (7 weeks)
       PM: Structure with css for messaging in frontend
   
   ### Week 25 ✅❌
-  WTD: Messaging implementation, refactoring, typescript implementation, testing, deployment pipeline
+  Messaging implementation, refactoring, typescript implementation, testing, deployment pipeline, to internet
 
     Mon:
       AM: Messaging implementation backend and frontend, figuring out how to use mongoose populate across levels
-      PM:
+      PM: Send messages and create conversations
   ### Week 26 ✅❌
   ### Week 27 ✅❌
   ### Week 28 ✅❌
