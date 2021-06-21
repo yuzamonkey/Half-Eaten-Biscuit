@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 
-import { ALL_USERS } from '../../../queries';
+import { ALL_USERS } from '../../../graphql/queries';
 import './Profiles.css'
 import { useHistory } from 'react-router-dom';
 

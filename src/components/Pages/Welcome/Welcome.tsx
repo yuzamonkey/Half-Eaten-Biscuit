@@ -1,7 +1,7 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
 
-import { ME } from '../../../queries'
+import { ME } from '../../../graphql/queries'
 
 const Welcome = () => {
 

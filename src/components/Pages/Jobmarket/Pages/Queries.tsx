@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery } from '@apollo/client';
 
 import '../Jobmarket.css'
-import { ALL_QUERIES } from '../../../../queries';
+import { ALL_QUERIES } from '../../../../graphql/queries';
 
 const Queries = () => {
   const result = useQuery(ALL_QUERIES)

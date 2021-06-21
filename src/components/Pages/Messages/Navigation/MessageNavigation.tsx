@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import React from 'react'
 import { NavLink } from "react-router-dom";
-import { CONVERSATION_INFOS } from '../../../../queries';
+import { CONVERSATION_INFOS } from '../../../../graphql/queries';
 
 import './MessageNavigation.css'
 
@@ -24,7 +24,7 @@ const MessageNavigation = () => {
             })
             const linkTo = `../messages/${conversation.id}`
             return (
-              <li className="msg-nav-item">
+              <li className="msg-nav-item" key={conversation.id}>
                 <NavLink exact to={linkTo} activeClassName="msg-active" className="msg-nav-links">
                   {usernames}
                 </NavLink>

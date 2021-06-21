@@ -1,21 +1,5 @@
 import { gql } from '@apollo/client';
 
-export const LOGIN = gql`
-  mutation login($username: String!, $password: String!) {
-    login(username: $username, password: $password)  {
-      value
-    }
-  }
-`
-
-export const SIGNUP = gql`
-  mutation createUser($username: String!, $password: String!) {
-    createUser(username: $username, password: $password) {
-      username
-    }
-}
-`
-
 export const ME = gql`
   query {
     me {
@@ -57,6 +41,7 @@ export const FIND_CONVERSATION = gql`
         username
       },
       messages {
+        id
         sender {
           id
         }
@@ -64,14 +49,6 @@ export const FIND_CONVERSATION = gql`
       } 
     }
   }
-`
-
-export const CREATE_QUERY = gql`
-  mutation createQuery($content: String!) {
-    createQuery(content: $content) {
-      content
-    }
-}
 `
 
 export const ALL_QUERIES = gql`

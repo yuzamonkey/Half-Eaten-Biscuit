@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useMutation } from '@apollo/client'
-import { LOGIN } from '../../../queries'
+import { LOGIN } from '../../../graphql/mutations'
 import { useHistory } from 'react-router-dom'
 import { TOKEN_NAME } from '../../../utils/constants'
 

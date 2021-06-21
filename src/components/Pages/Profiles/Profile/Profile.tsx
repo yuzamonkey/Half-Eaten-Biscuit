@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import { FIND_USER } from '../../../../queries';
+import { FIND_USER } from '../../../../graphql/queries';
 
 const Profile = () => {
   const { id }: any = useParams();

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client'
-import { CREATE_QUERY } from '../../../../queries';
+import { CREATE_QUERY } from '../../../../graphql/mutations';
 
 const SendQuery = () => {
 
