@@ -19,9 +19,7 @@ const MessageNavigation = () => {
       <div className="msg-nav-container">
         <ul className="msg-nav-menu">
           {conversations.map(conversation => {
-            const usernames = conversations.map(conversation => {
-              return conversation.users.map(user => user.username)
-            })
+            const usernames = conversation.users.map(user => user.username)
             const linkTo = `../messages/${conversation.id}`
             return (
               <li className="msg-nav-item" key={conversation.id}>
