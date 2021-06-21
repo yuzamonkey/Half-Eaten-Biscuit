@@ -4,8 +4,10 @@ Goal for weeks 24-30 (7 weeks)
   => 175h / 7w = 25h / w
   => 25h / 5d = 5h / d = 2.5h+2.5h / d
 
-DIARY:
-  Week 24 ✅❌: Goals: Login from frontpage, add queries, send and receive messages
+
+## DIARY
+  ### Week 24 ✅ 
+  Goals: Login from frontpage, add queries, send and receive messages
     Mon: 
       AM: Build GraphQL backend, frontend planning, basic frontpage with signin link
       PM: Login working both backend and frontend with localStorage
@@ -21,12 +23,18 @@ DIARY:
     Sat:
       AM: Messaging in backend
       PM: Structure with css for messaging in frontend
-  Week 25 ✅❌
-  Week 26 ✅❌
-  Week 27 ✅❌
-  Week 28 ✅❌
-  Week 29 ✅❌
-  Week 30 ✅❌
+  ### Week 25 ✅❌
+    Mon:
+      AM: Messaging implementation from back to front
+      PM:
+  ### Week 26 ✅❌
+  ### Week 27 ✅❌
+  ### Week 28 ✅❌
+  ### Week 29 ✅❌
+  ### Week 30 ✅❌
+
+
+## Schedule
 
 | Date  | Time (h)  | Description   |
 | :----:|:-----     | :-----        |
@@ -39,10 +47,12 @@ DIARY:
 | 11.6. | 1         | Frontend |
 | 12.6. | 1.5       | Backend, Mongo init with REST APIs |
 | 13.6. | 0.5 (=17) | Backend structure planning |
-| Week 24 ✅❌ |||   
+| Week 24 ✅ |||   
 | 14.6. | 5   | GraphQL init, login |
 | 15.6. | 5   | Navbar rearrange, dropdowns, simple homepage  |
 | 17.6. | 5   | Sign in, jobqueries, profiles-page css |
 | 18.6. | 5   | Switch repository from sandbox, Backend TypeScript init, planning of messaging implementation |
-| 19.6. | 2.5 1230-  | Implementing messaging front and backend |
-| =     | 37.0      |               |
+| 19.6. | 5  | Implementing messaging front and backend |
+| Week 25 ✅ |||   
+| 21.6. | 830-  | Messaging |
+| =     | 42.0      |               |

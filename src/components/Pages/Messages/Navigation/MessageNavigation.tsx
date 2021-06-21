@@ -1,42 +1,32 @@
+import { useQuery } from '@apollo/client';
 import React from 'react'
 import { NavLink } from "react-router-dom";
+import { CONVERSATION_INFOS } from '../../../../queries';
 
 import './MessageNavigation.css'
 
-const conversations = [
-  {
-    id: 1,
-    users: [
-      {
-        name: "John Doe"
-      }
-    ]
-  },
-  {
-    id: 2,
-    users: [
-      {
-        name: "Bob Bobbanson"
-      },
-      {
-        name: "Claus Clauson"
-      }
-    ]
-  },
-]
-
 const MessageNavigation = () => {
+  const result = useQuery(CONVERSATION_INFOS)
+
+  if (result.loading) {
+    return <div>Loading...</div>
+  }
+
+  const conversations = result.data.me.conversations
+
   return (
     <nav className="msg-navigation">
       <div className="msg-nav-container">
         <ul className="msg-nav-menu">
           {conversations.map(conversation => {
-            const names = conversation.users.reduce((theList, theUser) => theList + theUser.name + ", ", "")
+            const usernames = conversations.map(conversation => {
+              return conversation.users.map(user => user.username)
+            })
             const linkTo = `../messages/${conversation.id}`
             return (
               <li className="msg-nav-item">
                 <NavLink exact to={linkTo} activeClassName="msg-active" className="msg-nav-links">
-                  {names}
+                  {usernames}
                 </NavLink>
               </li>
             )

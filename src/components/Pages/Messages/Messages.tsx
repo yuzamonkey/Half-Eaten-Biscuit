@@ -11,7 +11,7 @@ const Messages = () => {
     <div className="messages-container">
       <Router>
         <div className="msg-contacts-container">
-          <MessageNavigation />
+          <MessageNavigation/>
         </div>
         <div className="msg-conversation-container">
           <Switch>

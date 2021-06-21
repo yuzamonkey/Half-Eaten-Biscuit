@@ -27,6 +27,19 @@ export const ME = gql`
   }
 `
 
+export const CONVERSATION_INFOS = gql`
+  query {
+    me {
+      conversations {
+        id,
+        users {
+          username
+          }
+      }
+    }
+  }
+`
+
 export const CREATE_QUERY = gql`
   mutation createQuery($content: String!) {
     createQuery(content: $content) {
