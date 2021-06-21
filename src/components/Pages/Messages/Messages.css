@@ -4,7 +4,7 @@
 }
 
 .msg-contacts-container {
-  background-color: var(--grey);
+  background-color: var(--bg-grey);
   min-width: 250px;
   height: calc(100vh - var(--navbar-height));
 }

@@ -30,7 +30,7 @@
 }
 
 .conversation-input-container {
-  background-color: var(--grey);
+  background-color: var(--bg-grey);
   height: 100px;
 }
 

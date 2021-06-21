@@ -14,7 +14,7 @@
 
 .job-navigation {
   /* position: absolute; */
-  background-color: var(--grey);
+  background-color: var(--bg-grey);
   width: 250px;
   height: calc(100vh - var(--navbar-height));
   display: flex;
@@ -64,8 +64,8 @@
 .card {
   margin: 1.3rem;
   /* padding: 10px; */
-  border: 1px solid var(--grey);
-  box-shadow: 0 0 10pt 1pt var(--grey);
+  border: 1px solid var(--bg-grey);
+  box-shadow: 0 0 10pt 1pt var(--bg-grey);
   border-radius: 10px;
   background-color: white;
   font-size: 1.3rem;
@@ -89,7 +89,7 @@
 }
 
 .image-container {
-  box-shadow: 0 0 1pt 1pt var(--grey);
+  box-shadow: 0 0 1pt 1pt var(--bg-grey);
   border-radius: 100%;
   margin: 10px;
   width: 70px;

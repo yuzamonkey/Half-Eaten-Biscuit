@@ -1,6 +1,6 @@
 .msg-navigation {
   /* position: absolute; */
-  background-color: var(--grey);
+  background-color: var(--bg-grey);
   width: 100%;
   height: calc(100vh - var(--navbar-height));
   display: flex;
