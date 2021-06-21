@@ -40,6 +40,21 @@ export const CONVERSATION_INFOS = gql`
   }
 `
 
+export const FIND_CONVERSATION = gql`
+  query ($id: ID!) {
+    findConversation(id: $id) {
+      id, 
+      users {
+        id,
+        username
+      },
+      messages { 
+        body 
+      } 
+    }
+  }
+`
+
 export const CREATE_QUERY = gql`
   mutation createQuery($content: String!) {
     createQuery(content: $content) {

@@ -1,7 +1,9 @@
 import React from 'react'
 import { useParams } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
 
 import './Conversation.css'
+import { FIND_CONVERSATION } from '../../../../queries';
 
 const conversation1 = {
   users: [
@@ -99,30 +101,40 @@ const conversation2 = {
 
 const Conversation = () => {
   const { id }: any = useParams();
-  //get conversation by id
+  const result = useQuery(FIND_CONVERSATION, {
+    variables: { id }
+  })
 
-  const userId = 1
+  if (result.loading) {
+    return <div>Loading...</div>
+  }
 
-  const participants = conversation2.users
+  console.log("RESULT AT CONVERSATION", result)
+
+  const participants = result.data.findConversation.users
+  const messages = result.data.findConversation.messages
 
   return (
     <div className="conversation-container">
       <div className="conversation-info">
         <h2>Conversation {id}</h2>
-        <p>Participants: {participants.map(p => p.id !== userId ? p.name + ", " : "You, ")}</p>
+        <p>Participants: {participants.map(p => p.username + ", ")}</p>
       </div>
       <div className="conversation-content">
-        {conversation2.messages.map(message => {
+        {messages.map(message => {
+          // return (
+          //   message.sender_id === userId
+          //     ? <div className="message-container user-sent">
+          //       {message.content}
+          //     </div>
+          //     : <div className="message-container">
+          //       {message.content}
+          //     </div>
+          // )
           return (
-            message.sender_id === userId
-              ? <div className="message-container user-sent">
-                {message.content}
-              </div>
-              : <div className="message-container">
-                {message.content}
-              </div>
-
-
+            <div className="message-container">
+              {message.body}
+            </div>
           )
         })}
       </div>
