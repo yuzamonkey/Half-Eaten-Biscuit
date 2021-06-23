@@ -14,10 +14,9 @@ const Jobmarket = () => {
           <JobmarketNavigation />
           <div className="job-pages">
             <Switch>
-              <Route path="/jobmarket/queries" component={Jobqueries} />
-              <Route path="/jobmarket/sendquery" component={SendQuery} />
-              <Route path="/jobmarket/myqueries" component={MyQueries} />
-              <Route path="/jobmarket" component={Jobqueries} />
+              <Route path="/jobmarket/queries/" component={Jobqueries} />
+              <Route path="/jobmarket/sendquery/" component={SendQuery} />
+              <Route path="/jobmarket/myqueries/" component={MyQueries} />
             </Switch>
           </div>
         </div>
