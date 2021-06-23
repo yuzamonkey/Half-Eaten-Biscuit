@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import './Jobmarket.css'
 import Queries from './Pages/Queries';
-import Navbar from './Navbar/Navbar';
+import JobmarketNavigation from './JobmarketNavigation/JobmarketNavigation';
 import SendQuery from './Pages/SendQuery';
 import MyQueries from './Pages/MyQueries';
 
@@ -11,7 +11,7 @@ const Jobmarket = () => {
     <>
       <Router>
         <div className="job-page">
-          <Navbar />
+          <JobmarketNavigation />
           <div className="job-pages">
             <Switch>
               <Route path="/jobmarket/queries" component={Queries} />

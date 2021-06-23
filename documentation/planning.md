@@ -53,13 +53,13 @@ Suomi, Englanti
 - Messages
 
 ## Tools
-- React ja sairas määrä kirjastoja
+- React and many JS libraries
 - TypeScript, JavaScript
 - Eslint
 - MongoDB
 - GraphQL
-- Jest, Supertest, Cypress
-- CSS, SCSS or Sass
+- Jest, Cypress
+- CSS
 - GitHub Actions
 
 ## Execution plan/steps
@@ -73,11 +73,11 @@ Suomi, Englanti
 
 ## Keep in mind
 - Browser support
-- Security
+- Security, vulnerabilities
 - Validations
+- JSDoc
 - Smaller screens
 
 #### Tools/libraries to consider
 - React google analytics
 - Date fns for date handling
-- react-spring -> animations

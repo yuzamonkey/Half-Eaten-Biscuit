@@ -53,7 +53,7 @@ export const FIND_CONVERSATION = gql`
 
 export const ALL_QUERIES = gql`
   query {
-    allQueries  {
+    allJobqueries  {
       content
       date
       user {

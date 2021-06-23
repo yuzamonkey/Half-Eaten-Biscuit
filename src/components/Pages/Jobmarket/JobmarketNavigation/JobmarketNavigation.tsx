@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from "react-router-dom";
 import '../Jobmarket.css'
 
-const Navbar = () => {
+const JobmarketNavigation = () => {
   return (
     <nav className="job-navigation">
         <div className="job-nav-container">
@@ -28,4 +28,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar;
+export default JobmarketNavigation;

@@ -15,6 +15,7 @@ const ProfileOptionsDropdown = () => {
     <div>
       <h3>Profile drop options</h3>
       <button onClick={handleLogout}>Log out</button>
+      <button onClick={() => console.log("HELLOO")}>Hello</button>
     </div>
   )
 }

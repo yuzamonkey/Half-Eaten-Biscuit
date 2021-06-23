@@ -4,7 +4,6 @@ import './Navbar.css'
 import NotificationsDropdown from './Dropdowns/NotificationsDropdown'
 import ProfileOptionsDropdown from './Dropdowns/ProfileOptionsDropdown'
 
-
 const Navbar = () => {
   const [click, setClick] = useState(false);
   const [showNotification, setShowNotifications] = useState(false)

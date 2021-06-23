@@ -14,12 +14,12 @@ const Queries = () => {
     console.log("Button pressed")
   }
 
-  console.log("RESULT QUERIES", result)
+  //console.log("RESULT QUERIES", result)
 
   return (
     <div>
       <ul>
-        {result.data.allQueries.map((q: any) => {
+        {result.data.allJobqueries.map((q: any) => {
           return (
             // <div className="card"> <li key={q.content}>{q.user.username}, {q.content}, {q.date}</li></div>
             <div className="card">

@@ -4,10 +4,9 @@ Goal for weeks 24-30 (7 weeks)
   => 175h / 7w = 25h / w
   => 25h / 5d = 5h / d = 2.5h+2.5h / d
 
-
 ## DIARY
   ### Week 24 ✅ 
-  Login from frontpage, add jobmarketqueries, messages planning
+  Todo: Login from frontpage, add jobmarketqueries, messages planning
 
     Mon: 
       AM: Build GraphQL backend, frontend planning, basic frontpage with signin link
@@ -26,11 +25,16 @@ Goal for weeks 24-30 (7 weeks)
       PM: Structure with css for messaging in frontend
   
   ### Week 25 ✅❌
-  Messaging implementation, refactoring, typescript implementation, testing, deployment pipeline, to internet
+  Todo: Messaging implementation, refactoring, typescript implementation, testing, deployment pipeline, to internet
 
     Mon:
       AM: Messaging implementation backend and frontend, figuring out how to use mongoose populate across levels
-      PM: Send messages and create conversations
+      PM: Send messages and create conversations, plan scaling for mobile
+    Tue:
+      AM: Backend testing configurations
+      PM: TypeScript compiler setup and syntax fixes in backend, cleaning up and refactoring code, planning of larger backend structure
+    Wed:
+      AM: Deployment pipeline (w/wo eslint ¯\(°_o)/¯)
   ### Week 26 ✅❌
   ### Week 27 ✅❌
   ### Week 28 ✅❌
@@ -52,11 +56,13 @@ Goal for weeks 24-30 (7 weeks)
 | 12.6. | 1.5       | Backend, Mongo init with REST APIs |
 | 13.6. | 0.5 (=17) | Backend structure planning |
 | Week 24 ✅ |||   
-| 14.6. | 5   | GraphQL init, login |
-| 15.6. | 5   | Navbar rearrange, dropdowns, simple homepage  |
-| 17.6. | 5   | Sign in, jobqueries, profiles-page css |
-| 18.6. | 5   | Switch repository from sandbox, Backend TypeScript init, planning of messaging implementation |
-| 19.6. | 5   | Implementing messaging front and backend |
-| Week 25 ✅ |||   
-| 21.6. | 830-11, 13-  | Messaging |
-| =     | 47.0      |               |
+| 14.6. | 5 | GraphQL init, login |
+| 15.6. | 5 | Navbar rearrange, dropdowns, simple homepage  |
+| 17.6. | 5 | Sign in, jobqueries, profiles-page css |
+| 18.6. | 5 | Switch repository from sandbox, Backend TypeScript init, planning of messaging implementation |
+| 19.6. | 5 | Implementing messaging front and backend |
+| Week 25 ✅❌ |||   
+| 21.6. | 5 | Messaging, designing mobile views |
+| 22.6. | 5 | Backend testing config, typescript configurations, planning of larger backend structure |
+| 23.6. | 0900- | Backend testing config, typescript configurations, planning of larger backend structure |
+| =     | 52.0      |               |
