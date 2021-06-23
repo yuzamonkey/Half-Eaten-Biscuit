@@ -6,6 +6,16 @@
 body {
   background-color: var(--bg-white);
 }
+
+.production-notice-container {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: red;
+  color: white;
+  max-height: 20px;
+}
 /* 
 .pages {
   color: var(--blue);

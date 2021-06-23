@@ -22,6 +22,11 @@ const App = () => {
 
   return (
     <Router>
+      {process.env.NODE_ENV !== 'development' && 
+      <div className="production-notice-container">
+        In development
+      </div>
+      }
       {!token
         ? <Switch>
           <Route path="/signin" component={() => <SignIn setToken={setToken} />} />
