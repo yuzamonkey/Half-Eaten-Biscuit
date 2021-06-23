@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client'
-import { CREATE_QUERY } from '../../../../graphql/mutations';
+import { CREATE_JOBQUERY } from '../../../../graphql/mutations';
 
 const SendQuery = () => {
 
   const [content, setContent] = useState('')
 
-  const [createQuery] = useMutation(CREATE_QUERY, {
+  const [createQuery] = useMutation(CREATE_JOBQUERY, {
     onError: (error) => {
-      console.log("Error at create query mutation: \n", error.graphQLErrors[0].message)
+      console.log("Error at create query mutation: \n", error)
     }
   })
 

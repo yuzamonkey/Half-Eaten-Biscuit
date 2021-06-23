@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import './Jobmarket.css'
-import Queries from './Pages/Queries';
+import Jobqueries from './Pages/Jobqueries';
 import JobmarketNavigation from './JobmarketNavigation/JobmarketNavigation';
 import SendQuery from './Pages/SendQuery';
 import MyQueries from './Pages/MyQueries';
@@ -14,10 +14,10 @@ const Jobmarket = () => {
           <JobmarketNavigation />
           <div className="job-pages">
             <Switch>
-              <Route path="/jobmarket/queries" component={Queries} />
+              <Route path="/jobmarket/queries" component={Jobqueries} />
               <Route path="/jobmarket/sendquery" component={SendQuery} />
               <Route path="/jobmarket/myqueries" component={MyQueries} />
-              <Route path="/jobmarket" component={Queries} />
+              <Route path="/jobmarket" component={Jobqueries} />
             </Switch>
           </div>
         </div>

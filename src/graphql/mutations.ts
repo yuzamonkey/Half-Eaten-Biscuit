@@ -15,9 +15,9 @@ export const SIGNUP = gql`
     }
 }
 `
-export const CREATE_QUERY = gql`
-  mutation createQuery($content: String!) {
-    createQuery(content: $content) {
+export const CREATE_JOBQUERY = gql`
+  mutation createJobquery($content: String!) {
+    createJobquery(content: $content) {
       content
     }
 }

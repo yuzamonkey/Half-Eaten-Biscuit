@@ -34,6 +34,9 @@ Goal for weeks 24-30 (7 weeks)
       AM: Backend testing configurations
       PM: TypeScript compiler setup and syntax fixes in backend, cleaning up and refactoring code, planning of larger backend structure
     Wed:
+      AM: Push to heroku
+      PM: Backend tests
+    Thu:
       AM: Deployment pipeline (w/wo eslint ¯\(°_o)/¯)
   ### Week 26 ✅❌
   ### Week 27 ✅❌
@@ -64,5 +67,5 @@ Goal for weeks 24-30 (7 weeks)
 | Week 25 ✅❌ |||   
 | 21.6. | 5 | Messaging, designing mobile views |
 | 22.6. | 5 | Backend testing config, typescript configurations, planning of larger backend structure |
-| 23.6. | 0900- | Backend testing config, typescript configurations, planning of larger backend structure |
+| 23.6. | 0900-1130, 1230- | Heroku deployment |
 | =     | 52.0      |               |

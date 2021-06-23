@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client';
 import '../Jobmarket.css'
 import { ALL_QUERIES } from '../../../../graphql/queries';
 
-const Queries = () => {
+const Jobqueries = () => {
   const result = useQuery(ALL_QUERIES)
 
   if (result.loading) {
@@ -54,4 +54,4 @@ const Queries = () => {
   )
 };
 
-export default Queries;
+export default Jobqueries;

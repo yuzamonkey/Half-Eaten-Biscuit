@@ -1,14 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {
-  ApolloClient, 
-  HttpLink, 
-  InMemoryCache, 
-  ApolloProvider 
+  ApolloClient,
+  HttpLink,
+  InMemoryCache,
+  ApolloProvider
 } from '@apollo/client'
 
-import { setContext } from '@apollo/link-context'; //this works (github issues)
-//import { setContext } from 'apollo-link-context'; //this doesn't (full stack material)
+import { setContext } from '@apollo/link-context';
 
 import './index.css';
 import App from './App';
@@ -24,7 +23,11 @@ const authLink = setContext((_, { headers }) => {
   }
 })
 
-const httpLink = new HttpLink({ uri: 'http://localhost:4000' })
+const uri = process.env.NODE_ENV === 'development'
+  ? 'http://localhost:3001/graphql'
+  : 'https://halfeatenbiscuit.herokuapp.com/graphql'
+
+const httpLink = new HttpLink({ uri: uri })
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
