@@ -1,5 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+//export { };
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 const conversationSchema = new mongoose.Schema({

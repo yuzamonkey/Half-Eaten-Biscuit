@@ -9,8 +9,7 @@
     "ts-start": "NODE_ENV=production ts-node index.ts",
     "dev": "NODE_ENV=development ts-node-dev index.ts",
     "test": "NODE_ENV=test jest --verbose --runInBand",
-    "cp-front": "rm -rf public && cp -r ../client/build/ public/",
-    "push-to-heroku": "git subtree push --prefix server heroku main"
+    "cp-front": "rm -rf public && cp -r ../client/build/ public/"
   },
   "repository": {
     "type": "git",

@@ -34,6 +34,7 @@ export const createConfig = (context = createAuthorizationContext()) => {
     typeDefs, //sovelluksen GQL-skeema
     resolvers, //resolverit, eli koodi joka määrittelee miten kyselyihin vastataan
     context,
-    playground: process.env.NODE_ENV !== 'production' ? true : false
+    playground: true
+    //playground: process.env.NODE_ENV !== 'production' ? true : false
   }
 }

@@ -53,6 +53,11 @@ const resolvers = {
                 populate: { path: 'sender' }
             });
         },
+        getDebugValues: () => {
+            return {
+                value: 'DEBUG!'
+            };
+        },
         me: (_root, _args, context) => {
             //return context.currentUser
             return User.findOne({ _id: context.currentUser._id })
