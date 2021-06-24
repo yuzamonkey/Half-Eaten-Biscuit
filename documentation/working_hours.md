@@ -35,9 +35,10 @@ Goal for weeks 24-30 (7 weeks)
       PM: TypeScript compiler setup and syntax fixes in backend, cleaning up and refactoring code, planning of larger backend structure
     Wed:
       AM: Push to heroku
-      PM: Scripts, backend tests
+      PM: Scripts, fixing code, trying to figure out apollos documentation on testing, wtf...
     Thu:
-      AM: Deployment pipeline (w/wo eslint ¯\(°_o)/¯)
+      AM: Move to monorepo
+      PM: Deployment pipeline (w/wo eslint ¯\(°_o)/¯)
   ### Week 26 ✅❌
   ### Week 27 ✅❌
   ### Week 28 ✅❌
@@ -67,5 +68,6 @@ Goal for weeks 24-30 (7 weeks)
 | Week 25 ✅❌ |||   
 | 21.6. | 5 | Messaging, designing mobile views |
 | 22.6. | 5 | Backend testing config, typescript configurations, planning of larger backend structure |
-| 23.6. | 0900-1130, 1230- | Heroku deployment |
-| =     | 52.0      |               |
+| 23.6. | 6 | Heroku deployment, how tf apollo testing |
+| 24.6. | 0945- |  |
+| =     | 58.0      |               |
