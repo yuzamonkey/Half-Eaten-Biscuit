@@ -1,1 +1,4 @@
-Kulttuurisome frontend. Backend repo can be found [here](https://github.com/yuzamonkey/KulttuurisomeBack)
+The repository of Kulttuurisome project.
+
+[Frontend](https://github.com/yuzamonkey/Half-Eaten-Biscuit/tree/main/client)
+[Backend](https://github.com/yuzamonkey/Half-Eaten-Biscuit/tree/main/server)
