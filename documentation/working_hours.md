@@ -5,8 +5,10 @@ Goal for weeks 24-30 (7 weeks)
   => 25h / 5d = 5h / d = 2.5h+2.5h / d
 
 ## DIARY
-  ### Week 24 ✅ 
-  Todo: Login from frontpage, add jobmarketqueries, messages planning
+  ### Week 24 ✅
+  
+  **Theme**: Build basic features
+  **Todo**: Login from frontpage, add jobmarketqueries, messages planning
 
     Mon: 
       AM: Build GraphQL backend, frontend planning, basic frontpage with signin link
@@ -25,7 +27,9 @@ Goal for weeks 24-30 (7 weeks)
       PM: Structure with css for messaging in frontend
   
   ### Week 25 ✅❌
-  Todo: Messaging implementation, refactoring, typescript implementation, testing, deployment pipeline, to internet
+
+  **Theme**: Solve configuration issues
+  **Todo**: Messaging implementation, refactoring, typescript implementation, testing, deployment pipeline, to internet
 
     Mon:
       AM: Messaging implementation backend and frontend, figuring out how to use mongoose populate across levels
@@ -37,12 +41,15 @@ Goal for weeks 24-30 (7 weeks)
       AM: Push to heroku
       PM: Scripts, fixing code, trying to figure out apollos documentation on testing, wtf...
     Thu:
-      AM: Move to monorepo. The heroku push is now broken and solving it takes time
-      PM: Figure out why the website does not connect to db
+      AM: Move to monorepo. The heroku push was broken and solving it took time
+      PM: Apollo integration tests on backend
     Fri:
      AM: Deployment pipeline (w/wo eslint ¯\(°_o)/¯)
 
   ### Week 26 ✅❌
+
+  **Theme**: Build features, focus is on frontend
+  **Todo**: 
   ### Week 27 ✅❌
   ### Week 28 ✅❌
   ### Week 29 ✅❌
@@ -72,5 +79,5 @@ Goal for weeks 24-30 (7 weeks)
 | 21.6. | 5 | Messaging, designing mobile views |
 | 22.6. | 5 | Backend testing config, typescript configurations, planning of larger backend structure |
 | 23.6. | 6 | Heroku deployment, how tf apollo testing |
-| 24.6. | 2.5 |  |
-| =     | 58.0      |               |
+| 24.6. | 4 | Move to monorepo, fix heroku deployment, backend testing config and tests |
+| =     | 62.0      |               |

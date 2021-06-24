@@ -40,7 +40,7 @@ const typeDefs = gql`
 
   type Query {
     allJobqueries: [Jobquery]
-    allUsers: [User]
+    allUsers: [User]!
     findJobqueries(content: String!): [Jobquery],
     findUser(id: ID!): User
     allConversations: [Conversation]
