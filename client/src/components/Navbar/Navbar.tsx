@@ -30,7 +30,7 @@ const Navbar = () => {
       <nav className="navbar">
         <div className="nav-container">
           <NavLink to="/" className="nav-logo">
-            PartialCookie <i className="fas fa-cookie-bite"></i>
+            HalfEatenBiscuit <i className="fas fa-cookie-bite"></i>
           </NavLink>
 
           <ul className="nav-menu constant-links">
