@@ -1,0 +1,47 @@
+{
+  "name": "kultturisomebackend",
+  "version": "1.0.0",
+  "description": "Backend for Kulttuurisome project",
+  "main": "index.ts",
+  "scripts": {
+    "build": "NODE_ENV=production tsc",
+    "start": "NODE_ENV=production node build/index.js",
+    "ts-start": "NODE_ENV=production ts-node index.ts",
+    "dev": "NODE_ENV=development ts-node-dev index.ts",
+    "test": "NODE_ENV=test jest --verbose --runInBand",
+    "cp-front": "rm -rf public && cp -r ../frontend/build/ public/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuzamonkey/KulttuurisomeBack.git"
+  },
+  "author": "Jusa Mankki",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yuzamonkey/KulttuurisomeBack/issues"
+  },
+  "homepage": "https://github.com/yuzamonkey/KulttuurisomeBack#readme",
+  "dependencies": {
+    "apollo-server": "^2.25.1",
+    "apollo-server-express": "^2.25.2",
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "graphql": "^15.5.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.13",
+    "mongoose-unique-validator": "^2.0.3",
+    "ts-node": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.12",
+    "@types/jest": "^26.0.23",
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^15.12.2",
+    "jest": "^27.0.4",
+    "ts-jest": "^27.0.3",
+    "ts-node-dev": "^1.1.6",
+    "typescript": "^4.3.4"
+  }
+}
