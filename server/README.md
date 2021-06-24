@@ -1,1 +1,0 @@
-Backend for [Kulttuurisome](https://github.com/yuzamonkey/KulttuurisomeFront) project
