@@ -23,7 +23,14 @@ app.get('/health', (_req, res) => {
 })
 
 app.get('/version', (_req, res) => {
-  res.send('0.0.1')
+  res.send('0.0.2')
+})
+
+app.get('/log', (_req, res) => {
+  const log = [
+    '2021/06/25 14.36 add backend testing to pipeline'
+  ] 
+  res.send(log)
 })
 
 const server = new ApolloServer(createConfig())
