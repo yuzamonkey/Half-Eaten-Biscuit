@@ -18,6 +18,14 @@ const frontendRoutes = [
 ]
 frontendRoutes.forEach(route => app.use(route, express.static("public")))
 
+app.get('/health', (_req, res) => {
+  res.send('bueno')
+})
+
+app.get('/version', (_req, res) => {
+  res.send('0.0.1')
+})
+
 const server = new ApolloServer(createConfig())
 
 server.applyMiddleware({ app });

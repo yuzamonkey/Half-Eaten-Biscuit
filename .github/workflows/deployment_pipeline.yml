@@ -1,0 +1,39 @@
+name: Deployment pipeline
+
+on:
+  push:
+    branches:
+      - production
+  pull_request:
+    branches: [production]
+    types: [opened, synchronize]
+
+jobs:
+  deployment_pipeline:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: npm install client
+        run: cd client && npm install
+      - name: create frontend build
+        run: cd client && npm run build
+      - name: npm install server
+        run: cd server && npm install
+      - name: build backend
+        run: cd server && npm run build && npm run cp-front
+      - name: copy client to backend
+        run: cd server && npm run cp-front
+      - name: push to heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        if: ${{ github.event_name == 'push' && !contains(github.event.commits.*.message, '#skip')}}
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "halfeatenbiscuit" 
+          heroku_email: "jusamankki@gmail.com"
+          appdir: "server"
+          healthcheck: "https://halfeatenbiscuit.herokuapp.com/health"
+          checkstring: "bueno"
+          rollbackonhealthcheckfailed: true
