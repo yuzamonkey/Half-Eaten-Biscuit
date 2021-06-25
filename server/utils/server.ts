@@ -28,7 +28,8 @@ app.get('/version', (_req, res) => {
 
 app.get('/log', (_req, res) => {
   const log = [
-    '2021/06/25 14.36 add backend testing to pipeline'
+    '2021/06/25 14.36 add backend testing to pipeline',
+    '2021/06/25 15.08 tsCompiler: ES2020 -> ES2019'
   ] 
   res.send(log)
 })
