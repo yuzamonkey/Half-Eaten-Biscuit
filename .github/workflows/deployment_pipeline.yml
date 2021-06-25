@@ -16,16 +16,19 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-      - name: npm install client
+      - name: run npm install on frontend
         run: cd client && npm install
       - name: create frontend build
         run: cd client && npm run build
-      - name: npm install server
+      - name: run npm install on backend
         run: cd server && npm install
-      - name: build backend
+      - name: create backend build
         run: cd server && npm run build && npm run cp-front
-      - name: copy client to backend
+      - name: copy frontend build to backend
         run: cd server && npm run cp-front
+      #- name: run backend tests
+      #  run: cd server && npm run test
+      # GitHub Actions does not recognise mongouri envvar, I think
       - name: push to heroku
         uses: akhileshns/heroku-deploy@v3.12.12
         if: ${{ github.event_name == 'push' && !contains(github.event.commits.*.message, '#skip')}}

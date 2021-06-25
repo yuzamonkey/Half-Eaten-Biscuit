@@ -1,16 +1,17 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    "target": "ES2019",
     "outDir": "build/",
     "module": "commonjs",
-    // "strict": true,
-    // "noUnusedLocals": true,
-    // "noUnusedParameters": true,
-    // "noImplicitReturns": true,
-    // "noImplicitAny": true,
-    // "noFallthroughCasesInSwitch": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noImplicitAny": true,
+    "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
-    // "moduleResolution": "node",
-    // "skipLibCheck": true
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "strictNullChecks": false
   }
 }

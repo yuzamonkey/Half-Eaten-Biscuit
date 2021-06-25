@@ -7,8 +7,9 @@ THEN: we check that the result is wanted
 import { ApolloServer, gql } from 'apollo-server'
 import { createConfig } from '../utils/apolloConfig';
 
-import mongoose from 'mongoose';
 import { connectDB } from '../utils/testingEnvironment';
+//import mongoose from 'mongoose';
+const mongoose = require('mongoose')
 
 const User = require('../models/user')
 
@@ -29,12 +30,12 @@ export const SIGNUP = gql`
 
 describe('apollo server integration users', () => {
 
-  let server = null;
+  let server = new ApolloServer(createConfig(null));
 
   beforeAll(async () => {
-    const db = await connectDB()
+    await connectDB()
     await User.deleteMany({})
-    server = new ApolloServer(createConfig(null));
+    //server = new ApolloServer(createConfig(null));
   })
 
   afterAll(async () => {
