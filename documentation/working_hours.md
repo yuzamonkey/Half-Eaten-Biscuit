@@ -1,13 +1,13 @@
 # Record of working hours
 
-Goal for weeks 24-30 (7 weeks)
-  => 175h / 7w = 25h / w
-  => 25h / 5d = 5h / d = 2.5h+2.5h / d
+Goal for weeks 24-30 (7 weeks)  
+  => 175h / 7w = 25h / w  
+  => 25h / 5d = 5h / d = 2.5h+2.5h / d  
 
 ## DIARY
   ### Week 24 ✅
   
-  **Theme**: Build basic features
+  **Theme**: Build basic features  
   **Todo**: Login from frontpage, add jobmarketqueries, messages planning
 
     Mon: 
@@ -28,7 +28,7 @@ Goal for weeks 24-30 (7 weeks)
   
   ### Week 25 ✅❌
 
-  **Theme**: Solve configuration issues
+  **Theme**: Solve configuration issues  
   **Todo**: Messaging implementation, refactoring, typescript implementation, testing, deployment pipeline, to internet
 
     Mon:
@@ -44,11 +44,12 @@ Goal for weeks 24-30 (7 weeks)
       AM: Move to monorepo. The heroku push was broken and solving it took time
       PM: Apollo integration tests on backend
     Fri:
-     AM: Deployment pipeline (w/wo eslint ¯\(°_o)/¯)
+      AM: Deployment pipeline (w/wo eslint ¯\(°_o)/¯) 
+      PM:
 
   ### Week 26 ✅❌
 
-  **Theme**: Build features, focus is on frontend
+  **Theme**: Build features, focus is on frontend  
   **Todo**: 
   ### Week 27 ✅❌
   ### Week 28 ✅❌
@@ -56,7 +57,7 @@ Goal for weeks 24-30 (7 weeks)
   ### Week 30 ✅❌
 
 
-## Schedule
+## WORK SCHEDULE
 
 | Date  | Time (h)  | Description   |
 | :----:|:-----     | :-----        |
@@ -80,4 +81,5 @@ Goal for weeks 24-30 (7 weeks)
 | 22.6. | 5 | Backend testing config, typescript configurations, planning of larger backend structure |
 | 23.6. | 6 | Heroku deployment, how tf apollo testing |
 | 24.6. | 4 | Move to monorepo, fix heroku deployment, backend testing config and tests |
+| 25.6. | 0845- |  |
 | =     | 62.0      |               |

@@ -1,3 +1,9 @@
+/*
+GIVEN: create
+WHEN: we do smth with the creation
+THEN: we check that the result is wanted
+*/
+
 import { ApolloServer, gql } from 'apollo-server'
 import { createConfig } from '../utils/apolloConfig';
 
