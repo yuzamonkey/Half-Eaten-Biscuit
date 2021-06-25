@@ -45,7 +45,7 @@ Goal for weeks 24-30 (7 weeks)
       PM: Apollo integration tests on backend
     Fri:
       AM: Deployment pipeline (w/wo eslint ¯\(°_o)/¯) 
-      PM:
+      PM: Deployment pipeline
 
   ### Week 26 ✅❌
 
@@ -81,5 +81,5 @@ Goal for weeks 24-30 (7 weeks)
 | 22.6. | 5 | Backend testing config, typescript configurations, planning of larger backend structure |
 | 23.6. | 6 | Heroku deployment, how tf apollo testing |
 | 24.6. | 4 | Move to monorepo, fix heroku deployment, backend testing config and tests |
-| 25.6. | 0845- |  |
+| 25.6. | 0845-1115, 1245- | Deployment pipeline sandboxing |
 | =     | 62.0      |               |
