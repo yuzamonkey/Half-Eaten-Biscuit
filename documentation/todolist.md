@@ -1,6 +1,7 @@
 # Todolist
 
 ## Do ❌
+- Testing in deployment pipeline on GitHub
 
 
 ## Done ✅

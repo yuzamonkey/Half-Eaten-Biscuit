@@ -29,11 +29,14 @@ const Navbar = () => {
     <>
       <nav className="navbar">
         <div className="nav-container">
-          <NavLink to="/" className="nav-logo">
+          <div className="nav-icon nav-menu" onClick={handleClick}>
+            <i className={click ? "fas fa-times-circle" : "fas fa-bars"}></i>
+          </div>
+          <NavLink to="/" className="nav-logo nav-menu">
             HalfEatenBiscuit <i className="fas fa-cookie-bite"></i>
           </NavLink>
 
-          <ul className="nav-menu constant-links">
+          <ul className={click ? "nav-menu hidden-links active" : "nav-menu hidden-links"} >
             <li className="nav-item">
               <NavLink exact to="/" activeClassName="active" className="nav-links">
                 Home
@@ -51,7 +54,7 @@ const Navbar = () => {
             </li>
           </ul>
 
-          <ul className={click ? "nav-menu hidden-links active" : "nav-menu hidden-links"} >
+          <ul className="nav-menu constant-links">
             <li className="nav-item">
               <NavLink exact to="/messages" activeClassName="active" className="nav-links">
                 Messages
@@ -59,35 +62,35 @@ const Navbar = () => {
             </li>
 
             {/* Dropdowns */}
-            <div
-              onClick={handleNotificationDrop}
-              // onBlur={handleNotificationDrop}
-              // onFocus={handleNotificationDrop}
-              tabIndex={0}
-              className="dropdown-container">
-              <p className="nav-links">Notifications ∆</p>
-              <div className={showNotification ? "dropdown notifications active" : "notifications"}>
-                <NotificationsDropdown />
+            <li className="nav-item">
+              <div
+                onClick={handleNotificationDrop}
+                // onBlur={handleNotificationDrop}
+                // onFocus={handleNotificationDrop}
+                tabIndex={0}
+                className="dropdown-container">
+                <p className="nav-links">Notifications ∆</p>
+                <div className={showNotification ? "dropdown notifications active" : "notifications"}>
+                  <NotificationsDropdown />
+                </div>
               </div>
-            </div>
 
+            </li>
 
-            <div
-              onClick={handleProfileDrop}
-              // onBlur={handleProfileDrop}
-              // onFocus={handleProfileDrop}
-              tabIndex={0}
-              className="dropdown-container">
-              <p className="nav-links">Me ∆</p>
-              <div className={showProfileOptionsDropdown ? "dropdown profile-options active" : "profile-options"}>
-                <ProfileOptionsDropdown />
+            <li className="nav-item">
+              <div
+                onClick={handleProfileDrop}
+                // onBlur={handleProfileDrop}
+                // onFocus={handleProfileDrop}
+                tabIndex={0}
+                className="dropdown-container">
+                <p className="nav-links">Me ∆</p>
+                <div className={showProfileOptionsDropdown ? "dropdown profile-options active" : "profile-options"}>
+                  <ProfileOptionsDropdown />
+                </div>
               </div>
-            </div>
+            </li>
           </ul>
-
-          <div className="nav-icon" onClick={handleClick}>
-            <i className={click ? "fas fa-times-circle" : "fas fa-bars"}></i>
-          </div>
         </div>
 
       </nav>
