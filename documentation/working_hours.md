@@ -26,7 +26,7 @@ Goal for weeks 24-30 (7 weeks)
       AM: Messaging in backend
       PM: Structure with css for messaging in frontend
   
-  ### Week 25 ✅❌
+  ### Week 25 ✅
 
   **Theme**: Solve configuration issues  
   **Todo**: Messaging implementation, refactoring, typescript implementation, testing, deployment pipeline, to internet
@@ -44,10 +44,17 @@ Goal for weeks 24-30 (7 weeks)
       AM: Move to monorepo. The heroku push was broken and solving it took time
       PM: Apollo integration tests on backend
     Fri:
-      AM: Deployment pipeline (w/wo eslint ¯\(°_o)/¯) 
-      PM: Deployment pipeline
+      AM: Deployment pipeline
+      PM: Deployment pipeline. Backend tests do not pass in the pipeline. Connecting to undefined instead of mongodb
 
   ### Week 26 ✅❌
+
+  **Theme**: Build more features, UI  
+  **Todo**: Profile
+
+    Mon: 
+      AM: Improve UI structure (Dropdowns, mobile scaling etc.)
+      PM: Improve UI structure (Dropdowns, mobile scaling etc.)
 
   **Theme**: Build features, focus is on frontend  
   **Todo**: 
@@ -76,10 +83,12 @@ Goal for weeks 24-30 (7 weeks)
 | 17.6. | 5 | Sign in, jobqueries, profiles-page css |
 | 18.6. | 5 | Switch repository from sandbox, Backend TypeScript init, planning of messaging implementation |
 | 19.6. | 5 | Implementing messaging front and backend |
-| Week 25 ✅❌ |||   
+| Week 25 ✅ |||   
 | 21.6. | 5 | Messaging, designing mobile views |
 | 22.6. | 5 | Backend testing config, typescript configurations, planning of larger backend structure |
 | 23.6. | 6 | Heroku deployment, how tf apollo testing |
 | 24.6. | 4 | Move to monorepo, fix heroku deployment, backend testing config and tests |
-| 25.6. | 0845-1115, 1245- | Deployment pipeline sandboxing |
-| =     | 62.0      |               |
+| 25.6. | 5.5 | Deployment pipeline |
+| Week 25 ✅❌ |||   
+| 28.6. | 6.5 | Frontend css improvements |
+| =     | 64      |               |

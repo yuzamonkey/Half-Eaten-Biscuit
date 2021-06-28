@@ -6,6 +6,12 @@
 
 .conversation-info {
   height: 100px;
+  width: 100%;
+  background-color: var(--bg-grey);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .conversation-content {
@@ -34,9 +40,14 @@
   height: 100px;
 }
 
-@media screen and (max-width: 960px) {
-  .conversation-container {
-    background-color: red;
-  }
+.show-contacts-toggle {
+  display: none;
+}
 
+@media screen and (max-width: 580px) {
+  .show-contacts-toggle {
+    display: block;
+    font-size: 1.5rem;
+    padding-right: 10px; 
+  }
 }

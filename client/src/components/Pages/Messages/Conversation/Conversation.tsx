@@ -6,7 +6,7 @@ import './Conversation.css'
 import { FIND_CONVERSATION, MY_ID } from '../../../../graphql/queries';
 import { SEND_MESSAGE } from '../../../../graphql/mutations';
 
-const Conversation = () => {
+const Conversation = ({ setShowContacts }: any) => {
   const [sendMessage] = useMutation(SEND_MESSAGE, {
     onError: (error) => {
       console.log("ERROR ON SENDING MESSAGE")
@@ -40,9 +40,10 @@ const Conversation = () => {
   return (
     <div className="conversation-container">
       <div className="conversation-info">
-        <h2>Conversation {id}</h2>
-        <p>Participants: {users.map(p => p.username + ", ")}</p>
+        {users.map(p => p.username + ", ")}
+        <div onClick={() => setShowContacts(true)} className="show-contacts-toggle"><i className={"fas fa-arrow-down"}></i></div>
       </div>
+      <h2>Conversation {id}</h2>
       <div className="conversation-content">
         {messages.map(message => {
           return (
