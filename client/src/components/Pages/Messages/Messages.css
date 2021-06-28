@@ -4,7 +4,7 @@
 }
 
 .msg-contacts-container {
-  background-color: var(--bg-grey);
+  background-color: var(--grey);
   min-width: 250px;
   height: calc(100vh - var(--navbar-height));
 }
@@ -15,10 +15,17 @@
   height: calc(100vh - var(--navbar-height));
 }
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 580px) {
   .msg-contacts-container {
+    position: absolute;
     width: 100%;
+    top: -100%;
+    opacity: 0;
+    transition: all 0.4s ease;
   }
 
-
+  .msg-contacts-container.active {
+    top: var(--navbar-height);
+    opacity: 1;
+  }
 }
