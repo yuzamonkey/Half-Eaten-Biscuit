@@ -1,18 +1,17 @@
 .navbar {
   background-color: var(--blue);
   height: var(--navbar-height);
+
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1rem;
-  font-weight: 300;
+  
   position: sticky;
   top: 0;
   z-index: 20;
-  height: var(--navbar-height);
-  height: 350px;
-  /* padding: 0 3px 0 3px; */
-  /* Positive z-index makes navbar stay top. E.g. not behind text */
+
+  font-size: 1rem;
+  font-weight: 300;
 }
 
 .nav-container {
@@ -29,7 +28,6 @@
 }
 
 .nav-menu {
-  border: 1px solid wheat;
   display: flex;
   list-style: none;
   text-align: center;
@@ -60,8 +58,6 @@
 }
 
 .nav-item {
-  /* border: 1px solid pink; */
-  /* line-height: 40px; */
   margin: 0 3px; 
   height: calc(var(--navbar-height) - 20px);
   /* Space between rows. 1.6 (unitless) is recommended */
@@ -132,64 +128,10 @@
 
 
 @media screen and (max-width: 960px) {
-  .navbar {
-    /* min-width: 320px; */
-    width: 100%;
-    /* border: 1px solid red; */
-  }
-
-  .nav-container {
-    width: 100%;
-    border: 1px solid red;
-  }
-
-  .nav-menu.hidden-links {
-    border: 1px solid yellow;
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    height: calc(100vh - var(--navbar-height));
-    position: absolute;
-    top: var(--navbar-height);
-    border-top: 2px solid var(--dark-blue);
-    left: -110%;
-    opacity: 1;
-    transition: all .5s ease-in-out;
-  }
-
-  .nav-menu.hidden-links.active {
-    background-color: var(--dark-blue);
-    left: 0;
-    /* transition: all 0.5s ease-in-out; */
-    z-index: 20;
-  }
-
-  .hidden-links .nav-item {
-    border: 1px solid red;
-    width: 100%;
-  }
-  
-  .hidden-links .nav-links {
-    padding: 1.5rem 0 1.5rem 1.0rem ;
-    width: 100%;
-    display: table;
-  }
-  
-  .hidden-links .nav-item .active {
-    box-shadow: none;
-    background-color: var(--blue);
-    width: 100%;
-  }
-
-
   .nav-icon.nav-menu {
     color: var(--bg-white);
     display: flex;
-    /* display: block;
-    position: absolute;
-    top: 0;
-    right: 0;
-    transform: translate(-100%, 60%); */
+    width: fit-content;
     font-size: 1.8rem;
     cursor: pointer;
   }
@@ -197,4 +139,47 @@
   .nav-logo {
     display: none;
   }
+
+  .nav-menu.hidden-links {
+    padding: 0; /* where does this come from?! */
+    position: absolute;
+    width: 100vw;
+    height: calc(100vh - var(--navbar-height));
+    background-color: var(--dark-blue);
+    top: var(--navbar-height);
+    left: -110%;
+    border-top: 2px solid var(--dark-blue);
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* opacity: 1; */
+    transition: all .4s ease-out; 
+  }
+
+  .nav-menu.hidden-links.active {
+    left: 0;
+  }
+
+  .hidden-links .nav-item {
+    width: 100%;
+    height: var(--navbar-height);
+  }
+  
+  .hidden-links .nav-links {
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .hidden-links .nav-links.active {
+    box-shadow: none;
+    background-color: var(--blue);
+  }
+
+
 }
+
