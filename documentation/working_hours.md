@@ -49,7 +49,7 @@ Goal for weeks 24-30 (7 weeks)
 
   ### Week 26 ✅❌
 
-  **Theme**: Build features  
+  **Theme**: Build more features, UI  
   **Todo**: Profile
 
     Mon: 
@@ -89,4 +89,6 @@ Goal for weeks 24-30 (7 weeks)
 | 23.6. | 6 | Heroku deployment, how tf apollo testing |
 | 24.6. | 4 | Move to monorepo, fix heroku deployment, backend testing config and tests |
 | 25.6. | 5.5 | Deployment pipeline |
+| Week 25 ✅ |||   
+| 28.6. | 9-1245, 1415| Frontend css improvements |
 | =     | 67.5      |               |

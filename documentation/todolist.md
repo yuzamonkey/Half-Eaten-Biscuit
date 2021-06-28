@@ -2,6 +2,7 @@
 
 ## Do ❌
 - Testing in deployment pipeline on GitHub
+- Remove hover-effects in mobile view
 
 
 ## Done ✅

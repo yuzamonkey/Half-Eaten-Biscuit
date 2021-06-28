@@ -1,10 +1,10 @@
 import React from 'react'
+import './Dropdown.css'
 
 const NotificationsDropdown = () => {
   return (
-    <div>
-      <h3>Notifications</h3>
-      <button onClick={() => console.log("FOOBAAR")}>foobar</button>
+    <div className="dropdown">
+      <h3 className="notifications-title">Notifications</h3>
     </div>
   )
 }
