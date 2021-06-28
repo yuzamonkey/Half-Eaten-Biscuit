@@ -31,11 +31,12 @@
   z-index: -1;
 }
 
-.profile {
+.dropdown-profile {
   padding: 10px;
+  transition: background-color 0.2s ease;
 }
 
-.profile:hover {
+.dropdown-profile:hover {
   background-color: var(--bg-grey);
   border-radius: 10px 10px 0 0;
 }
@@ -56,6 +57,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: background-color 0.2s ease;
 }
 
 .dropdown-link:hover {

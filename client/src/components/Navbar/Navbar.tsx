@@ -40,17 +40,17 @@ const Navbar = () => {
 
           <ul className={click ? "nav-menu hidden-links active" : "nav-menu hidden-links"} >
             <li className="nav-item">
-              <NavLink exact to="/" activeClassName="active" className="nav-links">
+              <NavLink exact to="/" activeClassName="active" className="nav-links" onClick={handleClick}>
                 Home
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink exact to="/jobmarket/queries" activeClassName="active" className="nav-links">
+              <NavLink exact to="/jobmarket/queries" activeClassName="active" className="nav-links" onClick={handleClick}>
                 Jobmarket
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink exact to="/profiles" activeClassName="active" className="nav-links">
+              <NavLink exact to="/profiles" activeClassName="active" className="nav-links" onClick={handleClick}>
                 Profiles
               </NavLink>
             </li>

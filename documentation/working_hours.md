@@ -53,8 +53,8 @@ Goal for weeks 24-30 (7 weeks)
   **Todo**: Profile
 
     Mon: 
-      AM: Improve UI structure (Dropdowns, mobile)
-      PM:
+      AM: Improve UI structure (Dropdowns, mobile scaling etc.)
+      PM: Improve UI structure (Dropdowns, mobile scaling etc.)
 
   **Theme**: Build features, focus is on frontend  
   **Todo**: 
@@ -89,6 +89,6 @@ Goal for weeks 24-30 (7 weeks)
 | 23.6. | 6 | Heroku deployment, how tf apollo testing |
 | 24.6. | 4 | Move to monorepo, fix heroku deployment, backend testing config and tests |
 | 25.6. | 5.5 | Deployment pipeline |
-| Week 25 ✅ |||   
-| 28.6. | 9-1245, 1415| Frontend css improvements |
-| =     | 67.5      |               |
+| Week 25 ✅❌ |||   
+| 28.6. | 6.5 | Frontend css improvements |
+| =     | 64      |               |

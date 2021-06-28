@@ -23,6 +23,10 @@ const ProfileDropdown = () => {
     history.push(`/profile/${result.data.me.id}`)
   }
 
+  const handleSettingsClick = () => {
+    history.push('/settings')
+  }
+
   return (
     <div className="dropdown">
       <div className="dropdown-profile" onClick={handleProfileClick}>
@@ -33,8 +37,8 @@ const ProfileDropdown = () => {
         <p className="secondary-text">Show profile</p>
 
       </div>
-      <div className="dropdown-link">Settings</div>
-      <div onClick={handleLogout} className="dropdown-link">Log out</div>
+      <div className="dropdown-link" onClick={handleSettingsClick}>Settings</div>
+      <div className="dropdown-link" onClick={handleLogout} >Log out</div>
     </div>
   )
 }
