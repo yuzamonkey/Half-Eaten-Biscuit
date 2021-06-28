@@ -31,7 +31,7 @@ const Navbar = () => {
         <div className="nav-container">
 
           <div className="nav-icon nav-menu" onClick={handleClick}>
-            <i className={click ? "fas fa-times-circle" : "fas fa-bars"}></i>
+            <i className={click ? "fas fa-arrow-left" : "fas fa-bars"}></i>
           </div>
 
           <NavLink to="/" className="nav-logo nav-menu">
@@ -59,7 +59,8 @@ const Navbar = () => {
           <ul className="nav-menu constant-links">
             <li className="nav-item">
               <NavLink exact to="/messages" activeClassName="active" className="nav-links">
-                Messages
+                {/* Messages */}
+                <i className="fa fa-comment"></i>
               </NavLink>
             </li>
 
@@ -69,7 +70,8 @@ const Navbar = () => {
                 onClick={handleNotificationDrop}
                 tabIndex={0}
                 className="nav-links dropdown-container">
-                Notifications ▼
+                {/* Notifications ▼ */}
+                <i className="fa fa-bell"> ▿</i>
                 {showNotification && <NotificationsDropdown />}
               </div>
             </li>
@@ -79,7 +81,8 @@ const Navbar = () => {
                 onClick={handleProfileDrop}
                 tabIndex={0}
                 className="nav-links dropdown-container">
-                Me ▼
+                {/* Me ▼ */}
+                <i className="fa fa-user"> ▿</i>
                 {showProfileOptionsDropdown && <ProfileOptionsDropdown />}
               </div>
             </li>

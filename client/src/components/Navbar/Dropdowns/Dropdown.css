@@ -8,7 +8,9 @@
 
   border-radius: 10px;
   box-shadow: 2pt 1pt 3pt var(--dark-blue);
-  
+
+  animation-name: dropdown-desktop-animation;
+  animation-duration: 0.4s;
 }
 
 .dropdown::before {
@@ -67,8 +69,6 @@
   font-weight: 300;
 }
 
-
-
 @media screen and (max-width: 580px) {
   .dropdown {
     width: 100%;
@@ -77,8 +77,8 @@
     left: 0;
     box-shadow: 1pt 1pt 3pt var(--dark-blue);;
     transform: scale(0.97);
-    animation-name: dropdown-animation;
-    animation-duration: 0.5s;
+    animation-name: dropdown-mobile-animation;
+    animation-duration: 0.4s;
   }
 
   .dropdown::before {
@@ -86,13 +86,24 @@
   }
 }
 
-@keyframes dropdown-animation {
+@keyframes dropdown-mobile-animation {
   from {
     height: 0;
     opacity: 0;
   }
   to {
     height: calc(100vh - var(--navbar-height));
+    opacity: 1;
+  }
+}
+
+@keyframes dropdown-desktop-animation {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    height: 450px;
     opacity: 1;
   }
 }

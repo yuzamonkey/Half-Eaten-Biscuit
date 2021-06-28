@@ -90,6 +90,10 @@
   cursor: pointer;
 }
 
+.fa {
+  font-size: 1.5rem;
+}
+
 @media screen and (max-width: 960px) {
   .nav-icon.nav-menu {
     color: var(--bg-white);
