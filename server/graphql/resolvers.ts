@@ -8,6 +8,7 @@ const Jobquery = require('../models/jobquery')
 const User = require('../models/user')
 const Conversation = require('../models/conversation')
 const Group = require('../models/group')
+const UserProfile = require('../models/userProfile')
 
 const jwt = require('jsonwebtoken')
 
@@ -38,7 +39,7 @@ const resolvers: IResolvers = {
       return Jobquery.find({}).populate('user')
     },
     allUsers: () => {
-      return User.find({}).populate('jobQueries conversations groups')
+      return User.find({}).populate('jobQueries conversations groups profile')
     },
     allGroups: () => {
       return Group.find({}).populate('users')
@@ -49,7 +50,7 @@ const resolvers: IResolvers = {
     findUser: (_root, args) => {
       console.log("ID", args.id)
       return User.findOne({ _id: args.id })
-        .populate('jobQueries conversations groups')
+        .populate('jobQueries conversations groups profile')
     },
     allConversations: () => {
       return Conversation.find({}).populate('users')
@@ -65,7 +66,7 @@ const resolvers: IResolvers = {
     me: (_root, _args, context) => {
       //return context.currentUser
       return User.findOne({ _id: context.currentUser._id })
-        .populate('jobQueries conversations groups')
+        .populate('jobQueries conversations groups profile')
     },
   },
   User: {
@@ -211,6 +212,41 @@ const resolvers: IResolvers = {
           await user.save()
         });
         return savedGroup
+      } catch (error) {
+        throw new UserInputError(error.message, {
+          invalidArgs: args,
+        })
+      }
+    },
+
+    editUserProfile: async (_root, args, context) => {
+      const currentUser = context.currentUser
+
+      if (!currentUser) {
+        console.log(`Not authenticated user`)
+        throw new AuthenticationError("not authenticated")
+      }
+
+      const about = args.about
+      console.log("ABOUT", about)
+      try {
+        if (currentUser.profile) {
+          const profile = await UserProfile.findOne({ _id: currentUser.profile })
+          console.log("FOUND PROFILE", profile)
+          profile.about = about
+          const savedProfile = await profile.save()
+          return savedProfile
+        } else {
+          console.log("CREATE NEW PROFILE")
+          const newProfile = new UserProfile({
+            user: currentUser,
+            about: about
+          })
+          const savedProfile = await newProfile.save()
+          currentUser.profile = savedProfile
+          await currentUser.save()
+          return savedProfile
+        }
       } catch (error) {
         throw new UserInputError(error.message, {
           invalidArgs: args,

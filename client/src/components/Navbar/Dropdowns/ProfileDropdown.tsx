@@ -12,7 +12,7 @@ const ProfileDropdown = () => {
   const history = useHistory()
 
   if (result.loading) return <div className="dropdown">Loading...</div>
-
+  console.log(result.data.me)
   const handleLogout = async () => {
     await client.resetStore()
     localStorage.clear()
@@ -27,6 +27,14 @@ const ProfileDropdown = () => {
     history.push('/settings')
   }
 
+  const handleNewGroupClick = () => {
+    console.log("NEW GROUP CLICKED")
+  }
+
+  const handleProfileChange = (groupId) => {
+    console.log("SWITCH PROFILE TO ", groupId)
+  }
+
   return (
     <div className="dropdown">
       <div className="dropdown-profile" onClick={handleProfileClick}>
@@ -35,8 +43,9 @@ const ProfileDropdown = () => {
         </div>
         <h3 className="profile-name">{result.data.me.username}</h3>
         <p className="secondary-text">Show profile</p>
-
       </div>
+      <div className="dropdown-link" onClick={handleNewGroupClick}><b>My groups +</b></div>
+      {result.data.me.groups.map(group => <div className="dropdown-link" onClick={() => handleProfileChange(group.id)}>{group.name}</div>)}
       <div className="dropdown-link" onClick={handleSettingsClick}>Settings</div>
       <div className="dropdown-link" onClick={handleLogout} >Log out</div>
     </div>

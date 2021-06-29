@@ -91,5 +91,5 @@ Goal for weeks 24-30 (7 weeks)
 | 25.6. | 5.5 | Deployment pipeline |
 | Week 26 ✅❌ |||   
 | 28.6. | 6.5 | Frontend css improvements |
-| 29.6. | 1515- |  |
+| 29.6. | 1515- | Adding groups |
 | =     | 64      |               |

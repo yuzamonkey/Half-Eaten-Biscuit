@@ -77,6 +77,9 @@ const typeDefs = gql`
       username: String!
       password: String!
     ): Token
+    editUserProfile(
+      about: String
+    ): UserProfile
     createGroup(
       name: String!,
       users: [ID!]!

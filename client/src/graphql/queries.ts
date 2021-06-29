@@ -7,6 +7,10 @@ export const ME = gql`
       username
       jobQueries {
         content, date
+      },
+      groups {
+        id
+        name
       }
     }
   }
@@ -67,7 +71,10 @@ export const ALL_QUERIES = gql`
 export const FIND_USER = gql`
   query findUser($id: ID!){
     findUser (id: $id) {
-      username
+      username,
+      profile {
+        about
+      }
     }
   }
 `

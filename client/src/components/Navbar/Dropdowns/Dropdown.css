@@ -5,6 +5,7 @@
   height: 450px;
   right: 0;
   top: calc(var(--navbar-height) - 5px);
+  overflow: scroll;
 
   border-radius: 10px;
   box-shadow: 2pt 1pt 3pt var(--dark-blue);
