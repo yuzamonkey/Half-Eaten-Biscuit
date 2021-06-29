@@ -50,7 +50,7 @@ Goal for weeks 24-30 (7 weeks)
   ### Week 26 ✅❌
 
   **Theme**: Build more features, UI  
-  **Todo**: Profile
+  **Todo**: Groups, profiles
 
     Mon: 
       AM: Improve UI structure (Dropdowns, mobile scaling etc.)

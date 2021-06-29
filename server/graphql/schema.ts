@@ -26,26 +26,44 @@ const typeDefs = gql`
     id: ID!
     username: String!
     passwordHash: String!
-    jobQueries: [Jobquery]
+    jobQueries: [Jobquery]!
     conversations: [Conversation]!
+    profile: UserProfile!
+  }
+
+  type Group {
+    id: ID!
+    name: String!
+    users: [User!]!
+    profile: GroupProfile!
+    jobQueries: [Jobquery]!
+    conversations: [Conversation]!
+  }
+
+  type UserProfile {
+    id: ID!
+    user: User!
+    about: String
+  }
+
+  type GroupProfile {
+    id: ID!
+    group: Group!
+    about: String
   }
 
   type Token {
     value: String!
   }
 
-  type Debug {
-    value: String
-  }
-
   type Query {
     allJobqueries: [Jobquery]
     allUsers: [User]!
+    allGroups: [Group]!
     findJobqueries(content: String!): [Jobquery],
     findUser(id: ID!): User
     allConversations: [Conversation]
     findConversation(id: ID!): Conversation
-    getDebugValues: Debug
     me: User,
   }
 
@@ -58,6 +76,10 @@ const typeDefs = gql`
       username: String!
       password: String!
     ): Token
+    createGroup(
+      name: String!,
+      users: [ID!]!
+    ): Group
     createJobquery(
       content: String!
     ): Jobquery

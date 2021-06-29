@@ -7,6 +7,8 @@ const bcrypt = require('bcrypt')
 const Jobquery = require('../models/jobquery')
 const User = require('../models/user')
 const Conversation = require('../models/conversation')
+const Group = require('../models/group')
+
 const jwt = require('jsonwebtoken')
 
 const { GraphQLScalarType } = require('graphql')
@@ -38,6 +40,9 @@ const resolvers: IResolvers = {
     allUsers: () => {
       return User.find({}).populate('jobQueries')
     },
+    allGroups: () => {
+      return Group.find({}).populate('users')
+    },
     findJobqueries: (_root, args) => {
       return Jobquery.find({ content: args.content }).populate('user')
     },
@@ -56,11 +61,6 @@ const resolvers: IResolvers = {
           path: 'messages',
           populate: { path: 'sender' }
         })
-    },
-    getDebugValues: () => {
-      return {
-        value: 'DEBUG!'
-      }
     },
     me: (_root, _args, context) => {
       //return context.currentUser
@@ -176,6 +176,35 @@ const resolvers: IResolvers = {
         receiver.conversations = receiver.conversations.concat(newConversation)
         await receiver.save()
         return savedConversation
+      } catch (error) {
+        throw new UserInputError(error.message, {
+          invalidArgs: args,
+        })
+      }
+    },
+
+    createGroup: async(_root, args, context) => {
+      const currentUser = context.currentUser
+
+      if (!currentUser) {
+        console.log(`Not authenticated user`)
+        throw new AuthenticationError("not authenticated")
+      }
+
+      const name = args.name
+      console.log("•••NAME", name)
+      const userIds = args.users.concat(currentUser._id)
+      console.log("•••IDS", userIds)
+
+      try {
+        const newGroup = new Group({
+          name: name,
+          users: userIds
+        })
+
+        console.log("NEW GROUP", newGroup)
+        const savedGroup = await newGroup.save()
+        return savedGroup
       } catch (error) {
         throw new UserInputError(error.message, {
           invalidArgs: args,
