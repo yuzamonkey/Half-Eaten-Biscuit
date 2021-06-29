@@ -29,6 +29,7 @@ const typeDefs = gql`
     jobQueries: [Jobquery]!
     conversations: [Conversation]!
     profile: UserProfile!
+    groups: [Group]!
   }
 
   type Group {

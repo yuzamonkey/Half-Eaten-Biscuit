@@ -38,7 +38,7 @@ const resolvers: IResolvers = {
       return Jobquery.find({}).populate('user')
     },
     allUsers: () => {
-      return User.find({}).populate('jobQueries')
+      return User.find({}).populate('jobQueries conversations groups')
     },
     allGroups: () => {
       return Group.find({}).populate('users')
@@ -49,7 +49,7 @@ const resolvers: IResolvers = {
     findUser: (_root, args) => {
       console.log("ID", args.id)
       return User.findOne({ _id: args.id })
-        .populate('jobQueries conversations')
+        .populate('jobQueries conversations groups')
     },
     allConversations: () => {
       return Conversation.find({}).populate('users')
@@ -65,7 +65,7 @@ const resolvers: IResolvers = {
     me: (_root, _args, context) => {
       //return context.currentUser
       return User.findOne({ _id: context.currentUser._id })
-        .populate('jobQueries conversations')
+        .populate('jobQueries conversations groups')
     },
   },
   User: {
@@ -183,7 +183,7 @@ const resolvers: IResolvers = {
       }
     },
 
-    createGroup: async(_root, args, context) => {
+    createGroup: async (_root, args, context) => {
       const currentUser = context.currentUser
 
       if (!currentUser) {
@@ -193,7 +193,8 @@ const resolvers: IResolvers = {
 
       const name = args.name
       console.log("•••NAME", name)
-      const userIds = args.users.concat(currentUser._id)
+      const userIds = args.users.concat(String(currentUser._id))
+      console.log(typeof (currentUser.id))
       console.log("•••IDS", userIds)
 
       try {
@@ -204,6 +205,11 @@ const resolvers: IResolvers = {
 
         console.log("NEW GROUP", newGroup)
         const savedGroup = await newGroup.save()
+        await userIds.forEach(async (id: String) => {
+          const user = await User.findOne({ _id: id })
+          user.groups = user.groups.concat(savedGroup)
+          await user.save()
+        });
         return savedGroup
       } catch (error) {
         throw new UserInputError(error.message, {
