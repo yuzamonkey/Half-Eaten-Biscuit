@@ -89,6 +89,7 @@ Goal for weeks 24-30 (7 weeks)
 | 23.6. | 6 | Heroku deployment, how tf apollo testing |
 | 24.6. | 4 | Move to monorepo, fix heroku deployment, backend testing config and tests |
 | 25.6. | 5.5 | Deployment pipeline |
-| Week 25 ✅❌ |||   
+| Week 26 ✅❌ |||   
 | 28.6. | 6.5 | Frontend css improvements |
+| 29.6. | 1515- |  |
 | =     | 64      |               |

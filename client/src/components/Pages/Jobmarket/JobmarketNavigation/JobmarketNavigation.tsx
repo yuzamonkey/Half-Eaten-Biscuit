@@ -13,6 +13,11 @@ const JobmarketNavigation = () => {
               </NavLink>
             </li>
             <li className="job-nav-item">
+              <NavLink exact to="/jobmarket/findplayers/" activeClassName="job-active" className="job-nav-links"> 
+                Find players
+              </NavLink>
+            </li>
+            <li className="job-nav-item">
               <NavLink exact to="/jobmarket/sendquery/" activeClassName="job-active" className="job-nav-links"> 
                 Send query
               </NavLink>

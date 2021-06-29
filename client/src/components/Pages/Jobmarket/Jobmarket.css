@@ -7,7 +7,6 @@
 .job-pages {
   display: inline;
   width: 100%;
-  padding: 10px;
   overflow: scroll;
   /* line-height: 4rem; */
 }
@@ -15,7 +14,7 @@
 .job-navigation {
   /* position: absolute; */
   background-color: var(--bg-grey);
-  width: 250px;
+  width: 300px;
   height: calc(100vh - var(--navbar-height));
   display: flex;
   justify-content: center;
@@ -163,9 +162,11 @@
     min-width: 320px;
     font-size: 1.3rem;
     font-weight: 400;
+
   }
   
   .job-nav-container {
+
   }
 
   .job-nav-menu {
@@ -173,10 +174,12 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    overflow-x: scroll;
+    overflow-y: hidden;
   }
 
   .job-nav-item {
-    width: 100%;
+    min-width: 200px;
     height: 100%;
     /* outline: 1px solid red; */
   }
