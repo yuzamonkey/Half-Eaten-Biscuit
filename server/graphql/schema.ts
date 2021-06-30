@@ -58,6 +58,8 @@ const typeDefs = gql`
     id: ID!
   }
 
+  union UserOrGroup = User | Group
+
   type Query {
     allJobqueries: [Jobquery]
     allUsers: [User]!
@@ -65,6 +67,7 @@ const typeDefs = gql`
     findJobqueries(content: String!): [Jobquery],
     findUser(id: ID!): User
     findGroup(id: ID!): Group
+    findUserOrGroup(id: ID!): UserOrGroup
     allConversations: [Conversation]
     findConversation(id: ID!): Conversation
     me: User,

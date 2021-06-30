@@ -55,6 +55,14 @@ const resolvers: IResolvers = {
     findGroup: (_root, args) => {
       return Group.findOne({ _id: args.id }).populate('users')
     },
+    findUserOrGroup: async (_root, args) => {
+      const user = await User.findOne({ _id: args.id })
+      .populate('jobQueries conversations groups profile')
+      const group = await Group.findOne({ _id: args.id }).populate('users')
+      const result = user || group
+      console.log("RESULT", result)
+      return user|| group
+    },
     allConversations: () => {
       return Conversation.find({}).populate('users')
     },
@@ -79,6 +87,13 @@ const resolvers: IResolvers = {
         _id: { $in: conversationIds }
       }).populate('users')
       return conversations
+    }
+  },
+  UserOrGroup: {
+    __resolveType(obj: { username: any; users: any }, _context: any, _info: any) {
+      if (obj.username) return 'User'
+      if (obj.users) return 'Group'
+      return null;
     }
   },
   Mutation: {
