@@ -55,6 +55,12 @@ Goal for weeks 24-30 (7 weeks)
     Mon: 
       AM: Improve UI structure (Dropdowns, mobile scaling etc.)
       PM: Improve UI structure (Dropdowns, mobile scaling etc.)
+    Tue:
+      AM:
+      PM: Build features: groups, profiles
+    Wed:
+      AM:
+      PM:
 
   **Theme**: Build features, focus is on frontend  
   **Todo**: 
@@ -91,5 +97,6 @@ Goal for weeks 24-30 (7 weeks)
 | 25.6. | 5.5 | Deployment pipeline |
 | Week 26 ✅❌ |||   
 | 28.6. | 6.5 | Frontend css improvements |
-| 29.6. | 1515- | Adding groups |
-| =     | 64      |               |
+| 29.6. | 3 | Adding groups |
+| 30.6. | 0750- |  |
+| =     | 67      |               |

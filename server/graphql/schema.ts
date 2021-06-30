@@ -54,7 +54,8 @@ const typeDefs = gql`
   }
 
   type Token {
-    value: String!
+    value: String!,
+    id: ID!
   }
 
   type Query {
@@ -63,6 +64,7 @@ const typeDefs = gql`
     allGroups: [Group]!
     findJobqueries(content: String!): [Jobquery],
     findUser(id: ID!): User
+    findGroup(id: ID!): Group
     allConversations: [Conversation]
     findConversation(id: ID!): Conversation
     me: User,

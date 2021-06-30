@@ -11,10 +11,10 @@ import { setContext } from '@apollo/link-context';
 
 import './index.css';
 import App from './App';
-import { TOKEN_NAME } from './utils/constants';
+import { SIGN_IN_TOKEN } from './utils/constants';
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem(TOKEN_NAME)
+  const token = localStorage.getItem(SIGN_IN_TOKEN)
   return {
     headers: {
       ...headers,

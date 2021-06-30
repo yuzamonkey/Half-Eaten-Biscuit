@@ -61,7 +61,6 @@
   margin: 0 3px; 
   height: calc(var(--navbar-height) - 20px);
   min-width: fit-content;
-  /* Space between rows. 1.6 (unitless) is recommended */
   display: flex;
   justify-content: center;
   align-items: center;

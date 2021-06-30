@@ -1,1 +1,2 @@
-export const TOKEN_NAME = 'kulttuurisome-user-token'
+export const SIGN_IN_TOKEN = 'kulttuurisome-user-token'
+export const SESSION_TOKEN = 'kulttuurisome-session-token'

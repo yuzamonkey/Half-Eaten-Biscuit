@@ -52,6 +52,9 @@ const resolvers: IResolvers = {
       return User.findOne({ _id: args.id })
         .populate('jobQueries conversations groups profile')
     },
+    findGroup: (_root, args) => {
+      return Group.findOne({ _id: args.id }).populate('users')
+    },
     allConversations: () => {
       return Conversation.find({}).populate('users')
     },
@@ -113,7 +116,7 @@ const resolvers: IResolvers = {
         id: user._id,
       }
 
-      return { value: jwt.sign(userForToken, JWT_SECRET) }
+      return { value: jwt.sign(userForToken, JWT_SECRET), id: user._id }
     },
 
     createJobquery: async (_root, args, context) => {

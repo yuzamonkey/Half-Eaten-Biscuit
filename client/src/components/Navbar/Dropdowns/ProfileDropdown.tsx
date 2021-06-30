@@ -1,21 +1,29 @@
 import React from 'react'
-import { useApolloClient } from "@apollo/client";
-import { useQuery } from '@apollo/client';
+import { useApolloClient, useQuery, useLazyQuery } from "@apollo/client";
 import { useHistory } from 'react-router';
 
-import { ME } from '../../../graphql/queries';
+import { ALL_USERS, ME } from '../../../graphql/queries';
 import './Dropdown.css'
 
-const ProfileDropdown = () => {
+const ProfileDropdown = ({ show, setShow }: any) => {
+
   const client = useApolloClient()
   const result = useQuery(ME)
+  const [findGroup, { loading, data }] = useLazyQuery(ALL_USERS)
+  console.log(loading, data)
+
   const history = useHistory()
+
+  if (!show) {
+    return null
+  }
 
   if (result.loading) return <div className="dropdown">Loading...</div>
   console.log(result.data.me)
   const handleLogout = async () => {
     await client.resetStore()
     localStorage.clear()
+    sessionStorage.clear()
     window.location.assign('/')
   }
 
@@ -31,8 +39,11 @@ const ProfileDropdown = () => {
     console.log("NEW GROUP CLICKED")
   }
 
-  const handleProfileChange = (groupId) => {
+  const handleProfileChange = async (groupId) => {
     console.log("SWITCH PROFILE TO ", groupId)
+    //sessionStorage.setItem('PROFILE', groupId)
+    findGroup()
+    console.log(loading, data)
   }
 
   return (

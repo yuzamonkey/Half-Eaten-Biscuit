@@ -16,6 +16,25 @@ export const ME = gql`
   }
 `
 
+export const FIND_USER = gql`
+  query findUser($id: ID!){
+    findUser (id: $id) {
+      username,
+      profile {
+        about
+      }
+    }
+  }
+`
+
+export const FIND_GROUP = gql`
+  query ($id: ID!) {
+    findGroup(id: $id) {
+      name
+    }
+  }
+`
+
 export const MY_ID = gql`
   query {
     me {
@@ -63,17 +82,6 @@ export const ALL_QUERIES = gql`
       date
       user {
         username
-      }
-    }
-  }
-`
-
-export const FIND_USER = gql`
-  query findUser($id: ID!){
-    findUser (id: $id) {
-      username,
-      profile {
-        about
       }
     }
   }

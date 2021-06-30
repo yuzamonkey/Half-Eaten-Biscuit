@@ -3,8 +3,8 @@
   position: absolute;
   width: 300px;
   height: 450px;
-  right: 0;
   top: calc(var(--navbar-height) - 5px);
+  right: 0;
   overflow: scroll;
 
   border-radius: 10px;
