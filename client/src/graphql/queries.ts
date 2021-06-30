@@ -35,6 +35,22 @@ export const FIND_GROUP = gql`
   }
 `
 
+export const FIND_USER_OR_GROUP = gql`
+  query ($id: ID!) {
+    findUserOrGroup(id: $id) {
+        ... on User {
+        id,
+        username
+      }
+      ... on Group {
+        id,
+        name
+      }
+    }
+  }
+`
+
+
 export const MY_ID = gql`
   query {
     me {

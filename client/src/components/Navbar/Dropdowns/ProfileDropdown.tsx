@@ -1,16 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useApolloClient, useQuery, useLazyQuery } from "@apollo/client";
 import { useHistory } from 'react-router';
 
-import { ALL_USERS, ME } from '../../../graphql/queries';
+import { FIND_USER_OR_GROUP, ME } from '../../../graphql/queries';
+import { SESSION_TOKEN } from '../../../utils/constants';
 import './Dropdown.css'
 
 const ProfileDropdown = ({ show, setShow }: any) => {
-
   const client = useApolloClient()
-  const result = useQuery(ME)
-  const [findGroup, { loading, data }] = useLazyQuery(ALL_USERS)
-  console.log(loading, data)
+
+  const me = useQuery(ME)
+  const sessionId = sessionStorage.getItem(SESSION_TOKEN)
+  //const currentProfile = useQuery(FIND_USER_OR_GROUP, { variables: { id: sessionId } })
+  const [findUserOrGroup, { loading, data }] = useLazyQuery(FIND_USER_OR_GROUP)
+  useEffect(() => {
+    findUserOrGroup({ variables: { id: sessionId } })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  console.log("DATA", data)
 
   const history = useHistory()
 
@@ -18,8 +25,10 @@ const ProfileDropdown = ({ show, setShow }: any) => {
     return null
   }
 
-  if (result.loading) return <div className="dropdown">Loading...</div>
-  console.log(result.data.me)
+  if (loading) {
+    return <div className="dropdown">Loading...</div>
+  }
+
   const handleLogout = async () => {
     await client.resetStore()
     localStorage.clear()
@@ -28,11 +37,18 @@ const ProfileDropdown = ({ show, setShow }: any) => {
   }
 
   const handleProfileClick = () => {
-    history.push(`/profile/${result.data.me.id}`)
+    history.push(`/profile/${data.findUserOrGroup.id}`)
+    setShow(false)
   }
 
   const handleSettingsClick = () => {
     history.push('/settings')
+    setShow(false)
+  }
+
+  const handleMeClick = () => {
+    sessionStorage.setItem(SESSION_TOKEN, me.data.me.id)
+    findUserOrGroup({ variables: { id: me.data.me.id } })
   }
 
   const handleNewGroupClick = () => {
@@ -41,9 +57,8 @@ const ProfileDropdown = ({ show, setShow }: any) => {
 
   const handleProfileChange = async (groupId) => {
     console.log("SWITCH PROFILE TO ", groupId)
-    //sessionStorage.setItem('PROFILE', groupId)
-    findGroup()
-    console.log(loading, data)
+    sessionStorage.setItem(SESSION_TOKEN, groupId)
+    findUserOrGroup({ variables: { id: groupId } })
   }
 
   return (
@@ -52,11 +67,12 @@ const ProfileDropdown = ({ show, setShow }: any) => {
         <div>
           <img src="https://content.thriveglobal.com/wp-content/uploads/2018/01/Happy_guy.jpg" alt="musician" className="profile-image"></img>
         </div>
-        <h3 className="profile-name">{result.data.me.username}</h3>
+        <h3 className="profile-name">{data.findUserOrGroup.username || data.findUserOrGroup.name}</h3>
         <p className="secondary-text">Show profile</p>
       </div>
+      <div className="dropdown-link" onClick={handleMeClick}><b>Me</b></div>
       <div className="dropdown-link" onClick={handleNewGroupClick}><b>My groups +</b></div>
-      {result.data.me.groups.map(group => <div className="dropdown-link" onClick={() => handleProfileChange(group.id)}>{group.name}</div>)}
+      {me.data.me.groups.map(group => <div className="dropdown-link" onClick={() => handleProfileChange(group.id)}>{group.name}</div>)}
       <div className="dropdown-link" onClick={handleSettingsClick}>Settings</div>
       <div className="dropdown-link" onClick={handleLogout} >Log out</div>
     </div>
