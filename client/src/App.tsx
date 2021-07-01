@@ -11,6 +11,7 @@ import SignUp from "./components/Pages/Registrations/SignUp";
 import Home from "./components/Pages/Home/Home";
 import Welcome from "./components/Pages/Welcome/Welcome";
 import Settings from "./components/Pages/Settings/Settings";
+import NewGroup from "./components/Pages/Profiles/NewGroup";
 
 import './App.css';
 import { SIGN_IN_TOKEN } from "./utils/constants";
@@ -44,6 +45,7 @@ const App = () => {
               <Route path="/profiles" component={Profiles} />
               <Route path="/profile/:id" component={Profile} />
               <Route path="/settings" component={Settings} />
+              <Route path="/newgroup" component={NewGroup} />
               <Route path="/" component={Welcome} />
             </Switch>
           </div>

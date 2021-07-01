@@ -1,0 +1,35 @@
+.new-group-container {
+
+}
+
+.selected-users {
+  background-color: aqua;
+}
+
+.selected-user {
+  border: 1px solid black;
+  padding: 10px;
+  margin: 10px;
+}
+
+.selected-user:hover {
+  background-color: red;
+}
+
+.all-users-container {
+  background-color: bisque;
+}
+
+.user-container {
+  border: 1px solid black;
+  padding: 10px;
+  margin: 10px;
+}
+
+.selected {
+  background-color: grey;
+}
+
+.user-container:hover {
+  background-color: gainsboro;
+}

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useApolloClient, useQuery, useLazyQuery } from "@apollo/client";
 import { useHistory } from 'react-router';
+import { NavLink } from "react-router-dom";
 
 import { FIND_USER_OR_GROUP, ME } from '../../../graphql/queries';
 import { SESSION_TOKEN } from '../../../utils/constants';
@@ -72,6 +73,7 @@ const ProfileDropdown = ({ show, setShow }: any) => {
       </div>
       <div className="dropdown-link" onClick={handleMeClick}><b>Me</b></div>
       <div className="dropdown-link" onClick={handleNewGroupClick}><b>My groups +</b></div>
+      <NavLink to="/newgroup" activeClassName="active">New group</NavLink>
       {me.data.me.groups.map(group => <div className="dropdown-link" onClick={() => handleProfileChange(group.id)}>{group.name}</div>)}
       <div className="dropdown-link" onClick={handleSettingsClick}>Settings</div>
       <div className="dropdown-link" onClick={handleLogout} >Log out</div>
