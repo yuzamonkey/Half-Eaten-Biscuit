@@ -1,27 +1,46 @@
 import React, { useState } from 'react'
-import { useQuery } from '@apollo/client'
+import { useQuery, useMutation } from '@apollo/client'
 
-import { ALL_USERS } from '../../../graphql/queries'
+import { ALL_USERS, ME } from '../../../graphql/queries'
 import { Button } from '../../../utils/UtilityComponents/UtilityComponents'
 import './NewGroup.css'
+import { CREATE_GROUP } from '../../../graphql/mutations'
 
 interface User {
+  id: String
   username: String
 }
 
 const NewGroup = () => {
   const [groupName, setGroupName] = useState("")
-  const [selectedUsers, setSelectedUsers] = useState([{username: ""}])
+  const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
+  const allUsersResult = useQuery(ALL_USERS)
+  const meResult = useQuery(ME)
+  const [createGroup] = useMutation(CREATE_GROUP, {
+    onError: (error) => {
+      console.log("Error at create group mutation: \n", error)
+    }
+  })
 
-  const result = useQuery(ALL_USERS)
-  console.log("RESULT", result)
+  console.log("ME REUSLT", meResult)
 
-  if (result.loading) {
+
+  if (allUsersResult.loading || meResult.loading) {
     return <div>Loading...</div>
   }
 
   const handleNewGroupSubmit = () => {
     console.log("NEW GROUP SUBMIT BUTTON PRESSED, users:", selectedUsers, "name:", groupName)
+    const usersIds = selectedUsers.map(u => u.id)
+    createGroup({
+      variables: {
+        name: groupName,
+        users: usersIds
+      }
+    })
+    setSelectedUsers([])
+    setGroupName("")
+
   }
 
   return (
@@ -42,7 +61,7 @@ const NewGroup = () => {
         })}
       </div>
       <div className="all-users-container">
-        {result.data.allUsers.map(u => {
+        {allUsersResult.data.allUsers.map(u => {
           return (
             selectedUsers.find(user => user.username === u.username)
               ?

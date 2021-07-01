@@ -39,3 +39,11 @@ export const SEND_MESSAGE = gql`
     }
 }
 `
+
+export const CREATE_GROUP = gql`
+  mutation createGroup($name: String!, $users: [ID!]!){
+    createGroup(name: $name, users: $users) {
+      name
+    }
+  }
+`
