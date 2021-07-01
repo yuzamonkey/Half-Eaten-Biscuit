@@ -27,6 +27,8 @@ const Profiles = () => {
   return (
     <div>
       <h1>Profiles</h1>
+      <b>Filters:</b> name <input></input>, group or individual, instrument, availability
+      
       <div className="profiles-container">
         {allUsersResult.data.allUsers.map((u: any) => {
           const profileUrl = `/profile/${u.id}`

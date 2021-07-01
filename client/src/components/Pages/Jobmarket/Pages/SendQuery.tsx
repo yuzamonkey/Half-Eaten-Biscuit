@@ -25,8 +25,15 @@ const SendQuery = () => {
       <h2>Send Query</h2>
       <div>
         <form onSubmit={submit}>
+          <ul>
+            <li>what are you lookin for? ( single players | group )</li>
+            <li>salary ( no | negotiable | by hour | fixed )</li>
+            <li>description</li>
+            <li>location ( single | multiple )</li>
+          </ul>
+          <br></br>
           <div>
-            content <input
+            description <input
               value={content}
               onChange={({ target }) => setContent(target.value)}
             />

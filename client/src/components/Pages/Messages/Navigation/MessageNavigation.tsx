@@ -17,6 +17,7 @@ const MessageNavigation = ({setShowContacts}: any) => {
   return (
     <nav className="msg-navigation">
       <div className="msg-nav-container">
+        <input value="Search from conversations"></input>
         <ul className="msg-nav-menu">
           {conversations.map(conversation => {
             const usernames = conversation.users.map(user => user.username)

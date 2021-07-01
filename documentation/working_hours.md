@@ -62,7 +62,7 @@ Goal for weeks 24-30 (7 weeks)
       AM: Group handling in frontend
       PM:
     Thu:
-      AM:
+      AM: Smaller components (button, toggle). Plan ahead
       PM:
 
   **Theme**: Build features, focus is on frontend  
@@ -102,5 +102,5 @@ Goal for weeks 24-30 (7 weeks)
 | 28.6. | 6.5 | Frontend css improvements |
 | 29.6. | 3 | Adding groups |
 | 30.6. | 2.5 | Switch between user and group by using sessionStorage |
-| 1.7. | 1045- | CSS tricks in sandbox |
+| 1.7.  | 2.5 | Smaller React components |
 | =     | 69.5      |               |
