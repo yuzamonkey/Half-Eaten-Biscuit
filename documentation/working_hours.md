@@ -59,6 +59,9 @@ Goal for weeks 24-30 (7 weeks)
       AM:
       PM: Build features: groups, profiles
     Wed:
+      AM: Group handling in frontend
+      PM:
+    Thu:
       AM:
       PM:
 
@@ -98,5 +101,6 @@ Goal for weeks 24-30 (7 weeks)
 | Week 26 ✅❌ |||   
 | 28.6. | 6.5 | Frontend css improvements |
 | 29.6. | 3 | Adding groups |
-| 30.6. | 0750- |  |
-| =     | 67      |               |
+| 30.6. | 2.5 | Switch between user and group by using sessionStorage |
+| 1.7. | 1045- | CSS tricks in sandbox |
+| =     | 69.5      |               |

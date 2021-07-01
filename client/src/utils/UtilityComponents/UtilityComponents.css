@@ -1,0 +1,32 @@
+.toggle-container {
+  height: 25px;
+  width: 50px;
+  position: relative;
+  border-radius: 25px;
+}
+
+.toggle-circle {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  position: absolute;
+  background-color: white;
+  transition: left 0.3s ease;
+  transform: scale(0.80);
+}
+
+.toggle-on {
+  background-color: rgb(0, 235, 0);
+}
+
+.toggle-off {
+  background-color: rgb(248, 0, 0);
+}
+
+.toggle-on-circle {
+  left: 0;
+}
+
+.toggle-off-circle {
+  left: 25px;
+}

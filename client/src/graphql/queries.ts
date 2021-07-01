@@ -6,7 +6,7 @@ export const ME = gql`
       id
       username
       jobQueries {
-        content, date
+        id, content, date
       },
       groups {
         id
