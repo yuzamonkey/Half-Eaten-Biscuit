@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/client';
 
 import '../Jobmarket.css'
 import { ALL_QUERIES } from '../../../../graphql/queries';
+import { Button } from '../../../../utils/UtilityComponents/UtilityComponents';
 
 const Jobqueries = () => {
   const result = useQuery(ALL_QUERIES)
@@ -20,6 +21,7 @@ const Jobqueries = () => {
     <div>
       <ul>
         {result.data.allJobqueries.map((q: any) => {
+          const contactText = `Contact ${q.user.username}`
           return (
             // <div className="card"> <li key={q.content}>{q.user.username}, {q.content}, {q.date}</li></div>
             <div className="card">
@@ -41,8 +43,10 @@ const Jobqueries = () => {
                 </div>
               </div>
               <div className="buttons-container">
-                <button className="card-button jq-contact-button" onClick={handleButtonPress}>Contact {q.user.username}</button>
-                <button className="card-button more-info-button" onClick={handleButtonPress}>More info</button>
+                <Button text={contactText} handleClick={handleButtonPress} />
+                <Button text="More info" handleClick={handleButtonPress} />
+                {/* <button className="card-button jq-contact-button" onClick={handleButtonPress}>Contact {q.user.username}</button>
+                <button className="card-button more-info-button" onClick={handleButtonPress}>More info</button> */}
               </div>
             </div>
           )

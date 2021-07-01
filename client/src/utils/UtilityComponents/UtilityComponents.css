@@ -30,3 +30,24 @@
 .toggle-off-circle {
   left: 25px;
 }
+
+.button-container {
+  margin: 10px;
+  
+  height: 30px;
+  width: fit-content;
+  min-width: 50px;
+  white-space: nowrap;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #ccd8db83;
+  border-radius: 30px;
+}
+
+.button-container:hover {
+  background-color: var(--grey);
+  cursor: pointer;
+}
