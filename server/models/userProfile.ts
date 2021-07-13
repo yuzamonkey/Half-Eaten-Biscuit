@@ -9,7 +9,10 @@ const userProfileSchema = new mongoose.Schema({
   },
   about: {
     type: String,
-    defaule: 'This is a user profile'
+    default: 'This is a user profile'
+  },
+  skills: {
+
   }
 })
 

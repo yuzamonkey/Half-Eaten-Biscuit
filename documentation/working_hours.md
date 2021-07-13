@@ -47,10 +47,10 @@ Goal for weeks 24-30 (7 weeks)
       AM: Deployment pipeline
       PM: Deployment pipeline. Backend tests do not pass in the pipeline. Connecting to undefined instead of mongodb
 
-  ### Week 26 ✅❌
+  ### Week 26 ❌
 
   **Theme**: Build more features, UI  
-  **Todo**: Groups, profiles. All basic features ready
+  **Todo**: Groups, profiles
 
     Mon: 
       AM: Improve UI structure (Dropdowns, mobile scaling etc.)
@@ -65,10 +65,18 @@ Goal for weeks 24-30 (7 weeks)
       AM: Smaller components (button, toggle). Plan ahead
       PM:
 
-  **Theme**: Build features, focus is on frontend  
-  **Todo**: 
-  ### Week 27 ✅❌
   ### Week 28 ✅❌
+
+  **Theme**: Throw up features
+  **Todo**: Profile/portfolio
+
+    Mon: 
+      AM: Plan profile skills
+      PM:
+    Tue:
+      AM: Figuring out how to navigate inside object
+      PM: Failing at it and figuring out other ways
+
   ### Week 29 ✅❌
   ### Week 30 ✅❌
 
@@ -98,9 +106,12 @@ Goal for weeks 24-30 (7 weeks)
 | 23.6. | 6 | Heroku deployment, how tf apollo testing |
 | 24.6. | 4 | Move to monorepo, fix heroku deployment, backend testing config and tests |
 | 25.6. | 5.5 | Deployment pipeline |
-| Week 26 ✅❌ |||   
+| Week 26 ❌ |||   
 | 28.6. | 6.5 | Frontend css improvements |
 | 29.6. | 3 | Adding groups |
 | 30.6. | 2.5 | Switch between user and group by using sessionStorage |
-| 1.7.  | 2.5, 1815-19 | Smaller React components |
-| =     | 69.5      |               |
+| 1.7.  | 3.5 | Smaller React components, create group from frontend |
+| Week 28 ❌ |||   
+| 12.7.  | 1.5 | Profile and skills planning |
+| 13.7.  | 5 | Failing at form navigation, some css improvements |
+| =     | 79.5      |               |

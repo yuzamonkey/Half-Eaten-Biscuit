@@ -28,18 +28,25 @@ const Jobqueries = () => {
               <div className="general-info-container">
                 <div className="image-and-name-container">
                   <div className="image-container">
-
                   </div>
                   <p><b>{q.user.username}</b> is looking for <br />
                     string ensemble</p>
 
                 </div>
-                <p>{q.content}</p>
+                {/* <p>{q.content}</p> */}
                 <div className="details-container">
-                  <p>250</p>
-                  <p>Helsinki</p>
-                  <p>16.8.2021</p>
-
+                  <div className="details-item">
+                    <p>Salary</p>
+                    <p className="details-value">250</p>
+                  </div>
+                  <div className="details-item">
+                    <p>Location</p>
+                    <p className="details-value">Helsinki</p>
+                  </div>
+                  <div className="details-item">
+                    <p>Schedule</p>
+                    <p className="details-value">16.8.2021</p>
+                  </div>
                 </div>
               </div>
               <div className="buttons-container">

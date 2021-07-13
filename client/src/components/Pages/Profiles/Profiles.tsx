@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import './Profiles.css'
 import { ALL_USERS, MY_ID } from '../../../graphql/queries';
 import { NEW_CONVERSATION } from '../../../graphql/mutations';
+import { Button } from '../../../utils/UtilityComponents/UtilityComponents';
 
 const Profiles = () => {
   const allUsersResult = useQuery(ALL_USERS)
@@ -27,7 +28,7 @@ const Profiles = () => {
   return (
     <div>
       <h1>Profiles</h1>
-      <b>Filters:</b> name <input></input>, group or individual, instrument, availability
+      <b>Filters:</b> name <input></input>, group or individual, instrument
       
       <div className="profiles-container">
         {allUsersResult.data.allUsers.map((u: any) => {
@@ -47,10 +48,10 @@ const Profiles = () => {
                   <p>violinist, saxophonist</p>
                 </div>
                 <div className="profiles-buttons-container">
-                  <button className="profiles-button to-profile-button" onClick={() => history.push(profileUrl)}>To profile</button>
+                  <Button text='To profile' handleClick={() => history.push(profileUrl)} />
                   {u.id !== myIdResult.data.me.id
-                    ? <button className="profiles-button profiles-contact-button" onClick={() => handleContactButtonPress(u.id)}>Contact {u.username}</button>
-                    : <button className="profiles-button disabled-button" disabled>Contact {u.username}</button>
+                    ? <Button text='Contact' handleClick={() => handleContactButtonPress(u.id)} />
+                    : null
                   }
                 </div>
               </div>
