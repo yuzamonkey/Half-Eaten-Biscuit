@@ -28,13 +28,13 @@ const authLink = setContext((_, { headers }) => {
 })
 
 const uri = process.env.NODE_ENV === 'development'
-  ? 'http://localhost:3001/graphql' //edit back to 3001 when using express!!
+  ? 'http://localhost:3001/graphql'
   : 'https://halfeatenbiscuit.herokuapp.com/graphql'
 
 const httpLink = new HttpLink({ uri: uri })
 
 const wsLink = new WebSocketLink({
-  uri: 'ws://localhost:4000/graphql',
+  uri: 'ws://localhost:3001/graphql',
   options: {
     reconnect: true
   }
