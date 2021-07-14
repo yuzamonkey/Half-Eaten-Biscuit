@@ -61,8 +61,6 @@ const resolvers: IResolvers = {
       const user = await User.findOne({ _id: args.id })
         .populate('jobQueries conversations groups profile')
       const group = await Group.findOne({ _id: args.id }).populate('users')
-      const result = user || group
-      console.log("RESULT", result)
       return user || group
     },
     allConversations: () => {

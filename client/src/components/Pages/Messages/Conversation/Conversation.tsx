@@ -19,6 +19,7 @@ const Conversation = ({ setShowContacts }: any) => {
     }
 
     const dataInStore = await client.readQuery({ query: FIND_CONVERSATION, variables: { id } })
+    //tähän cache hallintaa, tutki client.writeQuery
     console.log("DATA IN STORE", dataInStore)
     if (!includedIn(dataInStore.findConversation.messages, addedMessage)) {
       client.writeQuery({

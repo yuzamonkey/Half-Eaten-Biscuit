@@ -1,3 +1,4 @@
+"use strict";
 const { gql } = require('apollo-server');
 const typeDefs = gql `
   scalar Date
@@ -25,26 +26,50 @@ const typeDefs = gql `
     id: ID!
     username: String!
     passwordHash: String!
-    jobQueries: [Jobquery]
+    jobQueries: [Jobquery]!
+    conversations: [Conversation]!
+    profile: UserProfile!
+    groups: [Group]!
+  }
+
+  type Group {
+    id: ID!
+    name: String!
+    users: [User!]!
+    profile: GroupProfile!
+    jobQueries: [Jobquery]!
     conversations: [Conversation]!
   }
 
-  type Token {
-    value: String!
+  type UserProfile {
+    id: ID!
+    user: User!
+    about: String
   }
 
-  type Debug {
-    value: String
+  type GroupProfile {
+    id: ID!
+    group: Group!
+    about: String
   }
+
+  type Token {
+    value: String!,
+    id: ID!
+  }
+
+  union UserOrGroup = User | Group
 
   type Query {
     allJobqueries: [Jobquery]
-    allUsers: [User]
+    allUsers: [User]!
+    allGroups: [Group]!
     findJobqueries(content: String!): [Jobquery],
     findUser(id: ID!): User
+    findGroup(id: ID!): Group
+    findUserOrGroup(id: ID!): UserOrGroup
     allConversations: [Conversation]
     findConversation(id: ID!): Conversation
-    getDebugValues: Debug
     me: User,
   }
 
@@ -57,6 +82,13 @@ const typeDefs = gql `
       username: String!
       password: String!
     ): Token
+    editUserProfile(
+      about: String
+    ): UserProfile
+    createGroup(
+      name: String!,
+      users: [ID!]!
+    ): Group
     createJobquery(
       content: String!
     ): Jobquery
@@ -66,7 +98,11 @@ const typeDefs = gql `
     sendMessage(
       conversationId: ID!
       body: String!
-    ): Conversation
+    ): Message
+  }
+
+  type Subscription {
+    messageAdded: Message!
   }
 `;
 module.exports = typeDefs;
