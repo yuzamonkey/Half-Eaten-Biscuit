@@ -100,6 +100,10 @@ const typeDefs = gql`
       body: String!
     ): Conversation
   }
+
+  type Subscription {
+    messageAdded: Conversation!
+  }
 `
 
 module.exports = typeDefs

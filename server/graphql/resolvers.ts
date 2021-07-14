@@ -1,4 +1,4 @@
-import { AuthenticationError, IResolvers, UserInputError } from "apollo-server"
+import { AuthenticationError, IResolvers, UserInputError, PubSub } from "apollo-server"
 import { IConversation } from "../types/types"
 
 require('dotenv')
@@ -16,6 +16,8 @@ const { GraphQLScalarType } = require('graphql')
 const { Kind } = require('graphql/language')
 
 const JWT_SECRET = process.env.JWT_SECRET
+
+const pubsub = new PubSub()
 
 const resolvers: IResolvers = {
   Date: new GraphQLScalarType({
@@ -57,11 +59,11 @@ const resolvers: IResolvers = {
     },
     findUserOrGroup: async (_root, args) => {
       const user = await User.findOne({ _id: args.id })
-      .populate('jobQueries conversations groups profile')
+        .populate('jobQueries conversations groups profile')
       const group = await Group.findOne({ _id: args.id }).populate('users')
       const result = user || group
       console.log("RESULT", result)
-      return user|| group
+      return user || group
     },
     allConversations: () => {
       return Conversation.find({}).populate('users')
@@ -294,12 +296,19 @@ const resolvers: IResolvers = {
         const conversation = await Conversation.findOne({ _id: conversationId })
         conversation.messages = conversation.messages.concat(newMessage)
         const savedConversation = await conversation.save()
+        pubsub.publish('MESSAGE_ADDED', { messageAdded: savedConversation })
         return savedConversation
       } catch (error) {
         throw new UserInputError(error.message, {
           invalidArgs: args,
         })
       }
+    }
+  },
+
+  Subscription: {
+    messageAdded: {
+      subscribe: () => pubsub.asyncIterator(['MESSAGE_ADDED'])
     }
   }
 }
