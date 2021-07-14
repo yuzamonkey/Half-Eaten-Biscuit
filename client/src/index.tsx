@@ -2,12 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {
   ApolloClient,
+  ApolloProvider,
   HttpLink,
   InMemoryCache,
-  ApolloProvider
+  split
 } from '@apollo/client'
 
 import { setContext } from '@apollo/link-context';
+
+import { getMainDefinition } from '@apollo/client/utilities'
+import { WebSocketLink } from '@apollo/client/link/ws'
 
 import './index.css';
 import App from './App';
@@ -24,14 +28,34 @@ const authLink = setContext((_, { headers }) => {
 })
 
 const uri = process.env.NODE_ENV === 'development'
-  ? 'http://localhost:3001/graphql'
+  ? 'http://localhost:4000/graphql' //edit back to 3001 when using express!!
   : 'https://halfeatenbiscuit.herokuapp.com/graphql'
 
 const httpLink = new HttpLink({ uri: uri })
 
+const wsLink = new WebSocketLink({
+  uri: 'ws://localhost:4000/graphql',
+  options: {
+    reconnect: true
+  }
+})
+
+const splitLink = split(
+  ({ query }) => {
+    const definition = getMainDefinition(query)
+    return (
+      definition.kind === 'OperationDefinition' &&
+      definition.operation === 'subscription'
+    )
+  },
+  wsLink,
+  authLink.concat(httpLink),
+)
+
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link: authLink.concat(httpLink)
+  //link: authLink.concat(httpLink)
+  link: splitLink
 })
 
 ReactDOM.render(

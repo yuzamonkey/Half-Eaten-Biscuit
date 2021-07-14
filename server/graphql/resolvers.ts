@@ -295,9 +295,9 @@ const resolvers: IResolvers = {
 
         const conversation = await Conversation.findOne({ _id: conversationId })
         conversation.messages = conversation.messages.concat(newMessage)
-        const savedConversation = await conversation.save()
-        pubsub.publish('MESSAGE_ADDED', { messageAdded: savedConversation })
-        return savedConversation
+        await conversation.save()
+        pubsub.publish('MESSAGE_ADDED', { messageAdded: newMessage })
+        return newMessage
       } catch (error) {
         throw new UserInputError(error.message, {
           invalidArgs: args,

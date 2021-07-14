@@ -98,11 +98,11 @@ const typeDefs = gql`
     sendMessage(
       conversationId: ID!
       body: String!
-    ): Conversation
+    ): Message
   }
 
   type Subscription {
-    messageAdded: Conversation!
+    messageAdded: Message!
   }
 `
 

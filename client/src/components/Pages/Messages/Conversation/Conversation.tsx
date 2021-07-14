@@ -1,21 +1,56 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom';
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery, useMutation, useApolloClient, useSubscription } from '@apollo/client';
 
 import './Conversation.css'
 import { FIND_CONVERSATION, MY_ID } from '../../../../graphql/queries';
 import { SEND_MESSAGE } from '../../../../graphql/mutations';
+import { MESSAGE_ADDED } from '../../../../graphql/subscriptions';
 
 const Conversation = ({ setShowContacts }: any) => {
-  const [sendMessage] = useMutation(SEND_MESSAGE, {
-    onError: (error) => {
-      console.log("ERROR ON SENDING MESSAGE")
+  const { id }: any = useParams();
+  const client = useApolloClient()
+
+  const updateCacheWith = async (addedMessage) => {
+    console.log("UPDATE CACHE WITH MESSAGE", addedMessage)
+    const includedIn = (set, object) => {
+      console.log("INCLUDED IN SET", set, "OBJECT", object)
+      return set.map(message => message.id).includes(object.id)
+    }
+
+    const dataInStore = await client.readQuery({ query: FIND_CONVERSATION, variables: { id } })
+    console.log("DATA IN STORE", dataInStore)
+    if (!includedIn(dataInStore.findConversation.messages, addedMessage)) {
+      client.writeQuery({
+        query: FIND_CONVERSATION,
+        variables: { id },
+        data: { findConversation: dataInStore.findConversation.messages.concat(addedMessage) }
+      })
+    }
+  }
+
+  useSubscription(MESSAGE_ADDED, {
+    onSubscriptionData: ({ subscriptionData }) => {
+      console.log("Subscription data", subscriptionData)
+      const addedMessage = subscriptionData.data
+      console.log(addedMessage)
+      updateCacheWith(addedMessage)
     }
   })
-  const { id }: any = useParams();
+
+  const [sendMessage] = useMutation(SEND_MESSAGE, {
+    onError: (error) => {
+      console.log("ERROR ON SENDING MESSAGE", error)
+    },
+    // update: (store, response) => {
+    //   updateCacheWith(response.data.sendMessage.messages)
+    // }
+  })
+
   const conversationResult = useQuery(FIND_CONVERSATION, {
     variables: { id }
   })
+
   const myIdResult = useQuery(MY_ID)
 
   const [messageInput, setMessageInput] = useState('')
