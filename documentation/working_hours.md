@@ -76,6 +76,9 @@ Goal for weeks 24-30 (7 weeks)
     Tue:
       AM: Figuring out how to navigate inside object
       PM: Failing at it and figuring out other ways
+    Wed:
+      AM: Subscriptions
+      PM: 
 
   ### Week 29 ✅❌
   ### Week 30 ✅❌
@@ -113,5 +116,6 @@ Goal for weeks 24-30 (7 weeks)
 | 1.7.  | 3.5 | Smaller React components, create group from frontend |
 | Week 28 ❌ |||   
 | 12.7.  | 1.5 | Profile and skills planning |
-| 13.7.  | 5 | Failing at form navigation, some css improvements |
+| 13.7.  | 5 | Failing at form navigation, minor css improvements |
+| 14.7.  | 930- |  |
 | =     | 79.5      |               |
