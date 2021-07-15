@@ -12,16 +12,21 @@ const Conversation = ({ setShowContacts }: any) => {
   const client = useApolloClient()
 
   const updateCacheWith = async (addedMessage) => {
-    console.log("UPDATE CACHE WITH MESSAGE", addedMessage)
     const includedIn = (set, object) => {
-      console.log("INCLUDED IN SET", set, "OBJECT", object)
-      return set.map(message => message.id).includes(object.id)
+      const isIncluded = set.map(message => message.id).includes(object.id)
+      return isIncluded
     }
 
-    const dataInStore = await client.readQuery({ query: FIND_CONVERSATION, variables: { id } })
-    //tähän cache hallintaa, tutki client.writeQuery
+    const dataInStore = await client.readQuery({ 
+      query: FIND_CONVERSATION, 
+      variables: { id }
+    })
     console.log("DATA IN STORE", dataInStore)
-    if (!includedIn(dataInStore.findConversation.messages, addedMessage)) {
+    if (dataInStore === null) {
+      console.log("NO DATA IN STORE")
+      // BUG! Continue from here. After refreshing the page, dataInStore returns null even if the data is in the cache.
+    }
+    else if (!includedIn(dataInStore.findConversation.messages, addedMessage)) {
       client.writeQuery({
         query: FIND_CONVERSATION,
         variables: { id },
@@ -32,9 +37,7 @@ const Conversation = ({ setShowContacts }: any) => {
 
   useSubscription(MESSAGE_ADDED, {
     onSubscriptionData: ({ subscriptionData }) => {
-      console.log("Subscription data", subscriptionData)
       const addedMessage = subscriptionData.data
-      console.log(addedMessage)
       updateCacheWith(addedMessage)
     }
   })
@@ -44,7 +47,7 @@ const Conversation = ({ setShowContacts }: any) => {
       console.log("ERROR ON SENDING MESSAGE", error)
     },
     // update: (store, response) => {
-    //   updateCacheWith(response.data.sendMessage.messages)
+    //   updateCacheWith(response.data.sendMessage)
     // }
   })
 
@@ -66,10 +69,9 @@ const Conversation = ({ setShowContacts }: any) => {
 
   const myId = myIdResult.data.me.id
 
-  const handleSendMessage = (event) => {
+  const handleSendMessage = async (event) => {
     event.preventDefault()
-    console.log("HANDLE SEND MESSAGE CALLED", messageInput)
-    sendMessage({ variables: { id: conversationId, body: messageInput } })
+    await sendMessage({ variables: { id: conversationId, body: messageInput } })
     setMessageInput('')
   }
 

@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const ME = gql`
-  query {
+  query me{
     me {
       id
       username
@@ -28,7 +28,7 @@ export const FIND_USER = gql`
 `
 
 export const FIND_GROUP = gql`
-  query ($id: ID!) {
+  query findGroup($id: ID!) {
     findGroup(id: $id) {
       name
     }
@@ -36,7 +36,7 @@ export const FIND_GROUP = gql`
 `
 
 export const FIND_USER_OR_GROUP = gql`
-  query ($id: ID!) {
+  query findUserOrGroup($id: ID!) {
     findUserOrGroup(id: $id) {
         ... on User {
         id,
@@ -52,7 +52,7 @@ export const FIND_USER_OR_GROUP = gql`
 
 
 export const MY_ID = gql`
-  query {
+  query myId{
     me {
       id
     }
@@ -60,7 +60,7 @@ export const MY_ID = gql`
 `
 
 export const CONVERSATION_INFOS = gql`
-  query {
+  query conversationInfos{
     me {
       conversations {
         id,
@@ -73,7 +73,7 @@ export const CONVERSATION_INFOS = gql`
 `
 
 export const FIND_CONVERSATION = gql`
-  query ($id: ID!) {
+  query findConversation($id: ID!) {
     findConversation(id: $id) {
       id, 
       users {

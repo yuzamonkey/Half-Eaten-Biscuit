@@ -12,16 +12,18 @@ const MessageNavigation = ({setShowContacts}: any) => {
     return <div>Loading...</div>
   }
 
+  
   const conversations = result.data.me.conversations
+  const handleFilterChange = () => {}
 
   return (
     <nav className="msg-navigation">
       <div className="msg-nav-container">
-        <input value="Search from conversations"></input>
+        <input value="Search from conversations" onChange={handleFilterChange}></input>
         <ul className="msg-nav-menu">
           {conversations.map(conversation => {
             const usernames = conversation.users.map(user => user.username)
-            const linkTo = `../messages/${conversation.id}`
+            const linkTo = `/messages/${conversation.id}`
             return (
               <li className="msg-nav-item" key={conversation.id}>
                 <NavLink exact to={linkTo} activeClassName="msg-active" className="msg-nav-links" onClick={() => setShowContacts(false)}>

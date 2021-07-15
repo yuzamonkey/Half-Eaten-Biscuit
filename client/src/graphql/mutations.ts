@@ -35,6 +35,7 @@ export const NEW_CONVERSATION = gql`
 export const SEND_MESSAGE = gql`
   mutation sendMessage($id: ID!, $body: String!) {
     sendMessage(conversationId: $id, body: $body) {
+      id, 
       body
     }
 }

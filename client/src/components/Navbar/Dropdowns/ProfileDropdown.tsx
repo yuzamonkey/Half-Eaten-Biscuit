@@ -18,7 +18,6 @@ const ProfileDropdown = ({ show, setShow }: any) => {
     findUserOrGroup({ variables: { id: sessionId } })
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  console.log("DATA", data)
 
   const history = useHistory()
 
