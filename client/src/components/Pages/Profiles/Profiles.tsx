@@ -32,9 +32,9 @@ const Profiles = () => {
       
       <div className="profiles-container">
         {allUsersResult.data.allUsers.map((u: any) => {
-          const profileUrl = `/profile/${u.id}`
+          const profileUrl = `/profiles/${u.id}`
           return (
-            <div className="profile-container">
+            <div className="profile-container" key={u.id}>
               <div className="upper-container">
                 <div className="profile-image-container">
                   <div className="profile-image">

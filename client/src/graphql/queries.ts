@@ -91,9 +91,10 @@ export const FIND_CONVERSATION = gql`
   }
 `
 
-export const ALL_QUERIES = gql`
+export const ALL_JOBQUERIES = gql`
   query {
     allJobqueries  {
+      id
       content
       date
       user {

@@ -80,8 +80,7 @@ Goal for weeks 24-30 (7 weeks)
       AM: Subscriptions on messaging
       PM: Figuring out subscriptions and express
     Thu: 
-    Heroku push
-      AM:
+      AM: Heroku push, try to fix messaging refresh cache problems
       PM:
 
   ### Week 29 ✅❌
@@ -122,5 +121,5 @@ Goal for weeks 24-30 (7 weeks)
 | 12.7.  | 1.5 | Profile and skills planning |
 | 13.7.  | 5 | Failing at form navigation, minor css improvements |
 | 14.7.  | 4 | Subscriptions on messaging |
-| 15.7.  | 0900- |  |
+| 15.7.  | 0900-1030 1115- |  |
 | =     | 83.5      |               |

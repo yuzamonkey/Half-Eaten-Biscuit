@@ -16,7 +16,7 @@ const ProfileDropdown = ({ show, setShow }: any) => {
   const [findUserOrGroup, { loading, data }] = useLazyQuery(FIND_USER_OR_GROUP)
   useEffect(() => {
     findUserOrGroup({ variables: { id: sessionId } })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const history = useHistory()
@@ -73,7 +73,16 @@ const ProfileDropdown = ({ show, setShow }: any) => {
       <div className="dropdown-link" onClick={handleMeClick}><b>Me</b></div>
       <div className="dropdown-link" onClick={handleNewGroupClick}><b>My groups +</b></div>
       <NavLink to="/newgroup" activeClassName="active">New group</NavLink>
-      {me.data.me.groups.map(group => <div className="dropdown-link" onClick={() => handleProfileChange(group.id)}>{group.name}</div>)}
+      {me.data.me.groups.map(group => {
+        return (
+          <div
+            className="dropdown-link"
+            onClick={() => handleProfileChange(group.id)}
+            key={group.id}>
+            {group.name}
+          </div>
+        )
+      })}
       <div className="dropdown-link" onClick={handleSettingsClick}>Settings</div>
       <div className="dropdown-link" onClick={handleLogout} >Log out</div>
     </div>

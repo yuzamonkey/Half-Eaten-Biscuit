@@ -42,8 +42,8 @@ const App = () => {
             <Switch>
               <Route path="/messages" component={Messages} />
               <Route path="/jobmarket" component={Jobmarket} />
+              <Route path="/profiles/:id" component={Profile} />
               <Route path="/profiles" component={Profiles} />
-              <Route path="/profile/:id" component={Profile} />
               <Route path="/settings" component={Settings} />
               <Route path="/newgroup" component={NewGroup} />
               <Route path="/" component={Welcome} />

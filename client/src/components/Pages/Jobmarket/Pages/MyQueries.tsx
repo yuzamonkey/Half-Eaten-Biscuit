@@ -7,7 +7,6 @@ const MyQueries = () => {
   const result = useQuery(ME)
 
   const [visible, setVisible] = useState(false)
-  console.log(visible)
 
   const handleToggleClick = (id) => {
     console.log("TOGGLE CLICKED", id)
@@ -18,14 +17,12 @@ const MyQueries = () => {
     return <div>loading...</div>
   }
 
-  console.log("RESULT MY QUERIES \n", result)
-
   return (
     <div>
       <h3>My queries</h3>
       {result.data.me.jobQueries.map((q: any) => {
         return (
-          <div>
+          <div key={q.id}>
             <Toggle state={visible} toggleClick={() => handleToggleClick(q.id)}/>
             <p key={q.id}>{q.content}</p>
           </div>
