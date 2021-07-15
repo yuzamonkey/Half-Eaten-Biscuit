@@ -15,6 +15,9 @@ const frontendRoutes = [
   '/jobmarket/queries',
   '/jobmarket/sendquery',
   '/jobmarket/myqueries',
+  '/profile/:id',
+  '/profiles',
+  '/settings'
 ]
 frontendRoutes.forEach(route => app.use(route, express.static("public")))
 

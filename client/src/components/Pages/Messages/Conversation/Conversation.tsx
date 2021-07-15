@@ -11,6 +11,10 @@ const Conversation = ({ setShowContacts }: any) => {
   const { id }: any = useParams();
   const client = useApolloClient()
 
+  const conversationResult = useQuery(FIND_CONVERSATION, {
+    variables: { id }
+  })
+
   const updateCacheWith = async (addedMessage) => {
     const includedIn = (set, object) => {
       const isIncluded = set.map(message => message.id).includes(object.id)
@@ -49,10 +53,6 @@ const Conversation = ({ setShowContacts }: any) => {
     // update: (store, response) => {
     //   updateCacheWith(response.data.sendMessage)
     // }
-  })
-
-  const conversationResult = useQuery(FIND_CONVERSATION, {
-    variables: { id }
   })
 
   const myIdResult = useQuery(MY_ID)
