@@ -1,19 +1,58 @@
 import { gql } from '@apollo/client';
 
 export const ME = gql`
-  query {
+  query me{
     me {
       id
       username
       jobQueries {
-        content, date
+        id, content, date
+      },
+      groups {
+        id
+        name
       }
     }
   }
 `
 
+export const FIND_USER = gql`
+  query findUser($id: ID!){
+    findUser (id: $id) {
+      username,
+      profile {
+        about
+      }
+    }
+  }
+`
+
+export const FIND_GROUP = gql`
+  query findGroup($id: ID!) {
+    findGroup(id: $id) {
+      name
+    }
+  }
+`
+
+export const FIND_USER_OR_GROUP = gql`
+  query findUserOrGroup($id: ID!) {
+    findUserOrGroup(id: $id) {
+        ... on User {
+        id,
+        username
+      }
+      ... on Group {
+        id,
+        name
+      }
+    }
+  }
+`
+
+
 export const MY_ID = gql`
-  query {
+  query myId{
     me {
       id
     }
@@ -21,7 +60,7 @@ export const MY_ID = gql`
 `
 
 export const CONVERSATION_INFOS = gql`
-  query {
+  query conversationInfos{
     me {
       conversations {
         id,
@@ -34,7 +73,7 @@ export const CONVERSATION_INFOS = gql`
 `
 
 export const FIND_CONVERSATION = gql`
-  query ($id: ID!) {
+  query findConversation($id: ID!) {
     findConversation(id: $id) {
       id, 
       users {
@@ -60,14 +99,6 @@ export const ALL_QUERIES = gql`
       user {
         username
       }
-    }
-  }
-`
-
-export const FIND_USER = gql`
-  query findUser($id: ID!){
-    findUser (id: $id) {
-      username
     }
   }
 `

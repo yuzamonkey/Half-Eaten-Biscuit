@@ -30,8 +30,9 @@ const createConfig = (context = createAuthorizationContext()) => {
         typeDefs,
         resolvers,
         context,
-        playground: true
+        playground: true,
         //playground: process.env.NODE_ENV !== 'production' ? true : false
+        introspection: true //might fix playground error on production website
     };
 };
 exports.createConfig = createConfig;

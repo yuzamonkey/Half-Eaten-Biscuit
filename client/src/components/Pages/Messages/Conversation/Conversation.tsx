@@ -1,21 +1,60 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom';
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery, useMutation, useApolloClient, useSubscription } from '@apollo/client';
 
 import './Conversation.css'
 import { FIND_CONVERSATION, MY_ID } from '../../../../graphql/queries';
 import { SEND_MESSAGE } from '../../../../graphql/mutations';
+import { MESSAGE_ADDED } from '../../../../graphql/subscriptions';
 
 const Conversation = ({ setShowContacts }: any) => {
-  const [sendMessage] = useMutation(SEND_MESSAGE, {
-    onError: (error) => {
-      console.log("ERROR ON SENDING MESSAGE")
+  const { id }: any = useParams();
+  const client = useApolloClient()
+
+  const updateCacheWith = async (addedMessage) => {
+    const includedIn = (set, object) => {
+      const isIncluded = set.map(message => message.id).includes(object.id)
+      return isIncluded
+    }
+
+    const dataInStore = await client.readQuery({ 
+      query: FIND_CONVERSATION, 
+      variables: { id }
+    })
+    console.log("DATA IN STORE", dataInStore)
+    if (dataInStore === null) {
+      console.log("NO DATA IN STORE")
+      // BUG! Continue from here. After refreshing the page, dataInStore returns null even if the data is in the cache.
+    }
+    else if (!includedIn(dataInStore.findConversation.messages, addedMessage)) {
+      client.writeQuery({
+        query: FIND_CONVERSATION,
+        variables: { id },
+        data: { findConversation: dataInStore.findConversation.messages.concat(addedMessage) }
+      })
+    }
+  }
+
+  useSubscription(MESSAGE_ADDED, {
+    onSubscriptionData: ({ subscriptionData }) => {
+      const addedMessage = subscriptionData.data
+      updateCacheWith(addedMessage)
     }
   })
-  const { id }: any = useParams();
+
+  const [sendMessage] = useMutation(SEND_MESSAGE, {
+    onError: (error) => {
+      console.log("ERROR ON SENDING MESSAGE", error)
+    },
+    // update: (store, response) => {
+    //   updateCacheWith(response.data.sendMessage)
+    // }
+  })
+
   const conversationResult = useQuery(FIND_CONVERSATION, {
     variables: { id }
   })
+
   const myIdResult = useQuery(MY_ID)
 
   const [messageInput, setMessageInput] = useState('')
@@ -30,10 +69,9 @@ const Conversation = ({ setShowContacts }: any) => {
 
   const myId = myIdResult.data.me.id
 
-  const handleSendMessage = (event) => {
+  const handleSendMessage = async (event) => {
     event.preventDefault()
-    console.log("HANDLE SEND MESSAGE CALLED", messageInput)
-    sendMessage({ variables: { id: conversationId, body: messageInput } })
+    await sendMessage({ variables: { id: conversationId, body: messageInput } })
     setMessageInput('')
   }
 

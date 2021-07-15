@@ -3,7 +3,8 @@ import { gql } from '@apollo/client';
 export const LOGIN = gql`
   mutation login($username: String!, $password: String!) {
     login(username: $username, password: $password)  {
-      value
+      value, 
+      id
     }
   }
 `
@@ -34,7 +35,16 @@ export const NEW_CONVERSATION = gql`
 export const SEND_MESSAGE = gql`
   mutation sendMessage($id: ID!, $body: String!) {
     sendMessage(conversationId: $id, body: $body) {
-      messages {body}
+      id, 
+      body
     }
 }
+`
+
+export const CREATE_GROUP = gql`
+  mutation createGroup($name: String!, $users: [ID!]!){
+    createGroup(name: $name, users: $users) {
+      name
+    }
+  }
 `

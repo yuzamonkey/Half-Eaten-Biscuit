@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useMutation } from '@apollo/client'
 import { LOGIN } from '../../../graphql/mutations'
 import { useHistory } from 'react-router-dom'
-import { TOKEN_NAME } from '../../../utils/constants'
+import { SESSION_TOKEN, SIGN_IN_TOKEN } from '../../../utils/constants'
 
 interface SignInProps {
   setToken: any;
@@ -24,8 +24,10 @@ const SignIn = ({ setToken }: SignInProps) => {
     if (result.data) {
       console.log("RESULT DATA USE EFFECT", result.data)
       const token = result.data.login.value
+      const id = result.data.login.id
       setToken(token)
-      localStorage.setItem(TOKEN_NAME, token)
+      localStorage.setItem(SIGN_IN_TOKEN, token)
+      sessionStorage.setItem(SESSION_TOKEN, id)
       history.push('/')
     }
   }, [result.data]) // eslint-disable-line

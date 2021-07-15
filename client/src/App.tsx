@@ -11,13 +11,14 @@ import SignUp from "./components/Pages/Registrations/SignUp";
 import Home from "./components/Pages/Home/Home";
 import Welcome from "./components/Pages/Welcome/Welcome";
 import Settings from "./components/Pages/Settings/Settings";
+import NewGroup from "./components/Pages/Profiles/NewGroup";
 
 import './App.css';
-import { TOKEN_NAME } from "./utils/constants";
+import { SIGN_IN_TOKEN } from "./utils/constants";
 import Profile from "./components/Pages/Profiles/Profile/Profile";
 
 const App = () => {
-  const localStorageItem = localStorage.getItem(TOKEN_NAME)
+  const localStorageItem = localStorage.getItem(SIGN_IN_TOKEN)
   const [token, setToken] = useState(localStorageItem);
 
   return (
@@ -44,7 +45,8 @@ const App = () => {
               <Route path="/profiles" component={Profiles} />
               <Route path="/profile/:id" component={Profile} />
               <Route path="/settings" component={Settings} />
-              <Route path="/" component={() => <Welcome />} />
+              <Route path="/newgroup" component={NewGroup} />
+              <Route path="/" component={Welcome} />
             </Switch>
           </div>
         </>

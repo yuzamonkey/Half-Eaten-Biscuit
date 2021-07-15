@@ -65,34 +65,38 @@ const Navbar = () => {
             </li>
 
             {/* Dropdowns */}
-            <li className="nav-item">
+            <li className="nav-item dropdown-container">
               <div
                 onClick={handleNotificationDrop}
                 tabIndex={0}
-                className="nav-links dropdown-container">
+                className="nav-links">
                 {/* Notifications ▼ */}
                 <i className="fa fa-bell"> ▿</i>
-                {showNotification && <NotificationsDropdown />}
               </div>
+              <NotificationsDropdown
+                show={showNotification}
+                setShow={setShowNotifications} />
             </li>
 
-            <li className="nav-item">
-              <div
-                onClick={handleProfileDrop}
-                tabIndex={0}
-                className="nav-links dropdown-container">
-                {/* Me ▼ */}
-                <i className="fa fa-user"> ▿</i>
-                {showProfileOptionsDropdown && <ProfileOptionsDropdown />}
-              </div>
-            </li>
+              <li className="nav-item dropdown-container">
+                <div
+                  onClick={handleProfileDrop}
+                  tabIndex={0}
+                  className="nav-links">
+                  <i className="fa fa-user"> ▿</i>
+                </div>
+                <ProfileOptionsDropdown
+                  show={showProfileOptionsDropdown}
+                  setShow={setShowProfileOptionsDropdown}
+                />
+              </li>
 
           </ul>
         </div>
 
       </nav>
     </>
-  );
+      );
 }
 
-export default Navbar;
+      export default Navbar;

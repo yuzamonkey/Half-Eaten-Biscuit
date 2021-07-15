@@ -2,7 +2,8 @@ export { };
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 
-const schema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
+  //firstname, lastname, email
   username: {
     type: String,
     required: true,
@@ -14,6 +15,7 @@ const schema = new mongoose.Schema({
     required: true,
     minlength: 3
   },
+
   jobQueries: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Jobquery'
@@ -21,10 +23,19 @@ const schema = new mongoose.Schema({
   conversations: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Conversation'
-  }]
+  }],
+  groups: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Group'
+  }],
+
+  profile: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'UserProfile'
+  },
 })
 
-schema.set('toJSON', {
+userSchema.set('toJSON', {
   transform: (_document: any, returnedObject: any) => {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
@@ -34,7 +45,7 @@ schema.set('toJSON', {
   }
 })
 
-schema.plugin(uniqueValidator)
+userSchema.plugin(uniqueValidator)
 
-const User = mongoose.model('User', schema)
+const User = mongoose.model('User', userSchema)
 module.exports = User

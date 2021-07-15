@@ -9,8 +9,8 @@ const Home = () => {
         <div className="title-and-links">
           <h1 className="title">Hey freelancer, <br></br>you are needed!</h1>
           <div className="links">
-            <a href="../signin" className="link signin">Sign In</a>
-            <a href="../signup" className="link signup">Sign Up</a>
+            <a href="/signin" className="link signin">Sign In</a>
+            <a href="/signup" className="link signup">Sign Up</a>
           </div>
         </div>
       </div>

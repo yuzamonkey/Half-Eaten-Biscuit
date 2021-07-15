@@ -13,12 +13,19 @@ const Profile = () => {
     return <div>loading...</div>
   }
 
-  console.log(result)
+  console.log("PROFILE RESULT", result)
+
   return (
-  <div>
-    <h3>Profile</h3>
-    {result.data.findUser.username}
-  </div>
+    <div>
+      {result.data
+        ? (<div>
+          <h3>{result.data.findUser.username}'s profile</h3>
+          {result.data.findUser.profile.about}
+        </div>)
+        : (<div><b>No profile for dis guy:</b> {id}</div>)
+      }
+
+    </div>
   )
 }
 

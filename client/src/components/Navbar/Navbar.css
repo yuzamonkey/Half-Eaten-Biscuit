@@ -61,7 +61,6 @@
   margin: 0 3px; 
   height: calc(var(--navbar-height) - 20px);
   min-width: fit-content;
-  /* Space between rows. 1.6 (unitless) is recommended */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -91,7 +90,7 @@
 }
 
 .fa {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
 }
 
 @media screen and (max-width: 960px) {
@@ -99,7 +98,7 @@
     color: var(--bg-white);
     display: flex;
     width: fit-content;
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     cursor: pointer;
   }
 

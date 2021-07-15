@@ -23,6 +23,12 @@ export interface IUser {
   passwordHash: String
   jobQueries: [IJobquery]
   conversations: [IConversation]
+  profile: UserProfile
+}
+
+export interface UserProfile {
+  _id: Object
+  
 }
 
 export interface IToken {
