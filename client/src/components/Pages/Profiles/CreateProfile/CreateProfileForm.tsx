@@ -3,7 +3,7 @@ import About from "./Views/About"
 import Skills from "./Views/Skills"
 import Image from "./Views/Image"
 
-import './ProfileEditForm.css'
+import './CreateProfileForm.css'
 
 /*
   Main views:
@@ -12,9 +12,14 @@ import './ProfileEditForm.css'
     Image
 */
 
-const ProfileEditForm = () => {
+const CreateProfileForm = () => {
   const [currentView, setCurrentView] = useState(0)
-  const views = [<Skills />, <About />, <Image />]
+  const [aboutText, setAboutText] = useState('')
+  const views = [
+    <Skills />,
+    <About text={aboutText} setText={setAboutText} />,
+    <Image />
+  ]
 
   const handlePrevPress = () => {
     currentView <= (views.length - 1) && currentView > 0 && setCurrentView(currentView - 1)
@@ -39,4 +44,4 @@ const ProfileEditForm = () => {
   )
 }
 
-export default ProfileEditForm
+export default CreateProfileForm

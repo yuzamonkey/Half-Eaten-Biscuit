@@ -125,5 +125,5 @@ Goal for weeks 24-30 (7 weeks)
 | 13.7.  | 5 | Failing at form navigation, minor css improvements |
 | 14.7.  | 4 | Subscriptions on messaging |
 | 15.7.  | 2.5 | Refresh messaging cache problemsolving (still bugs), searchbar css |
-| 16.7.  | 915- |  |
+| 16.7.  | 915-1045 |  |
 | =     | 86.0      |               |
