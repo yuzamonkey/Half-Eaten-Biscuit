@@ -2,13 +2,12 @@
 
 ## Do ⏺
 What have not been initialized:
-  - Subscriptions
   - Profiles
 
 ## Fix ❌
 - Testing in deployment pipeline on GitHub
 - Remove hover-effects in mobile view
-- Refreshing profiles-page and messages gives error. Might be express issue
+- (fixed?) Refreshing profiles-page and messages gives error. Might be express issue
 
 ## Fixed ✅
 - Figure out a way for routes to be active when refreshing on published site. Now refresh makes navlinks not active and clicking them messes up the relative url path

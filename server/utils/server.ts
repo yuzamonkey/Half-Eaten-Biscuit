@@ -17,7 +17,8 @@ const frontendRoutes = [
   '/jobmarket/myqueries',
   '/profiles',
   '/profiles/:id',
-  '/settings'
+  '/settings',
+  '/newgroup'
 ]
 frontendRoutes.forEach(route => app.use(route, express.static("public")))
 

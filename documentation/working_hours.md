@@ -82,6 +82,9 @@ Goal for weeks 24-30 (7 weeks)
     Thu: 
       AM: Heroku push, try to fix messaging refresh cache problems
       PM:
+    Fri:
+      AM:
+      PM:
 
   ### Week 29 ✅❌
   ### Week 30 ✅❌
@@ -102,7 +105,7 @@ Goal for weeks 24-30 (7 weeks)
 | 13.6. | 0.5 (=17) | Backend structure planning |
 | Week 24 ✅ |||   
 | 14.6. | 5 | GraphQL init, login |
-| 15.6. | 5 | Navbar rearrange, dropdowns, simple homepage  |
+| 15.6. | 5 | Navbar rearrange, dropdowns, simple homepage |
 | 17.6. | 5 | Sign in, jobqueries, profiles-page css |
 | 18.6. | 5 | Switch repository from sandbox, Backend TypeScript init, planning of messaging implementation |
 | 19.6. | 5 | Implementing messaging front and backend |
@@ -121,5 +124,6 @@ Goal for weeks 24-30 (7 weeks)
 | 12.7.  | 1.5 | Profile and skills planning |
 | 13.7.  | 5 | Failing at form navigation, minor css improvements |
 | 14.7.  | 4 | Subscriptions on messaging |
-| 15.7.  | 0900-1030 1115- |  |
-| =     | 83.5      |               |
+| 15.7.  | 2.5 | Refresh messaging cache problemsolving (still bugs), searchbar css |
+| 16.7.  | 915- |  |
+| =     | 86.0      |               |

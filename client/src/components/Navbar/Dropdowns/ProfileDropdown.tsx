@@ -37,7 +37,7 @@ const ProfileDropdown = ({ show, setShow }: any) => {
   }
 
   const handleProfileClick = () => {
-    history.push(`/profile/${data.findUserOrGroup.id}`)
+    history.push(`/profiles/${data.findUserOrGroup.id}`)
     setShow(false)
   }
 
