@@ -16,6 +16,7 @@ import NewGroup from "./components/Pages/Profiles/NewGroup";
 import './App.css';
 import { SIGN_IN_TOKEN } from "./utils/constants";
 import Profile from "./components/Pages/Profiles/Profile/Profile";
+import ProfileEdit from "./components/Pages/Profiles/ProfileEdit/ProfileEdit";
 
 const App = () => {
   const localStorageItem = localStorage.getItem(SIGN_IN_TOKEN)
@@ -46,6 +47,7 @@ const App = () => {
               <Route path="/profiles" component={Profiles} />
               <Route path="/settings" component={Settings} />
               <Route path="/newgroup" component={NewGroup} />
+              <Route path="/editprofile" component={ProfileEdit} />
               <Route path="/" component={Welcome} />
             </Switch>
           </div>
