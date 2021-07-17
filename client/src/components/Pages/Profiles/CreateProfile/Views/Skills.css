@@ -1,0 +1,10 @@
+.skill-container {
+  border: 1px solid var(--bg-grey);
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5px;
+}
+
+.skill-container:hover {
+  background-color: var(--grey);
+}

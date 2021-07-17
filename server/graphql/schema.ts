@@ -6,7 +6,7 @@ const typeDefs = gql`
   type Category {
     id: ID!
     name: String!
-    path: String!
+    parent: Category
   }
 
   type Message {
@@ -108,7 +108,7 @@ const typeDefs = gql`
     ): Message
     addCategory(
       name: String!
-      path: String!
+      parent: String
     ): Category
   }
 

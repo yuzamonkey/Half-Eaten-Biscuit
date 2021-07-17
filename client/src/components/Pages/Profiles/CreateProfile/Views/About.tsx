@@ -1,7 +1,7 @@
 const About = ({text, setText}: any) => {
   return (
     <div>
-      <h3>About mon</h3>
+      <h3>About</h3>
       <textarea 
       value={text} 
       onChange={e => setText(e.target.value)}

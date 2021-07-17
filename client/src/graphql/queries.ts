@@ -121,7 +121,9 @@ export const ALL_CATEGORIES = gql`
     allCategories {
       id
       name
-      path
+      parent {
+        name
+      }
     }
   }
 `

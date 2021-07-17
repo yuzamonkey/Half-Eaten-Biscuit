@@ -4,7 +4,9 @@ import { IConversation } from "../types/types"
 require('dotenv')
 const bcrypt = require('bcrypt')
 
-const Category = require('../models/category')
+//const MaterializedCategory = require('../models/materializedCategory')
+const ParentCategory = require('../models/parentCategory')
+
 const Jobquery = require('../models/jobquery')
 const User = require('../models/user')
 const Conversation = require('../models/conversation')
@@ -76,8 +78,9 @@ const resolvers: IResolvers = {
         })
     },
     allCategories: () => {
-      console.log("ALL CATEGORIES QUERIED")
-      return Category.find({})
+      //console.log("ALL CATEGORIES QUERIED")
+      //return MaterializedCategory.find({})
+      return ParentCategory.find({}).populate('parent')
     },
     me: (_root, _args, context) => {
       //return context.currentUser
@@ -104,11 +107,16 @@ const resolvers: IResolvers = {
   Mutation: {
     addCategory: async (_root, args) => {
       const name = args.name
-      const path = args.path
-      console.log("C:", name, "P:", path)
-      const newCategory = new Category({
+      const parentName = args.parent
+
+      console.log("NAME", name, "PARENT", parentName)
+
+      const parentObj = await ParentCategory.findOne({ name: parentName })
+      console.log("PARENT", parentObj)
+
+      const newCategory = new ParentCategory({
         name: name,
-        path: path
+        parent: parentObj
       })
       try {
         const savedCategory = await newCategory.save()
@@ -119,6 +127,26 @@ const resolvers: IResolvers = {
           invalidArgs: args,
         })
       }
+
+
+      /*
+            const name = args.name
+            const path = args.path
+            console.log("C:", name, "P:", path)
+            const newCategory = new MaterializedCategory({
+              name: name,
+              path: path
+            })
+            try {
+              const savedCategory = await newCategory.save()
+              return savedCategory
+            } catch (error) {
+              console.log("ERROR ON ADD CATEGORY")
+              throw new UserInputError(error.message, {
+                invalidArgs: args,
+              })
+            }
+      */
     },
     createUser: async (_root, args) => {
       const username = args.username
