@@ -3,6 +3,12 @@ const { gql } = require('apollo-server')
 const typeDefs = gql`
   scalar Date
 
+  type Category {
+    id: ID!
+    name: String!
+    path: String!
+  }
+
   type Message {
     id: ID!
     body: String
@@ -70,6 +76,7 @@ const typeDefs = gql`
     findUserOrGroup(id: ID!): UserOrGroup
     allConversations: [Conversation]
     findConversation(id: ID!): Conversation
+    allCategories: [Category]
     me: User,
   }
 
@@ -99,6 +106,10 @@ const typeDefs = gql`
       conversationId: ID!
       body: String!
     ): Message
+    addCategory(
+      name: String!
+      path: String!
+    ): Category
   }
 
   type Subscription {

@@ -7,6 +7,7 @@ What have not been initialized:
 ## Fix ❌
 - Testing in deployment pipeline on GitHub
 - Remove hover-effects in mobile view
+- Cache problems in messaging after page refresh
 - (fixed?) Refreshing profiles-page and messages gives error. Might be express issue
 
 ## Fixed ✅

@@ -4,6 +4,7 @@ import { IConversation } from "../types/types"
 require('dotenv')
 const bcrypt = require('bcrypt')
 
+const Category = require('../models/category')
 const Jobquery = require('../models/jobquery')
 const User = require('../models/user')
 const Conversation = require('../models/conversation')
@@ -74,6 +75,10 @@ const resolvers: IResolvers = {
           populate: { path: 'sender' }
         })
     },
+    allCategories: () => {
+      console.log("ALL CATEGORIES QUERIED")
+      return Category.find({})
+    },
     me: (_root, _args, context) => {
       //return context.currentUser
       return User.findOne({ _id: context.currentUser._id })
@@ -97,6 +102,24 @@ const resolvers: IResolvers = {
     }
   },
   Mutation: {
+    addCategory: async (_root, args) => {
+      const name = args.name
+      const path = args.path
+      console.log("C:", name, "P:", path)
+      const newCategory = new Category({
+        name: name,
+        path: path
+      })
+      try {
+        const savedCategory = await newCategory.save()
+        return savedCategory
+      } catch (error) {
+        console.log("ERROR ON ADD CATEGORY")
+        throw new UserInputError(error.message, {
+          invalidArgs: args,
+        })
+      }
+    },
     createUser: async (_root, args) => {
       const username = args.username
 

@@ -29,6 +29,7 @@ const Conversation = ({ setShowContacts }: any) => {
     if (dataInStore === null) {
       console.log("NO DATA IN STORE")
       // BUG! Continue from here. After refreshing the page, dataInStore returns null even if the data is in the cache.
+      //Note, check useQuery documentation. There are some cache options
     }
     else if (!includedIn(dataInStore.findConversation.messages, addedMessage)) {
       client.writeQuery({
