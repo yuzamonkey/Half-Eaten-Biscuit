@@ -20,7 +20,7 @@ interface Category {
 
 
 const CreateProfileForm = () => {
-  const [currentView, setCurrentView] = useState(2)
+  const [currentView, setCurrentView] = useState(0)
   const [aboutText, setAboutText] = useState('')
   const [skills, setSkills] = useState<Category[]>([])
   const views = [
