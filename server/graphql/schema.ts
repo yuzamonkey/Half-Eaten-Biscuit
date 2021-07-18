@@ -110,7 +110,6 @@ const typeDefs = gql`
     addCategory(
       name: String!
       parent: String
-      children: [String]
     ): Category
   }
 

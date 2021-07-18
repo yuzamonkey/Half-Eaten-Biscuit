@@ -6,8 +6,8 @@ const bcrypt = require('bcrypt')
 
 //const MaterializedCategory = require('../models/materializedCategory')
 //const ParentCategory = require('../models/parentCategory')
-const ParentChildCategory = require('../models/parentChildCategory')
 
+const Category = require('../models/category')
 const Jobquery = require('../models/jobquery')
 const User = require('../models/user')
 const Conversation = require('../models/conversation')
@@ -79,9 +79,7 @@ const resolvers: IResolvers = {
         })
     },
     allCategories: () => {
-      //console.log("ALL CATEGORIES QUERIED")
-      //return MaterializedCategory.find({})
-      return ParentChildCategory.find({}).populate('parent children')
+      return Category.find({}).populate('parent children')
     },
     me: (_root, _args, context) => {
       //return context.currentUser
@@ -113,8 +111,8 @@ const resolvers: IResolvers = {
       console.log("NAME", name, "PARENT", parentName)
 
       try {
-        const parent = await ParentChildCategory.findOne({ name: parentName })
-        const newCategory = new ParentChildCategory({
+        const parent = await Category.findOne({ name: parentName })
+        const newCategory = new Category({
           name: name,
           parent: parent?._id,
           children: []
