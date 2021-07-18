@@ -12,18 +12,17 @@ interface Category {
   children: [Category]
 }
 
-const Skills = () => {
-  const [selected, setSelected] = useState<Category[]>([])
+const Skills = ({ skills, setSkills }) => {
   const [allCategories, setAllCategories] = useState<Category[]>([])
   const [currentPath, setCurrentPath] = useState([undefined])
   const { loading, data } = useQuery(ALL_CATEGORIES, { onCompleted: () => setAllCategories(data.allCategories) })
 
   if (loading) return <div>Loading...</div>
-  console.log("SELECTED", selected)
+  console.log("SELECTED", skills)
 
   const handlePathClick = (clickedName) => {
     const obj = allCategories.find(obj => obj.name === clickedName)
-    obj && setSelected(selected.concat(obj))
+    obj && !skills.includes(obj) && setSkills(skills.concat(obj))
     obj?.children.length && setCurrentPath(currentPath.concat(clickedName))
   }
 
@@ -41,13 +40,14 @@ const Skills = () => {
         return (
           currentPath[currentPath.length - 1] === obj.parent?.name &&
           <div
-            className={selected.includes(obj) ? "skill-container skill-container-selected" : "skill-container" }
+            className={skills.includes(obj) ? "skill-container skill-container-selected" : "skill-container"}
             key={obj.id}
             onClick={() => handlePathClick(obj.name)}>
-              {obj.name} {obj.children.length ? '→' : '✓'}</div>
+            {obj.name} {obj.children.length ? '→' : '☑'}</div>
         )
       })}
       <Button handleClick={() => handlePathChangeToPrevious()} text={`←`} />
+      {skills.map(s => <div>{s.name}</div>)}
     </div>
   )
 }

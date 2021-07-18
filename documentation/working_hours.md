@@ -132,5 +132,5 @@ Goal for weeks 24-30 (7 weeks)
 | 15.7.  | 2.5 | Refresh messaging cache problemsolving (still bugs), searchbar css |
 | 16.7.  | 2.5 | Portfolio form |
 | 17.7.  | 4 | Portfolio form, categories |
-| 18.7.  | 0920- |  |
+| 18.7.  | 0920-1020, 1845 |  |
 | =     | 92.5      |               |

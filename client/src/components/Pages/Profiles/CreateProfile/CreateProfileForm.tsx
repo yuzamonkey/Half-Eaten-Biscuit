@@ -11,12 +11,20 @@ import './CreateProfileForm.css'
     About
     Image
 */
+interface Category {
+  id: string,
+  name: String,
+  parent: Category
+  children: [Category]
+}
+
 
 const CreateProfileForm = () => {
-  const [currentView, setCurrentView] = useState(0)
+  const [currentView, setCurrentView] = useState(2)
   const [aboutText, setAboutText] = useState('')
+  const [skills, setSkills] = useState<Category[]>([])
   const views = [
-    <Skills />,
+    <Skills skills={skills} setSkills={setSkills}/>,
     <About text={aboutText} setText={setAboutText} />,
     <Image />
   ]
