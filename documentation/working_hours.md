@@ -88,6 +88,8 @@ Goal for weeks 24-30 (7 weeks)
     Sat:
       AM: Model tree structures with materialized paths
       PM: Model tree structures with parent references (seems to be working better)
+    Sun:
+      AM: Model tree structures with parent and child references
 
   ### Week 29 ✅❌
   ### Week 30 ✅❌
@@ -130,4 +132,5 @@ Goal for weeks 24-30 (7 weeks)
 | 15.7.  | 2.5 | Refresh messaging cache problemsolving (still bugs), searchbar css |
 | 16.7.  | 2.5 | Portfolio form |
 | 17.7.  | 4 | Portfolio form, categories |
+| 18.7.  | 0920- |  |
 | =     | 92.5      |               |

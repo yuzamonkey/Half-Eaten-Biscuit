@@ -124,6 +124,9 @@ export const ALL_CATEGORIES = gql`
       parent {
         name
       }
+      children {
+        name
+      }
     }
   }
 `

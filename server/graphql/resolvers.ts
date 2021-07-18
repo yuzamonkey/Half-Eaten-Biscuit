@@ -5,7 +5,8 @@ require('dotenv')
 const bcrypt = require('bcrypt')
 
 //const MaterializedCategory = require('../models/materializedCategory')
-const ParentCategory = require('../models/parentCategory')
+//const ParentCategory = require('../models/parentCategory')
+const ParentChildCategory = require('../models/parentChildCategory')
 
 const Jobquery = require('../models/jobquery')
 const User = require('../models/user')
@@ -80,7 +81,7 @@ const resolvers: IResolvers = {
     allCategories: () => {
       //console.log("ALL CATEGORIES QUERIED")
       //return MaterializedCategory.find({})
-      return ParentCategory.find({}).populate('parent')
+      return ParentChildCategory.find({}).populate('parent children')
     },
     me: (_root, _args, context) => {
       //return context.currentUser
@@ -111,22 +112,40 @@ const resolvers: IResolvers = {
 
       console.log("NAME", name, "PARENT", parentName)
 
-      const parentObj = await ParentCategory.findOne({ name: parentName })
-      console.log("PARENT", parentObj)
-
-      const newCategory = new ParentCategory({
-        name: name,
-        parent: parentObj
-      })
       try {
+        const parent = await ParentChildCategory.findOne({ name: parentName })
+        const newCategory = new ParentChildCategory({
+          name: name,
+          parent: parent?._id,
+          children: []
+        })
         const savedCategory = await newCategory.save()
+        if (parent) {
+          parent.children = parent.children.concat(savedCategory._id)
+          await parent.save()
+        }
         return savedCategory
+
       } catch (error) {
         console.log("ERROR ON ADD CATEGORY")
         throw new UserInputError(error.message, {
           invalidArgs: args,
         })
       }
+
+      // const newCategory = new ParentCategory({
+      //   name: name,
+      //   parent: parentObj
+      // })
+      // try {
+      //   const savedCategory = await newCategory.save()
+      //   return savedCategory
+      // } catch (error) {
+      //   console.log("ERROR ON ADD CATEGORY")
+      //   throw new UserInputError(error.message, {
+      //     invalidArgs: args,
+      //   })
+      // }
 
 
       /*

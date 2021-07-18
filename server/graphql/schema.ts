@@ -7,6 +7,7 @@ const typeDefs = gql`
     id: ID!
     name: String!
     parent: Category
+    children: [Category]
   }
 
   type Message {
@@ -109,6 +110,7 @@ const typeDefs = gql`
     addCategory(
       name: String!
       parent: String
+      children: [String]
     ): Category
   }
 
