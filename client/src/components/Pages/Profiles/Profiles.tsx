@@ -31,21 +31,21 @@ const Profiles = () => {
       <b>Filters:</b> name <input></input>, group or individual, instrument
       
       <div className="profiles-container">
-        {allUsersResult.data.allUsers.map((u: any) => {
+        {allUsersResult.data?.allUsers.map((u: any) => {
           const profileUrl = `/profiles/${u.id}`
           return (
             <div className="profile-container" key={u.id}>
               <div className="upper-container">
                 <div className="profile-image-container">
                   <div className="profile-image">
-                    <img src="https://content.thriveglobal.com/wp-content/uploads/2018/01/Happy_guy.jpg" alt="musician" className="profile-image"></img>
+                    <img src={u.profile.image} alt="profileimg" className="profile-image"></img>
                   </div>
                 </div>
               </div>
               <div className="lower-container">
                 <div className="name-container">
                   <h3 className="profile-name">{u.username}</h3>
-                  <p>violinist, saxophonist</p>
+                  {u.profile.skills.map(skill => <p>{skill.name}</p>)}
                 </div>
                 <div className="profiles-buttons-container">
                   <Button text='To profile' handleClick={() => history.push(profileUrl)} />

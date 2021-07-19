@@ -28,7 +28,6 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Group'
   }],
-
   profile: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'UserProfile'

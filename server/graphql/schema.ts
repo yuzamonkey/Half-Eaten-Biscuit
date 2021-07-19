@@ -53,6 +53,7 @@ const typeDefs = gql`
     user: User!
     about: String,
     image: String,
+    skills: [Category]
   }
 
   type GroupProfile {

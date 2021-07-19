@@ -51,7 +51,6 @@ export const FIND_USER_OR_GROUP = gql`
   }
 `
 
-
 export const MY_ID = gql`
   query myId {
     me {
@@ -112,6 +111,12 @@ export const ALL_USERS = gql`
       username 
       jobQueries {
         content
+      }
+      profile {
+        image,
+        skills {
+          name
+        }
       }
     }
   }

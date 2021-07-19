@@ -41,50 +41,75 @@ const resolvers: IResolvers = {
     }
   }),
   Query: {
-    allJobqueries: () => {
-      return Jobquery.find({}).populate('user')
+    me: (_root, _args, context) => {
+      //return context.currentUser
+      return User.findOne({ _id: context.currentUser._id })
+      .populate('jobQueries conversations groups profile')
+      .populate({
+        path: 'profile',
+        populate: {
+          path: 'skills',
+        }
+      })
     },
     allUsers: () => {
-      return User.find({}).populate('jobQueries conversations groups profile')
-    },
-    allGroups: () => {
-      return Group.find({}).populate('users')
-    },
-    findJobqueries: (_root, args) => {
-      return Jobquery.find({ content: args.content }).populate('user')
+      return User.find({})
+      .populate('jobQueries conversations groups profile')
+      .populate({
+        path: 'profile',
+        populate: {
+          path: 'skills',
+        }
+      })
     },
     findUser: (_root, args) => {
       console.log("ID", args.id)
       return User.findOne({ _id: args.id })
-        .populate('jobQueries conversations groups profile')
-    },
-    findGroup: (_root, args) => {
-      return Group.findOne({ _id: args.id }).populate('users')
+      .populate('jobQueries conversations groups profile')
+      .populate({
+        path: 'profile',
+        populate: {
+          path: 'skills',
+        }
+      })
     },
     findUserOrGroup: async (_root, args) => {
       const user = await User.findOne({ _id: args.id })
-        .populate('jobQueries conversations groups profile')
+      .populate('jobQueries conversations groups profile')
+      .populate({
+        path: 'profile',
+        populate: {
+          path: 'skills',
+        }
+      })
       const group = await Group.findOne({ _id: args.id }).populate('users')
       return user || group
+    },
+    allGroups: () => {
+      return Group.find({}).populate('users')
+    },
+    findGroup: (_root, args) => {
+      return Group.findOne({ _id: args.id }).populate('users')
     },
     allConversations: () => {
       return Conversation.find({}).populate('users')
     },
     findConversation: (_root, args) => {
       return Conversation.findOne({ _id: args.id })
-        .populate('users')
-        .populate({
-          path: 'messages',
-          populate: { path: 'sender' }
-        })
+      .populate('users')
+      .populate({
+        path: 'messages',
+        populate: { path: 'sender' }
+      })
+    },
+    allJobqueries: () => {
+      return Jobquery.find({}).populate('user')
+    },
+    findJobqueries: (_root, args) => {
+      return Jobquery.find({ content: args.content }).populate('user')
     },
     allCategories: () => {
       return Category.find({}).populate('parent children')
-    },
-    me: (_root, _args, context) => {
-      //return context.currentUser
-      return User.findOne({ _id: context.currentUser._id })
-        .populate('jobQueries conversations groups profile')
     },
   },
   User: {
@@ -94,7 +119,7 @@ const resolvers: IResolvers = {
         _id: { $in: conversationIds }
       }).populate('users')
       return conversations
-    }
+    },
   },
   UserOrGroup: {
     __resolveType(obj: { username: any; users: any }, _context: any, _info: any) {
