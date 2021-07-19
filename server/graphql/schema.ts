@@ -87,6 +87,11 @@ const typeDefs = gql`
       username: String!,
       password: String!
     ): User
+    createUserProfile(
+      skills: [ID]!,
+      about: String!,
+      image: String
+    ): UserProfile
     login(
       username: String!
       password: String!

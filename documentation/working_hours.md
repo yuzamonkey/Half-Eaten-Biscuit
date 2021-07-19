@@ -134,4 +134,5 @@ Goal for weeks 24-30 (7 weeks)
 | 16.7.  | 2.5 | Portfolio form |
 | 17.7.  | 4 | Portfolio form, categories |
 | 18.7.  | 2.5 | Categories structuring, Image handling |
+| 19.7.  | 9-10, 1050 | Image handling |
 | =     | 105.0      |               |

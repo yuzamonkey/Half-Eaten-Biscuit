@@ -20,12 +20,3 @@
 .skill-container-selected:hover {
   background-color: lightcoral;
 }
-
-.image-name-text-something-foo-bar {
-  border: 1px solid red;
-  padding: 5px;
-  height: 500px;
-  width: 500px;
-  overflow: scroll;
-  white-space: pre-line;
-}

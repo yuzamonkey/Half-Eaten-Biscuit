@@ -1,5 +1,5 @@
 export { };
-import { blankProfile } from '../images/images'
+import { blankProfileImage } from '../images/images'
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 
@@ -12,12 +12,13 @@ const userProfileSchema = new mongoose.Schema({
     type: String,
     default: 'This is a user profile'
   },
-  skills: {
-
-  },
+  skills: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Category'
+  }],
   image: {
     type: String,
-    default: blankProfile
+    default: blankProfileImage
   }
 })
 

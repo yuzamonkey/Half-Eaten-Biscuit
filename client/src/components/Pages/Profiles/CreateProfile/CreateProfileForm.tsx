@@ -3,7 +3,10 @@ import About from "./Views/About"
 import Skills from "./Views/Skills"
 import Image from "./Views/Image"
 
+import blankprofile from '../../../../images/blankprofile.png'
+
 import './CreateProfileForm.css'
+import Summary from "./Views/Summary"
 
 /*
   Main views:
@@ -20,13 +23,15 @@ interface Category {
 
 
 const CreateProfileForm = () => {
-  const [currentView, setCurrentView] = useState(2)
-  const [aboutText, setAboutText] = useState('')
+  const [currentView, setCurrentView] = useState(0)
   const [skills, setSkills] = useState<Category[]>([])
+  const [aboutText, setAboutText] = useState('')
+  const [image, setImage] = useState(blankprofile)
   const views = [
     <Skills skills={skills} setSkills={setSkills}/>,
     <About text={aboutText} setText={setAboutText} />,
-    <Image />
+    <Image image={image} setImage={setImage}/>,
+    <Summary skills={skills} about={aboutText} image={image} />
   ]
 
   const handlePrevPress = () => {

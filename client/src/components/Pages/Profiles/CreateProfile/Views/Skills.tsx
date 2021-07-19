@@ -18,7 +18,6 @@ const Skills = ({ skills, setSkills }) => {
   const { loading, data } = useQuery(ALL_CATEGORIES, { onCompleted: () => setAllCategories(data.allCategories) })
 
   if (loading) return <div>Loading...</div>
-  console.log("SELECTED", skills)
 
   const handlePathClick = (clickedName) => {
     const obj = allCategories.find(obj => obj.name === clickedName)

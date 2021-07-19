@@ -271,6 +271,41 @@ const resolvers: IResolvers = {
       }
     },
 
+    createUserProfile: async (_root, args, context) => {
+      const currentUser = context.currentUser
+
+      if (!currentUser) {
+        console.log(`Not authenticated user`)
+        throw new AuthenticationError("not authenticated")
+      }
+
+      const myId = currentUser.id
+      const skills = args.skills
+      const about = args.about
+      const image = args.image
+
+      console.log("SKILLS ••• ", skills)
+      console.log("ABOUT ••• ", about)
+      console.log("IMAGE ••• ", image)
+
+      try {
+        const newUserProfile = new UserProfile({
+          user: myId,
+          about: about,
+          skills: skills,
+          image: image
+        })
+        const savedUserProfile = await newUserProfile.save()
+        currentUser.profile = savedUserProfile
+        currentUser.save()
+        return savedUserProfile
+      } catch (error) {
+        throw new UserInputError(error.message, {
+          invalidArgs: args,
+        })
+      }
+    },
+
     editUserProfile: async (_root, args, context) => {
       const currentUser = context.currentUser
 
