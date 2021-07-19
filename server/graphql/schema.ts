@@ -51,7 +51,8 @@ const typeDefs = gql`
   type UserProfile {
     id: ID!
     user: User!
-    about: String
+    about: String,
+    image: String,
   }
 
   type GroupProfile {

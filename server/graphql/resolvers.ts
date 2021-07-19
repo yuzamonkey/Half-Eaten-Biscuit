@@ -130,40 +130,6 @@ const resolvers: IResolvers = {
           invalidArgs: args,
         })
       }
-
-      // const newCategory = new ParentCategory({
-      //   name: name,
-      //   parent: parentObj
-      // })
-      // try {
-      //   const savedCategory = await newCategory.save()
-      //   return savedCategory
-      // } catch (error) {
-      //   console.log("ERROR ON ADD CATEGORY")
-      //   throw new UserInputError(error.message, {
-      //     invalidArgs: args,
-      //   })
-      // }
-
-
-      /*
-            const name = args.name
-            const path = args.path
-            console.log("C:", name, "P:", path)
-            const newCategory = new MaterializedCategory({
-              name: name,
-              path: path
-            })
-            try {
-              const savedCategory = await newCategory.save()
-              return savedCategory
-            } catch (error) {
-              console.log("ERROR ON ADD CATEGORY")
-              throw new UserInputError(error.message, {
-                invalidArgs: args,
-              })
-            }
-      */
     },
     createUser: async (_root, args) => {
       const username = args.username

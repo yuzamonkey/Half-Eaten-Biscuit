@@ -21,7 +21,8 @@ export const FIND_USER = gql`
     findUser (id: $id) {
       username,
       profile {
-        about
+        about,
+        image
       }
     }
   }

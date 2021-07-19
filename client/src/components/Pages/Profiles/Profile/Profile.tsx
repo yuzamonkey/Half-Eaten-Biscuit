@@ -20,6 +20,7 @@ const Profile = () => {
           <div>
             <h3>{result.data.findUser.username}'s profile</h3>
             {result.data.findUser.profile.about}
+            <img src={result.data.findUser.profile.image} alt="" id="img" className="img" width={300} />
           </div>
         )
         : (
