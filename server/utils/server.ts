@@ -1,10 +1,21 @@
 import express from 'express';
+//import bodyParser from 'body-parser';
 import { createConfig } from './apolloConfig';
+
+//const bodyParser = require('body-parser')
+//const cors = require('cors')
 
 const http = require('http')
 const app = express()
 const { ApolloServer } = require('apollo-server-express')
 //const { ApolloServer } = require('apollo-server')
+
+//app.use(cors)
+
+// app.use(bodyParser.json({
+//   json: {limit: '50mb', extended: true},
+//   urlencoded: {limit: '50mb', extended: true}
+// }))
 
 const frontendRoutes = [
   '/',
@@ -20,6 +31,7 @@ const frontendRoutes = [
   '/settings',
   '/newgroup'
 ]
+
 frontendRoutes.forEach(route => app.use(route, express.static("public")))
 
 app.get('/health', (_req, res) => {

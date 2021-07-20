@@ -7,6 +7,7 @@
   - Profile editing
 
 ## Fix ❌
+- Handling too large images
 - Testing in deployment pipeline on GitHub
 - 'Cache data may be lost when replacing the me field of a Query object' -warning
 - Remove hover-effects in mobile view

@@ -148,5 +148,5 @@ Goal for weeks 24-30 (7 weeks)
 | 18.7.  | 2.5 | Categories structuring, Image handling |
 | Week 29 ✅❌ |||   
 | 19.7.  | 2 | Create profile |
-| 20.7.  | 0915- | |
+| 20.7.  | 2 | |
 | =     | 107.0      |               |

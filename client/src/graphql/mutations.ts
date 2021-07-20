@@ -52,9 +52,7 @@ export const CREATE_GROUP = gql`
 export const CREATE_USER_PROFILE = gql`
   mutation createUserProfile($skills: [ID]!, $about: String!, $image: String){
     createUserProfile(skills: $skills, about: $about, image: $image) {
-      user {
-        username
-        }
+      about
     }
   }
 `

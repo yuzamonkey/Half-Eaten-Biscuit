@@ -11,6 +11,21 @@ export const ME = gql`
       groups {
         id
         name
+      },
+      profile {
+        skills {
+          id
+          name
+          parent {
+            name
+          }
+          children {
+            name
+          }
+        }
+        about
+        image
+        isEditedByUser
       }
     }
   }

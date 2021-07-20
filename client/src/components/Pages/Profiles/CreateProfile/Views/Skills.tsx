@@ -19,12 +19,19 @@ const Skills = ({ skills, setSkills }) => {
 
   if (loading) return <div>Loading...</div>
 
+  const skillsIncludeCategory = (selectedObj) => {
+    const objId = selectedObj.id
+    let found = false
+    skills.forEach(skill => (objId === skill.id) && (found = true))
+    return found
+  }
+  
   const handlePathClick = (clickedName) => {
     const obj = allCategories.find(obj => obj.name === clickedName)
-    obj && !skills.includes(obj) && setSkills(skills.concat(obj))
+    obj && !skillsIncludeCategory(obj) && setSkills(skills.concat(obj))
     obj?.children.length && setCurrentPath(currentPath.concat(clickedName))
   }
-
+  
   const handlePathChangeToPrevious = () => {
     if (currentPath.length > 1) {
       setCurrentPath(currentPath.splice(0, currentPath.length - 1))
@@ -39,7 +46,7 @@ const Skills = ({ skills, setSkills }) => {
         return (
           currentPath[currentPath.length - 1] === obj.parent?.name &&
           <div
-            className={skills.includes(obj) ? "skill-container skill-container-selected" : "skill-container"}
+            className={skillsIncludeCategory(obj) ? "skill-container skill-container-selected" : "skill-container"}
             key={obj.id}
             onClick={() => handlePathClick(obj.name)}>
             {obj.name} {obj.children.length ? '→' : '☑'}</div>

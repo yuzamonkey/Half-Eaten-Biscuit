@@ -49,6 +49,9 @@ const resolvers: IResolvers = {
         path: 'profile',
         populate: {
           path: 'skills',
+          populate: {
+            path: 'parent children'
+          }
         }
       })
     },
@@ -59,6 +62,9 @@ const resolvers: IResolvers = {
         path: 'profile',
         populate: {
           path: 'skills',
+          populate: {
+            path: 'parent children'
+          }
         }
       })
     },
@@ -70,6 +76,9 @@ const resolvers: IResolvers = {
         path: 'profile',
         populate: {
           path: 'skills',
+          populate: {
+            path: 'parent children'
+          }
         }
       })
     },
@@ -83,6 +92,9 @@ const resolvers: IResolvers = {
         path: 'profile',
         populate: {
           path: 'skills',
+          populate: {
+            path: 'parent children'
+          }
         }
       })
       const group = await Group.findOne({ _id: args.id }).populate('users')
@@ -322,15 +334,13 @@ const resolvers: IResolvers = {
       console.log("IMAGE ••• ", image)
 
       try {
-        const newUserProfile = new UserProfile({
-          user: myId,
-          about: about,
-          skills: skills,
-          image: image
-        })
-        const savedUserProfile = await newUserProfile.save()
-        currentUser.profile = savedUserProfile
-        currentUser.save()
+        const userProfile = await UserProfile.findOne({ user: myId})
+        console.log("USER PROFILE", userProfile)
+        userProfile.about = about
+        userProfile.skills = skills
+        userProfile.image = image
+        userProfile.isEditedByUser = true
+        const savedUserProfile = await userProfile.save()
         return savedUserProfile
       } catch (error) {
         throw new UserInputError(error.message, {

@@ -53,7 +53,8 @@ const typeDefs = gql`
     user: User!
     about: String,
     image: String,
-    skills: [Category]
+    skills: [Category],
+    isEditedByUser: Boolean!
   }
 
   type GroupProfile {

@@ -15,7 +15,6 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 3
   },
-
   jobQueries: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Jobquery'

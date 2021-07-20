@@ -7,7 +7,7 @@ import { CREATE_USER_PROFILE } from "../../../../../graphql/mutations"
 const Summary = ({ skills, about, image }) => {
   const [createUserProfile] = useMutation(CREATE_USER_PROFILE, {
     onError: (error) => {
-      console.log("Error at create group mutation: \n", error)
+      console.log("Error at create user profile mutation: \n", error)
     }
   })
 

@@ -19,6 +19,10 @@ const userProfileSchema = new mongoose.Schema({
   image: {
     type: String,
     default: blankProfileImage
+  },
+  isEditedByUser: {
+    type: Boolean,
+    default: false
   }
 })
 
