@@ -8,6 +8,7 @@
 
 ## Fix ❌
 - Testing in deployment pipeline on GitHub
+- 'Cache data may be lost when replacing the me field of a Query object' -warning
 - Remove hover-effects in mobile view
 - Cache problems in messaging after page refresh
 - (fixed?) Refreshing profiles-page and messages gives error. Might be express issue

@@ -159,19 +159,24 @@ const resolvers: IResolvers = {
         })
       }
     },
+
     createUser: async (_root, args) => {
       const username = args.username
 
       const saltRounds = 10
       const passwordHash = await bcrypt.hash(args.password, saltRounds)
 
-      const user = new User({
-        username: username,
-        passwordHash: passwordHash
-      })
-
       try {
+        const userProfile = new UserProfile()
+        const savedProfile = await userProfile.save()
+        const user = new User({
+          username: username,
+          passwordHash: passwordHash,
+          profile: savedProfile
+        })
         const savedUser = await user.save()
+        savedProfile.user = savedUser
+        await savedProfile.save()
         return savedUser
       } catch (error) {
         throw new UserInputError(error.message, {
