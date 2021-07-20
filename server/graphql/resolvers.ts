@@ -73,6 +73,9 @@ const resolvers: IResolvers = {
         }
       })
     },
+    allUserProfiles: (_root) => {
+      return UserProfile.find({}).populate('user skills')
+    },
     findUserOrGroup: async (_root, args) => {
       const user = await User.findOne({ _id: args.id })
       .populate('jobQueries conversations groups profile')

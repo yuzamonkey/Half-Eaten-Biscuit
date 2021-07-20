@@ -10,7 +10,7 @@ const userProfileSchema = new mongoose.Schema({
   },
   about: {
     type: String,
-    default: 'This is a user profile'
+    default: 'This is a user profile default text'
   },
   skills: [{
     type: mongoose.Schema.Types.ObjectId,

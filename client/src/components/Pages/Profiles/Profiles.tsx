@@ -3,12 +3,12 @@ import { useQuery, useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
 import './Profiles.css'
-import { ALL_USERS, MY_ID } from '../../../graphql/queries';
+import { ALL_USERS, MY_ID, ALL_USER_PROFILES } from '../../../graphql/queries';
 import { NEW_CONVERSATION } from '../../../graphql/mutations';
 import { Button } from '../../../utils/UtilityComponents/UtilityComponents';
 
 const Profiles = () => {
-  const allUsersResult = useQuery(ALL_USERS)
+  const allUsersResult = useQuery(ALL_USER_PROFILES)
   const myIdResult = useQuery(MY_ID)
   const [newConversation] = useMutation(NEW_CONVERSATION)
   const history = useHistory()
@@ -31,26 +31,27 @@ const Profiles = () => {
       <b>Filters:</b> name <input></input>, group or individual, instrument
       
       <div className="profiles-container">
-        {allUsersResult.data?.allUsers.map((u: any) => {
-          const profileUrl = `/profiles/${u.id}`
+        {allUsersResult.data?.allUserProfiles.map((profile: any) => {
+          console.log("PROFILE", profile)
+          const profileUrl = `/profiles/${profile.user.id}`
           return (
-            <div className="profile-container" key={u.id}>
+            <div className="profile-container" key={profile.id}>
               <div className="upper-container">
                 <div className="profile-image-container">
                   <div className="profile-image">
-                    <img src={u.profile.image} alt="profileimg" className="profile-image"></img>
+                    <img src={profile.image} alt="profileimg" className="profile-image"></img>
                   </div>
                 </div>
               </div>
               <div className="lower-container">
                 <div className="name-container">
-                  <h3 className="profile-name">{u.username}</h3>
-                  {u.profile.skills.map(skill => <p>{skill.name}</p>)}
+                  <h3 className="profile-name">{profile.user.username}</h3>
+                  {profile.skills.map(skill => <p>{skill.name}</p>)}
                 </div>
                 <div className="profiles-buttons-container">
                   <Button text='To profile' handleClick={() => history.push(profileUrl)} />
-                  {u.id !== myIdResult.data.me.id
-                    ? <Button text='Contact' handleClick={() => handleContactButtonPress(u.id)} />
+                  {profile.user.id !== myIdResult.data.me.id
+                    ? <Button text='Contact' handleClick={() => handleContactButtonPress(profile.id)} />
                     : null
                   }
                 </div>

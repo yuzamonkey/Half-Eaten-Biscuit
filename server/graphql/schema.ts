@@ -73,6 +73,7 @@ const typeDefs = gql`
     allJobqueries: [Jobquery]
     allUsers: [User]!
     allGroups: [Group]!
+    allUserProfiles: [UserProfile]!
     findJobqueries(content: String!): [Jobquery],
     findUser(id: ID!): User
     findGroup(id: ID!): Group

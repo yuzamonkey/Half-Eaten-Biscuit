@@ -122,6 +122,24 @@ export const ALL_USERS = gql`
   }
 `
 
+export const ALL_USER_PROFILES = gql`
+  query allUserProfiles {
+    allUserProfiles {
+      id
+      user {
+        id
+        username
+        }
+      about
+      skills {
+        id
+        name
+      }
+      image
+    }
+  }
+`
+
 export const ALL_CATEGORIES = gql`
   query allCategories {
     allCategories {

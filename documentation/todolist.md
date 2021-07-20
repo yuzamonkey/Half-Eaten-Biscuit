@@ -1,8 +1,10 @@
 # Todolist/bugs
 
 ## Do ⏺
-What have not been initialized:
-  - Profiles
+- Read from sessionStorage
+  - Validation with userId and sessionId
+  - Messages
+  - Profile editing
 
 ## Fix ❌
 - Testing in deployment pipeline on GitHub

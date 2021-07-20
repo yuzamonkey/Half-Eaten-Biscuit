@@ -65,10 +65,10 @@ Goal for weeks 24-30 (7 weeks)
       AM: Smaller components (button, toggle). Plan ahead
       PM:
 
-  ### Week 28 ✅❌
+  ### Week 28 ❌
 
-  **Theme**: Throw up features
-  **Todo**: Profile/portfolio
+  **Theme**: Code features  
+  **Todo**: Profile/portfolio, categories
 
     Mon: 
       AM: Plan profile skills
@@ -93,6 +93,18 @@ Goal for weeks 24-30 (7 weeks)
       PM: Image handling
 
   ### Week 29 ✅❌
+
+  **Theme**: 
+  **Todo**: 
+
+    Mon: 
+      AM: Profile creation
+      PM: 
+    Tue:
+      AM: 
+      PM: 
+
+
   ### Week 30 ✅❌
 
 
@@ -134,5 +146,7 @@ Goal for weeks 24-30 (7 weeks)
 | 16.7.  | 2.5 | Portfolio form |
 | 17.7.  | 4 | Portfolio form, categories |
 | 18.7.  | 2.5 | Categories structuring, Image handling |
-| 19.7.  | 9-1030, 1230- | Create profile |
-| =     | 105.0      |               |
+| Week 29 ✅❌ |||   
+| 19.7.  | 2 | Create profile |
+| 20.7.  | 0915- | |
+| =     | 107.0      |               |
