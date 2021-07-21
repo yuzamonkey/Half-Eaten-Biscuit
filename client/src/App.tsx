@@ -16,6 +16,7 @@ import NewGroup from "./components/Pages/Profiles/NewGroup";
 import './App.css';
 import { SIGN_IN_TOKEN } from "./utils/constants";
 import Profile from "./components/Pages/Profiles/Profile/Profile";
+import CreateProfile from "./components/Pages/Profiles/CreateProfile/CreateProfile";
 
 const App = () => {
   const localStorageItem = localStorage.getItem(SIGN_IN_TOKEN)
@@ -42,10 +43,11 @@ const App = () => {
             <Switch>
               <Route path="/messages" component={Messages} />
               <Route path="/jobmarket" component={Jobmarket} />
+              <Route path="/profiles/:id" component={Profile} />
               <Route path="/profiles" component={Profiles} />
-              <Route path="/profile/:id" component={Profile} />
               <Route path="/settings" component={Settings} />
               <Route path="/newgroup" component={NewGroup} />
+              <Route path="/createprofile" component={CreateProfile} />
               <Route path="/" component={Welcome} />
             </Switch>
           </div>

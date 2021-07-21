@@ -1,0 +1,18 @@
+.profile-edit-master-container {
+  height: calc(100vh - var(--navbar-height));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.profile-edit-current-view {
+  height: 100%;
+}
+
+.profile-edit-switch-view-buttons-container {
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+}

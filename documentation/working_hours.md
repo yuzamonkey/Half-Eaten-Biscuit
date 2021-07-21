@@ -65,10 +65,10 @@ Goal for weeks 24-30 (7 weeks)
       AM: Smaller components (button, toggle). Plan ahead
       PM:
 
-  ### Week 28 ✅❌
+  ### Week 28 ❌
 
-  **Theme**: Throw up features
-  **Todo**: Profile/portfolio
+  **Theme**: Code features  
+  **Todo**: Profile/portfolio, categories
 
     Mon: 
       AM: Plan profile skills
@@ -80,11 +80,34 @@ Goal for weeks 24-30 (7 weeks)
       AM: Subscriptions on messaging
       PM: Figuring out subscriptions and express
     Thu: 
-    Heroku push
-      AM:
+      AM: Heroku push, try to fix messaging refresh cache problems
       PM:
+    Fri:
+      AM: Portfolio form
+      PM:
+    Sat:
+      AM: Model tree structures with materialized paths
+      PM: Model tree structures with parent references (seems to be working better)
+    Sun:
+      AM: Model tree structures with parent and child references
+      PM: Image handling
 
   ### Week 29 ✅❌
+
+  **Theme**: 
+  **Todo**: 
+
+    Mon: 
+      AM: Profile creation
+      PM: 
+    Tue:
+      AM: Profile handling with user creation
+      PM:
+    Wed:
+      AM:
+      PM: Fixes, Heroku push
+
+
   ### Week 30 ✅❌
 
 
@@ -103,7 +126,7 @@ Goal for weeks 24-30 (7 weeks)
 | 13.6. | 0.5 (=17) | Backend structure planning |
 | Week 24 ✅ |||   
 | 14.6. | 5 | GraphQL init, login |
-| 15.6. | 5 | Navbar rearrange, dropdowns, simple homepage  |
+| 15.6. | 5 | Navbar rearrange, dropdowns, simple homepage |
 | 17.6. | 5 | Sign in, jobqueries, profiles-page css |
 | 18.6. | 5 | Switch repository from sandbox, Backend TypeScript init, planning of messaging implementation |
 | 19.6. | 5 | Implementing messaging front and backend |
@@ -122,5 +145,12 @@ Goal for weeks 24-30 (7 weeks)
 | 12.7.  | 1.5 | Profile and skills planning |
 | 13.7.  | 5 | Failing at form navigation, minor css improvements |
 | 14.7.  | 4 | Subscriptions on messaging |
-| 15.7.  | 0900- |  |
-| =     | 83.5      |               |
+| 15.7.  | 2.5 | Refresh messaging cache problemsolving (still bugs), searchbar css |
+| 16.7.  | 2.5 | Portfolio form |
+| 17.7.  | 4 | Portfolio form, categories |
+| 18.7.  | 2.5 | Categories structuring, Image handling |
+| Week 29 ✅❌ |||   
+| 19.7.  | 2 | Create profile |
+| 20.7.  | 2 | User profile |
+| 21.7.  | 1730- |  |
+| =     | 109.0      |               |

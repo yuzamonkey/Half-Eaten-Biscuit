@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation, useApolloClient, useSubscription } from '@apollo/client';
 
@@ -11,20 +11,42 @@ const Conversation = ({ setShowContacts }: any) => {
   const { id }: any = useParams();
   const client = useApolloClient()
 
+  const conversationResult = useQuery(FIND_CONVERSATION, {
+    variables: { id },
+    onCompleted: () => scrollToBottom()
+  })
+  
+  useEffect(() => {
+    const element = document.getElementById('conversation-content')
+    element?.scrollTo({
+      top: element.scrollHeight,
+      behavior: 'smooth'
+    })
+  }, [conversationResult.loading])
+
+  const scrollToBottom = () => {
+    const element = document.getElementById('conversation-content')
+    element?.scrollTo({
+      top: element.scrollHeight,
+      behavior: 'smooth'
+    })
+  }
+
   const updateCacheWith = async (addedMessage) => {
     const includedIn = (set, object) => {
       const isIncluded = set.map(message => message.id).includes(object.id)
       return isIncluded
     }
 
-    const dataInStore = await client.readQuery({ 
-      query: FIND_CONVERSATION, 
+    const dataInStore = await client.readQuery({
+      query: FIND_CONVERSATION,
       variables: { id }
     })
     console.log("DATA IN STORE", dataInStore)
     if (dataInStore === null) {
       console.log("NO DATA IN STORE")
       // BUG! Continue from here. After refreshing the page, dataInStore returns null even if the data is in the cache.
+      //Note, check useQuery documentation. There are some cache options
     }
     else if (!includedIn(dataInStore.findConversation.messages, addedMessage)) {
       client.writeQuery({
@@ -39,20 +61,18 @@ const Conversation = ({ setShowContacts }: any) => {
     onSubscriptionData: ({ subscriptionData }) => {
       const addedMessage = subscriptionData.data
       updateCacheWith(addedMessage)
-    }
+    },
+    onSubscriptionComplete: () => scrollToBottom()
   })
 
   const [sendMessage] = useMutation(SEND_MESSAGE, {
     onError: (error) => {
       console.log("ERROR ON SENDING MESSAGE", error)
     },
+    onCompleted: () => scrollToBottom()
     // update: (store, response) => {
     //   updateCacheWith(response.data.sendMessage)
     // }
-  })
-
-  const conversationResult = useQuery(FIND_CONVERSATION, {
-    variables: { id }
   })
 
   const myIdResult = useQuery(MY_ID)
@@ -78,11 +98,13 @@ const Conversation = ({ setShowContacts }: any) => {
   return (
     <div className="conversation-container">
       <div className="conversation-info">
-        {users.map(p => p.username + ", ")}
+        <div className="conversation-usernames">
+          {users.map(p => p.username === myIdResult.data.me.username ? <b key={p.id}>Me • </b> : <b key={p.id}>{p.username} • </b>)}
+        </div>
         <div onClick={() => setShowContacts(true)} className="show-contacts-toggle"><i className={"fas fa-arrow-down"}></i></div>
       </div>
-      <h2>Conversation {id}</h2>
-      <div className="conversation-content">
+      {/* <h2>Conversation {id}</h2> */}
+      <div id='conversation-content' className="conversation-content">
         {messages.map(message => {
           return (
             message.sender.id === myId
@@ -96,9 +118,9 @@ const Conversation = ({ setShowContacts }: any) => {
         })}
       </div>
       <div className="conversation-input-container">
-        <form>
-          <input type="text" onChange={e => setMessageInput(e.target.value)} value={messageInput}></input>
-          <button onClick={handleSendMessage}>Send</button>
+        <form className="conversation-input-form">
+          <input className="conversation-text-input" type="text" onChange={e => setMessageInput(e.target.value)} value={messageInput}></input>
+          <button className="conversation-send-button" onClick={handleSendMessage}>➤</button>
         </form>
       </div>
     </div >

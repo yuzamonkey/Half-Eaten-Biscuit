@@ -4,25 +4,27 @@ import { NavLink } from "react-router-dom";
 import { CONVERSATION_INFOS } from '../../../../graphql/queries';
 
 import './MessageNavigation.css'
+import { Searchbar } from '../../../UtilityComponents/UtilityComponents';
 
-const MessageNavigation = ({setShowContacts}: any) => {
+const MessageNavigation = ({ setShowContacts }: any) => {
   const result = useQuery(CONVERSATION_INFOS)
 
   if (result.loading) {
     return <div>Loading...</div>
   }
-
-  
   const conversations = result.data.me.conversations
-  const handleFilterChange = () => {}
 
   return (
     <nav className="msg-navigation">
       <div className="msg-nav-container">
-        <input value="Search from conversations" onChange={handleFilterChange}></input>
+        <div className="messages-filter-container">
+          <Searchbar />
+        </div>
         <ul className="msg-nav-menu">
           {conversations.map(conversation => {
-            const usernames = conversation.users.map(user => user.username)
+            const usernames = conversation.users.map(user =>
+              user.username !== result.data.me.username && user.username
+            )
             const linkTo = `/messages/${conversation.id}`
             return (
               <li className="msg-nav-item" key={conversation.id}>

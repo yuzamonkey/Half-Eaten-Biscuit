@@ -4,6 +4,10 @@ import { IConversation } from "../types/types"
 require('dotenv')
 const bcrypt = require('bcrypt')
 
+//const MaterializedCategory = require('../models/materializedCategory')
+//const ParentCategory = require('../models/parentCategory')
+
+const Category = require('../models/category')
 const Jobquery = require('../models/jobquery')
 const User = require('../models/user')
 const Conversation = require('../models/conversation')
@@ -37,31 +41,70 @@ const resolvers: IResolvers = {
     }
   }),
   Query: {
-    allJobqueries: () => {
-      return Jobquery.find({}).populate('user')
+    me: (_root, _args, context) => {
+      //return context.currentUser
+      return User.findOne({ _id: context.currentUser._id })
+        .populate('jobQueries conversations groups profile')
+        .populate({
+          path: 'profile',
+          populate: {
+            path: 'skills',
+            populate: {
+              path: 'parent children'
+            }
+          }
+        })
     },
     allUsers: () => {
-      return User.find({}).populate('jobQueries conversations groups profile')
-    },
-    allGroups: () => {
-      return Group.find({}).populate('users')
-    },
-    findJobqueries: (_root, args) => {
-      return Jobquery.find({ content: args.content }).populate('user')
+      return User.find({})
+        .populate('jobQueries conversations groups profile')
+        .populate({
+          path: 'profile',
+          populate: {
+            path: 'skills',
+            populate: {
+              path: 'parent children'
+            }
+          }
+        })
     },
     findUser: (_root, args) => {
       console.log("ID", args.id)
       return User.findOne({ _id: args.id })
         .populate('jobQueries conversations groups profile')
+        .populate({
+          path: 'profile',
+          populate: {
+            path: 'skills',
+            populate: {
+              path: 'parent children'
+            }
+          }
+        })
     },
-    findGroup: (_root, args) => {
-      return Group.findOne({ _id: args.id }).populate('users')
+    allUserProfiles: (_root) => {
+      return UserProfile.find({}).populate('user skills')
     },
     findUserOrGroup: async (_root, args) => {
       const user = await User.findOne({ _id: args.id })
         .populate('jobQueries conversations groups profile')
+        .populate({
+          path: 'profile',
+          populate: {
+            path: 'skills',
+            populate: {
+              path: 'parent children'
+            }
+          }
+        })
       const group = await Group.findOne({ _id: args.id }).populate('users')
       return user || group
+    },
+    allGroups: () => {
+      return Group.find({}).populate('users')
+    },
+    findGroup: (_root, args) => {
+      return Group.findOne({ _id: args.id }).populate('users')
     },
     allConversations: () => {
       return Conversation.find({}).populate('users')
@@ -74,10 +117,26 @@ const resolvers: IResolvers = {
           populate: { path: 'sender' }
         })
     },
-    me: (_root, _args, context) => {
-      //return context.currentUser
-      return User.findOne({ _id: context.currentUser._id })
-        .populate('jobQueries conversations groups profile')
+    allJobqueries: () => {
+      return Jobquery.find({})
+        .populate({
+          path: 'user',
+          populate: {
+            path: 'profile'
+          }
+        })
+    },
+    findJobqueries: (_root, args) => {
+      return Jobquery.find({ content: args.content })
+        .populate({
+          path: 'user',
+          populate: {
+            path: 'profile'
+          }
+        })
+    },
+    allCategories: () => {
+      return Category.find({}).populate('parent children')
     },
   },
   User: {
@@ -87,7 +146,7 @@ const resolvers: IResolvers = {
         _id: { $in: conversationIds }
       }).populate('users')
       return conversations
-    }
+    },
   },
   UserOrGroup: {
     __resolveType(obj: { username: any; users: any }, _context: any, _info: any) {
@@ -97,19 +156,51 @@ const resolvers: IResolvers = {
     }
   },
   Mutation: {
+    addCategory: async (_root, args) => {
+      const name = args.name
+      const parentName = args.parent
+
+      console.log("NAME", name, "PARENT", parentName)
+
+      try {
+        const parent = await Category.findOne({ name: parentName })
+        const newCategory = new Category({
+          name: name,
+          parent: parent?._id,
+          children: []
+        })
+        const savedCategory = await newCategory.save()
+        if (parent) {
+          parent.children = parent.children.concat(savedCategory._id)
+          await parent.save()
+        }
+        return savedCategory
+
+      } catch (error) {
+        console.log("ERROR ON ADD CATEGORY")
+        throw new UserInputError(error.message, {
+          invalidArgs: args,
+        })
+      }
+    },
+
     createUser: async (_root, args) => {
       const username = args.username
 
       const saltRounds = 10
       const passwordHash = await bcrypt.hash(args.password, saltRounds)
 
-      const user = new User({
-        username: username,
-        passwordHash: passwordHash
-      })
-
       try {
+        const userProfile = new UserProfile()
+        const savedProfile = await userProfile.save()
+        const user = new User({
+          username: username,
+          passwordHash: passwordHash,
+          profile: savedProfile
+        })
         const savedUser = await user.save()
+        savedProfile.user = savedUser
+        await savedProfile.save()
         return savedUser
       } catch (error) {
         throw new UserInputError(error.message, {
@@ -177,12 +268,22 @@ const resolvers: IResolvers = {
 
       const currentUserId = currentUser.id
       const receiverId = args.receiverId
+
+      if (currentUserId === receiverId) {
+        console.log("NO RECEIVER")
+        return null
+      }
+
       const currentUserName = currentUser.username
       const receiver = await User.findOne({ _id: receiverId })
-
       console.log("sender", currentUserName, currentUserId)
       console.log("receiver", receiver, receiverId)
-
+      
+      if (!receiver) {
+        console.log("NO RECEIVER")
+        return null
+      }
+      
       const newConversation = new Conversation({
         users: [currentUser.id, receiverId]
       })
@@ -230,6 +331,39 @@ const resolvers: IResolvers = {
           await user.save()
         });
         return savedGroup
+      } catch (error) {
+        throw new UserInputError(error.message, {
+          invalidArgs: args,
+        })
+      }
+    },
+
+    createUserProfile: async (_root, args, context) => {
+      const currentUser = context.currentUser
+
+      if (!currentUser) {
+        console.log(`Not authenticated user`)
+        throw new AuthenticationError("not authenticated")
+      }
+
+      const myId = currentUser.id
+      const skills = args.skills
+      const about = args.about
+      const image = args.image
+
+      console.log("SKILLS ••• ", skills)
+      console.log("ABOUT ••• ", about)
+      console.log("IMAGE ••• ", image)
+
+      try {
+        const userProfile = await UserProfile.findOne({ user: myId })
+        console.log("USER PROFILE", userProfile)
+        userProfile.about = about
+        userProfile.skills = skills
+        userProfile.image = image
+        userProfile.isEditedByUser = true
+        const savedUserProfile = await userProfile.save()
+        return savedUserProfile
       } catch (error) {
         throw new UserInputError(error.message, {
           invalidArgs: args,

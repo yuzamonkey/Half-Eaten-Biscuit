@@ -81,3 +81,4 @@ Suomi, Englanti
 #### Tools/libraries to consider
 - React google analytics
 - Date fns for date handling
+- aos

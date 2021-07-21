@@ -5,12 +5,12 @@ import NotificationsDropdown from './Dropdowns/NotificationsDropdown'
 import ProfileOptionsDropdown from './Dropdowns/ProfileDropdown'
 
 const Navbar = () => {
-  const [click, setClick] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
   const [showNotification, setShowNotifications] = useState(false)
   const [showProfileOptionsDropdown, setShowProfileOptionsDropdown] = useState(false)
 
   const handleClick = () => {
-    setClick(!click);
+    setShowMenu(!showMenu);
     setShowNotifications(false)
     setShowProfileOptionsDropdown(false)
   }
@@ -18,11 +18,19 @@ const Navbar = () => {
   const handleNotificationDrop = () => {
     setShowProfileOptionsDropdown(false)
     setShowNotifications(!showNotification)
+    setShowMenu(false)
   };
 
   const handleProfileDrop = () => {
     setShowNotifications(false)
     setShowProfileOptionsDropdown(!showProfileOptionsDropdown)
+    setShowMenu(false)
+  };
+
+  const handleMessagesView = () => {
+    setShowMenu(false)
+    setShowNotifications(false)
+    setShowProfileOptionsDropdown(false)
   };
 
   return (
@@ -31,14 +39,14 @@ const Navbar = () => {
         <div className="nav-container">
 
           <div className="nav-icon nav-menu" onClick={handleClick}>
-            <i className={click ? "fas fa-arrow-left" : "fas fa-bars"}></i>
+            <i className={showMenu ? "fas fa-arrow-left" : "fas fa-bars"}></i>
           </div>
 
           <NavLink to="/" className="nav-logo nav-menu">
             HalfEatenBiscuit <i className="fas fa-cookie-bite"></i>
           </NavLink>
 
-          <ul className={click ? "nav-menu hidden-links active" : "nav-menu hidden-links"} >
+          <ul className={showMenu ? "nav-menu hidden-links active" : "nav-menu hidden-links"} >
             <li className="nav-item">
               <NavLink exact to="/" activeClassName="active" className="nav-links" onClick={handleClick}>
                 Home
@@ -58,7 +66,7 @@ const Navbar = () => {
 
           <ul className="nav-menu constant-links">
             <li className="nav-item">
-              <NavLink exact to="/messages" activeClassName="active" className="nav-links">
+              <NavLink exact to="/messages" activeClassName="active" className="nav-links" onClick={handleMessagesView}>
                 {/* Messages */}
                 <i className="fa fa-comment"></i>
               </NavLink>

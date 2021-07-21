@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 
 import { ALL_USERS, ME } from '../../../graphql/queries'
-import { Button } from '../../../utils/UtilityComponents/UtilityComponents'
+import { Button } from '../../UtilityComponents/UtilityComponents'
 import './NewGroup.css'
 import { CREATE_GROUP } from '../../../graphql/mutations'
 

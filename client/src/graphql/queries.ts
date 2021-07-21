@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const ME = gql`
-  query me{
+  query me {
     me {
       id
       username
@@ -11,17 +11,33 @@ export const ME = gql`
       groups {
         id
         name
+      },
+      profile {
+        skills {
+          id
+          name
+          parent {
+            name
+          }
+          children {
+            name
+          }
+        }
+        about
+        image
+        isEditedByUser
       }
     }
   }
 `
 
 export const FIND_USER = gql`
-  query findUser($id: ID!){
+  query findUser($id: ID!) {
     findUser (id: $id) {
       username,
       profile {
-        about
+        about,
+        image
       }
     }
   }
@@ -50,23 +66,24 @@ export const FIND_USER_OR_GROUP = gql`
   }
 `
 
-
 export const MY_ID = gql`
-  query myId{
+  query myId {
     me {
-      id
+      id,
+      username
     }
   }
 `
 
 export const CONVERSATION_INFOS = gql`
-  query conversationInfos{
+  query conversationInfos {
     me {
+      username
       conversations {
         id,
         users {
           username
-          }
+        }
       }
     }
   }
@@ -79,6 +96,9 @@ export const FIND_CONVERSATION = gql`
       users {
         id,
         username
+        conversations {
+          id
+        }
       },
       messages {
         id
@@ -91,25 +111,68 @@ export const FIND_CONVERSATION = gql`
   }
 `
 
-export const ALL_QUERIES = gql`
-  query {
-    allJobqueries  {
+export const ALL_JOBQUERIES = gql`
+  query allJobqueries{
+    allJobqueries {
+      id
       content
       date
       user {
         username
+        profile {
+          image
+        }
       }
     }
   }
 `
 
 export const ALL_USERS = gql`
-  query {
+  query allUsers {
     allUsers {
       id
       username 
       jobQueries {
         content
+      }
+      profile {
+        image,
+        skills {
+          name
+        }
+      }
+    }
+  }
+`
+
+export const ALL_USER_PROFILES = gql`
+  query allUserProfiles {
+    allUserProfiles {
+      id
+      user {
+        id
+        username
+        }
+      about
+      skills {
+        id
+        name
+      }
+      image
+    }
+  }
+`
+
+export const ALL_CATEGORIES = gql`
+  query allCategories {
+    allCategories {
+      id
+      name
+      parent {
+        name
+      }
+      children {
+        name
       }
     }
   }

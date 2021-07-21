@@ -1,6 +1,12 @@
+.profiles-page-container {
+  height: calc(100vh - var(--navbar-height));
+  display: flex;
+  flex-direction: column;
+}
+
 .profiles-container {
   width: 100%;
-  height: calc(100vh - 100px);
+  height: 100%;
   display: flex;
   justify-content: center;
   overflow: scroll;
@@ -17,6 +23,18 @@
   flex-direction: column;
   margin: 20px;
   transition: transform .2s;
+}
+
+.profiles-title-and-searchbar-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.profiles-searchbar-container {
+  width: 30%;
 }
 
 .profile-container:hover {
@@ -89,4 +107,16 @@
 }
 .disabled-button {
   background-color: lightsteelblue;
+}
+
+@media screen and (max-width: 960px) {
+  .profiles-title-and-searchbar-container {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .profiles-searchbar-container {
+    width: 100%;
+    max-width: 350px;
+  }
+
 }

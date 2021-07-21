@@ -5,7 +5,7 @@
 }
 
 .conversation-info {
-  height: 100px;
+  height: 75px;
   width: 100%;
   background-color: var(--bg-grey);
   display: flex;
@@ -14,30 +14,75 @@
   align-items: center;
 }
 
+.conversation-info>* {
+  padding: 0 10px;
+}
+
 .conversation-content {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  overflow: scroll
+  justify-content: flex-start;
+  overflow: scroll;
 }
 
 .message-container {
   margin: 10px;
   padding: 10px;
   max-width: 60ch;
-  background-color: lightcoral;
+  background-color: var(--light-blue);
   border-radius: 5px;
+  align-self: flex-start;
 }
 
 .message-container.user-sent {
-  background-color: lightgreen;
+  background-color: var(--blue);
+  color: white;
   align-self: flex-end;
 }
 
 .conversation-input-container {
   background-color: var(--bg-grey);
-  height: 100px;
+  height: var(--navbar-height);
+}
+
+.conversation-input-form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.conversation-input-form > * {
+  margin: 10px;
+}
+
+.conversation-text-input {
+  width: 100%;
+  height: calc(var(--navbar-height) - 30px);
+  border: 1px solid var(--grey);
+  border-radius: calc(var(--navbar-height) - 30px);
+  box-shadow: 0 0 1pt 1pt var(--dark-blue);
+}
+
+.conversation-text-input:focus {
+  outline: none;
+}
+
+.conversation-send-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(var(--navbar-height) - 30px);
+  height: calc(var(--navbar-height) - 30px);
+  border: none;
+  border-radius: 50%;
+  color: var(--blue);
+  text-shadow: -1px 1px 2px var(--dark-blue);
+  font-size: xx-large;
+  background-color: inherit;
 }
 
 .show-contacts-toggle {
@@ -48,6 +93,6 @@
   .show-contacts-toggle {
     display: block;
     font-size: 1.5rem;
-    padding-right: 10px; 
+    width: fit-content;
   }
 }

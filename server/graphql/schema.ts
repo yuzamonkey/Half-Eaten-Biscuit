@@ -3,6 +3,13 @@ const { gql } = require('apollo-server')
 const typeDefs = gql`
   scalar Date
 
+  type Category {
+    id: ID!
+    name: String!
+    parent: Category
+    children: [Category]
+  }
+
   type Message {
     id: ID!
     body: String
@@ -44,7 +51,10 @@ const typeDefs = gql`
   type UserProfile {
     id: ID!
     user: User!
-    about: String
+    about: String,
+    image: String,
+    skills: [Category],
+    isEditedByUser: Boolean!
   }
 
   type GroupProfile {
@@ -64,12 +74,14 @@ const typeDefs = gql`
     allJobqueries: [Jobquery]
     allUsers: [User]!
     allGroups: [Group]!
+    allUserProfiles: [UserProfile]!
     findJobqueries(content: String!): [Jobquery],
     findUser(id: ID!): User
     findGroup(id: ID!): Group
     findUserOrGroup(id: ID!): UserOrGroup
     allConversations: [Conversation]
     findConversation(id: ID!): Conversation
+    allCategories: [Category]
     me: User,
   }
 
@@ -78,6 +90,11 @@ const typeDefs = gql`
       username: String!,
       password: String!
     ): User
+    createUserProfile(
+      skills: [ID]!,
+      about: String!,
+      image: String
+    ): UserProfile
     login(
       username: String!
       password: String!
@@ -99,6 +116,10 @@ const typeDefs = gql`
       conversationId: ID!
       body: String!
     ): Message
+    addCategory(
+      name: String!
+      parent: String
+    ): Category
   }
 
   type Subscription {
