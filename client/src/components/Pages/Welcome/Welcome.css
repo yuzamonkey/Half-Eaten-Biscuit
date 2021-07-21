@@ -1,0 +1,30 @@
+.welcome-page-container {
+  height: calc(100vh - var(--navbar-height));
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.welcome-page-title {
+  color: var(--black);
+  font-weight: 300;
+  font-size: 3rem;
+  padding: 20px;
+}
+
+.info {
+  width: 80%;
+  background-color: white;
+  box-shadow: 0pt 0pt 2pt 1pt var(--blue);
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  transition: background-color 250ms ease-in, color 250ms ease-in
+}
+
+.info:hover {
+  background-color: var(--blue);
+  color: white;
+  cursor: pointer;
+}
