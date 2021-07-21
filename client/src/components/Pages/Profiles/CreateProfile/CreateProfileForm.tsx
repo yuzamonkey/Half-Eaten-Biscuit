@@ -9,6 +9,7 @@ import Summary from "./Views/Summary"
 import './CreateProfileForm.css'
 import { useQuery } from "@apollo/client"
 import { ME } from "../../../../graphql/queries"
+import { Button } from "../../../UtilityComponents/UtilityComponents"
 
 interface Category {
   id: string,
@@ -54,9 +55,8 @@ const CreateProfileForm = () => {
         {views[currentView]}
       </div>
       <div className="profile-edit-switch-view-buttons-container">
-        <button onClick={handlePrevPress}>Prev</button>
-        {currentView}
-        <button onClick={handleNextPress}>Next</button>
+        <Button handleClick={handlePrevPress} text="Prev" />
+        <Button handleClick={handleNextPress} text="Next" />
       </div>
     </div>
   )

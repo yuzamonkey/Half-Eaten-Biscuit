@@ -53,7 +53,7 @@ const Skills = ({ skills, setSkills }) => {
         )
       })}
       <Button handleClick={() => handlePathChangeToPrevious()} text={`←`} />
-      {skills.map(s => <div>{s.name}</div>)}
+      {skills.map(s => <div key={s.id}>{s.name}</div>)}
     </div>
   )
 }

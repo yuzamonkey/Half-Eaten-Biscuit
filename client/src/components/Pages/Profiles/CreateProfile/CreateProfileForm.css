@@ -11,9 +11,8 @@
 
 .profile-edit-switch-view-buttons-container {
   height: 50px;
-  background-color: tomato;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 30px;
+  padding: 10px 30px;
 }
