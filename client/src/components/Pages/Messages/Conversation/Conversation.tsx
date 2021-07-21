@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation, useApolloClient, useSubscription } from '@apollo/client';
 
@@ -12,8 +12,25 @@ const Conversation = ({ setShowContacts }: any) => {
   const client = useApolloClient()
 
   const conversationResult = useQuery(FIND_CONVERSATION, {
-    variables: { id }
+    variables: { id },
+    onCompleted: () => scrollToBottom()
   })
+  
+  useEffect(() => {
+    const element = document.getElementById('conversation-content')
+    element?.scrollTo({
+      top: element.scrollHeight,
+      behavior: 'smooth'
+    })
+  }, [conversationResult.loading])
+
+  const scrollToBottom = () => {
+    const element = document.getElementById('conversation-content')
+    element?.scrollTo({
+      top: element.scrollHeight,
+      behavior: 'smooth'
+    })
+  }
 
   const updateCacheWith = async (addedMessage) => {
     const includedIn = (set, object) => {
@@ -44,13 +61,15 @@ const Conversation = ({ setShowContacts }: any) => {
     onSubscriptionData: ({ subscriptionData }) => {
       const addedMessage = subscriptionData.data
       updateCacheWith(addedMessage)
-    }
+    },
+    onSubscriptionComplete: () => scrollToBottom()
   })
 
   const [sendMessage] = useMutation(SEND_MESSAGE, {
     onError: (error) => {
       console.log("ERROR ON SENDING MESSAGE", error)
     },
+    onCompleted: () => scrollToBottom()
     // update: (store, response) => {
     //   updateCacheWith(response.data.sendMessage)
     // }
@@ -80,12 +99,12 @@ const Conversation = ({ setShowContacts }: any) => {
     <div className="conversation-container">
       <div className="conversation-info">
         <div className="conversation-usernames">
-          {users.map(p => p.username === myIdResult.data.me.username ? <b>Me • </b> : <b>{p.username} • </b>)}
+          {users.map(p => p.username === myIdResult.data.me.username ? <b key={p.id}>Me • </b> : <b key={p.id}>{p.username} • </b>)}
         </div>
         <div onClick={() => setShowContacts(true)} className="show-contacts-toggle"><i className={"fas fa-arrow-down"}></i></div>
       </div>
       {/* <h2>Conversation {id}</h2> */}
-      <div className="conversation-content">
+      <div id='conversation-content' className="conversation-content">
         {messages.map(message => {
           return (
             message.sender.id === myId
