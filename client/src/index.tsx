@@ -36,7 +36,7 @@ const httpLink = new HttpLink({ uri: uri })
 const wsLink = new WebSocketLink({
   uri: process.env.NODE_ENV === 'development'
     ? 'ws://localhost:3001/graphql'
-    : 'ws://halfeatenbiscuit.herokuapp.com/graphql',
+    : 'wss://halfeatenbiscuit.herokuapp.com/graphql',
   options: {
     reconnect: true
   }
