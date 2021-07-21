@@ -152,5 +152,5 @@ Goal for weeks 24-30 (7 weeks)
 | Week 29 ✅❌ |||   
 | 19.7.  | 2 | Create profile |
 | 20.7.  | 2 | User profile |
-| 21.7.  | 1730- |  |
-| =     | 109.0      |               |
+| 21.7.  | 3.5 |  |
+| =     | 112.5      |               |
