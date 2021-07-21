@@ -114,6 +114,9 @@ export const ALL_JOBQUERIES = gql`
       date
       user {
         username
+        profile {
+          image
+        }
       }
     }
   }

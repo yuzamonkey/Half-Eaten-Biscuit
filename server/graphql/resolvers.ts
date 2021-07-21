@@ -44,59 +44,59 @@ const resolvers: IResolvers = {
     me: (_root, _args, context) => {
       //return context.currentUser
       return User.findOne({ _id: context.currentUser._id })
-      .populate('jobQueries conversations groups profile')
-      .populate({
-        path: 'profile',
-        populate: {
-          path: 'skills',
+        .populate('jobQueries conversations groups profile')
+        .populate({
+          path: 'profile',
           populate: {
-            path: 'parent children'
+            path: 'skills',
+            populate: {
+              path: 'parent children'
+            }
           }
-        }
-      })
+        })
     },
     allUsers: () => {
       return User.find({})
-      .populate('jobQueries conversations groups profile')
-      .populate({
-        path: 'profile',
-        populate: {
-          path: 'skills',
+        .populate('jobQueries conversations groups profile')
+        .populate({
+          path: 'profile',
           populate: {
-            path: 'parent children'
+            path: 'skills',
+            populate: {
+              path: 'parent children'
+            }
           }
-        }
-      })
+        })
     },
     findUser: (_root, args) => {
       console.log("ID", args.id)
       return User.findOne({ _id: args.id })
-      .populate('jobQueries conversations groups profile')
-      .populate({
-        path: 'profile',
-        populate: {
-          path: 'skills',
+        .populate('jobQueries conversations groups profile')
+        .populate({
+          path: 'profile',
           populate: {
-            path: 'parent children'
+            path: 'skills',
+            populate: {
+              path: 'parent children'
+            }
           }
-        }
-      })
+        })
     },
     allUserProfiles: (_root) => {
       return UserProfile.find({}).populate('user skills')
     },
     findUserOrGroup: async (_root, args) => {
       const user = await User.findOne({ _id: args.id })
-      .populate('jobQueries conversations groups profile')
-      .populate({
-        path: 'profile',
-        populate: {
-          path: 'skills',
+        .populate('jobQueries conversations groups profile')
+        .populate({
+          path: 'profile',
           populate: {
-            path: 'parent children'
+            path: 'skills',
+            populate: {
+              path: 'parent children'
+            }
           }
-        }
-      })
+        })
       const group = await Group.findOne({ _id: args.id }).populate('users')
       return user || group
     },
@@ -111,17 +111,29 @@ const resolvers: IResolvers = {
     },
     findConversation: (_root, args) => {
       return Conversation.findOne({ _id: args.id })
-      .populate('users')
-      .populate({
-        path: 'messages',
-        populate: { path: 'sender' }
-      })
+        .populate('users')
+        .populate({
+          path: 'messages',
+          populate: { path: 'sender' }
+        })
     },
     allJobqueries: () => {
-      return Jobquery.find({}).populate('user')
+      return Jobquery.find({})
+        .populate({
+          path: 'user',
+          populate: {
+            path: 'profile'
+          }
+        })
     },
     findJobqueries: (_root, args) => {
-      return Jobquery.find({ content: args.content }).populate('user')
+      return Jobquery.find({ content: args.content })
+        .populate({
+          path: 'user',
+          populate: {
+            path: 'profile'
+          }
+        })
     },
     allCategories: () => {
       return Category.find({}).populate('parent children')
@@ -258,9 +270,13 @@ const resolvers: IResolvers = {
       const receiverId = args.receiverId
       const currentUserName = currentUser.username
       const receiver = await User.findOne({ _id: receiverId })
-
       console.log("sender", currentUserName, currentUserId)
       console.log("receiver", receiver, receiverId)
+      
+      if (!receiver) {
+        console.log("NO RECEIVER")
+        return null
+      }
 
       const newConversation = new Conversation({
         users: [currentUser.id, receiverId]
@@ -334,7 +350,7 @@ const resolvers: IResolvers = {
       console.log("IMAGE ••• ", image)
 
       try {
-        const userProfile = await UserProfile.findOne({ user: myId})
+        const userProfile = await UserProfile.findOne({ user: myId })
         console.log("USER PROFILE", userProfile)
         userProfile.about = about
         userProfile.skills = skills

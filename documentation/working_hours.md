@@ -101,8 +101,11 @@ Goal for weeks 24-30 (7 weeks)
       AM: Profile creation
       PM: 
     Tue:
-      AM: 
-      PM: 
+      AM: Profile handling with user creation
+      PM:
+    Wed:
+      AM:
+      PM: Fixes, Heroku push
 
 
   ### Week 30 ✅❌
@@ -148,5 +151,6 @@ Goal for weeks 24-30 (7 weeks)
 | 18.7.  | 2.5 | Categories structuring, Image handling |
 | Week 29 ✅❌ |||   
 | 19.7.  | 2 | Create profile |
-| 20.7.  | 2 | |
-| =     | 107.0      |               |
+| 20.7.  | 2 | User profile |
+| 21.7.  | 1730- |  |
+| =     | 109.0      |               |

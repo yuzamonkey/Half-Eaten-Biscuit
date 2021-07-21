@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client"
 import { ALL_CATEGORIES } from "../../../../../graphql/queries"
 
 import './Skills.css'
-import { Button } from "../../../../../utils/UtilityComponents/UtilityComponents"
+import { Button } from "../../../../UtilityComponents/UtilityComponents"
 
 interface Category {
   id: string,

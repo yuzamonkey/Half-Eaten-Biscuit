@@ -1,7 +1,7 @@
 import React from "react"
 import { useMutation } from "@apollo/client"
 
-import { Button } from "../../../../../utils/UtilityComponents/UtilityComponents"
+import { Button } from "../../../../UtilityComponents/UtilityComponents"
 import { CREATE_USER_PROFILE } from "../../../../../graphql/mutations"
 
 const Summary = ({ skills, about, image }) => {

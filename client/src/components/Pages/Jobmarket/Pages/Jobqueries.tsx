@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client';
 
 import '../Jobmarket.css'
 import { ALL_JOBQUERIES } from '../../../../graphql/queries';
-import { Button } from '../../../../utils/UtilityComponents/UtilityComponents';
+import { Button } from '../../../UtilityComponents/UtilityComponents';
 
 const Jobqueries = () => {
   const result = useQuery(ALL_JOBQUERIES)
@@ -26,6 +26,7 @@ const Jobqueries = () => {
               <div className="general-info-container">
                 <div className="image-and-name-container">
                   <div className="image-container">
+                    <img src={q.user.profile.image} alt="profileimg" className="jobquery-user-profile-image"></img>
                   </div>
                   <p><b>{q.user.username}</b> is looking for <br />
                     string ensemble</p>

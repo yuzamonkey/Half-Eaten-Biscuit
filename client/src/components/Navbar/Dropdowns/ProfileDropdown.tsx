@@ -65,7 +65,7 @@ const ProfileDropdown = ({ show, setShow }: any) => {
     <div className="dropdown">
       <div className="dropdown-profile" onClick={handleProfileClick}>
         <div>
-          <img src="https://content.thriveglobal.com/wp-content/uploads/2018/01/Happy_guy.jpg" alt="musician" className="profile-image"></img>
+          <img src={me.data.me.profile.image} alt="profileimg" className="profile-image"></img>
         </div>
         <h3 className="profile-name">{data.findUserOrGroup.username || data.findUserOrGroup.name}</h3>
         <p className="secondary-text">Show profile</p>

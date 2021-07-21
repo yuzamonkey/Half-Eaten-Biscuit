@@ -14,6 +14,10 @@
   width: 100%;
 }
 
+.messages-filter-container {
+  padding: 5px;
+}
+
 .msg-nav-menu {
   list-style-type: none;
   display: flex;

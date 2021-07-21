@@ -1,0 +1,117 @@
+.toggle-container {
+  height: 25px;
+  width: 50px;
+  position: relative;
+  border-radius: 25px;
+}
+
+.toggle-circle {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  position: absolute;
+  background-color: white;
+  transition: left 0.3s ease;
+  transform: scale(0.80);
+}
+
+.toggle-on {
+  background-color: rgb(0, 235, 0);
+}
+
+.toggle-off {
+  background-color: rgb(248, 0, 0);
+}
+
+.toggle-on-circle {
+  left: 0;
+}
+
+.toggle-off-circle {
+  left: 25px;
+}
+
+.button-container {
+  margin: 10px;
+  
+  height: 30px;
+  width: fit-content;
+  min-width: 50px;
+  white-space: nowrap;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #ccd8db83;
+  border-radius: 30px;
+
+}
+
+.button-container:hover {
+  background-color: var(--grey);
+  cursor: pointer;
+}
+
+.searchbar-container {
+  --searchbar-height: 40px;
+  --searchbar-width: 100%;
+  --searchbar-color: hsla(0, 0%, 38%, 0.78);
+  background-color: transparent;
+  height: var(--searchbar-height);
+  width: var(--searchbar-width);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  border: 1px solid var(--searchbar-color);
+  border-radius: var(--searchbar-height);
+}
+
+.searchbar-outline {
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1ch 0 2ch;
+}
+
+.searchbar-input {
+  color: var(--searchbar-color);
+  background-color: transparent;
+  border: none;
+  height: 100%;
+  width: 100%;
+}
+
+.searchbar-input:focus {
+  outline: none;
+}
+
+.searchbar-icon {
+  color: var(--searchbar-color);
+  transform: rotate(45deg); 
+  font-size: 1.3em;
+  width: 1ch;
+  height: fit-content;
+}
+
+.searchbar-container:hover {
+  background-color: hsla(0, 0%, 100%, 0.3);
+  cursor: text;
+}
+
+.searchbar-icon-container {
+  width: var(--searchbar-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchbar-icon-container:hover {
+  cursor: pointer;
+  color: white;
+}
