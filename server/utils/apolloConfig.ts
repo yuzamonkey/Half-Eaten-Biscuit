@@ -19,8 +19,6 @@ const createAuthorizationContext = () => {
       )
       const currentUser = await User
         .findById(decodedToken.id)
-      const time = new Date()
-      console.log(currentUser.username, "is logged in at", time, "\n")
       return { currentUser }
     } else {
       return null
