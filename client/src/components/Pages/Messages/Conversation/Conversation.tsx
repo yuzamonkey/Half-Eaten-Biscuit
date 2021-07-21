@@ -21,8 +21,8 @@ const Conversation = ({ setShowContacts }: any) => {
       return isIncluded
     }
 
-    const dataInStore = await client.readQuery({ 
-      query: FIND_CONVERSATION, 
+    const dataInStore = await client.readQuery({
+      query: FIND_CONVERSATION,
       variables: { id }
     })
     console.log("DATA IN STORE", dataInStore)
@@ -79,10 +79,12 @@ const Conversation = ({ setShowContacts }: any) => {
   return (
     <div className="conversation-container">
       <div className="conversation-info">
-        {users.map(p => p.username + ", ")}
+        <div className="conversation-usernames">
+          {users.map(p => p.username === myIdResult.data.me.username ? <b>Me • </b> : <b>{p.username} • </b>)}
+        </div>
         <div onClick={() => setShowContacts(true)} className="show-contacts-toggle"><i className={"fas fa-arrow-down"}></i></div>
       </div>
-      <h2>Conversation {id}</h2>
+      {/* <h2>Conversation {id}</h2> */}
       <div className="conversation-content">
         {messages.map(message => {
           return (

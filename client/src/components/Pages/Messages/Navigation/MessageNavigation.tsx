@@ -13,7 +13,6 @@ const MessageNavigation = ({ setShowContacts }: any) => {
     return <div>Loading...</div>
   }
   const conversations = result.data.me.conversations
-  console.log("CONVERSATIONS RESULT", conversations)
 
   return (
     <nav className="msg-navigation">
@@ -23,12 +22,14 @@ const MessageNavigation = ({ setShowContacts }: any) => {
         </div>
         <ul className="msg-nav-menu">
           {conversations.map(conversation => {
-            const usernames = conversation.users.map(user => user.username)
+            const usernames = conversation.users.map(user =>
+              user.username !== result.data.me.username && user.username
+            )
             const linkTo = `/messages/${conversation.id}`
             return (
               <li className="msg-nav-item" key={conversation.id}>
                 <NavLink exact to={linkTo} activeClassName="msg-active" className="msg-nav-links" onClick={() => setShowContacts(false)}>
-                  • {usernames}
+                  {usernames}
                 </NavLink>
               </li>
             )

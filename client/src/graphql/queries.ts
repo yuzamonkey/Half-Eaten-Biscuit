@@ -69,7 +69,8 @@ export const FIND_USER_OR_GROUP = gql`
 export const MY_ID = gql`
   query myId {
     me {
-      id
+      id,
+      username
     }
   }
 `
@@ -77,11 +78,12 @@ export const MY_ID = gql`
 export const CONVERSATION_INFOS = gql`
   query conversationInfos {
     me {
+      username
       conversations {
         id,
         users {
           username
-          }
+        }
       }
     }
   }
@@ -94,6 +96,9 @@ export const FIND_CONVERSATION = gql`
       users {
         id,
         username
+        conversations {
+          id
+        }
       },
       messages {
         id

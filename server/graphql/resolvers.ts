@@ -268,6 +268,12 @@ const resolvers: IResolvers = {
 
       const currentUserId = currentUser.id
       const receiverId = args.receiverId
+
+      if (currentUserId === receiverId) {
+        console.log("NO RECEIVER")
+        return null
+      }
+
       const currentUserName = currentUser.username
       const receiver = await User.findOne({ _id: receiverId })
       console.log("sender", currentUserName, currentUserId)
@@ -277,7 +283,7 @@ const resolvers: IResolvers = {
         console.log("NO RECEIVER")
         return null
       }
-
+      
       const newConversation = new Conversation({
         users: [currentUser.id, receiverId]
       })

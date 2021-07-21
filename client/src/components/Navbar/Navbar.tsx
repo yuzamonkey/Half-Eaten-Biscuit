@@ -28,6 +28,7 @@ const Navbar = () => {
   };
 
   const handleMessagesView = () => {
+    setShowMenu(false)
     setShowNotifications(false)
     setShowProfileOptionsDropdown(false)
   };
