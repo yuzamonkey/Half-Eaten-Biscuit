@@ -99,9 +99,9 @@ const Conversation = ({ setShowContacts }: any) => {
         })}
       </div>
       <div className="conversation-input-container">
-        <form>
-          <input type="text" onChange={e => setMessageInput(e.target.value)} value={messageInput}></input>
-          <button onClick={handleSendMessage}>Send</button>
+        <form className="conversation-input-form">
+          <input className="conversation-text-input" type="text" onChange={e => setMessageInput(e.target.value)} value={messageInput}></input>
+          <button className="conversation-send-button" onClick={handleSendMessage}>➤</button>
         </form>
       </div>
     </div >
