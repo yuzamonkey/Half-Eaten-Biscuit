@@ -2,11 +2,7 @@
 
 ## Do ⏺
 - REMEMBER TO UPDATE ROUTES!
-- Read from sessionStorage
-  - Validation with userId and sessionId
-  - Messages
-  - Profile editing
-  - REMEMBER! Closing tab removes session token. Check EVERYTIME that session token is there
+- Sometimes new profile is created on db without user
 
 ## Fix ❌
 - Handling too large images

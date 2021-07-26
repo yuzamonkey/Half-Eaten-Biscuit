@@ -113,8 +113,8 @@ Goal for weeks 24-30 (7 weeks)
   **Todo**: 
 
     Mon: 
-      AM: 
-      PM: 
+      AM: Fix bugs
+      PM: UseContext for user handling in react, messaging between users and groups
 
 
 ## WORK SCHEDULE
@@ -160,5 +160,5 @@ Goal for weeks 24-30 (7 weeks)
 | 20.7.  | 2 | User profile |
 | 21.7.  | 3.5 | Frontend bug fixes and css improvements, push to heroku |
 | Week 30 ✅❌ |||   
-| 26.7.  | 945-1130, 1250- |  |
+| 26.7.  | 945-1130, 13-14 |  |
 | =     | 112.5      |               |
