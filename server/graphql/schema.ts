@@ -63,7 +63,8 @@ const typeDefs = gql`
     id: ID!
     group: Group!
     about: String
-    name: String
+    name: String,
+    image: String
   }
 
   type Token {

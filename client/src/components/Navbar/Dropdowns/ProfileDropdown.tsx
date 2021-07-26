@@ -24,11 +24,9 @@ const ProfileDropdown = ({ show, setShow }: any) => {
     return null
   }
 
-  if (loading || me.loading) {
+  if (loading || me.loading) {
     return <div className="dropdown">Loading...</div>
   }
-
-  console.log("UOG DROP", data.findUserOrGroup)
 
   const handleLogout = async () => {
     await client.resetStore()
@@ -67,15 +65,14 @@ const ProfileDropdown = ({ show, setShow }: any) => {
     <div className="dropdown">
       <div className="dropdown-profile" onClick={handleProfileClick}>
         <div>
-          <img src={me.data.me.profile.image} alt="profileimg" className="profile-image"></img>
-          {/* <img src={data.findUserOrGroup.profile.image} alt="profileimg" className="profile-image"></img> */}
+          <img src={data.findUserOrGroup.profile.image} alt="profileimg" className="profile-image"></img>
         </div>
         <h3 className="profile-name">{data.findUserOrGroup.username || data.findUserOrGroup.profile.name}</h3>
         <p className="secondary-text">Show profile</p>
       </div>
       <div className="dropdown-link" onClick={handleMeClick}><b>Me</b></div>
       <div className="dropdown-my-groups">
-      <div className="dropdown-link new-group-link" onClick={handleNewGroupClick}><b>My groups +</b></div>
+        <div className="dropdown-link new-group-link" onClick={handleNewGroupClick}><b>My groups +</b></div>
         {me.data.me.groups.map(group => {
           console.log("GROUP", group)
           return (
