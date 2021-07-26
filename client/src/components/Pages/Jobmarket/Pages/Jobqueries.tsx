@@ -17,6 +17,7 @@ const Jobqueries = () => {
 
   return (
     <div>
+      Filter by: skill, group, posted on date, schedule, location
       <ul>
         {result.data.allJobqueries.map((q: any) => {
           const contactText = `Contact ${q.user.username}`

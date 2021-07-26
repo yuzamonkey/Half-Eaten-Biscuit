@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useQuery } from '@apollo/client';
 import { ME } from '../../../../graphql/queries';
 import { Toggle } from '../../../UtilityComponents/UtilityComponents';
@@ -6,15 +6,15 @@ import { Toggle } from '../../../UtilityComponents/UtilityComponents';
 const MyQueries = () => {
   const result = useQuery(ME)
 
-  const [visible, setVisible] = useState(true)
-
   const handleToggleClick = (id) => {
-    setVisible(!visible)
+    console.log("SET VISIBILITY OF", id)
   }
 
   if (result.loading) {
     return <div>loading...</div>
   }
+
+  console.log(result.data.me.jobQueries)
 
   return (
     <div>
@@ -23,7 +23,7 @@ const MyQueries = () => {
         return (
           <div key={q.id} className="card">
             <div>
-            Visibility: <Toggle state={visible} toggleClick={() => handleToggleClick(q.id)}/>
+            Visibility: <Toggle state={q.visible} toggleClick={() => handleToggleClick(q.id)}/>
             </div>
             <p key={q.id}>{q.content}</p>
           </div>

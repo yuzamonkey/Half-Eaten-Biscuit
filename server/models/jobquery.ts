@@ -9,7 +9,11 @@ const jobquerySchema = new mongoose.Schema({
   },
   date: {
     type: Date, 
-    required: true,
+    default: new Date()
+  },
+  visible: {
+    type: Boolean,
+    default: true
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,

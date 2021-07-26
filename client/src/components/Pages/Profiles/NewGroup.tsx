@@ -62,6 +62,9 @@ const NewGroup = () => {
       </div>
       <div className="all-users-container">
         {allUsersResult.data.allUsers.map(u => {
+          // if (u.id !== meResult) {
+          //   console.log("UID", u.id, "me id", meResult.data.me.id)
+          // }
           return (
             selectedUsers.find(user => user.username === u.username)
               ?

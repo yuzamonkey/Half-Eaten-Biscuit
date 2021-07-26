@@ -29,7 +29,8 @@ const frontendRoutes = [
   '/profiles',
   '/profiles/:id',
   '/settings',
-  '/newgroup'
+  '/newgroup',
+  '/createprofile'
 ]
 
 frontendRoutes.forEach(route => app.use(route, express.static("public")))

@@ -92,7 +92,7 @@ Goal for weeks 24-30 (7 weeks)
       AM: Model tree structures with parent and child references
       PM: Image handling
 
-  ### Week 29 ✅❌
+  ### Week 29 ❌
 
   **Theme**: 
   **Todo**: 
@@ -107,8 +107,14 @@ Goal for weeks 24-30 (7 weeks)
       AM:
       PM: Fixes, Heroku push
 
-
   ### Week 30 ✅❌
+    
+  **Theme**: 
+  **Todo**: 
+
+    Mon: 
+      AM: 
+      PM: 
 
 
 ## WORK SCHEDULE
@@ -149,8 +155,10 @@ Goal for weeks 24-30 (7 weeks)
 | 16.7.  | 2.5 | Portfolio form |
 | 17.7.  | 4 | Portfolio form, categories |
 | 18.7.  | 2.5 | Categories structuring, Image handling |
-| Week 29 ✅❌ |||   
+| Week 29 ❌ |||   
 | 19.7.  | 2 | Create profile |
 | 20.7.  | 2 | User profile |
-| 21.7.  | 3.5 |  |
+| 21.7.  | 3.5 | Frontend bug fixes and css improvements, push to heroku |
+| Week 30 ✅❌ |||   
+| 26.7.  | 945-1115 |  |
 | =     | 112.5      |               |

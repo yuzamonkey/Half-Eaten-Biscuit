@@ -17,6 +17,8 @@ const Profiles = () => {
     return <div>loading...</div>
   }
 
+  console.log(allUsersResult.data)
+
   const handleContactButtonPress = async (receiverId: any) => {
     console.log("CONTACT BUTTON PRESSED FOR", receiverId)
     //check for users conversations where only user is the receiver

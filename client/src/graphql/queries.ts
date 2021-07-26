@@ -6,11 +6,16 @@ export const ME = gql`
       id
       username
       jobQueries {
-        id, content, date
+        id, 
+        content, 
+        date,
+        visible
       },
       groups {
         id
-        name
+        profile {
+          name
+        }
       },
       profile {
         skills {
@@ -60,7 +65,9 @@ export const FIND_USER_OR_GROUP = gql`
       }
       ... on Group {
         id,
-        name
+        profile {
+          name
+        }
       }
     }
   }

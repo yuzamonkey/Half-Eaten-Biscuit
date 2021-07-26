@@ -26,6 +26,7 @@ const typeDefs = gql`
     id: ID!
     content: String!
     date: Date!
+    visible: Boolean!
     user: User!
   }
 
@@ -37,6 +38,7 @@ const typeDefs = gql`
     conversations: [Conversation]!
     profile: UserProfile!
     groups: [Group]!
+    available: Boolean!
   }
 
   type Group {
@@ -61,6 +63,7 @@ const typeDefs = gql`
     id: ID!
     group: Group!
     about: String
+    name: String
   }
 
   type Token {

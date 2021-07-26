@@ -2,7 +2,7 @@ export { };
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 
-const parentCategorySchema = new mongoose.Schema({
+const groupCategorySchema = new mongoose.Schema({
   name: {
     type: String,
     unique: true,
@@ -10,11 +10,15 @@ const parentCategorySchema = new mongoose.Schema({
   },
   parent: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'ParentCategory'
-  }
+    ref: 'GroupCategory'
+  },
+  children: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'GroupCategory'
+  }]
 })
 
-parentCategorySchema.set('toJSON', {
+groupCategorySchema.set('toJSON', {
   transform: (_document: any, returnedObject: any) => {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
@@ -22,6 +26,6 @@ parentCategorySchema.set('toJSON', {
   }
 })
 
-parentCategorySchema.plugin(uniqueValidator)
+groupCategorySchema.plugin(uniqueValidator)
 
-module.exports = mongoose.model('ParentCategory', parentCategorySchema)
+module.exports = mongoose.model('GroupCategory', groupCategorySchema)

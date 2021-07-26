@@ -4,15 +4,13 @@ import { IConversation } from "../types/types"
 require('dotenv')
 const bcrypt = require('bcrypt')
 
-//const MaterializedCategory = require('../models/materializedCategory')
-//const ParentCategory = require('../models/parentCategory')
-
 const Category = require('../models/category')
 const Jobquery = require('../models/jobquery')
-const User = require('../models/user')
 const Conversation = require('../models/conversation')
-const Group = require('../models/group')
+const User = require('../models/user')
 const UserProfile = require('../models/userProfile')
+const Group = require('../models/group')
+const GroupProfile = require('../models/groupProfile')
 
 const jwt = require('jsonwebtoken')
 
@@ -44,7 +42,7 @@ const resolvers: IResolvers = {
     me: (_root, _args, context) => {
       //return context.currentUser
       return User.findOne({ _id: context.currentUser._id })
-        .populate('jobQueries conversations groups profile')
+        .populate('jobQueries conversations profile')
         .populate({
           path: 'profile',
           populate: {
@@ -52,12 +50,18 @@ const resolvers: IResolvers = {
             populate: {
               path: 'parent children'
             }
+          }
+        })
+        .populate({
+          path: 'groups',
+          populate: {
+            path: 'profile'
           }
         })
     },
     allUsers: () => {
       return User.find({})
-        .populate('jobQueries conversations groups profile')
+        .populate('jobQueries conversations profile')
         .populate({
           path: 'profile',
           populate: {
@@ -67,11 +71,16 @@ const resolvers: IResolvers = {
             }
           }
         })
+        .populate({
+          path: 'groups',
+          populate: {
+            path: 'profile'
+          }
+        })
     },
     findUser: (_root, args) => {
-      console.log("ID", args.id)
       return User.findOne({ _id: args.id })
-        .populate('jobQueries conversations groups profile')
+        .populate('jobQueries conversations profile')
         .populate({
           path: 'profile',
           populate: {
@@ -79,6 +88,12 @@ const resolvers: IResolvers = {
             populate: {
               path: 'parent children'
             }
+          }
+        })
+        .populate({
+          path: 'groups',
+          populate: {
+            path: 'profile'
           }
         })
     },
@@ -97,7 +112,9 @@ const resolvers: IResolvers = {
             }
           }
         })
-      const group = await Group.findOne({ _id: args.id }).populate('users')
+      const group = await Group.findOne({ _id: args.id })
+        .populate('users')
+        .populate('profile')
       return user || group
     },
     allGroups: () => {
@@ -278,12 +295,12 @@ const resolvers: IResolvers = {
       const receiver = await User.findOne({ _id: receiverId })
       console.log("sender", currentUserName, currentUserId)
       console.log("receiver", receiver, receiverId)
-      
+
       if (!receiver) {
         console.log("NO RECEIVER")
         return null
       }
-      
+
       const newConversation = new Conversation({
         users: [currentUser.id, receiverId]
       })
@@ -318,20 +335,31 @@ const resolvers: IResolvers = {
       console.log("•••IDS", userIds)
 
       try {
+        //create group
         const newGroup = new Group({
-          name: name,
           users: userIds
         })
-
-        console.log("NEW GROUP", newGroup)
         const savedGroup = await newGroup.save()
+
+        //create groupProfile
+        const newGroupProfile = new GroupProfile({
+          name: name,
+          group: savedGroup
+        })
+        const savedGroupProfile = await newGroupProfile.save()
+        savedGroup.profile = savedGroupProfile
+        await savedGroup.save()
+
+        //concat group to each group member
         await userIds.forEach(async (id: String) => {
           const user = await User.findOne({ _id: id })
           user.groups = user.groups.concat(savedGroup)
           await user.save()
         });
+        console.log("RETURN SAVED GROUP, ALL DONE HERE")
         return savedGroup
       } catch (error) {
+        console.log("ERROR ON CREATE GROUP")
         throw new UserInputError(error.message, {
           invalidArgs: args,
         })

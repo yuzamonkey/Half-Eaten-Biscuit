@@ -1,10 +1,12 @@
 # Todolist/bugs
 
 ## Do ⏺
+- REMEMBER TO UPDATE ROUTES!
 - Read from sessionStorage
   - Validation with userId and sessionId
   - Messages
   - Profile editing
+  - REMEMBER! Closing tab removes session token. Check EVERYTIME that session token is there
 
 ## Fix ❌
 - Handling too large images

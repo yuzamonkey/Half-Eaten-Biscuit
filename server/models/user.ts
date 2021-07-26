@@ -15,6 +15,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 3
   },
+  available: {
+    type: Boolean,
+    default: true
+  },
   jobQueries: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Jobquery'
