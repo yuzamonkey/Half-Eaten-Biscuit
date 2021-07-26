@@ -128,12 +128,20 @@ const resolvers: IResolvers = {
     },
     findConversation: (_root, args) => {
       return Conversation.findOne({ _id: args.id })
-        .populate('users')
+        .populate('participants')
         .populate({
           path: 'messages',
           populate: { path: 'sender' }
         })
     },
+    // findConversation: (_root, args) => {
+    //   return Conversation.findOne({ _id: args.id })
+    //     .populate('users')
+    //     .populate({
+    //       path: 'messages',
+    //       populate: { path: 'sender' }
+    //     })
+    // },
     allJobqueries: () => {
       return Jobquery.find({})
         .populate({
@@ -283,41 +291,68 @@ const resolvers: IResolvers = {
         throw new AuthenticationError("not authenticated")
       }
 
-      const currentUserId = currentUser.id
+      const senderId = args.senderId
       const receiverId = args.receiverId
 
-      if (currentUserId === receiverId) {
-        console.log("NO RECEIVER")
-        return null
-      }
+      const sender = await User.findOne({ _id: senderId }) || await Group.findOne({ _id: senderId })
+      const receiver = await User.findOne({ _id: receiverId }) || await Group.findOne({ _id: receiverId })
 
-      const currentUserName = currentUser.username
-      const receiver = await User.findOne({ _id: receiverId })
-      console.log("sender", currentUserName, currentUserId)
-      console.log("receiver", receiver, receiverId)
+      console.log("SENDER", sender)
+      console.log("RECEIVER", receiver)
 
-      if (!receiver) {
-        console.log("NO RECEIVER")
+      if (!sender || !receiver) {
+        console.log("NO SENDER OR RECEIVER")
         return null
       }
 
       const newConversation = new Conversation({
-        users: [currentUser.id, receiverId]
+        participants: [sender, receiver]
       })
+
+      console.log("NEW CONVERSATION", newConversation)
 
       try {
         const savedConversation = await newConversation.save()
         console.log("SAVED CONVERSATION SUCCESS, ", savedConversation)
-        currentUser.conversations = currentUser.conversations.concat(newConversation)
-        await currentUser.save()
+        sender.conversations = sender.conversations.concat(newConversation)
+        await sender.save()
         receiver.conversations = receiver.conversations.concat(newConversation)
         await receiver.save()
         return savedConversation
       } catch (error) {
+        console.log("CREATE CONVERSATION ERROR", error.message)
         throw new UserInputError(error.message, {
           invalidArgs: args,
         })
       }
+
+      // const currentUserName = currentUser.username
+      // const receiver = await User.findOne({ _id: receiverId })
+      // console.log("sender", currentUserName, currentUserId)
+      // console.log("receiver", receiver, receiverId)
+
+      // if (!receiver) {
+      //   console.log("NO RECEIVER")
+      //   return null
+      // }
+
+      // const newConversation = new Conversation({
+      //   users: [currentUser.id, receiverId]
+      // })
+
+      // try {
+      //   const savedConversation = await newConversation.save()
+      //   console.log("SAVED CONVERSATION SUCCESS, ", savedConversation)
+      //   currentUser.conversations = currentUser.conversations.concat(newConversation)
+      //   await currentUser.save()
+      //   receiver.conversations = receiver.conversations.concat(newConversation)
+      //   await receiver.save()
+      //   return savedConversation
+      // } catch (error) {
+      //   throw new UserInputError(error.message, {
+      //     invalidArgs: args,
+      //   })
+      // }
     },
 
     createGroup: async (_root, args, context) => {

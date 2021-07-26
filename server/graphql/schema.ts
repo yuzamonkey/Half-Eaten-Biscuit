@@ -18,7 +18,7 @@ const typeDefs = gql`
 
   type Conversation {
     id: ID!
-    users: [User]!
+    participants: [UserOrGroup]!
     messages: [Message]!
   }
 
@@ -43,7 +43,6 @@ const typeDefs = gql`
 
   type Group {
     id: ID!
-    name: String!
     users: [User!]!
     profile: GroupProfile!
     jobQueries: [Jobquery]!
@@ -62,8 +61,8 @@ const typeDefs = gql`
   type GroupProfile {
     id: ID!
     group: Group!
+    name: String!
     about: String
-    name: String,
     image: String
   }
 
@@ -114,6 +113,7 @@ const typeDefs = gql`
       content: String!
     ): Jobquery
     createConversation(
+      senderId: ID!
       receiverId: ID!
     ): Conversation
     sendMessage(
