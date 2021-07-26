@@ -16,11 +16,15 @@ import Profile from "./components/Pages/Profiles/Profile/Profile";
 import CreateProfile from "./components/Pages/Profiles/CreateProfile/CreateProfile";
 
 import './App.css';
-import { SIGN_IN_TOKEN } from "./utils/constants";
+import { SESSION_TOKEN, SIGN_IN_TOKEN } from "./utils/constants";
+
+import { UserContext } from "./components/UtilityComponents/UserContext";
+
 
 const App = () => {
   const localStorageItem = localStorage.getItem(SIGN_IN_TOKEN)
   const [token, setToken] = useState(localStorageItem);
+  const [sessionId, setSessionId] = useState(sessionStorage.getItem(SESSION_TOKEN))
 
   return (
     <Router>
@@ -37,19 +41,21 @@ const App = () => {
         </Switch>
         :
         <>
-          <Navbar />
-          <div className="pages">
-            <Switch>
-              <Route path="/messages" component={Messages} />
-              <Route path="/jobmarket" component={Jobmarket} />
-              <Route path="/profiles/:id" component={Profile} />
-              <Route path="/profiles" component={Profiles} />
-              <Route path="/settings" component={Settings} />
-              <Route path="/newgroup" component={NewGroup} />
-              <Route path="/createprofile" component={CreateProfile} />
-              <Route path="/" component={Welcome} />
-            </Switch>
-          </div>
+          <UserContext.Provider value={{sessionId, setSessionId}}>
+            <Navbar />
+            <div className="pages">
+              <Switch>
+                <Route path="/messages" component={Messages} />
+                <Route path="/jobmarket" component={Jobmarket} />
+                <Route path="/profiles/:id" component={Profile} />
+                <Route path="/profiles" component={Profiles} />
+                <Route path="/settings" component={Settings} />
+                <Route path="/newgroup" component={NewGroup} />
+                <Route path="/createprofile" component={CreateProfile} />
+                <Route path="/" component={Welcome} />
+              </Switch>
+            </div>
+          </UserContext.Provider>
         </>
       }
     </Router>

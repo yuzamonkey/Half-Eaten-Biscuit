@@ -1,16 +1,19 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useApolloClient, useQuery, useLazyQuery } from "@apollo/client";
 import { useHistory } from 'react-router';
 
 import { FIND_USER_OR_GROUP, ME } from '../../../graphql/queries';
 import { SESSION_TOKEN } from '../../../utils/constants';
 import './Dropdown.css'
+import { UserContext } from '../../UtilityComponents/UserContext';
 
 const ProfileDropdown = ({ show, setShow }: any) => {
   const client = useApolloClient()
 
   const me = useQuery(ME)
-  const sessionId = sessionStorage.getItem(SESSION_TOKEN)
+  const currentUserId = useContext(UserContext)
+
+  const sessionId = currentUserId.sessionId
   //const currentProfile = useQuery(FIND_USER_OR_GROUP, { variables: { id: sessionId } })
   const [findUserOrGroup, { loading, data }] = useLazyQuery(FIND_USER_OR_GROUP)
   useEffect(() => {
@@ -47,17 +50,19 @@ const ProfileDropdown = ({ show, setShow }: any) => {
 
   const handleMeClick = () => {
     sessionStorage.setItem(SESSION_TOKEN, me.data.me.id)
+    currentUserId.setSessionId(me.data.me.id)
     findUserOrGroup({ variables: { id: me.data.me.id } })
   }
 
   const handleNewGroupClick = () => {
     console.log("NEW GROUP CLICKED")
     history.push('/newgroup')
+    setShow(false)
   }
 
-  const handleProfileChange = async (groupId) => {
-    console.log("SWITCH PROFILE TO ", groupId)
+  const handleProfileChange = (groupId) => {
     sessionStorage.setItem(SESSION_TOKEN, groupId)
+    currentUserId.setSessionId(groupId)
     findUserOrGroup({ variables: { id: groupId } })
   }
 
