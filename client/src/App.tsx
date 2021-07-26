@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -22,12 +22,9 @@ import { UserContext } from "./components/UtilityComponents/UserContext";
 
 
 const App = () => {
-  const userContext = useContext(UserContext)
   const localStorageItem = localStorage.getItem(SIGN_IN_TOKEN)
   const [token, setToken] = useState(localStorageItem);
   const [sessionId, setSessionId] = useState(sessionStorage.getItem(SESSION_TOKEN))
-
-  console.log("APP USERCONTEXT", userContext)
 
   return (
     <Router>
