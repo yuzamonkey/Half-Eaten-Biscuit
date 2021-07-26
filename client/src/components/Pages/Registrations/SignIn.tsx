@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useMutation } from '@apollo/client'
 import { LOGIN } from '../../../graphql/mutations'
 import { useHistory } from 'react-router-dom'
 import { SESSION_TOKEN, SIGN_IN_TOKEN } from '../../../utils/constants'
+import { UserContext } from '../../UtilityComponents/UserContext'
 
-interface SignInProps {
-  setToken: any;
-}
-
-const SignIn = ({ setToken }: SignInProps) => {
+const SignIn = () => {
+  const userContext = useContext(UserContext)
   const history = useHistory()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -25,9 +23,10 @@ const SignIn = ({ setToken }: SignInProps) => {
       console.log("RESULT DATA USE EFFECT", result.data)
       const token = result.data.login.value
       const id = result.data.login.id
-      setToken(token)
       localStorage.setItem(SIGN_IN_TOKEN, token)
+      userContext.setToken(token)
       sessionStorage.setItem(SESSION_TOKEN, id)
+      userContext.setSessionId(id)
       history.push('/')
     }
   }, [result.data]) // eslint-disable-line
