@@ -39,10 +39,10 @@ const resolvers: IResolvers = {
     }
   }),
   Query: {
-    me: (_root, _args, context) => {
+    me: async (_root, _args, context) => {
       //return context.currentUser
-      return User.findOne({ _id: context.currentUser._id })
-        .populate('jobQueries conversations profile')
+      const result = await User.findOne({ _id: context.currentUser._id })
+        .populate('jobQueries')
         .populate({
           path: 'profile',
           populate: {
@@ -58,6 +58,16 @@ const resolvers: IResolvers = {
             path: 'profile'
           }
         })
+        .populate({
+          path: 'conversations',
+          populate: {
+            path: 'participants',
+            populate: {
+              path: 'object'
+            }
+          }
+        })
+      return result
     },
     allUsers: () => {
       return User.find({})
@@ -124,12 +134,24 @@ const resolvers: IResolvers = {
       return Group.findOne({ _id: args.id }).populate('users')
     },
     allConversations: () => {
-      return Conversation.find({}).populate('users')
+      return Conversation.find({})
+        .populate({
+          path: 'participants.object',
+          populate: {
+            path: 'profile'
+          }
+        })
     },
     findConversation: async (_root, args) => {
       return await Conversation.findOne({ _id: args.id })
         .populate({
           path: 'participants.object',
+          populate: {
+            path: 'profile'
+          }
+        })
+        .populate({
+          path: 'messages.sender.object',
           populate: {
             path: 'profile'
           }
@@ -167,10 +189,23 @@ const resolvers: IResolvers = {
     },
   },
   UserOrGroup: {
-    __resolveType(obj: { username: any; users: any }, _context: any, _info: any) {
-      if (obj.username) return 'User'
-      if (obj.users) return 'Group'
-      return null;
+    __resolveType(obj: { kind: string; }, _context: any, _info: any) {
+      // console.log("\n\n\n", obj, "\n\n\n")
+
+      const findUserOrGroup = async (id: any) => {
+        return await User.findOne({_id: id}) || await Group.findOne({_id: id})
+      }
+      if (obj.kind === 'User') return 'User'
+      if (obj.kind === 'Group') return 'Group'
+      else {
+        const id = obj
+        const result = findUserOrGroup(id)
+        const returnValue = result.then((resultObject) => {
+          //console.log("resultObject", resultObject)
+          return resultObject.kind
+        })
+        return returnValue
+      }
     }
   },
   Mutation: {

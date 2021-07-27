@@ -1,17 +1,18 @@
 import React from 'react'
 import { useQuery } from '@apollo/client';
 import { NavLink } from "react-router-dom";
-import { CONVERSATION_INFOS } from '../../../../graphql/queries';
+import { MY_CONVERSATIONS_PARTICIPANTS_LIST } from '../../../../graphql/queries';
 
 import './MessageNavigation.css'
 import { Searchbar } from '../../../UtilityComponents/UtilityComponents';
 
 const MessageNavigation = ({ setShowContacts }: any) => {
-  const result = useQuery(CONVERSATION_INFOS)
+  const result = useQuery(MY_CONVERSATIONS_PARTICIPANTS_LIST)
 
   if (result.loading) {
     return <div>Loading...</div>
   }
+  console.log("RESULT", result)
   const conversations = result.data.me.conversations
 
   return (

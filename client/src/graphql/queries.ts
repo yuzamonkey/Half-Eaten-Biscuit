@@ -87,14 +87,14 @@ export const MY_ID = gql`
   }
 `
 
-export const CONVERSATION_INFOS = gql`
-  query conversationInfos {
+export const MY_CONVERSATIONS_PARTICIPANTS_LIST = gql`
+  query myConversationsParticipantsList {
     me {
       username
       conversations {
         id,
-        users {
-          username
+        participants {
+          id
         }
       }
     }

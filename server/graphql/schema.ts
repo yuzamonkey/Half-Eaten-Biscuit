@@ -17,15 +17,15 @@ const typeDefs = gql`
     time: Date
   }
 
+  type Participant {
+    kind: String,
+    object: UserOrGroup
+  }
+
   type Conversation {
     id: ID!
     participants: [Participant]!
     messages: [Message]!
-  }
-
-  type Participant {
-    kind: String,
-    object: UserOrGroup
   }
 
   type Jobquery {
