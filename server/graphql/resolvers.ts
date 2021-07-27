@@ -1,5 +1,5 @@
 import { AuthenticationError, IResolvers, UserInputError, PubSub } from "apollo-server"
-import { IConversation } from "../types/types"
+//import { IConversation } from "../types/types"
 
 require('dotenv')
 const bcrypt = require('bcrypt')
@@ -61,9 +61,9 @@ const resolvers: IResolvers = {
         .populate({
           path: 'conversations',
           populate: {
-            path: 'participants',
+            path: 'participants.object',
             populate: {
-              path: 'object'
+              path: 'profile'
             }
           }
         })
@@ -177,15 +177,6 @@ const resolvers: IResolvers = {
     },
     allCategories: async () => {
       return Category.find({}).populate('parent children')
-    },
-  },
-  User: {
-    conversations: async (root) => {
-      const conversationIds = root.conversations.map((c: IConversation) => c._id)
-      const conversations = await Conversation.find({
-        _id: { $in: conversationIds }
-      }).populate('users')
-      return conversations
     },
   },
   UserOrGroup: {
