@@ -18,6 +18,10 @@ const groupSchema = new mongoose.Schema({
   profile: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'GroupProfile'
+  },
+  kind: {
+    type: String,
+    default: 'Group'
   }
 })
 

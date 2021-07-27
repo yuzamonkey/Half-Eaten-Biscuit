@@ -126,22 +126,15 @@ const resolvers: IResolvers = {
     allConversations: () => {
       return Conversation.find({}).populate('users')
     },
-    findConversation: (_root, args) => {
-      return Conversation.findOne({ _id: args.id })
-        .populate('participants')
+    findConversation: async (_root, args) => {
+      return await Conversation.findOne({ _id: args.id })
         .populate({
-          path: 'messages',
-          populate: { path: 'sender' }
+          path: 'participants.object',
+          populate: {
+            path: 'profile'
+          }
         })
     },
-    // findConversation: (_root, args) => {
-    //   return Conversation.findOne({ _id: args.id })
-    //     .populate('users')
-    //     .populate({
-    //       path: 'messages',
-    //       populate: { path: 'sender' }
-    //     })
-    // },
     allJobqueries: () => {
       return Jobquery.find({})
         .populate({
@@ -160,7 +153,7 @@ const resolvers: IResolvers = {
           }
         })
     },
-    allCategories: () => {
+    allCategories: async () => {
       return Category.find({}).populate('parent children')
     },
   },
@@ -294,22 +287,36 @@ const resolvers: IResolvers = {
       const senderId = args.senderId
       const receiverId = args.receiverId
 
+
       const sender = await User.findOne({ _id: senderId }) || await Group.findOne({ _id: senderId })
       const receiver = await User.findOne({ _id: receiverId }) || await Group.findOne({ _id: receiverId })
 
-      console.log("SENDER", sender)
-      console.log("RECEIVER", receiver)
+      console.log("\nSENDER •••", sender._id)
+      console.log("RECEIVER •••", receiver._id)
 
       if (!sender || !receiver) {
         console.log("NO SENDER OR RECEIVER")
-        return null
+        throw new UserInputError('No sender or receiver', {
+          invalidArgs: args,
+        })
       }
 
       const newConversation = new Conversation({
-        participants: [sender, receiver]
+        participants: [
+          {
+            _id: sender.id,
+            kind: sender.kind,
+            object: sender
+          },
+          {
+            _id: receiver.id,
+            kind: receiver.kind,
+            object: receiver
+          }
+        ]
       })
 
-      console.log("NEW CONVERSATION", newConversation)
+      console.log("•••NEW CONVERSATION•••\n", newConversation)
 
       try {
         const savedConversation = await newConversation.save()

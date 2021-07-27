@@ -35,6 +35,10 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'UserProfile'
   },
+  kind: {
+    type: String,
+    default: 'User'
+  }
 })
 
 userSchema.set('toJSON', {

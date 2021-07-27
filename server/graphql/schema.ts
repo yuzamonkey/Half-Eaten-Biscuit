@@ -18,8 +18,13 @@ const typeDefs = gql`
 
   type Conversation {
     id: ID!
-    participants: [UserOrGroup]!
+    participants: [Participant]!
     messages: [Message]!
+  }
+
+  type Participant {
+    kind: String,
+    object: UserOrGroup
   }
 
   type Jobquery {

@@ -4,22 +4,36 @@ const uniqueValidator = require('mongoose-unique-validator')
 
 const conversationSchema = new mongoose.Schema({
   participants: [{
-    type: mongoose.Schema.Types.ObjectId,
-    // ref: 'User'
-    refPath: 'userOrGroup'
+    kind: String,
+    object: {
+      type: mongoose.Schema.Types.ObjectId,
+      refPath: 'participants.kind'
+    }
+    // type: mongoose.Schema.Types.ObjectId,
+    // // ref: 'User'
+    // refPath: 'userOrGroup'
   }],
   messages: [{
     body: String,
     sender: {
-      type: mongoose.Schema.Types.ObjectId,
+      kind: String,
+      senderObject: {
+        type: mongoose.Schema.Types.ObjectId,
+        refPath: 'sender.kind'
+      }
       //ref: 'User'
-      refPath: 'userOrGroup'
+      //refPath: 'userOrGroup'
+    },
+    time: {
+      type: Date,
+      default: new Date()
     }
   }],
-  userOrGroup: {
-    type: String,
-    enum: ['User', 'Group']
-  },
+  // userOrGroup: {
+  //   type: String,
+  //   required: true,
+  //   enum: ['User', 'Group']
+  // },
 })
 
 conversationSchema.set('toJSON', {
