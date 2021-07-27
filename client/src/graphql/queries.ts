@@ -117,20 +117,35 @@ export const MY_CONVERSATIONS_PARTICIPANTS_LIST = gql`
 export const FIND_CONVERSATION = gql`
   query findConversation($id: ID!) {
     findConversation(id: $id) {
-      id, 
-      users {
-        id,
-        username
-        conversations {
-          id
+      id
+      participants {
+        object {
+          ... on User {
+            id
+            username
+          }
+        ... on Group {
+            id,
+            profile {name}
+            }
+          }
         }
-      },
+      
       messages {
-        id
+        body
+        time
         sender {
-          id
+          object {
+            ...on User {
+              id 
+              username
+            }
+            ...on Group {
+              id
+              profile {name}
+            }
+          }
         }
-        body 
       } 
     }
   }

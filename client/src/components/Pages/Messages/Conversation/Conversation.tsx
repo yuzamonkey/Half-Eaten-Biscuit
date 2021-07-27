@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation, useApolloClient, useSubscription } from '@apollo/client';
 
@@ -6,6 +6,7 @@ import './Conversation.css'
 import { FIND_CONVERSATION, MY_ID } from '../../../../graphql/queries';
 import { SEND_MESSAGE } from '../../../../graphql/mutations';
 import { MESSAGE_ADDED } from '../../../../graphql/subscriptions';
+import { UserContext } from '../../../UtilityComponents/UserContext';
 
 const Conversation = ({ setShowContacts }: any) => {
   const { id }: any = useParams();
@@ -15,7 +16,7 @@ const Conversation = ({ setShowContacts }: any) => {
     variables: { id },
     onCompleted: () => scrollToBottom()
   })
-  
+
   useEffect(() => {
     const element = document.getElementById('conversation-content')
     element?.scrollTo({
@@ -75,19 +76,20 @@ const Conversation = ({ setShowContacts }: any) => {
     // }
   })
 
-  const myIdResult = useQuery(MY_ID)
+  //const userContext.sessionId = useQuery(MY_ID)
+  const userContext = useContext(UserContext)
 
   const [messageInput, setMessageInput] = useState('')
 
-  if (conversationResult.loading || myIdResult.loading) {
+  if (conversationResult.loading) {
     return <div>Loading...</div>
   }
 
-  const users = conversationResult.data.findConversation.users
+  console.log("CONVERSATIONRESULT", conversationResult)
+
+  const participants = conversationResult.data.findConversation.participants
   const messages = conversationResult.data.findConversation.messages
   const conversationId = conversationResult.data.findConversation.id
-
-  const myId = myIdResult.data.me.id
 
   const handleSendMessage = async (event) => {
     event.preventDefault()
@@ -99,15 +101,20 @@ const Conversation = ({ setShowContacts }: any) => {
     <div className="conversation-container">
       <div className="conversation-info">
         <div className="conversation-usernames">
-          {users.map(p => p.username === myIdResult.data.me.username ? <b key={p.id}>Me • </b> : <b key={p.id}>{p.username} • </b>)}
+          {participants.map(p => {
+            return p.object.id === userContext.sessionId
+              ? <b key={p.id}>Me • </b>
+              : <b key={p.id}>{p.object.username || p.object.profile.name} • </b>
+          }
+          )}
         </div>
         <div onClick={() => setShowContacts(true)} className="show-contacts-toggle"><i className={"fas fa-arrow-down"}></i></div>
       </div>
-      {/* <h2>Conversation {id}</h2> */}
       <div id='conversation-content' className="conversation-content">
         {messages.map(message => {
+          console.log("MESSAGE", message)
           return (
-            message.sender.id === myId
+            message.sender.object.id === userContext.sessionId
               ? <div className="message-container user-sent" key={message.id}>
                 {message.body}
               </div>
