@@ -332,34 +332,60 @@ const resolvers: IResolvers = {
           invalidArgs: args,
         })
       }
+    },
 
-      // const currentUserName = currentUser.username
-      // const receiver = await User.findOne({ _id: receiverId })
-      // console.log("sender", currentUserName, currentUserId)
-      // console.log("receiver", receiver, receiverId)
+    sendMessage: async (_root, args, context) => {
+      const currentUser = context.currentUser
 
-      // if (!receiver) {
-      //   console.log("NO RECEIVER")
-      //   return null
-      // }
+      if (!currentUser) {
+        console.log(`Not authenticated user`)
+        throw new AuthenticationError("not authenticated")
+      }
 
-      // const newConversation = new Conversation({
-      //   users: [currentUser.id, receiverId]
-      // })
+      const senderId = args.senderId
+      const conversationId = args.conversationId
+      const body = args.body
 
-      // try {
-      //   const savedConversation = await newConversation.save()
-      //   console.log("SAVED CONVERSATION SUCCESS, ", savedConversation)
-      //   currentUser.conversations = currentUser.conversations.concat(newConversation)
-      //   await currentUser.save()
-      //   receiver.conversations = receiver.conversations.concat(newConversation)
-      //   await receiver.save()
-      //   return savedConversation
-      // } catch (error) {
-      //   throw new UserInputError(error.message, {
-      //     invalidArgs: args,
-      //   })
-      // }
+      console.log("SENDER ID • ", senderId)
+      console.log("CONV ID • ", conversationId)
+      console.log("BODY • ", body)
+
+      const sender = await User.findOne({ _id: senderId }) || await Group.findOne({ _id: senderId })
+      const conversation = await Conversation.findOne({ _id: conversationId })
+      console.log("SENDER •••\n", sender)
+      console.log("CONVERSATION •••\n", conversation)
+
+      if (!sender) {
+        throw new UserInputError('No sender found', {
+          invalidArgs: args
+        })
+      }
+
+      if (!conversation) {
+        throw new UserInputError('No conversation found', {
+          invalidArgs: args
+        })
+      }
+
+      const newMessage = {
+        body: body,
+        sender: {
+          kind: sender.kind,
+          object: sender
+        }
+      }
+
+      console.log("NEW MESSAGE ••• \n", newMessage)
+
+      try {
+        conversation.messages = conversation.messages.concat(newMessage)
+        const messageWithId = conversation.messages[conversation.messages.length - 1]
+        await conversation.save()
+        pubsub.publish('MESSAGE_ADDED', { messageAdded: messageWithId })
+        return messageWithId
+      } catch (error) {
+        throw new TypeError(error.message)
+      }
     },
 
     createGroup: async (_root, args, context) => {
@@ -475,38 +501,6 @@ const resolvers: IResolvers = {
         })
       }
     },
-
-    sendMessage: async (_root, args, context) => {
-      const currentUser = context.currentUser
-
-      if (!currentUser) {
-        console.log(`Not authenticated user`)
-        throw new AuthenticationError("not authenticated")
-      }
-
-      const content = args.body
-      //const date = new Date()
-      const userId = currentUser.id
-      const conversationId = args.conversationId
-
-      try {
-        const newMessage = {
-          body: content,
-          sender: userId
-        }
-
-        const conversation = await Conversation.findOne({ _id: conversationId })
-        conversation.messages = conversation.messages.concat(newMessage)
-        const messageWithId = conversation.messages[conversation.messages.length - 1]
-        await conversation.save()
-        pubsub.publish('MESSAGE_ADDED', { messageAdded: messageWithId })
-        return messageWithId
-      } catch (error) {
-        throw new UserInputError(error.message, {
-          invalidArgs: args,
-        })
-      }
-    }
   },
 
   Subscription: {

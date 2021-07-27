@@ -17,7 +17,7 @@ const conversationSchema = new mongoose.Schema({
     body: String,
     sender: {
       kind: String,
-      senderObject: {
+      object: {
         type: mongoose.Schema.Types.ObjectId,
         refPath: 'sender.kind'
       }

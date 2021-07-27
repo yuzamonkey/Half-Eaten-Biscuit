@@ -12,8 +12,9 @@ const typeDefs = gql`
 
   type Message {
     id: ID!
-    body: String
-    sender: User!
+    body: String!
+    sender: Participant!
+    time: Date
   }
 
   type Conversation {
@@ -122,6 +123,7 @@ const typeDefs = gql`
       receiverId: ID!
     ): Conversation
     sendMessage(
+      senderId: ID!
       conversationId: ID!
       body: String!
     ): Message
