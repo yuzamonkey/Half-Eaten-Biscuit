@@ -180,22 +180,15 @@ const resolvers: IResolvers = {
     },
   },
   UserOrGroup: {
-    __resolveType(obj: { kind: string; }, _context: any, _info: any) {
-      // console.log("\n\n\n", obj, "\n\n\n")
-
-      const findUserOrGroup = async (id: any) => {
-        return await User.findOne({_id: id}) || await Group.findOne({_id: id})
-      }
+    async __resolveType(obj: { kind: string; }, _context: any, _info: any) {
+      console.log("\n\n\n", obj, "\n\n\n")
       if (obj.kind === 'User') return 'User'
       if (obj.kind === 'Group') return 'Group'
       else {
         const id = obj
-        const result = findUserOrGroup(id)
-        const returnValue = result.then((resultObject) => {
-          //console.log("resultObject", resultObject)
-          return resultObject.kind
-        })
-        return returnValue
+        const result = await User.findOne({ _id: id }) || await Group.findOne({ _id: id })
+        console.log("RESULT.KIND", result.kind)
+        return result.kind
       }
     }
   },

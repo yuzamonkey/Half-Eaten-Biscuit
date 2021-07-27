@@ -19,7 +19,7 @@ const conversationSchema = new mongoose.Schema({
       kind: String,
       object: {
         type: mongoose.Schema.Types.ObjectId,
-        refPath: 'sender.kind'
+        refPath: 'messages.sender.kind'
       }
       //ref: 'User'
       //refPath: 'userOrGroup'
