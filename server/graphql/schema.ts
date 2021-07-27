@@ -45,6 +45,7 @@ const typeDefs = gql`
     profile: UserProfile!
     groups: [Group]!
     available: Boolean!
+    kind: String!
   }
 
   type Group {
@@ -53,6 +54,7 @@ const typeDefs = gql`
     profile: GroupProfile!
     jobQueries: [Jobquery]!
     conversations: [Conversation]!
+    kind: String!
   }
 
   type UserProfile {

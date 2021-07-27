@@ -89,13 +89,26 @@ export const MY_ID = gql`
 
 export const MY_CONVERSATIONS_PARTICIPANTS_LIST = gql`
   query myConversationsParticipantsList {
-    me {
-      username
-      conversations {
-        id,
-        participants {
-          id
-        }
+      me {
+        username
+        conversations {
+          id,
+          participants {
+            object {
+            ...on User {
+              id,
+              kind,
+              username
+            }
+            ...on Group {
+              id,
+              kind,
+              profile {
+                name
+              }
+            }
+          }
+        }  
       }
     }
   }
