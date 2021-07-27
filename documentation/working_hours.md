@@ -163,5 +163,5 @@ Goal for weeks 24-30 (7 weeks)
 | 21.7.  | 3.5 | Frontend bug fixes and css improvements, push to heroku |
 | Week 30 ✅❌ |||   
 | 26.7.  | 3.5 | useContext, group handling in frontend and messages |
-| 27.7.  | 3 | Messaging between users and groups |
-| =     | 115.5      |               |
+| 27.7.  | 4 | Messaging between users and groups |
+| =     | 116.5      |               |
