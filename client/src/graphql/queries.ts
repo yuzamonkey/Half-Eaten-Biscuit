@@ -60,15 +60,21 @@ export const FIND_USER_OR_GROUP = gql`
   query findUserOrGroup($id: ID!) {
     findUserOrGroup(id: $id) {
         ... on User {
-        id,
-        username,
+        id
+        kind
+        username
         profile {
           about,
           image
         }
       }
       ... on Group {
-        id,
+        id
+        kind
+        users {
+          id
+          username
+        }
         profile {
           name,
           image

@@ -15,8 +15,7 @@ const Profile = () => {
 
   console.log("USER/GROUP RESULT", result.data)
 
-  console.log(result.data.findUserOrGroup.__typename)
-  const type = result.data.findUserOrGroup.__typename
+  const type = result.data.findUserOrGroup.kind
 
   if (type === 'User') {
     return (
@@ -40,10 +39,11 @@ const Profile = () => {
       <div>
         {result.data
           ? (<div>
-            {result.data.findUserOrGroup.profile.name}
+            <b>{result.data.findUserOrGroup.profile.name}</b>
             <img src={result.data.findUserOrGroup.profile.image} alt="" id="img" className="img" width={300} />
+            {result.data.findUserOrGroup.users.map(user => <div key={user.id}>{user.username}</div>)}
             </div>)
-          : (<div></div>)}
+          : (<div>No group profile</div>)}
       </div>
     )
   }
