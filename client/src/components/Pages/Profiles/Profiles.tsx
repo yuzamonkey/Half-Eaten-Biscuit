@@ -45,9 +45,8 @@ const Profiles = () => {
         {allUsersAndGroups.data.allUsersAndGroups.map((item: any) => {
           const profileUrl = `/profiles/${item.id}`
           return (
-            <div className="profile-container">
+            <div className="profile-container" key={item.id}>
               <LargeProfileCard
-                key={item.id}
                 id={item.id}
                 image={item.profile.image}
                 name={item.username || item.profile.name}

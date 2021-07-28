@@ -5,8 +5,7 @@ import './UtilityComponents.css'
 
 
 export const Loading = () => {
-  return <div className="loading-container">
-    ...Loading component...
+  return <div className="loader">
   </div>
 }
 
