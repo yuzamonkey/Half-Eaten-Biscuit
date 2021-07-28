@@ -120,6 +120,60 @@ export const MY_CONVERSATIONS_PARTICIPANTS_LIST = gql`
   }
 `
 
+export const CONVERSATION_PARTICIPANTS_BY_SESSION_ID = gql`
+  query conversationParticipantsById ($id: ID!) {
+    findUserOrGroup(id: $id) {
+      ...on User {
+        username
+        conversations {
+          id
+          participants {
+            object {
+              ...on User {
+                id
+                kind
+                username
+              }
+              ...on Group {
+                id
+                kind
+                profile {
+                  name
+                }
+              }
+            }
+          }
+        }
+      }
+      ...on Group {
+        profile {
+          name
+        }
+        conversations {
+          id
+          participants {
+            kind
+            object {
+              ...on User {
+                id
+                kind
+                username
+              }
+              ...on Group {
+                id
+                kind
+                profile {
+                  name
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
 export const FIND_CONVERSATION = gql`
   query findConversation($id: ID!) {
     findConversation(id: $id) {

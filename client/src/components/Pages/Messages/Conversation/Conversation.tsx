@@ -9,6 +9,7 @@ import { MESSAGE_ADDED } from '../../../../graphql/subscriptions';
 import { UserContext } from '../../../UtilityComponents/UserContext';
 
 const Conversation = ({ setShowContacts }: any) => {
+  const userContext = useContext(UserContext)
   const { id }: any = useParams();
   const client = useApolloClient()
 
@@ -76,7 +77,6 @@ const Conversation = ({ setShowContacts }: any) => {
     // }
   })
 
-  const userContext = useContext(UserContext)
   const [messageInput, setMessageInput] = useState('')
 
   if (conversationResult.loading) {

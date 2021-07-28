@@ -1,19 +1,25 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useQuery } from '@apollo/client';
 import { NavLink } from "react-router-dom";
-import { MY_CONVERSATIONS_PARTICIPANTS_LIST } from '../../../../graphql/queries';
+import { CONVERSATION_PARTICIPANTS_BY_SESSION_ID } from '../../../../graphql/queries';
 
 import './MessageNavigation.css'
 import { Searchbar } from '../../../UtilityComponents/UtilityComponents';
+import { UserContext } from '../../../UtilityComponents/UserContext';
 
 const MessageNavigation = ({ setShowContacts }: any) => {
-  const result = useQuery(MY_CONVERSATIONS_PARTICIPANTS_LIST)
+  const userContext = useContext(UserContext)
+  const participants = useQuery(CONVERSATION_PARTICIPANTS_BY_SESSION_ID, {
+    variables: {
+      id: userContext.sessionId
+    }
+  })
 
-  if (result.loading) {
+  if (participants.loading) {
     return <div>Loading...</div>
   }
-  
-  const conversations = result.data.me.conversations
+
+  const conversations = participants.data.findUserOrGroup.conversations
 
   return (
     <nav className="msg-navigation">
@@ -23,15 +29,17 @@ const MessageNavigation = ({ setShowContacts }: any) => {
         </div>
         <ul className="msg-nav-menu">
           {conversations.map(conversation => {
-            const usernames = conversation.participants.map(participant => participant.object.kind === 'User'
-              ? <p key={participant.object.id}>{participant.object.username}</p>
-              : <p key={participant.object.id}>{participant.object.profile.name}</p>
+            const names = conversation.participants.map(participant => {
+              return participant.object.kind === 'User'
+                ? <p key={participant.object.id}>{participant.object.username}</p>
+                : <p key={participant.object.id}>{participant.object.profile.name}</p>
+            }
             )
             const linkTo = `/messages/${conversation.id}`
             return (
               <li className="msg-nav-item" key={conversation.id}>
                 <NavLink exact to={linkTo} activeClassName="msg-active" className="msg-nav-links" onClick={() => setShowContacts(false)}>
-                  {usernames}
+                  {names}
                 </NavLink>
               </li>
             )

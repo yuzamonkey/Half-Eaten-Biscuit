@@ -164,5 +164,5 @@ Goal for weeks 24-30 (7 weeks)
 | Week 30 ✅❌ |||   
 | 26.7.  | 3.5 | useContext, group handling in frontend and messages |
 | 27.7.  | 4 | Messaging between users and groups |
-| 28.7.  | 945-1030, 11- |  |
+| 28.7.  | 945-11, 12- |  |
 | =     | 116.5      |               |
