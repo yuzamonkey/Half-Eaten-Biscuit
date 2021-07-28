@@ -67,15 +67,9 @@
   font-weight: 300;
 }
 
-.new-group-link {
-  border: 1px solid var(--bg-grey);
-  background-color: var(--bg-grey);
-}
-
-.dropdown-my-groups {
+.profile-switch-options {
   border: 1px solid var(--bg-grey);
   border-radius: 10px;
-  margin: 0 10px;
 }
 
 @media screen and (max-width: 580px) {

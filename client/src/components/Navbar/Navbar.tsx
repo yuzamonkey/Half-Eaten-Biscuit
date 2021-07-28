@@ -10,7 +10,6 @@ import { FIND_USER_OR_GROUP } from '../../graphql/queries';
 const Navbar = () => {
   const userContext = useContext(UserContext)
   const currentUserNameResult = useQuery(FIND_USER_OR_GROUP, {variables: {id: userContext.sessionId}})
-  console.log("CUNM", currentUserNameResult)
 
   const [showMenu, setShowMenu] = useState(false);
   const [showNotification, setShowNotifications] = useState(false)

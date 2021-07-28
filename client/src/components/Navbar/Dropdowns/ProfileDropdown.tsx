@@ -13,7 +13,6 @@ const ProfileDropdown = ({ show, setShow }: any) => {
   const me = useQuery(ME)
   const userContext = useContext(UserContext)
 
-  //const currentProfile = useQuery(FIND_USER_OR_GROUP, { variables: { id: userContext.sessionId } })
   const [findUserOrGroup, { loading, data }] = useLazyQuery(FIND_USER_OR_GROUP)
   useEffect(() => {
     userContext.sessionId && findUserOrGroup({ variables: { id: userContext.sessionId } })
@@ -74,20 +73,22 @@ const ProfileDropdown = ({ show, setShow }: any) => {
         <h3 className="profile-name">{data.findUserOrGroup.username || data.findUserOrGroup.profile.name}</h3>
         <p className="secondary-text">Show profile</p>
       </div>
-      <div className="dropdown-link" onClick={handleMeClick}><b>Me</b></div>
-      <div className="dropdown-my-groups">
-        <div className="dropdown-link new-group-link" onClick={handleNewGroupClick}><b>My groups +</b></div>
-        {me.data.me.groups.map(group => {
-          return (
-            <div
-              className="dropdown-link"
-              onClick={() => handleProfileChange(group.id)}
-              key={group.id}>
-              {group.profile.name}
-            </div>
-          )
-        })}
+      <div className="profile-switch-options">
+        <b>Switch profile</b>
+        {me.data.me.id !== userContext.sessionId &&
+          <div className="dropdown-link" onClick={handleMeClick}>{me.data.me.username}</div>
+        }
+        {me.data.me.groups.map(group =>
+          group.id !== userContext.sessionId &&
+          <div
+            className="dropdown-link"
+            onClick={() => handleProfileChange(group.id)}
+            key={group.id}>
+            {group.profile.name}
+          </div>
+        )}
       </div>
+      <div className="dropdown-link" onClick={handleNewGroupClick}>New group +</div>
       <div className="dropdown-link" onClick={handleSettingsClick}>Settings</div>
       <div className="dropdown-link" onClick={handleLogout}>Log out</div>
     </div>
