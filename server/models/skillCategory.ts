@@ -8,13 +8,18 @@ const skillCategorySchema = new mongoose.Schema({
     unique: true,
     required: true
   },
+  profession: {
+    type: String,
+    unique: true,
+    required: true
+  },
   parent: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Category'
+    ref: 'SkillCategory'
   },
   children: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Category'
+    ref: 'SkillCategory'
   }]
 })
 
@@ -28,4 +33,4 @@ skillCategorySchema.set('toJSON', {
 
 skillCategorySchema.plugin(uniqueValidator)
 
-module.exports = mongoose.model('Category', skillCategorySchema)
+module.exports = mongoose.model('SkillCategory', skillCategorySchema)

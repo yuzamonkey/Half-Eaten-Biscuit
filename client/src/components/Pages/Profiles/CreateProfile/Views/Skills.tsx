@@ -19,6 +19,8 @@ const Skills = ({ skills, setSkills }) => {
 
   if (loading) return <div>Loading...</div>
 
+  console.log("SKILLDATA", data)
+
   const skillsIncludeCategory = (selectedObj) => {
     const objId = selectedObj.id
     let found = false

@@ -4,7 +4,7 @@ import { AuthenticationError, IResolvers, UserInputError, PubSub } from "apollo-
 require('dotenv')
 const bcrypt = require('bcrypt')
 
-const Category = require('../models/category')
+const SkillCategory = require('../models/skillCategory')
 const Jobquery = require('../models/jobquery')
 const Conversation = require('../models/conversation')
 const User = require('../models/user')
@@ -213,7 +213,7 @@ const resolvers: IResolvers = {
         })
     },
     allSkillCategories: async () => {
-      return Category.find({}).populate('parent children')
+      return SkillCategory.find({}).populate('parent children')
     },
   },
   UserOrGroup: {
@@ -230,26 +230,25 @@ const resolvers: IResolvers = {
   Mutation: {
     addSkillCategory: async (_root, args) => {
       const name = args.name
+      const profession = args.profession
       const parentName = args.parent
 
-      console.log("NAME", name, "PARENT", parentName)
-
       try {
-        const parent = await Category.findOne({ name: parentName })
-        const newCategory = new Category({
+        const parent = await SkillCategory.findOne({ name: parentName })
+        const newSkillCategory = new SkillCategory({
           name: name,
+          profession: profession,
           parent: parent?._id,
           children: []
         })
-        const savedCategory = await newCategory.save()
+        const savedSkillCategory = await newSkillCategory.save()
         if (parent) {
-          parent.children = parent.children.concat(savedCategory._id)
+          parent.children = parent.children.concat(savedSkillCategory._id)
           await parent.save()
         }
-        return savedCategory
-
+        return savedSkillCategory
       } catch (error) {
-        console.log("ERROR ON ADD CATEGORY")
+        console.log("ERROR ON ADD SKILLCATEGORY", error)
         throw new UserInputError(error.message, {
           invalidArgs: args,
         })

@@ -293,6 +293,7 @@ export const ALL_USERS_AND_GROUPS = gql`
           skills {
             id
             name
+            profession
           }
         }
       }

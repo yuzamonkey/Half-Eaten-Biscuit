@@ -14,7 +14,7 @@ const userProfileSchema = new mongoose.Schema({
   },
   skills: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Category'
+    ref: 'SkillCategory'
   }],
   image: {
     type: String,

@@ -3,20 +3,19 @@ import { useQuery, useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
 import './Profiles.css'
-import { MY_ID, ALL_USER_PROFILES, ALL_USERS_AND_GROUPS } from '../../../graphql/queries';
+import { MY_ID, ALL_USERS_AND_GROUPS } from '../../../graphql/queries';
 import { NEW_CONVERSATION } from '../../../graphql/mutations';
 import { Button, Searchbar } from '../../UtilityComponents/UtilityComponents';
 import { UserContext } from '../../UtilityComponents/UserContext';
 
 const Profiles = () => {
   const userContext = useContext(UserContext)
-  const allUsersResult = useQuery(ALL_USER_PROFILES)
   const myIdResult = useQuery(MY_ID)
   const allUsersAndGroups = useQuery(ALL_USERS_AND_GROUPS)
   const [newConversation] = useMutation(NEW_CONVERSATION)
   const history = useHistory()
 
-  if (allUsersResult.loading || myIdResult.loading || allUsersAndGroups.loading) {
+  if (myIdResult.loading || allUsersAndGroups.loading) {
     return <div>loading...</div>
   }
 
@@ -58,7 +57,7 @@ const Profiles = () => {
               <div className="lower-container">
                 <div className="name-container">
                   <h3 className="profile-name">{item.username || item.profile.name}</h3>
-                  {item.kind === 'User' && item.profile.skills.map(skill => <p key={skill.id}>{skill.name}</p>)}
+                  {item.kind === 'User' && item.profile.skills.map(skill => <p key={skill.id}>{skill.profession}</p>)}
                 </div>
                 <div className="profiles-buttons-container">
                   <Button text='Profile' handleClick={() => history.push(profileUrl)} />
