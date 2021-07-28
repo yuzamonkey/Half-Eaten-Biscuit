@@ -117,6 +117,9 @@ Goal for weeks 24-30 (7 weeks)
       PM: UseContext for user handling in react, messaging between users and groups
     Tue:
       PM: Messaging between users and groups backend and frontend
+    Wed:
+      AM: Fix messaging on client, show groups and users in Profiles-view
+      PM: Messaging and group handling
 
 
 ## WORK SCHEDULE
@@ -164,5 +167,5 @@ Goal for weeks 24-30 (7 weeks)
 | Week 30 ✅❌ |||   
 | 26.7.  | 3.5 | useContext, group handling in frontend and messages |
 | 27.7.  | 4 | Messaging between users and groups |
-| 28.7.  | 930-14, 1925-|  |
-| =     | 116.5      |               |
+| 28.7.  | 5 | Fix messaging frontend, group handling |
+| =     | 121.5      |               |
