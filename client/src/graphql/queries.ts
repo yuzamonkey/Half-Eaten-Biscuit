@@ -240,14 +240,8 @@ export const ALL_USERS = gql`
     allUsers {
       id
       username 
-      jobQueries {
-        content
-      }
       profile {
-        image,
-        skills {
-          name
-        }
+        image
       }
     }
   }

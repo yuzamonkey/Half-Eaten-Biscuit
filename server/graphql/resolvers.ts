@@ -452,7 +452,8 @@ const resolvers: IResolvers = {
 
       const name = args.name
       console.log("•••NAME", name)
-      const userIds = args.users.concat(String(currentUser._id))
+      const userIds = args.users
+      //validate that current user is included in userIds
       console.log(typeof (currentUser.id))
       console.log("•••IDS", userIds)
 
