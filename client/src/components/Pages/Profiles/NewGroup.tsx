@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 
 import { ALL_USERS, MY_ID } from '../../../graphql/queries'
+import { CREATE_GROUP } from '../../../graphql/mutations'
 import { Button } from '../../UtilityComponents/UtilityComponents'
 import './NewGroup.css'
-import { CREATE_GROUP } from '../../../graphql/mutations'
 
 interface User {
   id: String
@@ -18,6 +18,12 @@ const NewGroup = () => {
   const allUsersResult = useQuery(ALL_USERS)
   const myIdResult = useQuery(MY_ID)
 
+  const [createGroup] = useMutation(CREATE_GROUP, {
+    onError: (error) => {
+      console.log("Error at create group mutation: \n", error)
+    }
+  })
+
   useEffect(() => {
     if (myIdResult.data && allUsersResult.data) {
       const meObject = allUsersResult.data.allUsers.find((user: User) => user.id === myIdResult.data.me.id)
@@ -28,14 +34,14 @@ const NewGroup = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myIdResult.data, allUsersResult.data])
 
-  const [createGroup] = useMutation(CREATE_GROUP, {
-    onError: (error) => {
-      console.log("Error at create group mutation: \n", error)
-    }
-  })
-
   if (allUsersResult.loading || myIdResult.loading) {
     return <div>Loading...</div>
+  }
+
+  const handleRemoveFromSelectedUsers = (u) => {
+    if (u.id !== myIdResult.data.me.id) {
+      setSelectedUsers(selectedUsers.filter(user => user.username !== u.username))
+    }
   }
 
   const handleNewGroupSubmit = () => {
@@ -63,7 +69,7 @@ const NewGroup = () => {
           return (
             <div
               className="selected-user"
-              onClick={() => setSelectedUsers(selectedUsers.filter(user => user.username !== u.username))}>
+              onClick={() => handleRemoveFromSelectedUsers(u)}>
               <p>{u.username}</p>
             </div>
           )
