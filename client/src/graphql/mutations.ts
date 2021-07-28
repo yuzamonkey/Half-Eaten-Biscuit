@@ -25,8 +25,8 @@ export const CREATE_JOBQUERY = gql`
 `
 
 export const NEW_CONVERSATION = gql`
-  mutation newConversation($receiverId: ID!) {
-    createConversation(receiverId: $receiverId) {
+  mutation newConversation($senderId: ID!, $receiverId: ID!) {
+    createConversation(senderId: $senderId, receiverId: $receiverId) {
       id
     }
   }

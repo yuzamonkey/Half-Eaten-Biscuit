@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
@@ -6,8 +6,10 @@ import './Profiles.css'
 import { MY_ID, ALL_USER_PROFILES, ALL_USERS_AND_GROUPS } from '../../../graphql/queries';
 import { NEW_CONVERSATION } from '../../../graphql/mutations';
 import { Button, Searchbar } from '../../UtilityComponents/UtilityComponents';
+import { UserContext } from '../../UtilityComponents/UserContext';
 
 const Profiles = () => {
+  const userContext = useContext(UserContext)
   const allUsersResult = useQuery(ALL_USER_PROFILES)
   const myIdResult = useQuery(MY_ID)
   const allUsersAndGroups = useQuery(ALL_USERS_AND_GROUPS)
@@ -21,7 +23,12 @@ const Profiles = () => {
   const handleContactButtonPress = async (receiverId: any) => {
     console.log("CONTACT BUTTON PRESSED FOR", receiverId)
     //check for users conversations where only user is the receiver
-    const result = await newConversation({ variables: { receiverId } })
+    const result = await newConversation({
+      variables: {
+        senderId: userContext.sessionId,
+        receiverId: receiverId
+      }
+    })
     const newConversationId = result.data.createConversation.id
     history.push(`/messages/${newConversationId}`)
   }
@@ -54,7 +61,7 @@ const Profiles = () => {
                   {item.kind === 'User' && item.profile.skills.map(skill => <p key={skill.id}>{skill.name}</p>)}
                 </div>
                 <div className="profiles-buttons-container">
-                  <Button text='To profile' handleClick={() => history.push(profileUrl)} />
+                  <Button text='Profile' handleClick={() => history.push(profileUrl)} />
                   {item.id !== myIdResult.data.me.id
                     ? <Button text='Contact' handleClick={() => handleContactButtonPress(item.id)} />
                     : null
