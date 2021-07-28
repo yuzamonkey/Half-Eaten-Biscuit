@@ -76,10 +76,7 @@ const Conversation = ({ setShowContacts }: any) => {
     // }
   })
 
-  //const userContext.sessionId = useQuery(MY_ID)
   const userContext = useContext(UserContext)
-  console.log("USER CONTEXT", userContext)
-
   const [messageInput, setMessageInput] = useState('')
 
   if (conversationResult.loading) {
@@ -92,7 +89,13 @@ const Conversation = ({ setShowContacts }: any) => {
 
   const handleSendMessage = async (event) => {
     event.preventDefault()
-    await sendMessage({ variables: { id: conversationId, body: messageInput } })
+    await sendMessage({
+      variables: {
+        conversationId: conversationId,
+        senderId: userContext.sessionId,
+        body: messageInput
+      }
+    })
     setMessageInput('')
   }
 

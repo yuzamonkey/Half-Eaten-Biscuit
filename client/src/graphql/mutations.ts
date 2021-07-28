@@ -33,12 +33,11 @@ export const NEW_CONVERSATION = gql`
 `
 
 export const SEND_MESSAGE = gql`
-  mutation sendMessage($id: ID!, $body: String!) {
-    sendMessage(conversationId: $id, body: $body) {
-      id, 
-      body
+  mutation sendMessage($senderId: ID!, $conversationId: ID!, $body: String!){
+    sendMessage(senderId: $senderId, conversationId: $conversationId, body: $body) {
+      id, body
     }
-}
+  }
 `
 
 export const CREATE_GROUP = gql`
