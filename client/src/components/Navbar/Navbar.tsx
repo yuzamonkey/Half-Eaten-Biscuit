@@ -48,7 +48,7 @@ const Navbar = () => {
             <i className={showMenu ? "fas fa-arrow-left" : "fas fa-bars"}></i>
           </div>
 
-          <NavLink to="/" className="nav-logo nav-menu">
+          <NavLink to="/" className="nav-logo nav-menu" onClick={() => window.location.assign('/')}>
             HalfEatenBiscuit <i className="fas fa-cookie-bite"></i>
           </NavLink>
 
