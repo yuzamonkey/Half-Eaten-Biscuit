@@ -119,6 +119,16 @@
   color: white;
 }
 
+/* LARGE_PROFILE_IMAGE */
+
+.large-profile-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  padding-top: 15px;
+}
+
 /* LARGE_PROFILE_CARD */
 
 .profile-container {
@@ -146,14 +156,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.profile-image {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 50%;
-  padding-top: 15px;
 }
 
 .lower-container {
