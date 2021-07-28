@@ -22,9 +22,8 @@ import { UserContext } from "./components/UtilityComponents/UserContext";
 
 
 const App = () => {
-  const localStorageItem = localStorage.getItem(SIGN_IN_TOKEN)
-  const [id, setId] = useState('')
-  const [token, setToken] = useState(localStorageItem);
+  const localStorageToken = localStorage.getItem(SIGN_IN_TOKEN)
+  const [token, setToken] = useState(localStorageToken);
   const [sessionId, setSessionId] = useState(sessionStorage.getItem(SESSION_TOKEN))
 
   return (
@@ -34,7 +33,7 @@ const App = () => {
           In development
         </div>
       }
-      <UserContext.Provider value={{ id, setId, token, setToken, sessionId, setSessionId }}>
+      <UserContext.Provider value={{ token, setToken, sessionId, setSessionId }}>
         {!token
           ? <Switch>
             <Route path="/signin" component={() => <SignIn />} />
