@@ -7,6 +7,7 @@ import { FIND_CONVERSATION } from '../../../../graphql/queries';
 import { SEND_MESSAGE } from '../../../../graphql/mutations';
 import { MESSAGE_ADDED } from '../../../../graphql/subscriptions';
 import { UserContext } from '../../../UtilityComponents/UserContext';
+import { Loading } from '../../../UtilityComponents/UtilityComponents';
 
 const Conversation = ({ setShowContacts }: any) => {
   const userContext = useContext(UserContext)
@@ -80,7 +81,7 @@ const Conversation = ({ setShowContacts }: any) => {
   const [messageInput, setMessageInput] = useState('')
 
   if (conversationResult.loading) {
-    return <div>Loading...</div>
+    return <Loading />
   }
 
   const participants = conversationResult.data.findConversation.participants

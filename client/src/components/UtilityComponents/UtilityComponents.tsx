@@ -3,6 +3,13 @@ import { useHistory } from 'react-router-dom'
 import { UserContext } from './UserContext'
 import './UtilityComponents.css'
 
+
+export const Loading = () => {
+  return <div className="loading-container">
+    ...Loading component...
+  </div>
+}
+
 export const Toggle = ({ state, toggleClick }: any) => {
   return (
     <div
@@ -64,12 +71,12 @@ export const SmallProfileImage = ({ image }) => {
     <img src={image} alt="profileimg" className="small-profile-image"></img>
   )
 }
+
 export const LargeProfileImage = ({ image }) => {
   return (
     <img src={image} alt="profileimg" className="large-profile-image"></img>
   )
 }
-
 
 export const SmallProfileCard = ({ id, image, name }) => {
   return (

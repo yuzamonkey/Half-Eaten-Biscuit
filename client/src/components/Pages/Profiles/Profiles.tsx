@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import './Profiles.css'
 import { MY_ID, ALL_USERS_AND_GROUPS } from '../../../graphql/queries';
 import { NEW_CONVERSATION } from '../../../graphql/mutations';
-import { LargeProfileCard, Searchbar } from '../../UtilityComponents/UtilityComponents';
+import { LargeProfileCard, Loading, Searchbar } from '../../UtilityComponents/UtilityComponents';
 import { UserContext } from '../../UtilityComponents/UserContext';
 
 const Profiles = () => {
@@ -16,7 +16,7 @@ const Profiles = () => {
   const history = useHistory()
 
   if (myIdResult.loading || allUsersAndGroups.loading) {
-    return <div>loading...</div>
+    return <Loading />
   }
 
   const handleContactButtonPress = async (receiverId: any) => {

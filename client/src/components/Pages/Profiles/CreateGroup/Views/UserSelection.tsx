@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useQuery } from '@apollo/client'
 
 import { ALL_USERS, MY_ID } from '../../../../../graphql/queries'
-import { SmallProfileCard } from '../../../../UtilityComponents/UtilityComponents'
+import { Loading, SmallProfileCard } from '../../../../UtilityComponents/UtilityComponents'
 import '../CreateGroupForm.css'
 
 interface User {
@@ -25,7 +25,7 @@ const UserSelection = ({ selectedUsers, setSelectedUsers }) => {
   }, [myIdResult.data, allUsersResult.data])
 
   if (allUsersResult.loading || myIdResult.loading) {
-    return <div>Loading...</div>
+    return <Loading />
   }
 
   const handleRemoveFromSelectedUsers = (u) => {

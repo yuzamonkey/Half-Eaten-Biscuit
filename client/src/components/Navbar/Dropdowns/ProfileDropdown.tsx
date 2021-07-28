@@ -6,6 +6,7 @@ import { FIND_USER_OR_GROUP, ME } from '../../../graphql/queries';
 import { SESSION_TOKEN } from '../../../utils/constants';
 import './Dropdown.css'
 import { UserContext } from '../../UtilityComponents/UserContext';
+import { LargeProfileImage, Loading } from '../../UtilityComponents/UtilityComponents';
 
 const ProfileDropdown = ({ show, setShow }: any) => {
   const client = useApolloClient()
@@ -26,7 +27,7 @@ const ProfileDropdown = ({ show, setShow }: any) => {
   }
 
   if (loading || me.loading) {
-    return <div className="dropdown">Loading...</div>
+    return <Loading />
   }
 
   const handleLogout = async () => {
@@ -53,8 +54,7 @@ const ProfileDropdown = ({ show, setShow }: any) => {
   }
 
   const handleNewGroupClick = () => {
-    console.log("NEW GROUP CLICKED")
-    history.push('/newgroup')
+    history.push('/creategroup')
     setShow(false)
   }
 
@@ -68,7 +68,7 @@ const ProfileDropdown = ({ show, setShow }: any) => {
     <div className="dropdown">
       <div className="dropdown-profile" onClick={handleProfileClick}>
         <div>
-          <img src={data.findUserOrGroup.profile.image} alt="profileimg" className="profile-image"></img>
+          <LargeProfileImage image={data.findUserOrGroup.profile.image} />
         </div>
         <h3 className="profile-name">{data.findUserOrGroup.username || data.findUserOrGroup.profile.name}</h3>
         <p className="secondary-text">Show profile</p>

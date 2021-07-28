@@ -9,7 +9,7 @@ import Summary from "./Views/Summary"
 import './CreateProfileForm.css'
 import { useQuery } from "@apollo/client"
 import { ME } from "../../../../graphql/queries"
-import { Button } from "../../../UtilityComponents/UtilityComponents"
+import { Button, Loading } from "../../../UtilityComponents/UtilityComponents"
 
 interface Category {
   id: string,
@@ -37,7 +37,7 @@ const CreateProfileForm = () => {
   ]
 
   if (loading) {
-    return <div>Loading...</div>
+    return <Loading />
   }
 
   const handlePrevPress = () => {

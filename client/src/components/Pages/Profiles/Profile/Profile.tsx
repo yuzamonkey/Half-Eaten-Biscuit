@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { FIND_USER_OR_GROUP } from '../../../../graphql/queries';
+import { Loading } from '../../../UtilityComponents/UtilityComponents';
 
 const Profile = () => {
   const { id }: any = useParams();
@@ -10,7 +11,7 @@ const Profile = () => {
   })
 
   if (result.loading) {
-    return <div>loading...</div>
+    return <Loading />
   }
 
   console.log("USER/GROUP RESULT", result.data)

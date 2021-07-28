@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { ME } from '../../../../graphql/queries';
-import { Toggle } from '../../../UtilityComponents/UtilityComponents';
+import { Toggle, Loading } from '../../../UtilityComponents/UtilityComponents';
 
 const MyQueries = () => {
   const result = useQuery(ME)
@@ -11,7 +11,7 @@ const MyQueries = () => {
   }
 
   if (result.loading) {
-    return <div>loading...</div>
+    return <Loading />
   }
 
   console.log(result.data.me.jobQueries)

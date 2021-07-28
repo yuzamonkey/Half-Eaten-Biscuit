@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { CONVERSATION_PARTICIPANTS_BY_SESSION_ID } from '../../../../graphql/queries';
 
 import './MessageNavigation.css'
-import { Searchbar } from '../../../UtilityComponents/UtilityComponents';
+import { Loading, Searchbar } from '../../../UtilityComponents/UtilityComponents';
 import { UserContext } from '../../../UtilityComponents/UserContext';
 
 const MessageNavigation = ({ setShowContacts }: any) => {
@@ -16,7 +16,7 @@ const MessageNavigation = ({ setShowContacts }: any) => {
   })
 
   if (participants.loading) {
-    return <div>Loading...</div>
+    return <Loading />
   }
 
   const conversations = participants.data.findUserOrGroup.conversations

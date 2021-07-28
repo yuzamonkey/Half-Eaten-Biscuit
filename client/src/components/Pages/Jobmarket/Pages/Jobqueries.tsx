@@ -3,13 +3,13 @@ import { useQuery } from '@apollo/client';
 
 import '../Jobmarket.css'
 import { ALL_JOBQUERIES } from '../../../../graphql/queries';
-import { Button } from '../../../UtilityComponents/UtilityComponents';
+import { Button, Loading } from '../../../UtilityComponents/UtilityComponents';
 
 const Jobqueries = () => {
   const result = useQuery(ALL_JOBQUERIES)
 
   if (result.loading) {
-    return <div>loading...</div>
+    return <Loading />
   }
   const handleButtonPress = () => {
     console.log("Button pressed")

@@ -5,6 +5,7 @@ import { useHistory } from 'react-router'
 import { FIND_USER_OR_GROUP, ME } from '../../../graphql/queries'
 import './Welcome.css'
 import { UserContext } from '../../UtilityComponents/UserContext'
+import { Loading } from '../../UtilityComponents/UtilityComponents'
 
 const Welcome = () => {
   const userContext = useContext(UserContext)
@@ -14,7 +15,7 @@ const Welcome = () => {
   const history = useHistory()
 
   if (result.loading || userOrGroup.loading) {
-    return <div>Loading...</div>
+    return <Loading />
   }
 
   const getTitleByTime = () => {

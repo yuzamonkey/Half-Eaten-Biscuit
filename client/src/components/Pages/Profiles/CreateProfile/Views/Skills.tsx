@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client"
 import { ALL_SKILL_CATEGORIES } from "../../../../../graphql/queries"
 
 import './Skills.css'
-import { Button } from "../../../../UtilityComponents/UtilityComponents"
+import { Button, Loading } from "../../../../UtilityComponents/UtilityComponents"
 
 interface Category {
   id: string,
@@ -17,7 +17,7 @@ const Skills = ({ skills, setSkills }) => {
   const [currentPath, setCurrentPath] = useState([undefined])
   const { loading, data } = useQuery(ALL_SKILL_CATEGORIES, { onCompleted: () => setAllCategories(data.allSkillCategories) })
 
-  if (loading) return <div>Loading...</div>
+  if (loading) return <Loading />
 
   console.log("SKILLDATA", data)
 
