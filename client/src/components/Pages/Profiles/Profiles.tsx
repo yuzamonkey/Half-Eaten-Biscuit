@@ -3,21 +3,20 @@ import { useQuery, useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
 import './Profiles.css'
-import { MY_ID, ALL_USER_PROFILES } from '../../../graphql/queries';
+import { MY_ID, ALL_USER_PROFILES, ALL_USERS_AND_GROUPS } from '../../../graphql/queries';
 import { NEW_CONVERSATION } from '../../../graphql/mutations';
 import { Button, Searchbar } from '../../UtilityComponents/UtilityComponents';
 
 const Profiles = () => {
   const allUsersResult = useQuery(ALL_USER_PROFILES)
   const myIdResult = useQuery(MY_ID)
+  const allUsersAndGroups = useQuery(ALL_USERS_AND_GROUPS)
   const [newConversation] = useMutation(NEW_CONVERSATION)
   const history = useHistory()
 
-  if (allUsersResult.loading || myIdResult.loading) {
+  if (allUsersResult.loading || myIdResult.loading || allUsersAndGroups.loading) {
     return <div>loading...</div>
   }
-
-  console.log(allUsersResult.data)
 
   const handleContactButtonPress = async (receiverId: any) => {
     console.log("CONTACT BUTTON PRESSED FOR", receiverId)
@@ -37,34 +36,34 @@ const Profiles = () => {
       </div>
 
       <div className="profiles-container">
-        {allUsersResult.data?.allUserProfiles.map((profile: any) => {
-          const profileUrl = `/profiles/${profile.user.id}`
+        {allUsersAndGroups.data.allUsersAndGroups.map((item: any) => {
+          const profileUrl = `/profiles/${item.id}`
+
           return (
-            <div className="profile-container" key={profile.id}>
+            <div className="profile-container" key={item.id}>
               <div className="upper-container">
                 <div className="profile-image-container">
-                  <div className="profile-image">
-                    <img src={profile.image} alt="profileimg" className="profile-image"></img>
+                  <div className="profile image">
+                    <img src={item.profile.image} alt="profileimg" className="profile-image"></img>
                   </div>
                 </div>
               </div>
               <div className="lower-container">
                 <div className="name-container">
-                  <h3 className="profile-name">{profile.user.username}</h3>
-                  {profile.skills.map(skill => <p key={skill.id}>{skill.name}</p>)}
+                  <h3 className="profile-name">{item.username || item.profile.name}</h3>
+                  {item.kind === 'User' && item.profile.skills.map(skill => <p key={skill.id}>{skill.name}</p>)}
                 </div>
                 <div className="profiles-buttons-container">
                   <Button text='To profile' handleClick={() => history.push(profileUrl)} />
-                  {profile.user.id !== myIdResult.data.me.id
-                    ? <Button text='Contact' handleClick={() => handleContactButtonPress(profile.user.id)} />
+                  {item.id !== myIdResult.data.me.id
+                    ? <Button text='Contact' handleClick={() => handleContactButtonPress(item.id)} />
                     : null
                   }
                 </div>
               </div>
             </div>
           )
-        }
-        )}
+        })}
       </div>
     </div>
   )

@@ -83,12 +83,13 @@ const typeDefs = gql`
 
   type Query {
     allJobqueries: [Jobquery]
-    allUsers: [User]!
-    allGroups: [Group]!
-    allUserProfiles: [UserProfile]!
     findJobqueries(content: String!): [Jobquery],
+    allUsers: [User]!
+    allUserProfiles: [UserProfile]!
     findUser(id: ID!): User
+    allGroups: [Group]!
     findGroup(id: ID!): Group
+    allUsersAndGroups: [UserOrGroup]!
     findUserOrGroup(id: ID!): UserOrGroup
     allConversations: [Conversation]
     findConversation(id: ID!): Conversation

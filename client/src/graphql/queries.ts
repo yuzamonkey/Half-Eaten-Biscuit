@@ -231,3 +231,32 @@ export const ALL_CATEGORIES = gql`
     }
   }
 `
+
+export const ALL_USERS_AND_GROUPS = gql`
+  query allUsersAndGroups {
+    allUsersAndGroups {
+      ...on User {
+        id
+        kind
+        username
+        profile {
+          about
+          image
+          skills {
+            id
+            name
+          }
+        }
+      }
+      ...on Group {
+        id
+        kind
+        profile {
+          name
+          image
+          about
+        }
+      }
+    }
+  }
+`

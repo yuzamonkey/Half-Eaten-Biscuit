@@ -110,6 +110,19 @@ const resolvers: IResolvers = {
     allUserProfiles: (_root) => {
       return UserProfile.find({}).populate('user skills')
     },
+    allUsersAndGroups: async (_root) => {
+      const users = await User.find({}).populate({
+        path: 'profile',
+        populate: {
+          path: 'skills',
+          populate: {
+            path: 'parent children'
+          }
+        }
+      })
+      const groups = await Group.find({}).populate('users profile')
+      return users.concat(groups)
+    },
     findUserOrGroup: async (_root, args) => {
       const user = await User.findOne({ _id: args.id })
         .populate('jobQueries conversations groups profile')
