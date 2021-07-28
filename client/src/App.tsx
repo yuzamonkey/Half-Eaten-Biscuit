@@ -11,7 +11,7 @@ import SignUp from "./components/Pages/Registrations/SignUp";
 import Home from "./components/Pages/Home/Home";
 import Welcome from "./components/Pages/Welcome/Welcome";
 import Settings from "./components/Pages/Settings/Settings";
-import NewGroup from "./components/Pages/Profiles/NewGroup";
+import NewGroup from "./components/Pages/Profiles/CreateGroup/CreateGroup";
 import Profile from "./components/Pages/Profiles/Profile/Profile";
 import CreateProfile from "./components/Pages/Profiles/CreateProfile/CreateProfile";
 

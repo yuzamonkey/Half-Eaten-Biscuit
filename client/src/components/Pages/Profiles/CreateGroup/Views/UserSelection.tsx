@@ -1,17 +1,29 @@
+const UserSelection = () => {
+  return (
+    <div>
+      User selection component
+    </div>
+  )
+}
+
+export default UserSelection
+
+
+/* 
 import React, { useEffect, useState } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 
-import { ALL_USERS, MY_ID } from '../../../graphql/queries'
-import { CREATE_GROUP } from '../../../graphql/mutations'
-import { Button } from '../../UtilityComponents/UtilityComponents'
-import './NewGroup.css'
+import { ALL_USERS, MY_ID } from '../../../../graphql/queries'
+import { CREATE_GROUP } from '../../../../graphql/mutations'
+import { Button } from '../../../UtilityComponents/UtilityComponents'
+import './CreateGroupForm.css'
 
 interface User {
   id: String
   username: String
 }
 
-const NewGroup = () => {
+const CreateGroup = () => {
   const [groupName, setGroupName] = useState('Group name')
   const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
 
@@ -59,7 +71,7 @@ const NewGroup = () => {
 
   return (
     <div className="new-group-container">
-      <h1>New group component</h1>
+      <h1>Create group</h1>
       <input value="Filter by name" onChange={() => { }}></input>
       <input value={groupName} onChange={({ target }) => setGroupName(target.value)}></input>
 
@@ -92,4 +104,6 @@ const NewGroup = () => {
   )
 }
 
-export default NewGroup;
+export default CreateGroup;
+
+*/
