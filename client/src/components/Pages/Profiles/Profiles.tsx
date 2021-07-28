@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import './Profiles.css'
 import { MY_ID, ALL_USERS_AND_GROUPS } from '../../../graphql/queries';
 import { NEW_CONVERSATION } from '../../../graphql/mutations';
-import { Button, Searchbar } from '../../UtilityComponents/UtilityComponents';
+import { LargeProfileCard, Searchbar } from '../../UtilityComponents/UtilityComponents';
 import { UserContext } from '../../UtilityComponents/UserContext';
 
 const Profiles = () => {
@@ -44,30 +44,16 @@ const Profiles = () => {
       <div className="profiles-container">
         {allUsersAndGroups.data.allUsersAndGroups.map((item: any) => {
           const profileUrl = `/profiles/${item.id}`
-
           return (
-            <div className="profile-container" key={item.id}>
-              <div className="upper-container">
-                <div className="profile-image-container">
-                  <div className="profile image">
-                    <img src={item.profile.image} alt="profileimg" className="profile-image"></img>
-                  </div>
-                </div>
-              </div>
-              <div className="lower-container">
-                <div className="name-container">
-                  <h3 className="profile-name">{item.username || item.profile.name}</h3>
-                  {item.kind === 'User' && item.profile.skills.map(skill => <p key={skill.id}>{skill.profession}</p>)}
-                </div>
-                <div className="profiles-buttons-container">
-                  <Button text='Profile' handleClick={() => history.push(profileUrl)} />
-                  {item.id !== myIdResult.data.me.id
-                    ? <Button text='Contact' handleClick={() => handleContactButtonPress(item.id)} />
-                    : null
-                  }
-                </div>
-              </div>
-            </div>
+            <LargeProfileCard
+              key={item.id}
+              id={item.id}
+              image={item.profile.image}
+              name={item.username || item.profile.name}
+              skills={item.profile.skills}
+              url={profileUrl}
+              contactFunction={() => handleContactButtonPress(item.id)}
+            />
           )
         })}
       </div>

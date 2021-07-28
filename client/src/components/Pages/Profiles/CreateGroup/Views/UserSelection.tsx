@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { useQuery, useMutation } from '@apollo/client'
+import React, { useEffect } from 'react'
+import { useQuery } from '@apollo/client'
 
 import { ALL_USERS, MY_ID } from '../../../../../graphql/queries'
-import { CREATE_GROUP } from '../../../../../graphql/mutations'
 import '../CreateGroupForm.css'
 
 interface User {
@@ -11,7 +10,6 @@ interface User {
 }
 
 const UserSelection = ({selectedUsers, setSelectedUsers}) => {
-
   const allUsersResult = useQuery(ALL_USERS)
   const myIdResult = useQuery(MY_ID)
 

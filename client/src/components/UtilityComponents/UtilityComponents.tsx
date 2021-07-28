@@ -1,4 +1,6 @@
-import React, {useState} from 'react'
+import React, { useContext, useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import { UserContext } from './UserContext'
 import './UtilityComponents.css'
 
 export const Toggle = ({ state, toggleClick }: any) => {
@@ -57,6 +59,35 @@ export const Searchbar = () => {
   )
 }
 
+export const LargeProfileCard = ({ id, image, name, skills, url, contactFunction }) => {
+  const history = useHistory()
+  const userContext = useContext(UserContext)
+  return (
+    <div className="profile-container">
+      <div className="upper-container">
+        <div className="profile-image-container">
+          <div className="profile image">
+            <img src={image} alt="profileimg" className="profile-image"></img>
+          </div>
+        </div>
+      </div>
+      <div className="lower-container">
+        <div className="name-container">
+          <h3 className="profile-name">{name}</h3>
+          {skills?.map(skill => <p key={skill.id}>{skill.profession}</p>)}
+        </div>
+        <div className="profiles-buttons-container">
+          <Button text='Profile' handleClick={() => history.push(url)} />
+          {id !== userContext.sessionId
+            ? <Button text='Contact' handleClick={() => contactFunction} />
+            : null
+          }
+        </div>
+      </div>
+    </div>
+  )
+}
 
-//button,
-//hover-info-box
+export const SmallProfileCard = () => {
+
+}
