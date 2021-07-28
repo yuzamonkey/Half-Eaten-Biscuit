@@ -1,15 +1,12 @@
 .navbar {
   background-color: var(--blue);
   height: var(--navbar-height);
-
   display: flex;
   justify-content: center;
   align-items: center;
-  
   position: sticky;
   top: 0;
   z-index: 20;
-
   font-size: 1rem;
   font-weight: 300;
 }
@@ -58,7 +55,7 @@
 }
 
 .nav-item {
-  margin: 0 3px; 
+  margin: 0 3px;
   height: calc(var(--navbar-height) - 20px);
   min-width: fit-content;
   display: flex;
@@ -69,7 +66,7 @@
 .nav-links {
   color: var(--bg-white);
   text-decoration: none;
-  padding: 0.5rem 1rem; 
+  padding: 0.5rem 1rem;
   transition: box-shadow 0.2s ease;
 }
 
@@ -101,13 +98,12 @@
     font-size: 1.4rem;
     cursor: pointer;
   }
-
   .nav-logo {
     display: none;
   }
-
   .nav-menu.hidden-links {
-    padding: 0; /* where does this come from?! */
+    padding: 0;
+    /* where does this come from?! */
     position: absolute;
     width: 100vw;
     height: calc(100vh - var(--navbar-height));
@@ -115,23 +111,19 @@
     top: var(--navbar-height);
     left: -110%;
     border-top: 2px solid var(--dark-blue);
-    
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     transition: all .4s ease-out;
   }
-  
   .nav-menu.hidden-links.active {
     left: 0;
     z-index: 20;
   }
-
   .hidden-links .nav-item {
     width: 100%;
     height: var(--navbar-height);
   }
-  
   .hidden-links .nav-links {
     padding: 0;
     height: 100%;
@@ -140,15 +132,17 @@
     justify-content: center;
     align-items: center;
   }
-  
   .hidden-links .nav-links.active {
     box-shadow: none;
     background-color: var(--blue);
   }
 }
-@media screen and (max-width: 580px) { 
+
+@media screen and (max-width: 580px) {
   .dropdown-container {
     position: static;
   }
+  .nav-current-session-name {
+    display: none;
+  }
 }
-
