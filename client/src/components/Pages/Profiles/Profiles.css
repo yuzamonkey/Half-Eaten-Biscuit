@@ -26,6 +26,10 @@
   flex-flow: row wrap;
 }
 
+.profile-container {
+  margin: 20px;
+}
+
 @media screen and (max-width: 960px) {
   .profiles-title-and-searchbar-container {
     flex-direction: column;

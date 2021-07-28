@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useQuery } from '@apollo/client'
 
 import { ALL_USERS, MY_ID } from '../../../../../graphql/queries'
+import { SmallProfileCard } from '../../../../UtilityComponents/UtilityComponents'
 import '../CreateGroupForm.css'
 
 interface User {
@@ -9,7 +10,7 @@ interface User {
   username: String
 }
 
-const UserSelection = ({selectedUsers, setSelectedUsers}) => {
+const UserSelection = ({ selectedUsers, setSelectedUsers }) => {
   const allUsersResult = useQuery(ALL_USERS)
   const myIdResult = useQuery(MY_ID)
 
@@ -38,14 +39,15 @@ const UserSelection = ({selectedUsers, setSelectedUsers}) => {
       <h1>Create group</h1>
       <input value="Filter by name" onChange={() => { }}></input>
 
-      <div className="selected-users">
+      <div className="selected-users-container">
         <h3>Selected users</h3>
         {selectedUsers.map(u => {
           return (
             <div
               className="selected-user"
               onClick={() => handleRemoveFromSelectedUsers(u)}>
-              <p>{u.username}</p>
+              <SmallProfileCard id={u.id} image={u.profile.image} name={u.username} />
+              <div className="small-profile-card-overlay selected-user-overlay">Remove</div>
             </div>
           )
         })}
@@ -53,11 +55,10 @@ const UserSelection = ({selectedUsers, setSelectedUsers}) => {
       <div className="all-users-container">
         {allUsersResult.data.allUsers.map(u => {
           return (
-            !selectedUsers.find(user => user.username === u.username) &&
-            <div
-              className="user-container"
-              onClick={() => setSelectedUsers(selectedUsers.concat(u))}>
-              <p>{u.username}</p>
+            <div className="all-user-container" onClick={() => setSelectedUsers(selectedUsers.concat(u))}>
+              {!selectedUsers.find(user => user.username === u.username) &&
+                <SmallProfileCard id={u.id} image={u.profile.image} name={u.username} />}
+              <div className="small-profile-card-overlay all-user-overlay">Add</div>
             </div>
           )
         })}

@@ -1,35 +1,61 @@
-.new-group-container {
+.new-group-container {}
 
+.small-profile-card-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .3s ease;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+
+  border-radius: 5px;
 }
 
-.selected-users {
-  background-color: aqua;
+.selected-users-container {
+  margin: 10px;
+  border: 1px solid var(--grey);
+  border-radius: 5px;
+  display: flex;
+  overflow: scroll;
 }
 
 .selected-user {
-  border: 1px solid black;
-  padding: 10px;
-  margin: 10px;
+  position: relative;
+  margin: 20px;
 }
 
-.selected-user:hover {
-  background-color: red;
+.selected-user-overlay {
+  background-color: var(--red);
+}
+
+.selected-user:hover .selected-user-overlay {
+  opacity: 1;
+  cursor: pointer;
 }
 
 .all-users-container {
-  background-color: bisque;
+  display: flex;
+  overflow: scroll;
 }
 
-.user-container {
-  border: 1px solid black;
-  padding: 10px;
-  margin: 10px;
+.all-user-container {
+  position: relative;
+  margin: 20px;
 }
 
-.selected {
-  background-color: grey;
+.all-user-overlay {
+  background-color: var(--blue);
 }
 
-.user-container:hover {
-  background-color: gainsboro;
+.all-user-container:hover .all-user-overlay {
+  opacity: 1;
+  cursor: pointer;
 }

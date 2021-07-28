@@ -59,9 +59,33 @@ export const Searchbar = () => {
   )
 }
 
+export const SmallProfileImage = ({ image }) => {
+  return (
+    <img src={image} alt="profileimg" className="small-profile-image"></img>
+  )
+}
 export const LargeProfileImage = ({ image }) => {
   return (
     <img src={image} alt="profileimg" className="large-profile-image"></img>
+  )
+}
+
+
+export const SmallProfileCard = ({ id, image, name }) => {
+  return (
+    <div className="small-profile-card-container">
+      <div className="upper-container">
+        <div className="profile-image-container">
+          <SmallProfileImage image={image} />
+        </div>
+      </div>
+      <div className="lower-container">
+        <div className="name-container">
+          <h3 className="small-profile-name">{name}</h3>
+        </div>
+      </div>
+    </div>
+
   )
 }
 
@@ -69,12 +93,10 @@ export const LargeProfileCard = ({ id, image, name, skills, url, contactFunction
   const history = useHistory()
   const userContext = useContext(UserContext)
   return (
-    <div className="profile-container">
+    <div className="large-profile-card-container">
       <div className="upper-container">
         <div className="profile-image-container">
-          <div className="profile image">
-            <LargeProfileImage image={image} />
-          </div>
+          <LargeProfileImage image={image} />
         </div>
       </div>
       <div className="lower-container">
@@ -92,8 +114,4 @@ export const LargeProfileCard = ({ id, image, name, skills, url, contactFunction
       </div>
     </div>
   )
-}
-
-export const SmallProfileCard = ({ id, image, name }) => {
-
 }

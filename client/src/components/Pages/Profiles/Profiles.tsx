@@ -45,15 +45,17 @@ const Profiles = () => {
         {allUsersAndGroups.data.allUsersAndGroups.map((item: any) => {
           const profileUrl = `/profiles/${item.id}`
           return (
-            <LargeProfileCard
-              key={item.id}
-              id={item.id}
-              image={item.profile.image}
-              name={item.username || item.profile.name}
-              skills={item.profile.skills}
-              url={profileUrl}
-              contactFunction={() => handleContactButtonPress(item.id)}
-            />
+            <div className="profile-container">
+              <LargeProfileCard
+                key={item.id}
+                id={item.id}
+                image={item.profile.image}
+                name={item.username || item.profile.name}
+                skills={item.profile.skills}
+                url={profileUrl}
+                contactFunction={() => handleContactButtonPress(item.id)}
+              />
+            </div>
           )
         })}
       </div>
