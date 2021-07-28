@@ -1,7 +1,69 @@
-const UserSelection = () => {
+import React, { useEffect, useState } from 'react'
+import { useQuery, useMutation } from '@apollo/client'
+
+import { ALL_USERS, MY_ID } from '../../../../../graphql/queries'
+import { CREATE_GROUP } from '../../../../../graphql/mutations'
+import '../CreateGroupForm.css'
+
+interface User {
+  id: String
+  username: String
+}
+
+const UserSelection = ({selectedUsers, setSelectedUsers}) => {
+
+  const allUsersResult = useQuery(ALL_USERS)
+  const myIdResult = useQuery(MY_ID)
+
+  useEffect(() => {
+    if (myIdResult.data && allUsersResult.data) {
+      const meObject = allUsersResult.data.allUsers.find((user: User) => user.id === myIdResult.data.me.id)
+      if (!selectedUsers.includes(meObject)) {
+        setSelectedUsers(selectedUsers.concat(meObject))
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [myIdResult.data, allUsersResult.data])
+
+  if (allUsersResult.loading || myIdResult.loading) {
+    return <div>Loading...</div>
+  }
+
+  const handleRemoveFromSelectedUsers = (u) => {
+    if (u.id !== myIdResult.data.me.id) {
+      setSelectedUsers(selectedUsers.filter(user => user.username !== u.username))
+    }
+  }
+
   return (
-    <div>
-      User selection component
+    <div className="new-group-container">
+      <h1>Create group</h1>
+      <input value="Filter by name" onChange={() => { }}></input>
+
+      <div className="selected-users">
+        <h3>Selected users</h3>
+        {selectedUsers.map(u => {
+          return (
+            <div
+              className="selected-user"
+              onClick={() => handleRemoveFromSelectedUsers(u)}>
+              <p>{u.username}</p>
+            </div>
+          )
+        })}
+      </div>
+      <div className="all-users-container">
+        {allUsersResult.data.allUsers.map(u => {
+          return (
+            !selectedUsers.find(user => user.username === u.username) &&
+            <div
+              className="user-container"
+              onClick={() => setSelectedUsers(selectedUsers.concat(u))}>
+              <p>{u.username}</p>
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }
@@ -9,7 +71,7 @@ const UserSelection = () => {
 export default UserSelection
 
 
-/* 
+/*
 import React, { useEffect, useState } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 
