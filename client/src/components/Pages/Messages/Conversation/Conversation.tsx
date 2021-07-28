@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery, useMutation, useApolloClient, useSubscription } from '@apollo/client';
 
 import './Conversation.css'
-import { FIND_CONVERSATION, MY_ID } from '../../../../graphql/queries';
+import { FIND_CONVERSATION } from '../../../../graphql/queries';
 import { SEND_MESSAGE } from '../../../../graphql/mutations';
 import { MESSAGE_ADDED } from '../../../../graphql/subscriptions';
 import { UserContext } from '../../../UtilityComponents/UserContext';
@@ -78,14 +78,13 @@ const Conversation = ({ setShowContacts }: any) => {
 
   //const userContext.sessionId = useQuery(MY_ID)
   const userContext = useContext(UserContext)
+  console.log("USER CONTEXT", userContext)
 
   const [messageInput, setMessageInput] = useState('')
 
   if (conversationResult.loading) {
     return <div>Loading...</div>
   }
-
-  console.log("CONVERSATIONRESULT", conversationResult)
 
   const participants = conversationResult.data.findConversation.participants
   const messages = conversationResult.data.findConversation.messages
@@ -103,8 +102,8 @@ const Conversation = ({ setShowContacts }: any) => {
         <div className="conversation-usernames">
           {participants.map(p => {
             return p.object.id === userContext.sessionId
-              ? <b key={p.id}>Me • </b>
-              : <b key={p.id}>{p.object.username || p.object.profile.name} • </b>
+              ? <b key={p.object.id}>Me • </b>
+              : <b key={p.object.id}>{p.object.username || p.object.profile.name} • </b>
           }
           )}
         </div>
@@ -112,15 +111,13 @@ const Conversation = ({ setShowContacts }: any) => {
       </div>
       <div id='conversation-content' className="conversation-content">
         {messages.map(message => {
-          console.log("MESSAGE", message)
           return (
-            message.sender.object.id === userContext.sessionId
-              ? <div className="message-container user-sent" key={message.id}>
-                {message.body}
-              </div>
-              : <div className="message-container" key={message.id}>
-                {message.body}
-              </div>
+            <div
+              className={message.sender.object.id === userContext.sessionId ? "message-container user-sent" : "message-container"}
+              key={message.id}>
+              <img src={message.sender.object.profile.image} alt="profileimg" className="message-profile-image"></img>
+              {message.body}
+            </div>
           )
         })}
       </div>

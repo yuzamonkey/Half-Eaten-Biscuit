@@ -126,12 +126,14 @@ export const FIND_CONVERSATION = gql`
           }
         ... on Group {
             id,
-            profile {name}
+            profile {
+              name
             }
           }
         }
-      
+      }
       messages {
+        id
         body
         time
         sender {
@@ -139,10 +141,16 @@ export const FIND_CONVERSATION = gql`
             ...on User {
               id 
               username
+              profile {
+                image
+              }
             }
             ...on Group {
               id
-              profile {name}
+              profile {
+                name
+                image  
+              }
             }
           }
         }

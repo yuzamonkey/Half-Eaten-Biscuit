@@ -24,8 +24,8 @@ const MessageNavigation = ({ setShowContacts }: any) => {
         <ul className="msg-nav-menu">
           {conversations.map(conversation => {
             const usernames = conversation.participants.map(participant => participant.object.kind === 'User'
-              ? <p>{participant.object.username}</p>
-              : <p>{participant.object.profile.name}</p>
+              ? <p key={participant.object.id}>{participant.object.username}</p>
+              : <p key={participant.object.id}>{participant.object.profile.name}</p>
             )
             const linkTo = `/messages/${conversation.id}`
             return (

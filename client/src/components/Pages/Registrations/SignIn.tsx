@@ -21,8 +21,9 @@ const SignIn = () => {
   useEffect(() => {
     if (result.data) {
       console.log("RESULT DATA USE EFFECT", result.data)
-      const token = result.data.login.value
       const id = result.data.login.id
+      userContext.setId(id)
+      const token = result.data.login.value
       localStorage.setItem(SIGN_IN_TOKEN, token)
       userContext.setToken(token)
       sessionStorage.setItem(SESSION_TOKEN, id)
