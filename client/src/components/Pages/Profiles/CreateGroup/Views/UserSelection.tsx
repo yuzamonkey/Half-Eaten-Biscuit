@@ -17,7 +17,7 @@ const UserSelection = ({ selectedUsers, setSelectedUsers }) => {
   useEffect(() => {
     if (myIdResult.data && allUsersResult.data) {
       const meObject = allUsersResult.data.allUsers.find((user: User) => user.id === myIdResult.data.me.id)
-      if (!selectedUsers.includes(meObject)) {
+      if (!selectedUsers.map(u => u.id).includes(myIdResult.data.me.id)) {
         setSelectedUsers(selectedUsers.concat(meObject))
       }
     }
