@@ -265,9 +265,9 @@ export const ALL_USER_PROFILES = gql`
   }
 `
 
-export const ALL_CATEGORIES = gql`
-  query allCategories {
-    allCategories {
+export const ALL_SKILL_CATEGORIES = gql`
+  query allSkillCategories {
+    allSkillCategories {
       id
       name
       parent {

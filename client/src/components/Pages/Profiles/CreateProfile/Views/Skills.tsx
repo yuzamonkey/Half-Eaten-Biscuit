@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useQuery } from "@apollo/client"
-import { ALL_CATEGORIES } from "../../../../../graphql/queries"
+import { ALL_SKILL_CATEGORIES } from "../../../../../graphql/queries"
 
 import './Skills.css'
 import { Button } from "../../../../UtilityComponents/UtilityComponents"
@@ -15,7 +15,7 @@ interface Category {
 const Skills = ({ skills, setSkills }) => {
   const [allCategories, setAllCategories] = useState<Category[]>([])
   const [currentPath, setCurrentPath] = useState([undefined])
-  const { loading, data } = useQuery(ALL_CATEGORIES, { onCompleted: () => setAllCategories(data.allCategories) })
+  const { loading, data } = useQuery(ALL_SKILL_CATEGORIES, { onCompleted: () => setAllCategories(data.allSkillCategories) })
 
   if (loading) return <div>Loading...</div>
 

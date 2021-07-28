@@ -24,10 +24,6 @@ const groupProfileSchema = new mongoose.Schema({
   image: {
     type: String,
     default: groupImage
-  },
-  isEditedByGroupMember: {
-    type: Boolean,
-    default: false
   }
 })
 

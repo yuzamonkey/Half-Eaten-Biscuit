@@ -212,7 +212,7 @@ const resolvers: IResolvers = {
           }
         })
     },
-    allCategories: async () => {
+    allSkillCategories: async () => {
       return Category.find({}).populate('parent children')
     },
   },
@@ -228,7 +228,7 @@ const resolvers: IResolvers = {
     }
   },
   Mutation: {
-    addCategory: async (_root, args) => {
+    addSkillCategory: async (_root, args) => {
       const name = args.name
       const parentName = args.parent
 
@@ -254,6 +254,10 @@ const resolvers: IResolvers = {
           invalidArgs: args,
         })
       }
+    },
+
+    addGroupCategory: async (_root, _args) => {
+
     },
 
     createUser: async (_root, args) => {

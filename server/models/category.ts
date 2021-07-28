@@ -2,7 +2,7 @@ export { };
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 
-const categorySchema = new mongoose.Schema({
+const skillCategorySchema = new mongoose.Schema({
   name: {
     type: String,
     unique: true,
@@ -18,7 +18,7 @@ const categorySchema = new mongoose.Schema({
   }]
 })
 
-categorySchema.set('toJSON', {
+skillCategorySchema.set('toJSON', {
   transform: (_document: any, returnedObject: any) => {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
@@ -26,6 +26,6 @@ categorySchema.set('toJSON', {
   }
 })
 
-categorySchema.plugin(uniqueValidator)
+skillCategorySchema.plugin(uniqueValidator)
 
-module.exports = mongoose.model('Category', categorySchema)
+module.exports = mongoose.model('Category', skillCategorySchema)
