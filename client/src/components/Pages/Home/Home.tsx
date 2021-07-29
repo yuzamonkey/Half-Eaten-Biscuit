@@ -1,17 +1,47 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Home.css'
 import Man from '../../../images/man.jpeg'
+import Woman from '../../../images/woman.jpeg'
+import Group from '../../../images/group.jpeg'
 
 const Home = () => {
+  const images = [Man, Woman, Group]
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [counter, setCounter] = useState<number>(0)
+
+  // const changeImageIndex = () => {
+  //   // if (currentImageIndex < images.length - 1) {
+  //   //   setCurrentImageIndex(currentImageIndex + 1)
+  //   // } else {
+  //   //   setCurrentImageIndex(0)
+  //   // }
+  //   setCounter(counter + 1)
+  // }
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCounter(prevCount => prevCount + 1); // <-- Change this line!
+    }, 5000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, []); // Pass in empty array to run effect only once!
 
 
   return (
     <div className="home-container">
-      <div className="navigation-and-images-container">
-        <div className="navigation-container">
+      <div className="home-page-navigation-and-images-container">
+        <div className="home-page-navigation-container">
           <a href="#about">About</a>
           <a href="#features">Features</a>
           <a href="#footer">Footer</a>
+          <a href="/signin" className="link signin">Sign In</a>
+          <a href="/signup" className="link signup">Sign Up</a>
+        </div>
+        counter: {counter}
+        <div className="home-page-image-container">
+          <img src={images[counter % (images.length)]} alt="" className="home-page-image" />
+          {/* <button onClick={changeImageIndex}>Change</button> */}
         </div>
       </div>
 
@@ -19,8 +49,6 @@ const Home = () => {
         <div className="title-and-links">
           <h1 className="title">Hey freelancer, <br></br>you are needed!</h1>
           <div className="links">
-            <a href="/signin" className="link signin">Sign In</a>
-            <a href="/signup" className="link signup">Sign Up</a>
             {/* <img src={Man} alt="" /> */}
           </div>
         </div>

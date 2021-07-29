@@ -120,6 +120,8 @@ Goal for weeks 24-30 (7 weeks)
     Wed:
       AM: Fix messaging on client, show groups and users in Profiles-view
       PM: Messaging and group handling
+    Thu:
+      PM: CSS
 
 
 ## WORK SCHEDULE
@@ -168,5 +170,5 @@ Goal for weeks 24-30 (7 weeks)
 | 26.7.  | 3.5 | useContext, group handling in frontend and messages |
 | 27.7.  | 4 | Messaging between users and groups |
 | 28.7.  | 5 | Fix messaging frontend, group handling |
-| 29.7.  | 1915- |  |
-| =     | 121.5      |               |
+| 29.7.  | 1.5 | Minor css improvements |
+| =     | 123.0      |               |
