@@ -36,11 +36,10 @@ const UserSelection = ({ selectedUsers, setSelectedUsers }) => {
 
   return (
     <div className="new-group-container">
-      <h1>Create group</h1>
-      <input value="Filter by name" onChange={() => { }}></input>
+      <h1>Select members</h1>
 
       <div className="selected-users-container">
-        <h3>Selected users</h3>
+        <h3>Selected</h3>
         {selectedUsers.map(u => {
           return (
             <div

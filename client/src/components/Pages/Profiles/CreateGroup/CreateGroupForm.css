@@ -1,3 +1,21 @@
+.create-group-form-container {
+  width: 100vw;
+  height: calc(100vh - var(--navbar-height));
+  display: flex;
+  flex-direction: column;
+}
+
+.create-group-current-view {
+  height: 100%;
+}
+
+.create-group-switch-view-buttons-container {
+  height: 75px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .new-group-container {}
 
 .small-profile-card-overlay {
@@ -37,7 +55,7 @@
 }
 
 .selected-user:hover .selected-user-overlay {
-  opacity: 1;
+  opacity: 0.95;
   cursor: pointer;
 }
 
@@ -56,6 +74,6 @@
 }
 
 .all-user-container:hover .all-user-overlay {
-  opacity: 1;
+  opacity: 0.95;
   cursor: pointer;
 }

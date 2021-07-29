@@ -168,4 +168,5 @@ Goal for weeks 24-30 (7 weeks)
 | 26.7.  | 3.5 | useContext, group handling in frontend and messages |
 | 27.7.  | 4 | Messaging between users and groups |
 | 28.7.  | 5 | Fix messaging frontend, group handling |
+| 29.7.  | 1915- |  |
 | =     | 121.5      |               |

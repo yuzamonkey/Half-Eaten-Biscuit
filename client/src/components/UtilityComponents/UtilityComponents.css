@@ -213,8 +213,8 @@
 /* SMALL_PROFILE_IMAGE */
 
 .small-profile-image {
-  width: 75px;
-  height: 75px;
+  width: 85px;
+  height: 85px;
   object-fit: cover;
   border-radius: 50%;
 }

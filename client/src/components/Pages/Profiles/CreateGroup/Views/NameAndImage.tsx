@@ -12,7 +12,7 @@ const NameAndImage = ({ groupName, setGroupName, image, setImage }) => {
   
   return (
     <div>
-      Name and image component
+      <h1>Name and image component</h1>
       <input value={groupName} onChange={e => setGroupName(e.target.value)}></input>
       <input type="file" name="image" accept=".jpg, .jpeg, .png" onChange={e => handleImageChange(e)}></input>
     </div>

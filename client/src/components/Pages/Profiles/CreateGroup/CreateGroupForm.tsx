@@ -29,15 +29,13 @@ const CreateGroupForm = () => {
   }
 
   return (
-    <div>
-      <h1>Create group form component</h1>
+    <div className="create-group-form-container">
       <div className="create-group-current-view">
         {views[currentView]}
       </div>
       <div className="create-group-switch-view-buttons-container">
         <Button handleClick={handlePrevPress} text="Prev" />
         <Button handleClick={handleNextPress} text="Next" />
-        {currentView}
       </div>
     </div>
   )
