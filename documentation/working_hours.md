@@ -173,5 +173,5 @@ Goal for weeks 24-30 (7 weeks)
 | 27.7.  | 4 | Messaging between users and groups |
 | 28.7.  | 5 | Fix messaging frontend, group handling |
 | 29.7.  | 1.5 | Minor css improvements |
-| 30.7.  | 1215- |  |
-| =     | 123.0      |               |
+| 30.7.  | 4 | Home-page css |
+| =     | 127.0      |               |
