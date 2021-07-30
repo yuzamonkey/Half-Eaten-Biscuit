@@ -80,6 +80,7 @@ const typeDefs = gql`
     name: String!
     about: String
     image: String
+    groupTypes: [GroupCategory]
   }
 
   type Token {

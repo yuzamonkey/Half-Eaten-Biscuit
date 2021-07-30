@@ -319,6 +319,10 @@ export const ALL_USERS_AND_GROUPS = gql`
           name
           image
           about
+          groupTypes {
+            id
+            name
+          }
         }
       }
     }

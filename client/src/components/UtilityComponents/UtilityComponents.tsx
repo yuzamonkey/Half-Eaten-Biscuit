@@ -108,7 +108,7 @@ export const LargeProfileCard = ({ id, image, name, skills, url, contactFunction
       <div className="lower-container">
         <div className="name-container">
           <h3 className="profile-name">{name}</h3>
-          {skills?.map(skill => <p key={skill.id}>{skill.profession}</p>)}
+          {skills?.map(skill => <p key={skill.id}>{skill.profession || skill.name}</p>)}
         </div>
         <div className="profiles-buttons-container">
           <Button text='Profile' handleClick={() => history.push(url)} />

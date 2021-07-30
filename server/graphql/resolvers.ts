@@ -121,7 +121,22 @@ const resolvers: IResolvers = {
           }
         }
       })
-      const groups = await Group.find({}).populate('users profile')
+      const groups = await Group.find({})
+        .populate('users')
+        .populate({
+          path: 'profile', populate: {
+            path: 'groupTypes'
+          }
+        })
+        .populate({
+          path: 'conversations',
+          populate: {
+            path: 'participants.object',
+            populate: {
+              path: 'profile'
+            }
+          }
+        })
       return users.concat(groups)
     },
     findUserOrGroup: async (_root, args) => {
@@ -153,7 +168,11 @@ const resolvers: IResolvers = {
         })
       const group = await Group.findOne({ _id: args.id })
         .populate('users')
-        .populate('profile')
+        .populate({
+          path: 'profile', populate: {
+            path: 'groupTypes'
+          }
+        })
         .populate({
           path: 'conversations',
           populate: {
@@ -166,10 +185,23 @@ const resolvers: IResolvers = {
       return user || group
     },
     allGroups: () => {
-      return Group.find({}).populate('users')
+      return Group.find({})
+        .populate('users')
+        .populate({
+          path: 'profile', populate: {
+            path: 'groupTypes'
+          }
+        })
+
     },
     findGroup: (_root, args) => {
-      return Group.findOne({ _id: args.id }).populate('users')
+      return Group.findOne({ _id: args.id })
+        .populate('users')
+        .populate({
+          path: 'profile', populate: {
+            path: 'groupTypes'
+          }
+        })
     },
     allConversations: () => {
       return Conversation.find({})
@@ -263,7 +295,7 @@ const resolvers: IResolvers = {
       const name = args.name
       const parentName = args.parent
       try {
-        const parent = await GroupCategory.findOne({name: parentName})
+        const parent = await GroupCategory.findOne({ name: parentName })
         const newGroupCategory = new GroupCategory({
           name: name,
           parent: parent?._id,
@@ -500,7 +532,7 @@ const resolvers: IResolvers = {
           group: savedGroup,
           about: about,
           image: image,
-          skills: skills
+          groupTypes: skills
         })
         const savedGroupProfile = await newGroupProfile.save()
         savedGroup.profile = savedGroupProfile

@@ -44,13 +44,14 @@ const Profiles = () => {
       <div className="profiles-container">
         {allUsersAndGroups.data.allUsersAndGroups.map((item: any) => {
           const profileUrl = `/profiles/${item.id}`
+          console.log("ITEM", item)
           return (
             <div className="profile-container" key={item.id}>
               <LargeProfileCard
                 id={item.id}
                 image={item.profile.image}
                 name={item.username || item.profile.name}
-                skills={item.profile.skills}
+                skills={item.profile.skills || item.profile.groupTypes}
                 url={profileUrl}
                 contactFunction={() => handleContactButtonPress(item.id)}
               />
