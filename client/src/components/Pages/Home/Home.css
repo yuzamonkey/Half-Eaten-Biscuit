@@ -5,7 +5,14 @@
   justify-content: space-between;
   align-items: center;
   position: fixed;
-z-index: 10;
+  z-index: 10;
+}
+
+.home-page-navigation-links {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .home-navigation-link {
@@ -13,7 +20,12 @@ z-index: 10;
   text-decoration: none;
   margin: 0 10px;
   padding: 10px;
-  background-color: rgba(121, 121, 121, 0.37);
+}
+
+.sign-link {
+  background-color: var(--bg-grey);
+  border-radius: 3px;
+  box-shadow: 0pt 0pt 1pt 1pt var(--grey);
 }
 
 .scroll-container {
@@ -34,6 +46,7 @@ z-index: 10;
   justify-content: center;
   height: 100vh;
   scroll-snap-align: start;
+  color: white;
 }
 
 .title-section {
@@ -59,16 +72,36 @@ z-index: 10;
 }
 
 .about-section {
-  background-color: blue;
-  color: white;
+  background-image: linear-gradient(orange, var(--red));
 }
 
 .features-section {
-  background-color: rgb(197, 238, 130);
+  background-image: linear-gradient(var(--dark-blue), var(--blue));
 }
 
 .footer-section {
-  background-color: black;
-  color: white;
-  scroll-snap-align: start;
+  background-image: linear-gradient(gray, black);
+}
+
+@media screen and (max-width: 850px) {
+  .title-section {
+    background-position: right;
+  }
+  .title-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .home-page-scroll-links {
+    background-color: black;
+    display: none;
+  }
+  .home-page-navigation-links {
+    width: 100%;
+    justify-content: flex-end;
+  }
 }
