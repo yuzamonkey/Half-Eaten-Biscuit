@@ -22,10 +22,11 @@
   text-decoration: none;
   margin: 0 10px;
   padding: 10px;
+  white-space: nowrap;
 }
 
 .sign-link {
-  background-color: var(--bg-grey);
+  background-color: hsla(192, 17%, 60%, 0.288);
   border-radius: 3px;
   box-shadow: 0pt 0pt 1pt 1pt var(--grey);
 }
@@ -128,14 +129,13 @@
   }
 }
 
-@media screen and (max-width: 470px) {
-  .home-page-scroll-links {
-    background-color: black;
+@media screen and (max-width: 600px) {
+  .bubbadudaa {
     display: none;
   }
-  .home-page-navigation-links {
-    width: 100%;
-    justify-content: flex-end;
+  .home-navigation-link {
+    margin: 0 3px;
+    padding: 10px 5px;
   }
   .home-page-musician1-image {
     margin-left: auto;
@@ -191,4 +191,3 @@
     right: 10%;
   }
 }
-
