@@ -8,7 +8,7 @@ import Pianosvg from '../../../images/pianosvg.svg'
 const Home = () => {
 
   return (
-    <div>
+    <div className="home-container">
       <nav className="home-page-navigation">
         <div className="home-page-navigation-links home-page-scroll-links">
           <a href="#home" className="home-navigation-link"><i className="fas fa-cookie-bite"></i></a>

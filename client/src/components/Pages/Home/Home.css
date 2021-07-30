@@ -5,7 +5,9 @@
   justify-content: space-between;
   align-items: center;
   position: fixed;
+  top: 0;
   z-index: 20;
+  animation: navigation-animation 0.5s ease-in-out;
 }
 
 .home-page-navigation-links {
@@ -36,6 +38,7 @@
   overflow-y: scroll;
   scroll-behavior: smooth;
   scroll-snap-type: y mandatory;
+  animation: opacity-animation 0.5s ease-in-out;
 }
 
 .scroll-page {
@@ -49,8 +52,7 @@
   scroll-snap-align: start;
 }
 
-.home-page-image-container {
-}
+.home-page-image-container {}
 
 .home-page-image {
   position: absolute;
@@ -60,8 +62,10 @@
 }
 
 .home-page-musician1-image {
+  right: 10%;
   transform: scaleX(-1);
   filter: invert(100%) sepia(5%) saturate(76%) hue-rotate(323deg) brightness(111%) contrast(88%);
+  animation: from-right 1s ease-in-out;
 }
 
 .home-page-musician2-image {
@@ -77,10 +81,12 @@
 }
 
 .title-container {
+  position: absolute;
   top: 50%;
   left: 25%;
   transform: translate(-50%, -50%);
   z-index: 10;
+  animation: from-left 1s ease-in-out;
 }
 
 .title {
@@ -149,3 +155,40 @@
     bottom: 25%;
   }
 }
+
+@keyframes opacity-animation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes navigation-animation {
+  0% {
+    top: -60px;
+  }
+  100% {
+    top: 0;
+  }
+}
+
+@keyframes from-left {
+  0% {
+    left: -25%
+  }
+  100% {
+    left: 25%;
+  }
+}
+
+@keyframes from-right {
+  0% {
+    right: -25%;
+  }
+  100% {
+    right: 10%;
+  }
+}
+
