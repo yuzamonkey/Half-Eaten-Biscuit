@@ -32,14 +32,13 @@
 }
 
 .scroll-container {
-  margin: 0 auto;
-  text-align: center;
   width: 100vw;
   height: 100vh;
   overflow-y: scroll;
   scroll-behavior: smooth;
   scroll-snap-type: y mandatory;
   animation: opacity-animation 0.5s ease-in-out;
+  overflow-x: hidden;
 }
 
 .scroll-page {
@@ -118,19 +117,21 @@
 }
 
 @media screen and (max-width: 850px) {
-  .title-section {
-    background-position: right;
-  }
   .title-container {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    animation: none;
+  }
+  .home-page-musician1-image {
+    filter: invert(41%) sepia(50%) saturate(444%) hue-rotate(140deg) brightness(95%) contrast(82%);
+    animation: none;
   }
 }
 
 @media screen and (max-width: 600px) {
-  .bubbadudaa {
+  .home-hidden-links {
     display: none;
   }
   .home-navigation-link {

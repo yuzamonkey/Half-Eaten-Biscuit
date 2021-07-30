@@ -12,10 +12,9 @@ const Home = () => {
       <nav className="home-page-navigation">
         <div className="home-page-navigation-links home-page-scroll-links">
           <a href="#home" className="home-navigation-link">HalfEatenBiscuit <i className="fas fa-cookie-bite"></i></a>
-          <div className="bubbadudaa">
-
-          <a href="#about" className="home-navigation-link">About</a>
-          <a href="#features" className="home-navigation-link">Features</a>
+          <div className="home-hidden-links">
+            <a href="#about" className="home-navigation-link">About</a>
+            <a href="#features" className="home-navigation-link">Features</a>
           </div>
         </div>
         <div className="home-page-navigation-links home-page-sign-links">
