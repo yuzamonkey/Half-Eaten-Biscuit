@@ -122,6 +122,8 @@ Goal for weeks 24-30 (7 weeks)
       PM: Messaging and group handling
     Thu:
       PM: CSS
+    Fri:
+      AM: Home page
 
 
 ## WORK SCHEDULE
@@ -171,4 +173,5 @@ Goal for weeks 24-30 (7 weeks)
 | 27.7.  | 4 | Messaging between users and groups |
 | 28.7.  | 5 | Fix messaging frontend, group handling |
 | 29.7.  | 1.5 | Minor css improvements |
+| 30.7.  | 1215- |  |
 | =     | 123.0      |               |

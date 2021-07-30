@@ -1,17 +1,56 @@
+.home-container {}
+
 .home-page-navigation-container {
   height: var(--navbar-height);
-  
+  width: 100vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: tomato;
+  background-color: transparent;
+  position: fixed;
 }
 
-.home-page-image-container {
-  width: 100vw;
-}
-
-.home-page-image {
-  width: 100vw;
+.home-page-image-and-title-container {
   height: 100vh;
+  background-image: url('../../../images/beard-musician-guitar-acoustic.jpeg');
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.title-container {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  transform: translate(-50%, -50%);
+}
+
+.title {
+  color: var(--bg-white);
+  text-shadow: 2pt 2pt 5pt var(--dark-blue);
+  font-size: 4em;
+  font-weight: 250;
+}
+
+.home-text-section-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-section-container {
+  background-color: blue;
+  color: white;
+}
+
+.features-section-container {
+  background-color: rgb(197, 238, 130);
+}
+
+.footer-container {
+  background-color: black;
+  color: white;
 }
