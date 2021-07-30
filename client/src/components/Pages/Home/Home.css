@@ -52,8 +52,6 @@
   scroll-snap-align: start;
 }
 
-.home-page-image-container {}
-
 .home-page-image {
   position: absolute;
   bottom: 0;

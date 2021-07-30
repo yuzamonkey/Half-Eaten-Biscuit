@@ -216,6 +216,9 @@ const resolvers: IResolvers = {
     allSkillCategories: async () => {
       return SkillCategory.find({}).populate('parent children')
     },
+    allGroupSkillCategories: async () => {
+      return GroupCategory.find({}).populate('parent children')
+    }
   },
   UserOrGroup: {
     async __resolveType(obj: { kind: string; }, _context: any, _info: any) {
@@ -259,7 +262,6 @@ const resolvers: IResolvers = {
     addGroupCategory: async (_root, args) => {
       const name = args.name
       const parentName = args.parent
-      console.log("• NAME", name, "• PARENT NAME", parentName)
       try {
         const parent = await GroupCategory.findOne({name: parentName})
         const newGroupCategory = new GroupCategory({

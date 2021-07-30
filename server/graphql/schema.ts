@@ -102,6 +102,7 @@ const typeDefs = gql`
     allConversations: [Conversation]
     findConversation(id: ID!): Conversation
     allSkillCategories: [SkillCategory]
+    allGroupSkillCategories: [GroupCategory]
     me: User,
   }
 

@@ -280,6 +280,21 @@ export const ALL_SKILL_CATEGORIES = gql`
   }
 `
 
+export const ALL_GROUP_SKILL_CATEGORIES = gql`
+  query allGroupSkillCategories {
+    allGroupSkillCategories {
+      id
+      name
+      parent {
+        name
+      }
+      children {
+        name
+      }
+    }
+  }
+`
+
 export const ALL_USERS_AND_GROUPS = gql`
   query allUsersAndGroups {
     allUsersAndGroups {
