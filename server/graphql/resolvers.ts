@@ -478,12 +478,14 @@ const resolvers: IResolvers = {
         throw new AuthenticationError("not authenticated")
       }
 
-      const name = args.name
-      console.log("•••NAME", name)
+      const groupName = args.name
+      console.log("•••NAME", groupName)
       const userIds = args.users
       //validate that current user is included in userIds
-      console.log(typeof (currentUser.id))
       console.log("•••IDS", userIds)
+      const about = args.about
+      const image = args.image
+      const skills = args.skills
 
       try {
         //create group
@@ -494,8 +496,11 @@ const resolvers: IResolvers = {
 
         //create groupProfile
         const newGroupProfile = new GroupProfile({
-          name: name,
-          group: savedGroup
+          name: groupName,
+          group: savedGroup,
+          about: about,
+          image: image,
+          skills: skills
         })
         const savedGroupProfile = await newGroupProfile.save()
         savedGroup.profile = savedGroupProfile

@@ -125,7 +125,10 @@ const typeDefs = gql`
     ): UserProfile
     createGroup(
       name: String!,
-      users: [ID!]!
+      users: [ID!]!,
+      about: String!,
+      image: String,
+      skills: [ID]!
     ): Group
     createJobquery(
       content: String!

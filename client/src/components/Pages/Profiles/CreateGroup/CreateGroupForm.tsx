@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { Button } from "../../../UtilityComponents/UtilityComponents"
+import About from "./Views/About"
 import GroupSkills from "./Views/GroupSkills"
 import NameAndImage from "./Views/NameAndImage"
 import Summary from "./Views/Summary"
@@ -14,13 +15,15 @@ const CreateGroupForm = () => {
   const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
   const [skills, setSkills] = useState<User[]>([]);
   const [groupName, setGroupName] = useState('Group name')
+  const [about, setAbout] = useState('')
   const [image, setImage] = useState('')
   const [currentView, setCurrentView] = useState(0)
   const views = [
     <UserSelection selectedUsers={selectedUsers} setSelectedUsers={setSelectedUsers} />,
     <GroupSkills skills={skills} setSkills={setSkills}/>,
     <NameAndImage groupName={groupName} setGroupName={setGroupName} image={image} setImage={setImage} />,
-    <Summary selectedUsers={selectedUsers} groupName={groupName} image={image} skills={skills}/>
+    <About text={about} setText={setAbout} />,
+    <Summary selectedUsers={selectedUsers} groupName={groupName} image={image} skills={skills} about={about}/>
   ]
 
   const handlePrevPress = () => {

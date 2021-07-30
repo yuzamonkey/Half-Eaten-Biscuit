@@ -1,9 +1,30 @@
-import { Button } from "../../../../UtilityComponents/UtilityComponents"
+import { useMutation } from "@apollo/client"
 
-const Summary = ({ selectedUsers, groupName, image, skills }) => {
+import { Button } from "../../../../UtilityComponents/UtilityComponents"
+import { CREATE_GROUP } from "../../../../../graphql/mutations"
+
+const Summary = ({ selectedUsers, groupName, image, skills, about }) => {
   
+  const [createGroup] = useMutation(CREATE_GROUP, {
+    onError: (error) => {
+      console.log("Error at create user profile mutation: \n", error)
+    }
+  })
+
   const handleSubmit = () => {
-    console.log("SUBMIT CALLED FOR GROUP CREATE")
+    const skillIds = skills.map(skill => skill.id)
+    const userIds = selectedUsers.map(user => user.id)
+
+    createGroup({
+      variables: {
+        name: groupName,
+        users: userIds,
+        about: about,
+        image: image,
+        skills: skillIds
+      }
+    })
+    window.location.assign('/')
   }
 
   return (
@@ -13,6 +34,7 @@ const Summary = ({ selectedUsers, groupName, image, skills }) => {
       NAME: {groupName}
       <img src={image} alt="summaryimage"></img>
       {skills.map(skill => <p>{skill.name}</p>)}
+      ABOUT: {about}
       <Button handleClick={handleSubmit} text='Submit' />
     </div>
   )
