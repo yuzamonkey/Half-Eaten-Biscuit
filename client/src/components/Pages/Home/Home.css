@@ -5,7 +5,7 @@
   justify-content: space-between;
   align-items: center;
   position: fixed;
-  z-index: 10;
+  z-index: 20;
 }
 
 .home-page-navigation-links {
@@ -29,7 +29,6 @@
 }
 
 .scroll-container {
-  display: block;
   margin: 0 auto;
   text-align: center;
   width: 100vw;
@@ -45,16 +44,41 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  scroll-snap-align: start;
   color: white;
+  position: relative;
+  scroll-snap-align: start;
 }
 
-.title-section {
-  background-image: url('../../../images/beard-musician-guitar-acoustic.jpeg');
-  background-position: right;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
+.home-page-image-container {
+  z-index: 5;
+  bottom: -3px;
+  /* right: 20vw; */
+}
+
+.home-page-musician1-image {
+  position: absolute;
+  bottom: 0;
+  height: 90vh;
+  transform: scaleX(-1);
+  filter: invert(100%) sepia(5%) saturate(76%) hue-rotate(323deg) brightness(111%) contrast(88%);
+}
+
+.home-page-musician2-image {
+  position: absolute;
+  right: 20px;
+  bottom: 0;
+  height: 90vh;
+  transform: scaleX(-1);
+  filter: invert(16%) sepia(93%) saturate(6071%) hue-rotate(331deg) brightness(69%) contrast(119%);
+}
+
+.home-page-piano-image {
+  position: absolute;
+  left: 20px;
+  bottom: 0;
+  height: 90vh;
+  transform: scaleX(-1);
+  filter: invert(41%) sepia(52%) saturate(7500%) hue-rotate(171deg) brightness(94%) contrast(101%);
 }
 
 .title-container {
@@ -62,6 +86,7 @@
   top: 50%;
   left: 25%;
   transform: translate(-50%, -50%);
+  z-index: 10;
 }
 
 .title {
@@ -71,8 +96,12 @@
   font-weight: 250;
 }
 
+.title-section {
+  background-image: linear-gradient(#3bc9bd, #3e7f89);
+}
+
 .about-section {
-  background-image: linear-gradient(orange, var(--red));
+  background-image: linear-gradient(#ffa500, var(--red));
 }
 
 .features-section {
@@ -80,7 +109,7 @@
 }
 
 .footer-section {
-  background-image: linear-gradient(gray, black);
+  background-image: linear-gradient(#808080, #21413f);
 }
 
 @media screen and (max-width: 850px) {
@@ -103,5 +132,22 @@
   .home-page-navigation-links {
     width: 100%;
     justify-content: flex-end;
+  }
+  .home-page-musician1-image {
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+  }
+  .home-page-musician2-image {
+    right: -15%;
+  }
+  .home-page-piano-image {
+    height: 60vh;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    bottom: 25%;
   }
 }
