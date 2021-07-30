@@ -5,6 +5,7 @@ require('dotenv')
 const bcrypt = require('bcrypt')
 
 const SkillCategory = require('../models/skillCategory')
+const GroupCategory = require('../models/groupCategory')
 const Jobquery = require('../models/jobquery')
 const Conversation = require('../models/conversation')
 const User = require('../models/user')
@@ -255,7 +256,29 @@ const resolvers: IResolvers = {
       }
     },
 
-    addGroupCategory: async (_root, _args) => {
+    addGroupCategory: async (_root, args) => {
+      const name = args.name
+      const parentName = args.parent
+      console.log("• NAME", name, "• PARENT NAME", parentName)
+      try {
+        const parent = await GroupCategory.findOne({name: parentName})
+        const newGroupCategory = new GroupCategory({
+          name: name,
+          parent: parent?._id,
+          children: []
+        })
+        const savedGroupCategory = await newGroupCategory.save()
+        if (parent) {
+          parent.children = parent.children.concat(savedGroupCategory._id)
+          await parent.save()
+        }
+        return savedGroupCategory
+      } catch (error) {
+        console.log("ERROR ON ADD GROUP CATEGORY", error)
+        throw new UserInputError(error.message, {
+          invalidArgs: args,
+        })
+      }
 
     },
 
