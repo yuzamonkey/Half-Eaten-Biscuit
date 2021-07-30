@@ -24,6 +24,7 @@ z-index: 10;
   height: 100vh;
   overflow-y: scroll;
   scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
 }
 
 .scroll-page {
@@ -32,6 +33,7 @@ z-index: 10;
   align-items: center;
   justify-content: center;
   height: 100vh;
+  scroll-snap-align: start;
 }
 
 .title-section {
@@ -68,4 +70,5 @@ z-index: 10;
 .footer-section {
   background-color: black;
   color: white;
+  scroll-snap-align: start;
 }
