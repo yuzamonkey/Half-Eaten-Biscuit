@@ -15,7 +15,25 @@ const jobquerySchema = new mongoose.Schema({
     type: Boolean,
     default: true
   },
-  user: {
+  postedOn: {
+    type: Date,
+    default: new Date()
+  },
+  startSchedule: {
+    type: Date,
+    required: true
+  },
+  endSchedule: {
+    type: Date
+  },
+  wantedCategories: [{
+    kind: String,
+    object: {
+      type: mongoose.Schema.Types.ObjectId,
+      refPath: 'wantedCategories.kind'
+    }
+  }],
+  postedBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   }
@@ -32,3 +50,16 @@ jobquerySchema.set('toJSON', {
 jobquerySchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('Jobquery', jobquerySchema)
+
+/*
+  type Jobquery {
+    id: ID!
+    content: String!
+    postedOn: Date!
+    startSchedule: Date!
+    endSchedule: Date
+    wantedCategories: [SkillCategoryOrGroupCategory!]!
+    visible: Boolean!
+    postedBy: UserOrGroup!
+  }
+*/

@@ -39,9 +39,12 @@ const typeDefs = gql`
   type Jobquery {
     id: ID!
     content: String!
-    date: Date!
+    postedOn: Date!
+    startSchedule: Date!
+    endSchedule: Date
+    wantedCategories: [SkillCategoryOrGroupCategory!]!
     visible: Boolean!
-    user: User!
+    postedBy: UserOrGroup!
   }
 
   type User {
@@ -90,6 +93,8 @@ const typeDefs = gql`
 
   union UserOrGroup = User | Group
 
+  union SkillCategoryOrGroupCategory = SkillCategory | GroupCategory
+
   type Query {
     allJobqueries: [Jobquery]
     findJobqueries(content: String!): [Jobquery],
@@ -133,6 +138,10 @@ const typeDefs = gql`
     ): Group
     createJobquery(
       content: String!
+      startSchedule: Date!
+      endSchedule: Date
+      wantedCategories: [ID!]!
+      postedBy: ID!
     ): Jobquery
     createConversation(
       senderId: ID!

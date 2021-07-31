@@ -9,9 +9,6 @@ const conversationSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       refPath: 'participants.kind'
     }
-    // type: mongoose.Schema.Types.ObjectId,
-    // // ref: 'User'
-    // refPath: 'userOrGroup'
   }],
   messages: [{
     body: String,
@@ -21,19 +18,12 @@ const conversationSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         refPath: 'messages.sender.kind'
       }
-      //ref: 'User'
-      //refPath: 'userOrGroup'
     },
     time: {
       type: Date,
       default: new Date()
     }
   }],
-  // userOrGroup: {
-  //   type: String,
-  //   required: true,
-  //   enum: ['User', 'Group']
-  // },
 })
 
 conversationSchema.set('toJSON', {

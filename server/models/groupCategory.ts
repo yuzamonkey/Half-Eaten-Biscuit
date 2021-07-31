@@ -15,7 +15,11 @@ const groupCategorySchema = new mongoose.Schema({
   children: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'GroupCategory'
-  }]
+  }],
+  kind: {
+    type: String,
+    default: 'GroupCategory'
+  }
 })
 
 groupCategorySchema.set('toJSON', {

@@ -230,7 +230,7 @@ const resolvers: IResolvers = {
     allJobqueries: () => {
       return Jobquery.find({})
         .populate({
-          path: 'user',
+          path: 'postedBy',
           populate: {
             path: 'profile'
           }
@@ -239,7 +239,7 @@ const resolvers: IResolvers = {
     findJobqueries: (_root, args) => {
       return Jobquery.find({ content: args.content })
         .populate({
-          path: 'user',
+          path: 'postedBy',
           populate: {
             path: 'profile'
           }

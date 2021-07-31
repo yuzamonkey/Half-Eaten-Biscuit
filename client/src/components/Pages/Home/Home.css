@@ -63,7 +63,7 @@
   right: 10%;
   transform: scaleX(-1);
   filter: invert(100%) sepia(5%) saturate(76%) hue-rotate(323deg) brightness(111%) contrast(88%);
-  animation: from-right 1s ease-in-out;
+  animation: from-right 1s ease-out;
 }
 
 .home-page-musician2-image {
@@ -175,18 +175,22 @@
 
 @keyframes from-left {
   0% {
-    left: -25%
+    left: -25%;
+    opacity: 0
   }
   100% {
     left: 25%;
+    opacity: 1;
   }
 }
 
 @keyframes from-right {
   0% {
     right: -25%;
+    opacity: 0
   }
   100% {
     right: 10%;
+    opacity: 1;
   }
 }

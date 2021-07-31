@@ -20,7 +20,11 @@ const skillCategorySchema = new mongoose.Schema({
   children: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'SkillCategory'
-  }]
+  }],
+  kind: {
+    type: String,
+    default: 'SkillCategory'
+  }
 })
 
 skillCategorySchema.set('toJSON', {
