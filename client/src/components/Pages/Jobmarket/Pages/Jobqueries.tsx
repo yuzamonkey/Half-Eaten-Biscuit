@@ -20,16 +20,16 @@ const Jobqueries = () => {
       Filter by: skill, group, posted on date, schedule, location
       <ul>
         {result.data.allJobqueries.map((q: any) => {
-          const contactText = `Contact ${q.user.username}`
+          const contactText = `Contact ${q.postedBy.username}`
           return (
-            // <div className="card"> <li key={q.content}>{q.user.username}, {q.content}, {q.date}</li></div>
+            // <div className="card"> <li key={q.content}>{q.postedBy.username}, {q.content}, {q.date}</li></div>
             <div className="card" key={q.id}>
               <div className="general-info-container">
                 <div className="image-and-name-container">
                   <div className="image-container">
-                    <img src={q.user.profile.image} alt="profileimg" className="jobquery-user-profile-image"></img>
+                    <img src={q.postedBy.profile.image} alt="profileimg" className="jobquery-user-profile-image"></img>
                   </div>
-                  <p><b>{q.user.username}</b> is looking for <br />
+                  <p><b>{q.postedBy.username}</b> is looking for <br />
                     string ensemble</p>
 
                 </div>
@@ -52,7 +52,7 @@ const Jobqueries = () => {
               <div className="buttons-container">
                 <Button text={contactText} handleClick={handleButtonPress} />
                 <Button text="More info" handleClick={handleButtonPress} />
-                {/* <button className="card-button jq-contact-button" onClick={handleButtonPress}>Contact {q.user.username}</button>
+                {/* <button className="card-button jq-contact-button" onClick={handleButtonPress}>Contact {q.postedBy.username}</button>
                 <button className="card-button more-info-button" onClick={handleButtonPress}>More info</button> */}
               </div>
             </div>

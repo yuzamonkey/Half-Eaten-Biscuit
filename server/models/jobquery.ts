@@ -50,16 +50,3 @@ jobquerySchema.set('toJSON', {
 jobquerySchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('Jobquery', jobquerySchema)
-
-/*
-  type Jobquery {
-    id: ID!
-    content: String!
-    postedOn: Date!
-    startSchedule: Date!
-    endSchedule: Date
-    wantedCategories: [SkillCategoryOrGroupCategory!]!
-    visible: Boolean!
-    postedBy: UserOrGroup!
-  }
-*/

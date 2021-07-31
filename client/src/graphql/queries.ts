@@ -8,7 +8,7 @@ export const ME = gql`
       jobQueries {
         id, 
         content, 
-        date,
+        postedOn,
         visible
       },
       groups {
@@ -224,11 +224,13 @@ export const ALL_JOBQUERIES = gql`
     allJobqueries {
       id
       content
-      date
-      user {
-        username
-        profile {
-          image
+      postedOn
+      postedBy {
+        ...on User {
+          username
+          profile {
+            image
+          }
         }
       }
     }

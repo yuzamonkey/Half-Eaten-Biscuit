@@ -358,6 +358,26 @@ const resolvers: IResolvers = {
     },
 
     createJobquery: async (_root, args, context) => {
+      /*
+        type Jobquery {
+          id: ID!
+          content: String!
+          postedOn: Date!
+          startSchedule: Date!
+          endSchedule: Date
+          wantedCategories: [SkillCategoryOrGroupCategory!]!
+          visible: Boolean!
+          postedBy: UserOrGroup!
+        }
+
+        createJobquery(
+          content: String!
+          startSchedule: Date!
+          endSchedule: Date
+          wantedCategories: [ID!]!
+          postedBy: ID!
+        ): Jobquery
+      */
       const currentUser = context.currentUser
 
       if (!currentUser) {
@@ -366,28 +386,57 @@ const resolvers: IResolvers = {
       }
 
       const content = args.content
-      const date = new Date()
-      const userId = currentUser.id
-      console.log("USER ID IN CREATE QUERY RESOLVER", userId)
+      const postedBy = args.postedBy
+      const startSchedule = args.startSchedule
+      const endSchedule = args.endSchedule
+      const wantedCategories = args.wantedCategories
+      
+      const postedOn = new Date()
 
-      const newQuery = new Jobquery({
-        content: content,
-        date: date,
-        user: userId
-      })
+      console.log("•NEW JOBQUERY PARAMS:")
+      console.log("CONTENT", content)
+      console.log("POSTEDON", postedOn)
+      console.log("POSTEDBY", postedBy)
+      console.log("START SCHEDULE", startSchedule)
+      console.log("END SCHEDULE", endSchedule)
+      console.log("WANTED CATEGORIES", wantedCategories)
 
-      console.log(`NEW JOBQUERY: ${newQuery}`)
+      // const wantedCategoryObjects = await wantedCategories.map(async (categoryId: any) => {
+      //   const obj = await SkillCategory.findOne({ _id: categoryId }) || await GroupCategory.findOne({ _id: categoryId })
+      //   return obj
+      // })
 
-      try {
-        const savedQuery = await newQuery.save()
-        currentUser.jobQueries = currentUser.jobQueries.concat(newQuery)
-        await currentUser.save()
-        return savedQuery
-      } catch (error) {
-        throw new UserInputError(error.message, {
-          invalidArgs: args,
-        })
+      for (let categoryId of wantedCategories) {
+        const obj = await SkillCategory.findOne({ _id: categoryId }) || await GroupCategory.findOne({ _id: categoryId })
+        if (!obj) {
+          console.log("ERROR on new jobquery. No category with id", categoryId)
+          throw new UserInputError("No category with id", categoryId)
+        }
       }
+
+      const postedByObject = await User.findOne({ _id: postedBy }) || await Group.findOne({ _id: postedBy })
+      
+      //console.log("WANTED CATEGORY OBJS", wantedCategoryObjects)
+      console.log("POSTED BY OBJ", postedByObject)
+
+      // const newQuery = new Jobquery({
+      //   content: content,
+      //   postedOn: postedOn,
+      //   postedBy: postedBy
+      // })
+
+      // console.log(`NEW JOBQUERY: ${newQuery}`)
+
+      // try {
+      //   const savedQuery = await newQuery.save()
+      //   currentUser.jobQueries = currentUser.jobQueries.concat(newQuery)
+      //   await currentUser.save()
+      //   return savedQuery
+      // } catch (error) {
+      //   throw new UserInputError(error.message, {
+      //     invalidArgs: args,
+      //   })
+      // }
     },
 
     createConversation: async (_root, args, context) => {
