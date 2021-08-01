@@ -30,7 +30,7 @@ const Home = () => {
             <img src={Musician1Svg} alt="" className="home-page-image home-page-musician1-image" />
           </div>
           <div className="title-container">
-            <h1 className="title">Hey artist, <br></br>you are needed!</h1>
+            <h1 className="title">Hey artist, <br></br>show your work!</h1>
           </div>
         </div>
 

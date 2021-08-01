@@ -45,7 +45,6 @@ const SendQuery = () => {
     const postedBy = userContext.sessionId
     const wantedCategoryIds = wantedCategories.map(c => c.id)
 
-    console.log("WANTED CATEGORY IDS", wantedCategoryIds)
     createQuery({
       variables: {
         content: content,

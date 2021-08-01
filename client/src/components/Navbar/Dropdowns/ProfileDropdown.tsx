@@ -27,7 +27,9 @@ const ProfileDropdown = ({ show, setShow }: any) => {
   }
 
   if (loading || me.loading) {
-    return <Loading />
+    return <div className="dropdown">
+      <Loading />
+    </div>
   }
 
   const handleLogout = async () => {

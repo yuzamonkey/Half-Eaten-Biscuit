@@ -79,6 +79,7 @@
 }
 
 .title-container {
+  min-width: 300px;
   position: absolute;
   top: 50%;
   left: 25%;

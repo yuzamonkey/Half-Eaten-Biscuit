@@ -44,7 +44,6 @@ const Profiles = () => {
       <div className="profiles-container">
         {allUsersAndGroups.data.allUsersAndGroups.map((item: any) => {
           const profileUrl = `/profiles/${item.id}`
-          console.log("ITEM", item)
           return (
             <div className="profile-container" key={item.id}>
               <LargeProfileCard

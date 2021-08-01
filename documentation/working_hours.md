@@ -176,5 +176,5 @@ Goal for weeks 24-30 (7 weeks)
 | 28.7.  | 5 | Fix messaging frontend, group handling |
 | 29.7.  | 1.5 | Minor css improvements |
 | 30.7.  | 5 | Home-page css |
-| 1.8.  | 1400-1530, 1540-1605, 1615-| Jobmarket |
-| =     | 128.0      |               |
+| 1.8.  | 1.5 | Jobmarket |
+| =     | 129.5      |               |

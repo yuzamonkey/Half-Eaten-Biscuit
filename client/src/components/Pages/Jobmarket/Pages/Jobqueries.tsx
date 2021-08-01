@@ -15,7 +15,6 @@ const Jobqueries = () => {
     console.log(q.content)
   }
 
-  console.log("JOBQUERY RESULT", result)
   const jobqueries = result.data.allJobqueries
 
   return (
@@ -23,7 +22,6 @@ const Jobqueries = () => {
       Filter by: skill, group, posted on date, schedule, location
       <ul>
         {jobqueries.map((q: any) => {
-          console.log("Q", q)
           const contactText = `Contact ${q.postedBy.object.username || q.postedBy.object.profile.name}`
           return (
             <div className="card" key={q.id}>

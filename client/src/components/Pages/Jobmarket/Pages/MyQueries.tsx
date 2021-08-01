@@ -6,6 +6,8 @@ import { Toggle, Loading } from '../../../UtilityComponents/UtilityComponents';
 const MyQueries = () => {
   const result = useQuery(ME)
 
+  //FIX!, find jobqueries based on sessionId, not me
+
   const handleToggleClick = (id) => {
     console.log("SET VISIBILITY OF", id)
   }
@@ -13,8 +15,6 @@ const MyQueries = () => {
   if (result.loading) {
     return <Loading />
   }
-
-  console.log(result.data.me.jobQueries)
 
   return (
     <div>
