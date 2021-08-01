@@ -220,16 +220,39 @@ export const FIND_CONVERSATION = gql`
 `
 
 export const ALL_JOBQUERIES = gql`
-  query allJobqueries{
+  query allJobqueries {
     allJobqueries {
-      id
-      content
-      postedOn
+      id,
+      content,
+      postedOn,
+      startSchedule,
+      endSchedule,
+      location,
+      salary,
       postedBy {
-        ...on User {
-          username
-          profile {
-            image
+        kind 
+        object {
+          ...on User {
+            username
+            profile {
+              image
+            }
+          }
+          ...on Group {
+            profile {
+              name
+              image
+            }
+          }
+        }
+      }
+      wantedCategories {
+        object {
+          ...on SkillCategory {
+            name
+          }
+          ... on GroupCategory {
+            name
           }
         }
       }

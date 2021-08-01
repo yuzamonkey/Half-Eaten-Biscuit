@@ -45,6 +45,8 @@ const typeDefs = gql`
     wantedCategories: [WantedCategory!]!
     visible: Boolean!
     postedBy: JobqueryPostedBy!
+    location: String
+    salary: String
   }
 
   type WantedCategory {

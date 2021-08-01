@@ -381,26 +381,6 @@ const resolvers: IResolvers = {
     },
 
     createJobquery: async (_root, args, context) => {
-      /*
-        type Jobquery {
-          id: ID!
-          content: String!
-          postedOn: Date!
-          startSchedule: Date!
-          endSchedule: Date
-          wantedCategories: [SkillCategoryOrGroupCategory!]!
-          visible: Boolean!
-          postedBy: UserOrGroup!
-        }
-
-        createJobquery(
-          content: String!
-          startSchedule: Date!
-          endSchedule: Date
-          wantedCategories: [ID!]!
-          postedBy: ID!
-        ): Jobquery
-      */
       const currentUser = context.currentUser
 
       if (!currentUser) {
@@ -413,18 +393,8 @@ const resolvers: IResolvers = {
       const startSchedule = args.startSchedule
       const endSchedule = args.endSchedule
       const wantedCategories = args.wantedCategories
-
-      console.log("•NEW JOBQUERY PARAMS:")
-      console.log("CONTENT", content)
-      console.log("POSTEDBY", postedBy)
-      console.log("START SCHEDULE", startSchedule)
-      console.log("END SCHEDULE", endSchedule)
-      console.log("WANTED CATEGORIES", wantedCategories)
-
-      // const wantedCategoryObjects = await wantedCategories.map(async (categoryId: any) => {
-      //   const obj = await SkillCategory.findOne({ _id: categoryId }) || await GroupCategory.findOne({ _id: categoryId })
-      //   return obj
-      // })
+      const location = args.location
+      const salary = args.salary
 
       let wantedCategoryObjects = []
 
@@ -448,7 +418,9 @@ const resolvers: IResolvers = {
         postedBy: { _id: postedBy, kind: postedByObject.kind, object: postedByObject },
         startSchedule: startSchedule,
         endSchedule: endSchedule,
-        wantedCategories: wantedCategoryObjects
+        wantedCategories: wantedCategoryObjects,
+        location: location,
+        salary: salary
       })
 
       console.log(`••••• NEW JOBQUERY MONGOOSE OBJECT:\n ${newJobQuery}`)

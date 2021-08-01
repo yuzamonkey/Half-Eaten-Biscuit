@@ -35,6 +35,16 @@ const jobquerySchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       refPath: 'postedBy.kind'
     }
+  },
+  location: {
+    type: String,
+    required: true,
+    default: 'No location'
+  },
+  salary: {
+    type: String,
+    required: true,
+    default: 'No salary'
   }
 })
 
