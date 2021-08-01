@@ -271,8 +271,14 @@ const resolvers: IResolvers = {
     }
   },
   SkillCategoryOrGroupCategory: {
-    async __resolveType() {
-      console.log(" SkillCategoryOrGroupCategory __resolveType() called")
+    async __resolveType(obj: any) {
+      if (obj.kind === 'GroupCategory') return 'GroupCategory'
+      if (obj.kind === 'SkillCategory') return 'SkillCategory'
+      else {
+        const id = obj
+        const result = await SkillCategory.findOne({ _id: id }) || await GroupCategory.findOne({ _id: id })
+        return result.kind
+      }
     }
   },
   Mutation: {
