@@ -42,9 +42,14 @@ const typeDefs = gql`
     postedOn: Date!
     startSchedule: Date!
     endSchedule: Date
-    wantedCategories: [SkillCategoryOrGroupCategory!]!
+    wantedCategories: [WantedCategory!]!
     visible: Boolean!
     postedBy: JobqueryPostedBy!
+  }
+
+  type WantedCategory {
+    kind: String,
+    object: SkillCategoryOrGroupCategory
   }
 
   type JobqueryPostedBy {
@@ -102,7 +107,7 @@ const typeDefs = gql`
 
   type Query {
     allJobqueries: [Jobquery]
-    findJobqueries(content: String!): [Jobquery],
+    findJobquery(id: ID!): Jobquery,
     allUsers: [User]!
     allUserProfiles: [UserProfile]!
     findUser(id: ID!): User

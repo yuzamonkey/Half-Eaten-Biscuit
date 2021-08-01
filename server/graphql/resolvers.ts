@@ -228,7 +228,7 @@ const resolvers: IResolvers = {
         })
     },
     allJobqueries: async () => {
-      const result = await Jobquery.find({})
+      return Jobquery.find({})
         .populate({
           path: 'postedBy.object',
           populate: {
@@ -238,17 +238,22 @@ const resolvers: IResolvers = {
         .populate({
           path: 'wantedCategories.object',
           populate: {
-            path: 'ööö...'
+            path: 'parent children'
           }
         })
-      return result
     },
-    findJobqueries: (_root, args) => {
-      return Jobquery.find({ content: args.content })
+    findJobquery: async (_root, args) => {
+      return await Jobquery.findOne({ _id: args.id })
         .populate({
-          path: 'postedBy',
+          path: 'postedBy.object',
           populate: {
             path: 'profile'
+          }
+        })
+        .populate({
+          path: 'wantedCategories.object',
+          populate: {
+            path: 'parent children'
           }
         })
     },
