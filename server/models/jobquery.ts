@@ -7,10 +7,6 @@ const jobquerySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  date: {
-    type: Date, 
-    default: new Date()
-  },
   visible: {
     type: Boolean,
     default: true

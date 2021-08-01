@@ -390,12 +390,9 @@ const resolvers: IResolvers = {
       const startSchedule = args.startSchedule
       const endSchedule = args.endSchedule
       const wantedCategories = args.wantedCategories
-      
-      const postedOn = new Date()
 
       console.log("•NEW JOBQUERY PARAMS:")
       console.log("CONTENT", content)
-      console.log("POSTEDON", postedOn)
       console.log("POSTEDBY", postedBy)
       console.log("START SCHEDULE", startSchedule)
       console.log("END SCHEDULE", endSchedule)
@@ -406,37 +403,43 @@ const resolvers: IResolvers = {
       //   return obj
       // })
 
+      let wantedCategoryObjects = []
+
       for (let categoryId of wantedCategories) {
         const obj = await SkillCategory.findOne({ _id: categoryId }) || await GroupCategory.findOne({ _id: categoryId })
         if (!obj) {
           console.log("ERROR on new jobquery. No category with id", categoryId)
           throw new UserInputError("No category with id", categoryId)
         }
+        wantedCategoryObjects.push({ _id: categoryId, kind: obj.kind, object: obj })
       }
 
       const postedByObject = await User.findOne({ _id: postedBy }) || await Group.findOne({ _id: postedBy })
-      
-      //console.log("WANTED CATEGORY OBJS", wantedCategoryObjects)
-      console.log("POSTED BY OBJ", postedByObject)
+      if (!postedByObject) {
+        console.log("ERROR ON new jobquery. No user or group with id", postedBy)
+        throw new UserInputError("No category with id", postedBy)
+      }
 
-      // const newQuery = new Jobquery({
-      //   content: content,
-      //   postedOn: postedOn,
-      //   postedBy: postedBy
-      // })
+      const newJobQuery = new Jobquery({
+        content: content,
+        postedBy: postedBy,
+        startSchedule: startSchedule,
+        endSchedule: endSchedule,
+        wantedCategories: wantedCategoryObjects
+      })
 
-      // console.log(`NEW JOBQUERY: ${newQuery}`)
+      console.log(`••••• NEW JOBQUERY MONGOOSE OBJECT:\n ${newJobQuery}`)
 
-      // try {
-      //   const savedQuery = await newQuery.save()
-      //   currentUser.jobQueries = currentUser.jobQueries.concat(newQuery)
-      //   await currentUser.save()
-      //   return savedQuery
-      // } catch (error) {
-      //   throw new UserInputError(error.message, {
-      //     invalidArgs: args,
-      //   })
-      // }
+      try {
+        const savedQuery = await newJobQuery.save()
+        postedByObject.jobQueries = postedByObject.jobQueries.concat(newJobQuery)
+        await postedByObject.save()
+        return savedQuery
+      } catch (error) {
+        throw new UserInputError(error.message, {
+          invalidArgs: args,
+        })
+      }
     },
 
     createConversation: async (_root, args, context) => {

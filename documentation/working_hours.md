@@ -124,7 +124,7 @@ Goal for weeks 24-30 (7 weeks)
       PM: CSS
     Fri:
       AM: Home page
-    Sat:
+    Sun:
       PM: Jobmarket improvements
 
 
@@ -176,5 +176,5 @@ Goal for weeks 24-30 (7 weeks)
 | 28.7.  | 5 | Fix messaging frontend, group handling |
 | 29.7.  | 1.5 | Minor css improvements |
 | 30.7.  | 5 | Home-page css |
-| 31.7.  | 0.5 (ei merkattu) | Jobmarket |
+| 1.8.  | 1430- +0.5 | Jobmarket |
 | =     | 128.0      |               |
