@@ -44,7 +44,12 @@ const typeDefs = gql`
     endSchedule: Date
     wantedCategories: [SkillCategoryOrGroupCategory!]!
     visible: Boolean!
-    postedBy: UserOrGroup!
+    postedBy: JobqueryPostedBy!
+  }
+
+  type JobqueryPostedBy {
+    kind: String,
+    object: UserOrGroup
   }
 
   type User {

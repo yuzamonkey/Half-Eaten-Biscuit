@@ -227,14 +227,21 @@ const resolvers: IResolvers = {
           }
         })
     },
-    allJobqueries: () => {
-      return Jobquery.find({})
+    allJobqueries: async () => {
+      const result = await Jobquery.find({})
         .populate({
-          path: 'postedBy',
+          path: 'postedBy.object',
           populate: {
             path: 'profile'
           }
         })
+        .populate({
+          path: 'wantedCategories.object',
+          populate: {
+            path: 'ööö...'
+          }
+        })
+      return result
     },
     findJobqueries: (_root, args) => {
       return Jobquery.find({ content: args.content })
@@ -261,6 +268,11 @@ const resolvers: IResolvers = {
         const result = await User.findOne({ _id: id }) || await Group.findOne({ _id: id })
         return result.kind
       }
+    }
+  },
+  SkillCategoryOrGroupCategory: {
+    async __resolveType() {
+      console.log(" SkillCategoryOrGroupCategory __resolveType() called")
     }
   },
   Mutation: {
@@ -422,7 +434,7 @@ const resolvers: IResolvers = {
 
       const newJobQuery = new Jobquery({
         content: content,
-        postedBy: postedBy,
+        postedBy: { _id: postedBy, kind: postedByObject.kind, object: postedByObject },
         startSchedule: startSchedule,
         endSchedule: endSchedule,
         wantedCategories: wantedCategoryObjects

@@ -1,4 +1,4 @@
-export {};
+export { };
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 
@@ -30,8 +30,11 @@ const jobquerySchema = new mongoose.Schema({
     }
   }],
   postedBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+    kind: String,
+    object: {
+      type: mongoose.Schema.Types.ObjectId,
+      refPath: 'postedBy.kind'
+    }
   }
 })
 
