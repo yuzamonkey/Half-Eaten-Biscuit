@@ -154,6 +154,8 @@ const typeDefs = gql`
       endSchedule: Date
       wantedCategories: [ID!]!
       postedBy: ID!
+      salary: String!
+      location: String!
     ): Jobquery
     createConversation(
       senderId: ID!
