@@ -55,7 +55,6 @@ const splitLink = split(({ query }) => {
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  //link: authLink.concat(httpLink)
   link: splitLink,
   connectToDevTools: true
 })

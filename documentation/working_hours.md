@@ -1,9 +1,5 @@
 # Record of working hours
 
-Goal for weeks 24-30 (7 weeks)  
-  => 175h / 7w = 25h / w  
-  => 25h / 5d = 5h / d = 2.5h+2.5h / d  
-
 ## DIARY
   ### Week 24 ✅
   
@@ -107,7 +103,7 @@ Goal for weeks 24-30 (7 weeks)
       AM:
       PM: Fixes, Heroku push
 
-  ### Week 30 ✅❌
+  ### Week 30 ❌
     
   **Theme**: 
   **Todo**: 
@@ -126,6 +122,14 @@ Goal for weeks 24-30 (7 weeks)
       AM: Home page
     Sun:
       PM: Jobmarket improvements
+  
+  ### Week 31 ✅❌
+    
+  **Theme**: 
+  **Todo**: Notifications, middleware & refactoring
+
+    Mon: Caching and subscriptions gql documentation
+
 
 
 ## WORK SCHEDULE
@@ -141,24 +145,24 @@ Goal for weeks 24-30 (7 weeks)
 | 11.6. | 1         | Frontend |
 | 12.6. | 1.5       | Backend, Mongo init with REST APIs |
 | 13.6. | 0.5 (=17) | Backend structure planning |
-| Week 24 ✅ |||   
+| Week 24 |||   
 | 14.6. | 5 | GraphQL init, login |
 | 15.6. | 5 | Navbar rearrange, dropdowns, simple homepage |
 | 17.6. | 5 | Sign in, jobqueries, profiles-page css |
 | 18.6. | 5 | Switch repository from sandbox, Backend TypeScript init, planning of messaging implementation |
 | 19.6. | 5 | Implementing messaging front and backend |
-| Week 25 ✅ |||   
+| Week 25 |||   
 | 21.6. | 5 | Messaging, designing mobile views |
 | 22.6. | 5 | Backend testing config, typescript configurations, planning of larger backend structure |
 | 23.6. | 6 | Heroku deployment, how tf apollo testing |
 | 24.6. | 4 | Move to monorepo, fix heroku deployment, backend testing config and tests |
 | 25.6. | 5.5 | Deployment pipeline |
-| Week 26 ❌ |||   
+| Week 26 |||   
 | 28.6. | 6.5 | Frontend css improvements |
 | 29.6. | 3 | Adding groups |
 | 30.6. | 2.5 | Switch between user and group by using sessionStorage |
 | 1.7.  | 3.5 | Smaller React components, create group from frontend |
-| Week 28 ❌ |||   
+| Week 28 |||   
 | 12.7.  | 1.5 | Profile and skills planning |
 | 13.7.  | 5 | Failing at form navigation, minor css improvements |
 | 14.7.  | 4 | Subscriptions on messaging |
@@ -166,15 +170,17 @@ Goal for weeks 24-30 (7 weeks)
 | 16.7.  | 2.5 | Portfolio form |
 | 17.7.  | 4 | Portfolio form, categories |
 | 18.7.  | 2.5 | Categories structuring, Image handling |
-| Week 29 ❌ |||   
+| Week 29 |||   
 | 19.7.  | 2 | Create profile |
 | 20.7.  | 2 | User profile |
 | 21.7.  | 3.5 | Frontend bug fixes and css improvements, push to heroku |
-| Week 30 ✅❌ |||   
+| Week 30 |||   
 | 26.7.  | 3.5 | useContext, group handling in frontend and messages |
 | 27.7.  | 4 | Messaging between users and groups |
 | 28.7.  | 5 | Fix messaging frontend, group handling |
 | 29.7.  | 1.5 | Minor css improvements |
 | 30.7.  | 5 | Home-page css |
 | 1.8.  | 1.5 | Jobmarket |
+| Week 31 |||   
+| 2.8.  | 1345- |  |
 | =     | 129.5      |               |

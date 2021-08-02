@@ -20,7 +20,6 @@ const SignIn = () => {
 
   useEffect(() => {
     if (result.data) {
-      console.log("RESULT DATA USE EFFECT", result.data)
       const id = result.data.login.id
       const token = result.data.login.value
       localStorage.setItem(SIGN_IN_TOKEN, token)
