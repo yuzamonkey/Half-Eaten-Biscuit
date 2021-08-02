@@ -182,5 +182,5 @@
 | 30.7.  | 5 | Home-page css |
 | 1.8.  | 1.5 | Jobmarket |
 | Week 31 |||   
-| 2.8.  | 1.5 |  |
+| 2.8.  | 1.5 | Custom merge functions for caching |
 | =     | 131.0      |               |

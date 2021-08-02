@@ -19,8 +19,6 @@ const MessageNavigation = ({ setShowContacts }: any) => {
     return <Loading />
   }
 
-  const conversations = participants.data.findUserOrGroup.conversations
-
   return (
     <nav className="msg-navigation">
       <div className="msg-nav-container">
@@ -28,7 +26,7 @@ const MessageNavigation = ({ setShowContacts }: any) => {
           <Searchbar />
         </div>
         <ul className="msg-nav-menu">
-          {conversations.map(conversation => {
+          {participants.data?.findUserOrGroup.conversations.map(conversation => {
             const names = conversation.participants.map(participant => {
               return participant.object.kind === 'User'
                 ? <p key={participant.object.id}>{participant.object.username}</p>

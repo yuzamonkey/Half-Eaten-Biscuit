@@ -19,6 +19,7 @@ import './App.css';
 import { SESSION_TOKEN, SIGN_IN_TOKEN } from "./utils/constants";
 
 import { UserContext } from "./components/UtilityComponents/UserContext";
+import ErrorBoundary from "./components/UtilityComponents/ErrorBoundary";
 
 
 const App = () => {
@@ -27,38 +28,40 @@ const App = () => {
   const [sessionId, setSessionId] = useState(sessionStorage.getItem(SESSION_TOKEN))
 
   return (
-    <Router>
-      {process.env.NODE_ENV !== 'development' &&
-        <div className="production-notice-container">
-          In development
-        </div>
-      }
-      <UserContext.Provider value={{ token, setToken, sessionId, setSessionId }}>
-        {!token
-          ? <Switch>
-            <Route path="/signin" component={() => <SignIn />} />
-            <Route path="/signup" component={() => <SignUp />} />
-            <Route path="/" component={Home} />
-          </Switch>
-          :
-          <>
-            <Navbar />
-            <div className="pages">
-              <Switch>
-                <Route path="/messages" component={Messages} />
-                <Route path="/jobmarket" component={Jobmarket} />
-                <Route path="/profiles/:id" component={Profile} />
-                <Route path="/profiles" component={Profiles} />
-                <Route path="/settings" component={Settings} />
-                <Route path="/creategroup" component={CreateGroup} />
-                <Route path="/createprofile" component={CreateProfile} />
-                <Route path="/" component={Welcome} />
-              </Switch>
-            </div>
-          </>
+    <ErrorBoundary>
+      <Router>
+        {process.env.NODE_ENV !== 'development' &&
+          <div className="production-notice-container">
+            In development
+          </div>
         }
-      </UserContext.Provider>
-    </Router>
+        <UserContext.Provider value={{ token, setToken, sessionId, setSessionId }}>
+          {!token
+            ? <Switch>
+              <Route path="/signin" component={() => <SignIn />} />
+              <Route path="/signup" component={() => <SignUp />} />
+              <Route path="/" component={Home} />
+            </Switch>
+            :
+            <>
+              <Navbar />
+              <div className="pages">
+                <Switch>
+                  <Route path="/messages" component={Messages} />
+                  <Route path="/jobmarket" component={Jobmarket} />
+                  <Route path="/profiles/:id" component={Profile} />
+                  <Route path="/profiles" component={Profiles} />
+                  <Route path="/settings" component={Settings} />
+                  <Route path="/creategroup" component={CreateGroup} />
+                  <Route path="/createprofile" component={CreateProfile} />
+                  <Route path="/" component={Welcome} />
+                </Switch>
+              </div>
+            </>
+          }
+        </UserContext.Provider>
+      </Router>
+    </ErrorBoundary>
   );
 
 }
