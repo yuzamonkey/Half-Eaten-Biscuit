@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation, useApolloClient, useSubscription } from '@apollo/client';
 
@@ -19,13 +19,13 @@ const Conversation = ({ setShowContacts }: any) => {
     onCompleted: () => scrollToBottom()
   })
 
-  useEffect(() => {
-    const element = document.getElementById('conversation-content')
-    element?.scrollTo({
-      top: element.scrollHeight,
-      behavior: 'smooth'
-    })
-  }, [conversationResult.loading])
+  // useEffect(() => {
+  //   const element = document.getElementById('conversation-content')
+  //   element?.scrollTo({
+  //     top: element.scrollHeight,
+  //     behavior: 'smooth'
+  //   })
+  // }, [conversationResult.loading])
 
   const scrollToBottom = () => {
     const element = document.getElementById('conversation-content')
@@ -45,7 +45,7 @@ const Conversation = ({ setShowContacts }: any) => {
       query: FIND_CONVERSATION,
       variables: { id }
     })
-    console.log("DATA IN STORE", dataInStore)
+    //console.log("DATA IN STORE", dataInStore)
     if (dataInStore === null) {
       console.log("NO DATA IN STORE")
       // BUG! Continue from here. After refreshing the page, dataInStore returns null even if the data is in the cache.
@@ -61,18 +61,16 @@ const Conversation = ({ setShowContacts }: any) => {
   }
 
   useSubscription(MESSAGE_ADDED, {
-    onSubscriptionData: ({ subscriptionData }) => {
+    onSubscriptionData: async ({ subscriptionData }) => {
       const addedMessage = subscriptionData.data
       updateCacheWith(addedMessage)
     },
-    onSubscriptionComplete: () => scrollToBottom()
   })
 
   const [sendMessage] = useMutation(SEND_MESSAGE, {
     onError: (error) => {
       console.log("ERROR ON SENDING MESSAGE", error)
-    },
-    onCompleted: () => scrollToBottom()
+    }
     // update: (store, response) => {
     //   updateCacheWith(response.data.sendMessage)
     // }

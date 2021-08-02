@@ -53,8 +53,48 @@ const splitLink = split(({ query }) => {
   authLink.concat(httpLink),
 )
 
+const cache = new InMemoryCache({
+  typePolicies: {
+    // Conversation: {
+    //   fields: {
+    //     messages: {
+    //       merge(existing = [], incoming: any[]) {
+    //         console.log("EX", existing, "\nINC", incoming)
+    //         if (existing.length === 0) {
+    //           console.log("NO EXISTING MESSAGES", existing)
+    //           return incoming
+    //         } else {
+    //           console.log("YES EXISTING", existing, "DO SOMETHING")
+    //           return incoming;
+    //         }
+    //       },
+    //     }
+    //   }
+    // },
+    Query: {
+      fields: {
+        findConversation: {
+          merge(existing, incoming) {
+            console.log("findConversation\nEX: \n", existing, "\nINC:\n", incoming)
+            return incoming
+          }
+        }
+      }
+    },
+    // UserOrGroup: {
+    //   fields: {
+    //     conversations: {
+    //       merge(existing, incoming) {
+    //         console.log("USERorGroup EX", existing, "USERorGroup INC", incoming)
+    //       }
+    //     }
+    //   }
+    // }
+  }
+})
+
 const client = new ApolloClient({
-  cache: new InMemoryCache(),
+  cache: cache,
   link: splitLink,
   connectToDevTools: true
 })
