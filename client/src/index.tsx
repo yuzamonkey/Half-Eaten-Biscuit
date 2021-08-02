@@ -59,7 +59,7 @@ const cache = new InMemoryCache({
       fields: {
         messages: {
           merge(existing = [], incoming: any[]) {
-            console.log("Convestaion cache", existing, incoming)
+            // console.log("Convestaion cache", existing, incoming)
             return incoming
           },
         }
@@ -69,7 +69,7 @@ const cache = new InMemoryCache({
       fields: {
         profile: {
           merge(existing, incoming) {
-            console.log("profile\nEX: \n", existing, "\nINC:\n", incoming)
+            // console.log("profile\nEX: \n", existing, "\nINC:\n", incoming)
             return incoming
           }
         }
@@ -79,13 +79,13 @@ const cache = new InMemoryCache({
       fields: {
         findConversation: {
           merge(existing, incoming) {
-            console.log("findConversation\nEX: \n", existing, "\nINC:\n", incoming)
+            // console.log("findConversation\nEX: \n", existing, "\nINC:\n", incoming)
             return incoming
           }
         },
         findUserOrGroup: {
           merge(existing, incoming) {
-            console.log("findUserOrGroup\nEX: \n", existing, "\nINC:\n", incoming)
+            // console.log("findUserOrGroup\nEX: \n", existing, "\nINC:\n", incoming)
             return incoming
           }
         }
