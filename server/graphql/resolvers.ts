@@ -290,6 +290,14 @@ const resolvers: IResolvers = {
       }
     }
   },
+  NotificationRelatedObject: {
+    async __resolveType(obj: any) {
+      if (obj.kind === 'Jobquery') return 'Jobquery'
+      else {
+        return null
+      }
+    }
+  },
   Mutation: {
     addSkillCategory: async (_root, args) => {
       const name = args.name

@@ -45,6 +45,10 @@ const jobquerySchema = new mongoose.Schema({
     type: String,
     required: true,
     default: 'No salary'
+  },
+  kind: {
+    type: String,
+    default: 'Jobquery'
   }
 })
 
