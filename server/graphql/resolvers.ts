@@ -429,6 +429,7 @@ const resolvers: IResolvers = {
         const savedQuery = await newJobQuery.save()
         postedByObject.jobQueries = postedByObject.jobQueries.concat(newJobQuery)
         await postedByObject.save()
+        pubsub.publish('JOBQUERY_ADDED', { jobqueryAdded: savedQuery })
         return savedQuery
       } catch (error) {
         throw new UserInputError(error.message, {
@@ -614,13 +615,8 @@ const resolvers: IResolvers = {
       const about = args.about
       const image = args.image
 
-      console.log("SKILLS ••• ", skills)
-      console.log("ABOUT ••• ", about)
-      console.log("IMAGE ••• ", image)
-
       try {
         const userProfile = await UserProfile.findOne({ user: myId })
-        console.log("USER PROFILE", userProfile)
         userProfile.about = about
         userProfile.skills = skills
         userProfile.image = image
@@ -673,6 +669,9 @@ const resolvers: IResolvers = {
   Subscription: {
     messageAdded: {
       subscribe: () => pubsub.asyncIterator(['MESSAGE_ADDED'])
+    },
+    jobqueryAdded: {
+      subscribe: () => pubsub.asyncIterator(['JOBQUERY_ADDED'])
     }
   }
 }

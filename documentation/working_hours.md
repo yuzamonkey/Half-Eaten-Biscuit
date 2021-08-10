@@ -126,16 +126,17 @@
   ### Week 31 ❌
     
   **Theme**: 
-  **Todo**: Notifications, middleware & refactoring
+  **Todo**: Notifications
 
     Mon: Caching and subscriptions gql documentation
 
   ### Week 32 ✅❌
     
   **Theme**: 
-  **Todo**: 
-  
-    Tue:
+  **Todo**: Notifications, middleware & refactoring
+
+    Tue: 
+      PM: Jobmarket notifications
 
 
 
