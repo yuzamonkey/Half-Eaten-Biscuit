@@ -193,5 +193,5 @@
 | Week 31 |||   
 | 2.8.  | 1.5 | Custom merge functions for caching |
 | Week 32 |||   
-| 10.8.  | 1515- |  |
+| 10.8.  | 1515-1550 |  |
 | =     | 131.0      |               |

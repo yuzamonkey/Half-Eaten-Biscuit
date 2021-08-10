@@ -142,7 +142,7 @@ const resolvers: IResolvers = {
     },
     findUserOrGroup: async (_root, args) => {
       const user = await User.findOne({ _id: args.id })
-        .populate('jobQueries profile')
+        .populate('jobQueries profile notifications')
         .populate({
           path: 'profile',
           populate: {
@@ -168,7 +168,7 @@ const resolvers: IResolvers = {
           }
         })
       const group = await Group.findOne({ _id: args.id })
-        .populate('users')
+        .populate('users notifications')
         .populate({
           path: 'profile', populate: {
             path: 'groupTypes'

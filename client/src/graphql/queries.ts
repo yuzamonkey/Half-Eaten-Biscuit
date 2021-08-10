@@ -36,6 +36,23 @@ export const ME = gql`
   }
 `
 
+export const GET_NOTIFICATIONS = gql`
+  query getNotifications($id: ID!) {
+    findUserOrGroup(id: $id) {
+        ... on User {
+        notifications {
+          content
+        }
+      }
+      ... on Group {
+        notifications {
+          content
+        }
+      }
+    }
+  }
+`
+
 export const FIND_USER = gql`
   query findUser($id: ID!) {
     findUser (id: $id) {
