@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useLazyQuery, useSubscription } from '@apollo/client'
 
 import './Dropdown.css'
-import { JOBQUERY_ADDED } from '../../../graphql/subscriptions'
+import { JOBQUERY_ADDED, NOTIFICATION_ADDED } from '../../../graphql/subscriptions'
 import { GET_NOTIFICATIONS } from '../../../graphql/queries'
 import { UserContext } from '../../UtilityComponents/UserContext'
 
@@ -31,7 +31,13 @@ const NotificationsDropdown = ({ show, setShow }: any) => {
 
   useSubscription(JOBQUERY_ADDED, {
     onSubscriptionData: async ({ subscriptionData }) => {
-      console.log("SUBSCRIPTION DATA ON NOTIFICATIONS DROPDOWN:\n", subscriptionData)
+      console.log("SUBSCRIPTION DATA ON NOTIFICATIONS DROPDOWN WITH JOBQUERY_ADDED:\n", subscriptionData)
+    },
+  })
+
+  useSubscription(NOTIFICATION_ADDED, {
+    onSubscriptionData: async ({ subscriptionData }) => {
+      console.log("SUBSCRIPTION DATA ON NOTIFICATIONS DROPDOWN WITH NOTIFICATION_ADDED:\n", subscriptionData)
     },
   })
 

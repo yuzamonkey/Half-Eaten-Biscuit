@@ -24,7 +24,7 @@ const Conversation = ({ setShowContacts }: any) => {
   })
 
   useEffect(() => {
-    console.log("NUMBER", numberOfMessages)
+    // console.log("NUMBER", numberOfMessages)
     scrollToBottom()
   }, [numberOfMessages])
 
@@ -66,6 +66,7 @@ const Conversation = ({ setShowContacts }: any) => {
 
   useSubscription(MESSAGE_ADDED, {
     onSubscriptionData: async ({ subscriptionData }) => {
+      console.log("SUBSCRIPTION DATA", subscriptionData)
       const addedMessage = subscriptionData.data
       await updateCacheWith(addedMessage)
     },

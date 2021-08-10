@@ -15,3 +15,11 @@ export const JOBQUERY_ADDED = gql`
     }
   }
 `
+
+export const NOTIFICATION_ADDED = gql`
+  subscription {
+    notificationAdded {
+      content
+    }
+  }
+`

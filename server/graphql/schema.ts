@@ -193,6 +193,7 @@ const typeDefs = gql`
   type Subscription {
     messageAdded: Message!
     jobqueryAdded: Jobquery!
+    notificationAdded: Notification!
   }
 `
 

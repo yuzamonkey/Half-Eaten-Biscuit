@@ -448,9 +448,14 @@ const resolvers: IResolvers = {
         newNotification.save()
         const allUsers = await User.find({})
         for (let user of allUsers) {
-          user.notifications = user.notifications.concat(newNotification)
-          console.log("TEST", user.notifications)
-          user.save()
+          if (user.username === 'Bob Bobbanson' || user.username === 'Claus Clauson') {
+            user.notifications = user.notifications.concat(newNotification)
+            console.log("TEST", user.notifications)
+            user.save()
+            console.log("BOB AND CLAUS WILL GET THE NOTIFICATION?")
+            pubsub.publish('NOTIFICATION_ADDED', { notificationAdded: newNotification })
+            //But it will be published to everyone... continue from here
+          }
         }
         //
         return savedQuery
@@ -529,14 +534,8 @@ const resolvers: IResolvers = {
       const conversationId = args.conversationId
       const body = args.body
 
-      console.log("SENDER ID • ", senderId)
-      console.log("CONV ID • ", conversationId)
-      console.log("BODY • ", body)
-
       const sender = await User.findOne({ _id: senderId }) || await Group.findOne({ _id: senderId })
       const conversation = await Conversation.findOne({ _id: conversationId })
-      console.log("SENDER •••\n", sender)
-      console.log("CONVERSATION •••\n", conversation)
 
       if (!sender) {
         throw new UserInputError('No sender found', {
@@ -557,8 +556,6 @@ const resolvers: IResolvers = {
           object: sender
         }
       }
-
-      console.log("NEW MESSAGE ••• \n", newMessage)
 
       try {
         conversation.messages = conversation.messages.concat(newMessage)
@@ -689,7 +686,11 @@ const resolvers: IResolvers = {
     },
     jobqueryAdded: {
       subscribe: () => pubsub.asyncIterator(['JOBQUERY_ADDED'])
+    },
+    notificationAdded: {
+      subscribe: () => pubsub.asyncIterator(['NOTIFICATION_ADDED'])
     }
+
   }
 }
 
