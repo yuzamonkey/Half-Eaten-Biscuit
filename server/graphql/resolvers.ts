@@ -12,7 +12,7 @@ const User = require('../models/user')
 const UserProfile = require('../models/userProfile')
 const Group = require('../models/group')
 const GroupProfile = require('../models/groupProfile')
-// const Notification = require('../models/notification')
+const NotificationModel = require('../models/notification')
 
 const jwt = require('jsonwebtoken')
 
@@ -263,6 +263,9 @@ const resolvers: IResolvers = {
     },
     allGroupSkillCategories: async () => {
       return GroupCategory.find({}).populate('parent children')
+    },
+    allNotifications: () => {
+      return NotificationModel.find({})
     }
   },
   UserOrGroup: {
@@ -424,13 +427,24 @@ const resolvers: IResolvers = {
         salary: salary
       })
 
-      console.log(`••••• NEW JOBQUERY MONGOOSE OBJECT:\n ${newJobQuery}`)
-
       try {
         const savedQuery = await newJobQuery.save()
         postedByObject.jobQueries = postedByObject.jobQueries.concat(newJobQuery)
         await postedByObject.save()
         pubsub.publish('JOBQUERY_ADDED', { jobqueryAdded: savedQuery })
+        //for now, to test, post notification to all users
+        const newNotification = new NotificationModel({
+          content: content,
+          link: "dis not default link"
+        })
+        newNotification.save()
+        const allUsers = await User.find({})
+        for (let user of allUsers) {
+          user.notifications = user.notifications.concat(newNotification)
+          console.log("TEST", user.notifications)
+          user.save()
+        }
+        //
         return savedQuery
       } catch (error) {
         throw new UserInputError(error.message, {

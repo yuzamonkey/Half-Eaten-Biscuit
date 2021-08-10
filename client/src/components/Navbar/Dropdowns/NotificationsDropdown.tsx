@@ -21,8 +21,6 @@ const NotificationsDropdown = ({ show, setShow }: any) => {
     }
   })
 
-  console.log("NOTIFICATIONS RESULT", notificationsResult)
-
   useSubscription(JOBQUERY_ADDED, {
     onSubscriptionData: async ({ subscriptionData }) => {
       console.log("SUBSCRIPTION DATA ON NOTIFICATIONS DROPDOWN:\n", subscriptionData)

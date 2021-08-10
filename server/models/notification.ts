@@ -23,5 +23,5 @@ notificationSchema.set('toJSON', {
   }
 })
 
-const NotificationType = mongoose.model('Notification', notificationSchema)
-module.exports = NotificationType
+const NotificationModel = mongoose.model('Notification', notificationSchema)
+module.exports = NotificationModel
