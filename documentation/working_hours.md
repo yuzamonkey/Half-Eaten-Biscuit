@@ -193,5 +193,5 @@
 | Week 31 |||   
 | 2.8.  | 1.5 | Custom merge functions for caching |
 | Week 32 |||   
-| 10.8.  | 1515-1630, 1700- | Jobquery notifications |
+| 10.8.  | 1515-1630, 1700-18, 1810- | Jobquery notifications |
 | =     | 131.0      |               |

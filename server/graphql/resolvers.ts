@@ -325,7 +325,6 @@ const resolvers: IResolvers = {
         })
       }
     },
-
     addGroupCategory: async (_root, args) => {
       const name = args.name
       const parentName = args.parent
@@ -350,7 +349,6 @@ const resolvers: IResolvers = {
       }
 
     },
-
     createUser: async (_root, args) => {
       const username = args.username
 
@@ -375,7 +373,6 @@ const resolvers: IResolvers = {
         })
       }
     },
-
     login: async (_root, args) => {
       const user = await User.findOne({ username: args.username })
 
@@ -391,7 +388,6 @@ const resolvers: IResolvers = {
 
       return { value: jwt.sign(userForToken, JWT_SECRET), id: user._id }
     },
-
     createJobquery: async (_root, args, context) => {
       const currentUser = context.currentUser
 
@@ -464,7 +460,6 @@ const resolvers: IResolvers = {
         })
       }
     },
-
     createConversation: async (_root, args, context) => {
       const currentUser = context.currentUser
 
@@ -522,7 +517,6 @@ const resolvers: IResolvers = {
         })
       }
     },
-
     sendMessage: async (_root, args, context) => {
       const currentUser = context.currentUser
 
@@ -576,7 +570,6 @@ const resolvers: IResolvers = {
         throw new TypeError(error.message)
       }
     },
-
     createGroup: async (_root, args, context) => {
       const currentUser = context.currentUser
 
@@ -628,7 +621,6 @@ const resolvers: IResolvers = {
         })
       }
     },
-
     createUserProfile: async (_root, args, context) => {
       const currentUser = context.currentUser
 
@@ -656,7 +648,6 @@ const resolvers: IResolvers = {
         })
       }
     },
-
     editUserProfile: async (_root, args, context) => {
       const currentUser = context.currentUser
 
