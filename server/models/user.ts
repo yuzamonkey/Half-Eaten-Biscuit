@@ -35,6 +35,10 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'UserProfile'
   },
+  notifications: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Notification'
+  },
   kind: {
     type: String,
     default: 'User'
