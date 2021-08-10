@@ -7,3 +7,11 @@ export const MESSAGE_ADDED = gql`
     }
   }
 `
+
+export const JOBQUERY_ADDED = gql`
+  subscription {
+    jobqueryAdded {
+      content
+    }
+  }
+`
