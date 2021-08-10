@@ -435,7 +435,11 @@ const resolvers: IResolvers = {
         //for now, to test, post notification to all users
         const newNotification = new NotificationModel({
           content: content,
-          link: "dis not default link"
+          link: "dis not default link",
+          relatedObject: {
+            kind: 'Jobquery',
+            object: savedQuery
+          }
         })
         newNotification.save()
         const allUsers = await User.find({})

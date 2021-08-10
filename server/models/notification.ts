@@ -12,6 +12,13 @@ const notificationSchema = new mongoose.Schema({
   link: {
     type: String,
     default: "/"
+  },
+  relatedObject: {
+    kind: String,
+    object: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'relatedObject.kind'
+    }
   }
 })
 

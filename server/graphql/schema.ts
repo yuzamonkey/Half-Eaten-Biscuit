@@ -104,13 +104,16 @@ const typeDefs = gql`
     id: ID!
     date: Date
     content: String,
-    link: String
+    link: String,
+    relatedObject: NotificationRelatedObject
   }
 
   type Token {
     value: String!,
     id: ID!
   }
+
+  union NotificationRelatedObject = Jobquery
 
   union UserOrGroup = User | Group
 
