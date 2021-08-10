@@ -19,10 +19,10 @@ const groupSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'GroupProfile'
   },
-  notifications: {
+  notifications: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Notification'
-  },
+  }],
   kind: {
     type: String,
     default: 'Group'

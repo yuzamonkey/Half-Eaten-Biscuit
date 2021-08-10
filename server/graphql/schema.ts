@@ -69,6 +69,7 @@ const typeDefs = gql`
     groups: [Group]!
     available: Boolean!
     kind: String!
+    notifications: [Notification]!
   }
 
   type Group {
@@ -78,6 +79,7 @@ const typeDefs = gql`
     jobQueries: [Jobquery]!
     conversations: [Conversation]!
     kind: String!
+    notifications: [Notification]!
   }
 
   type UserProfile {
@@ -96,6 +98,13 @@ const typeDefs = gql`
     about: String
     image: String
     groupTypes: [GroupCategory]
+  }
+
+  type Notification {
+    id: ID!
+    date: Date
+    content: String,
+    link: String
   }
 
   type Token {

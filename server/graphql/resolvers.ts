@@ -12,6 +12,7 @@ const User = require('../models/user')
 const UserProfile = require('../models/userProfile')
 const Group = require('../models/group')
 const GroupProfile = require('../models/groupProfile')
+// const Notification = require('../models/notification')
 
 const jwt = require('jsonwebtoken')
 
@@ -43,7 +44,7 @@ const resolvers: IResolvers = {
     me: async (_root, _args, context) => {
       //return context.currentUser
       const result = await User.findOne({ _id: context.currentUser._id })
-        .populate('jobQueries')
+        .populate('jobQueries notifications')
         .populate({
           path: 'profile',
           populate: {
@@ -72,7 +73,7 @@ const resolvers: IResolvers = {
     },
     allUsers: () => {
       return User.find({})
-        .populate('jobQueries conversations profile')
+        .populate('jobQueries conversations profile notifications')
         .populate({
           path: 'profile',
           populate: {
@@ -91,7 +92,7 @@ const resolvers: IResolvers = {
     },
     findUser: (_root, args) => {
       return User.findOne({ _id: args.id })
-        .populate('jobQueries conversations profile')
+        .populate('jobQueries conversations profile notifications')
         .populate({
           path: 'profile',
           populate: {
