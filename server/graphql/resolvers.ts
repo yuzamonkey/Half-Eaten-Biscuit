@@ -692,7 +692,6 @@ const resolvers: IResolvers = {
       }
     },
   },
-
   Subscription: {
     messageAdded: {
       subscribe: () => pubsub.asyncIterator(['MESSAGE_ADDED'])
