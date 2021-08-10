@@ -63,7 +63,7 @@
   right: 10%;
   transform: scaleX(-1);
   filter: invert(100%) sepia(5%) saturate(76%) hue-rotate(323deg) brightness(111%) contrast(88%);
-  animation: from-right 1s ease-out;
+  animation: from-right 1.5s ease-out;
 }
 
 .home-page-musician2-image {
@@ -108,7 +108,7 @@
 }
 
 .footer-section {
-  background-image: linear-gradient(#800080, #550055);
+  background-image: linear-gradient(#464646, #272727);
 }
 
 .scroll-page-content {
@@ -176,7 +176,7 @@
 
 @keyframes from-left {
   0% {
-    left: -25%;
+    left: 10%;
     opacity: 0
   }
   100% {
@@ -187,7 +187,7 @@
 
 @keyframes from-right {
   0% {
-    right: -25%;
+    right: 0%;
     opacity: 0
   }
   100% {
