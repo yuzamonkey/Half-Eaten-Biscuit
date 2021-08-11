@@ -14,13 +14,6 @@ interface Category {
 }
 
 const SendQueryForm = () => {
-  const userContext = useContext(UserContext)
-
-  const [createQuery] = useMutation(CREATE_JOBQUERY, {
-    onError: (error) => {
-      console.log("Error at create query mutation: \n", error)
-    }
-  })
 
   const [content, setContent] = useState('Details about everything, detailed schedule, locations and addresses, nature of the project...')
   const [location, setLocation] = useState('')
@@ -64,24 +57,7 @@ const SendQueryForm = () => {
     return <Loading />
   }
 
-  const submit = async (event: any) => {
-    event.preventDefault()
-    const postedBy = userContext.sessionId
-    const wantedCategoryIds = wantedCategories.map(c => c.id)
 
-    createQuery({
-      variables: {
-        content: content,
-        startSchedule: startSchedule,
-        endSchedule: endSchedule,
-        wantedCategories: wantedCategoryIds,
-        postedBy: postedBy,
-        salary: salary,
-        location: location
-      }
-    })
-    setContent('')
-  }
 
   const handlePrevPress = () => {
     currentView <= (views.length - 1) && currentView > 0 && setCurrentView(currentView - 1)
