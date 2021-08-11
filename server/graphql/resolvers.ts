@@ -605,6 +605,11 @@ const resolvers: IResolvers = {
           user.groups = user.groups.concat(savedGroup)
           await user.save()
         });
+        for (let skill of skills) {
+          const skillObject = await GroupCategory.findOne({_id: skill})
+          skillObject.groups = skillObject.groups.concat(savedGroup)
+          skillObject.save()
+        }
         console.log("RETURN SAVED GROUP, ALL DONE HERE")
         return savedGroup
       } catch (error) {
