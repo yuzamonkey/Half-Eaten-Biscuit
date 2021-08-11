@@ -435,7 +435,6 @@ const resolvers: IResolvers = {
         const savedQuery = await newJobQuery.save()
         postedByObject.jobQueries = postedByObject.jobQueries.concat(newJobQuery)
         await postedByObject.save()
-        pubsub.publish('JOBQUERY_ADDED', { jobqueryAdded: savedQuery })
         //for now, to test, post notification to all users
         const newNotification = new NotificationModel({
           content: content,
@@ -450,14 +449,11 @@ const resolvers: IResolvers = {
         for (let user of allUsers) {
           if (user.username === 'Bob Bobbanson' || user.username === 'Claus Clauson') {
             user.notifications = user.notifications.concat(newNotification)
-            console.log("TEST", user.notifications)
             user.save()
             console.log("BOB AND CLAUS WILL GET THE NOTIFICATION?")
-            pubsub.publish('NOTIFICATION_ADDED', { notificationAdded: newNotification })
-            //But it will be published to everyone... continue from here
           }
         }
-        //
+        pubsub.publish('NOTIFICATION_ADDED', { notificationAdded: newNotification })
         return savedQuery
       } catch (error) {
         throw new UserInputError(error.message, {
@@ -683,9 +679,6 @@ const resolvers: IResolvers = {
   Subscription: {
     messageAdded: {
       subscribe: () => pubsub.asyncIterator(['MESSAGE_ADDED'])
-    },
-    jobqueryAdded: {
-      subscribe: () => pubsub.asyncIterator(['JOBQUERY_ADDED'])
     },
     notificationAdded: {
       subscribe: () => pubsub.asyncIterator(['NOTIFICATION_ADDED'])
