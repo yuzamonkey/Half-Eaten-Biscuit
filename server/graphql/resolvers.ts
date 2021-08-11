@@ -634,6 +634,11 @@ const resolvers: IResolvers = {
         userProfile.image = image
         userProfile.isEditedByUser = true
         const savedUserProfile = await userProfile.save()
+        for (let skill of skills) {
+          const skillObject = await SkillCategory.findOne({ _id: skill })
+          skillObject.users = skillObject.users.concat(myId)
+          skillObject.save()
+        }
         return savedUserProfile
       } catch (error) {
         throw new UserInputError(error.message, {
