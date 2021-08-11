@@ -1,4 +1,4 @@
-import SendQueryForm from "./SendQueryViews/SendQueryForm"
+import SendQueryForm from "./SendQueryForm/SendQueryForm"
 
 const SendQuery = () => {
   return (
