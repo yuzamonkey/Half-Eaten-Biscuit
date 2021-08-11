@@ -20,6 +20,7 @@ import { SESSION_TOKEN, SIGN_IN_TOKEN } from "./utils/constants";
 
 import { UserContext } from "./components/UtilityComponents/UserContext";
 import ErrorBoundary from "./components/UtilityComponents/ErrorBoundary";
+import ErrorPage from "./components/Pages/ErrorPage";
 
 
 const App = () => {
@@ -54,7 +55,8 @@ const App = () => {
                   <Route path="/settings" component={Settings} />
                   <Route path="/creategroup" component={CreateGroup} />
                   <Route path="/createprofile" component={CreateProfile} />
-                  <Route path="/" component={Welcome} />
+                  <Route path="/:invalidroute" component={ErrorPage} />
+                  <Route exact path="/" component={Welcome} />
                 </Switch>
               </div>
             </>
