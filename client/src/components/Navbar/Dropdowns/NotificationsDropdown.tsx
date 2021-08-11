@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useLazyQuery, useSubscription } from '@apollo/client'
+import { useApolloClient, useLazyQuery, useSubscription } from '@apollo/client'
 
 import './Dropdown.css'
-import { JOBQUERY_ADDED, NOTIFICATION_ADDED } from '../../../graphql/subscriptions'
+import { NOTIFICATION_ADDED } from '../../../graphql/subscriptions'
 import { GET_NOTIFICATIONS } from '../../../graphql/queries'
 import { UserContext } from '../../UtilityComponents/UserContext'
 
@@ -13,6 +13,7 @@ interface INotification {
 }
 
 const NotificationsDropdown = ({ show, setShow }: any) => {
+  const client = useApolloClient()
   const userContext = useContext(UserContext)
   const [notifications, setNotifications] = useState<INotification[]>([])
   const [getNotifications, { data }] = useLazyQuery(GET_NOTIFICATIONS)
@@ -29,15 +30,10 @@ const NotificationsDropdown = ({ show, setShow }: any) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
 
-  useSubscription(JOBQUERY_ADDED, {
-    onSubscriptionData: async ({ subscriptionData }) => {
-      console.log("SUBSCRIPTION DATA ON NOTIFICATIONS DROPDOWN WITH JOBQUERY_ADDED:\n", subscriptionData)
-    },
-  })
-
   useSubscription(NOTIFICATION_ADDED, {
     onSubscriptionData: async ({ subscriptionData }) => {
-      console.log("SUBSCRIPTION DATA ON NOTIFICATIONS DROPDOWN WITH NOTIFICATION_ADDED:\n", subscriptionData)
+      // below works, but not optimal
+      client.reFetchObservableQueries()
     },
   })
 
@@ -54,7 +50,6 @@ const NotificationsDropdown = ({ show, setShow }: any) => {
           return (
             <div key={n.id}>
               <ul>
-                <li>•{n.link}</li>
                 <li>•{n.content}</li>
               </ul>
             </div>

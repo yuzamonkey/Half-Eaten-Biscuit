@@ -8,14 +8,6 @@ export const MESSAGE_ADDED = gql`
   }
 `
 
-export const JOBQUERY_ADDED = gql`
-  subscription {
-    jobqueryAdded {
-      content
-    }
-  }
-`
-
 export const NOTIFICATION_ADDED = gql`
   subscription {
     notificationAdded {
