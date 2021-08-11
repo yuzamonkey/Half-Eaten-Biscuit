@@ -9,6 +9,7 @@ const typeDefs = gql`
     profession: String!
     parent: SkillCategory
     children: [SkillCategory]
+    users: [User]
   }
 
   type GroupCategory {
@@ -16,6 +17,7 @@ const typeDefs = gql`
     name: String!
     parent: GroupCategory
     children: [GroupCategory]
+    groups: [Group]
   }
 
   type Message {
