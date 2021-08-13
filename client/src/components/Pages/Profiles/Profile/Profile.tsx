@@ -16,9 +16,13 @@ const Profile = () => {
 
   console.log("USER/GROUP RESULT", result.data)
 
-  const type = result.data.findUserOrGroup.kind
+  if (!result.data) {
+    return <h1>Profile not found...</h1>
+  }
 
-  if (type === 'User') {
+  const kind = result.data.findUserOrGroup.kind
+
+  if (kind === 'User') {
     return (
       <div>
         {result.data
@@ -35,7 +39,7 @@ const Profile = () => {
         }
       </div>
     )
-  } else {
+  } else if (kind === 'Group') {
     return (
       <div>
         {result.data
@@ -46,6 +50,10 @@ const Profile = () => {
             </div>)
           : (<div>No group profile</div>)}
       </div>
+    )
+  } else {
+    return (
+      <h1>Not found</h1>
     )
   }
 }
