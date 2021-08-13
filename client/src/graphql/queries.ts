@@ -390,6 +390,7 @@ export const ALL_USERS_AND_GROUPS = gql`
         kind
         username
         profile {
+          name
           about
           image
           skills {

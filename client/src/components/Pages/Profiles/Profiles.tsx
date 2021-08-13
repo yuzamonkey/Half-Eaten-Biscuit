@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
@@ -11,11 +11,17 @@ import { UserContext } from '../../UtilityComponents/UserContext';
 const Profiles = () => {
   const userContext = useContext(UserContext)
   const myIdResult = useQuery(MY_ID)
-  const allUsersAndGroups = useQuery(ALL_USERS_AND_GROUPS)
+  const [allUsersAndGroups, setAllUsersAndGroups] = useState([])
+  const allUsersAndGroupsResult = useQuery(ALL_USERS_AND_GROUPS, {
+    onCompleted: (data) => {
+      setAllUsersAndGroups(data.allUsersAndGroups)
+    }
+  })
   const [newConversation] = useMutation(NEW_CONVERSATION)
   const history = useHistory()
+  const [searchInput, setSearchInput] = useState<string>('')
 
-  if (myIdResult.loading || allUsersAndGroups.loading) {
+  if (myIdResult.loading || allUsersAndGroupsResult.loading) {
     return <Loading />
   }
 
@@ -37,25 +43,29 @@ const Profiles = () => {
       <div className="profiles-title-and-searchbar-container">
         <h1>Profiles</h1>
         <div className="profiles-searchbar-container">
-          <Searchbar />
+          <Searchbar input={searchInput} setInput={setSearchInput} />
         </div>
       </div>
 
       <div className="profiles-container">
-        {allUsersAndGroups.data.allUsersAndGroups.map((item: any) => {
-          const profileUrl = `/profiles/${item.id}`
-          return (
-            <div className="profile-container" key={item.id}>
-              <LargeProfileCard
-                id={item.id}
-                image={item.profile.image}
-                name={item.username || item.profile.name}
-                skills={item.profile.skills || item.profile.groupTypes}
-                url={profileUrl}
-                contactFunction={() => handleContactButtonPress(item.id)}
-              />
-            </div>
-          )
+        {allUsersAndGroups.map((item: any) => {
+          const name = item.profile.name
+          if (name.toLowerCase().includes(searchInput.toLowerCase())) {
+            const profileUrl = `/profiles/${item.id}`
+            return (
+              <div className="profile-container" key={item.id}>
+                <LargeProfileCard
+                  id={item.id}
+                  image={item.profile.image}
+                  name={item.profile.name}
+                  skills={item.profile.skills || item.profile.groupTypes}
+                  url={profileUrl}
+                  contactFunction={() => handleContactButtonPress(item.id)}
+                />
+              </div>
+            )
+          }
+          return null
         })}
       </div>
     </div>

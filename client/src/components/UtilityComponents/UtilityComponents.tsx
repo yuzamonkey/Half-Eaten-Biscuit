@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { UserContext } from './UserContext'
 import './UtilityComponents.css'
@@ -31,34 +31,31 @@ export const Button = ({ text, handleClick }) => {
   )
 }
 
-export const Searchbar = () => {
-  const [input, setInput] = useState('Search')
+export const Searchbar = ({input, setInput, handleInputChange}: any) => {
+  
+  // useEffect(() => {
+  //   handleBlur()
+  // }, [])
 
-  const handleFocus = () => {
-    if (input === 'Search') {
-      setInput('')
-    }
-  }
+  // const handleFocus = () => {
+  //   if (input === 'Search') {
+  //     setInput('')
+  //   }
+  // }
 
-  const handleBlur = () => {
-    if (input === '') {
-      setInput('Search')
-    }
-  }
-
-  const handleSearch = () => {
-    if (input !== 'Search') {
-      console.log("HANDLE WITH PARAM", input)
-      setInput('Search')
-    }
-  }
+  // const handleBlur = () => {
+  //   if (input === '') {
+  //     setInput('Search')
+  //   }
+  // }
 
   return (
     <div className="searchbar-container">
       <div className="searchbar-outline">
-        <input className="searchbar-input" value={input} onChange={e => setInput(e.target.value)} onFocus={handleFocus} onBlur={handleBlur}></input>
+        {/* <input className="searchbar-input" value={input} onChange={e => handleInputChange(e)} onFocus={handleFocus} onBlur={handleBlur}></input> */}
+        <input className="searchbar-input" value={input} onChange={e => setInput(e.target.value)}></input>
         <div className="searchbar-icon-container">
-          <div className="searchbar-icon" onClick={handleSearch}>⚲</div>
+          <div className="searchbar-icon">⚲</div>
         </div>
       </div>
     </div>
