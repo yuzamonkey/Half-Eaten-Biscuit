@@ -87,6 +87,10 @@ const Conversation = ({ setShowContacts }: any) => {
     return <Loading />
   }
 
+  if (!conversationResult.data) {
+    return <h1>Conversation not found</h1>
+  }
+
   const participants = conversationResult.data.findConversation.participants
   const messages = conversationResult.data.findConversation.messages
   const conversationId = conversationResult.data.findConversation.id
@@ -101,6 +105,11 @@ const Conversation = ({ setShowContacts }: any) => {
       }
     })
     setMessageInput('')
+  }
+
+
+  if (!participants.map(p => p.object.id).includes(userContext.sessionId)) {
+    return null
   }
 
   return (
