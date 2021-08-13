@@ -421,7 +421,7 @@ const resolvers: IResolvers = {
         throw new UserInputError("No category with id", postedBy)
       }
 
-      const newJobQuery = new Jobquery({
+      const newJobquery = new Jobquery({
         content: content,
         postedBy: { _id: postedBy, kind: postedByObject.kind, object: postedByObject },
         startSchedule: startSchedule,
@@ -432,13 +432,13 @@ const resolvers: IResolvers = {
       })
 
       try {
-        const savedQuery = await newJobQuery.save()
-        postedByObject.jobQueries = postedByObject.jobQueries.concat(newJobQuery)
+        const savedQuery = await newJobquery.save()
+        postedByObject.jobQueries = postedByObject.jobQueries.concat(newJobquery)
         await postedByObject.save()
         //for now, to test, post notification to all users
         const newNotification = new NotificationModel({
-          content: content,
-          link: "dis not default link",
+          content: "New jobquery for you: " + content,
+          link: JSON.stringify(savedQuery._id),
           relatedObject: {
             kind: 'Jobquery',
             object: savedQuery
@@ -474,6 +474,7 @@ const resolvers: IResolvers = {
         }
 
         pubsub.publish('NOTIFICATION_ADDED', { notificationAdded: newNotification })
+        console.log("ALRIGHT MAN, JOBQUERY ADDED SUCCESFULLY")
         return savedQuery
       } catch (error) {
         console.log("CATCHED ERROR ON CREATE JOBQUERY", error.message)

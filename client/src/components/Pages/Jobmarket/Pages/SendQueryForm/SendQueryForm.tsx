@@ -20,13 +20,16 @@ const SendQueryForm = () => {
   const [endSchedule, setEndSchedule] = useState('YYYY-MM-DD')
 
   const [wantedCategories, setWantedCategories] = useState<Category[]>([])
-  const [allCategories, setAllCategories] = useState<Category[]>([])
-  const skillCategoriesResult = useQuery(ALL_SKILL_CATEGORIES, { onCompleted: () => setAllCategories(allCategories.concat(skillCategoriesResult.data.allSkillCategories)) })
-  const groupCategoriesResult = useQuery(ALL_GROUP_SKILL_CATEGORIES, { onCompleted: () => setAllCategories(allCategories.concat(groupCategoriesResult.data.allGroupSkillCategories)) })
+  const [skillCategories, setSkillCategories] = useState<Category[]>([])
+  const [groupCategories, setGroupCategories] = useState<Category[]>([])
+
+  const skillCategoriesResult = useQuery(ALL_SKILL_CATEGORIES, { onCompleted: () => setSkillCategories(skillCategoriesResult.data.allSkillCategories) })
+  const groupCategoriesResult = useQuery(ALL_GROUP_SKILL_CATEGORIES, { onCompleted: () => setGroupCategories(groupCategoriesResult.data.allGroupSkillCategories) })
 
   const views = [
     <WantedCategoriesSelection
-      allCategories={allCategories}
+      skillCategories={skillCategories}
+      groupCategories={groupCategories}
       wantedCategories={wantedCategories}
       setWantedCategories={setWantedCategories} />,
     <JobqueryInfoForm
