@@ -153,7 +153,9 @@ export const CONVERSATION_PARTICIPANTS_BY_SESSION_ID = gql`
               ...on User {
                 id
                 kind
-                username
+                profile {
+                  name
+                }
               }
               ...on Group {
                 id
@@ -179,6 +181,9 @@ export const CONVERSATION_PARTICIPANTS_BY_SESSION_ID = gql`
                 id
                 kind
                 username
+                profile {
+                  name
+                }
               }
               ...on Group {
                 id

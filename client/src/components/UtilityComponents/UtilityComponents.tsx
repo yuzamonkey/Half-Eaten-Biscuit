@@ -31,7 +31,7 @@ export const Button = ({ text, handleClick }) => {
   )
 }
 
-export const Searchbar = ({input, setInput, handleInputChange}: any) => {
+export const Searchbar = ({input, setInput}: any) => {
   
   // useEffect(() => {
   //   handleBlur()

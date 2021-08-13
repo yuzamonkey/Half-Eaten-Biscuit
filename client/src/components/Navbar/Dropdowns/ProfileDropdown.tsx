@@ -55,15 +55,15 @@ const ProfileDropdown = ({ show, setShow }: any) => {
     findUserOrGroup({ variables: { id: me.data.me.id } })
   }
 
-  const handleNewGroupClick = () => {
-    history.push('/creategroup')
-    setShow(false)
-  }
-
   const handleProfileChange = (groupId) => {
     sessionStorage.setItem(SESSION_TOKEN, groupId)
     userContext.setSessionId(groupId)
     findUserOrGroup({ variables: { id: groupId } })
+  }
+
+  const handleNewGroupClick = () => {
+    history.push('/creategroup')
+    setShow(false)
   }
 
   return (
