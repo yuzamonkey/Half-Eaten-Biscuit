@@ -4,15 +4,17 @@ import { useQuery } from '@apollo/client';
 import '../Jobmarket.css'
 import { ALL_JOBQUERIES } from '../../../../graphql/queries';
 import { Button, Loading } from '../../../UtilityComponents/UtilityComponents';
+import { useHistory } from 'react-router-dom';
 
 const Jobqueries = () => {
+  const history = useHistory()
   const result = useQuery(ALL_JOBQUERIES)
 
   if (result.loading) {
     return <Loading />
   }
   const handleMoreInfoPress = (q) => {
-    console.log(q.content)
+    history.push(`/jobmarket/queries/${q.id}`)
   }
 
   const jobqueries = result.data.allJobqueries

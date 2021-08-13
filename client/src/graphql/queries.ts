@@ -240,6 +240,47 @@ export const FIND_CONVERSATION = gql`
   }
 `
 
+export const FIND_JOBQUERY = gql`
+  query findJobquery($id: ID!) {
+    findJobquery(id: $id) {
+      id,
+      content,
+      postedOn,
+      startSchedule,
+      endSchedule,
+      location,
+      salary,
+      postedBy {
+        kind 
+        object {
+          ...on User {
+            username
+            profile {
+              image
+            }
+          }
+          ...on Group {
+            profile {
+              name
+              image
+            }
+          }
+        }
+      }
+      wantedCategories {
+        object {
+          ...on SkillCategory {
+            name
+          }
+          ... on GroupCategory {
+            name
+          }
+        }
+      }
+    }
+  }
+`
+
 export const ALL_JOBQUERIES = gql`
   query allJobqueries {
     allJobqueries {
