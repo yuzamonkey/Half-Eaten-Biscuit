@@ -200,5 +200,5 @@
 | Week 32 |||   
 | 10.8.  | 2.5 | Jobquery notifications |
 | 11.8.  | 2.5 | Jobquery notifications, jobquery form |
-| 13.8.  | 1215 |  |
+| 13.8.  | 1215-13, 14- |  |
 | =     | 136.0      |               |

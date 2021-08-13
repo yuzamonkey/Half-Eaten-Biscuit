@@ -2,8 +2,7 @@ import { useState } from "react"
 import { useQuery } from "@apollo/client"
 import { ALL_SKILL_CATEGORIES } from "../../../../../graphql/queries"
 
-import './Skills.css'
-import { Button, Loading } from "../../../../UtilityComponents/UtilityComponents"
+import { CategorySelection, Loading } from "../../../../UtilityComponents/UtilityComponents"
 
 interface Category {
   id: string,
@@ -25,13 +24,13 @@ const Skills = ({ skills, setSkills }) => {
     skills.forEach(skill => (objId === skill.id) && (found = true))
     return found
   }
-  
+
   const handlePathClick = (clickedName) => {
     const obj = allCategories.find(obj => obj.name === clickedName)
     obj && !skillsIncludeCategory(obj) && setSkills(skills.concat(obj))
     obj?.children.length && setCurrentPath(currentPath.concat(clickedName))
   }
-  
+
   const handlePathChangeToPrevious = () => {
     if (currentPath.length > 1) {
       setCurrentPath(currentPath.splice(0, currentPath.length - 1))
@@ -39,20 +38,15 @@ const Skills = ({ skills, setSkills }) => {
   }
 
   return (
-    <div className="skills-container">
+    <div>
       <h2>Select your skills</h2>
-      <h3>{currentPath.map(name => <span key={currentPath.indexOf(name)}>{name} → </span>)}</h3>
-      {allCategories.map(obj => {
-        return (
-          currentPath[currentPath.length - 1] === obj.parent?.name &&
-          <div
-            className={skillsIncludeCategory(obj) ? "skill-container skill-container-selected" : "skill-container"}
-            key={obj.id}
-            onClick={() => handlePathClick(obj.name)}>
-            {obj.name} {obj.children.length ? '→' : '☑'}</div>
-        )
-      })}
-      <Button handleClick={() => handlePathChangeToPrevious()} text={`←`} />
+      <CategorySelection
+        allCategories={allCategories}
+        currentPath={currentPath}
+        skillsIncludeCategory={skillsIncludeCategory}
+        handlePathClick={handlePathClick}
+        handlePathChangeToPrevious={handlePathChangeToPrevious}
+      />
       {skills.map(s => <div key={s.id}>{s.name}</div>)}
     </div>
   )

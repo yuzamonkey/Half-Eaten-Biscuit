@@ -121,3 +121,22 @@ export const LargeProfileCard = ({ id, image, name, skills, url, contactFunction
     </div>
   )
 }
+
+export const CategorySelection = ({ allCategories, currentPath, skillsIncludeCategory, handlePathClick, handlePathChangeToPrevious }) => {
+  return (
+    <div className="skills-container">
+      <h3>{currentPath.map(name => <span key={currentPath.indexOf(name)}>{name} → </span>)}</h3>
+      {allCategories.map(obj => {
+        return (
+          currentPath[currentPath.length - 1] === obj.parent?.name &&
+          <div
+            className={skillsIncludeCategory(obj) ? "skill-container skill-container-selected" : "skill-container"}
+            key={obj.id}
+            onClick={() => handlePathClick(obj.name)}>
+            {obj.name} {obj.children.length ? '→' : '☑'}</div>
+        )
+      })}
+      <Button handleClick={() => handlePathChangeToPrevious()} text={`←`} />
+    </div>
+  )
+}
