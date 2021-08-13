@@ -16,36 +16,36 @@ const JobInfo = () => {
   if (!jobInfoResult.data) {
     return <h1>Not found. The post might not be visible, or the poster has removed this query.</h1>
   }
-  const q = jobInfoResult.data.findJobquery
+  const query = jobInfoResult.data.findJobquery
 
   return (
     <div>
-      <LargeProfileImage image={q.postedBy.object.profile.image} />
+      <LargeProfileImage image={query.postedBy.object.profile.image} />
       <div className="general-info-container">
         <div className="image-and-name-container">
 
-          <p><b>{q.postedBy.object.username || q.postedBy.object.profile.name}</b> is looking for <br />
-            {q.wantedCategories.map(category => category.object.name)}
+          <p><b>{query.postedBy.object.username || query.postedBy.object.profile.name}</b> is looking for <br />
+            {query.wantedCategories.map(category => category.object.name)}
           </p>
 
         </div>
-        {/* <p>{q.content}</p> */}
+        {/* <p>{query.content}</p> */}
         <div className="details-container">
           <div className="details-item">
             <p>Salary</p>
-            <p className="details-value">{q.salary}</p>
+            <p className="details-value">{query.salary}</p>
           </div>
           <div className="details-item">
             <p>Location</p>
-            <p className="details-value">{q.location}</p>
+            <p className="details-value">{query.location}</p>
           </div>
           <div className="details-item">
             <p>Schedule</p>
-            <p className="details-value">{q.startSchedule.substring(0, 10)} •••  {q.endSchedule.substring(0, 10)}</p>
+            <p className="details-value">{query.startSchedule.substring(0, 10)} •••  {query.endSchedule.substring(0, 10)}</p>
           </div>
         </div>
       </div>
-      {q.content}
+      {query.content}
     </div>
   )
 }

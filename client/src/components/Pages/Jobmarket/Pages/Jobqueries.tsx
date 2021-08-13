@@ -18,12 +18,13 @@ const Jobqueries = () => {
   }
 
   const jobqueries = result.data.allJobqueries
+  const sorted = [...jobqueries].sort((q1, q2) => new Date(q2.postedOn).getTime() - new Date(q1.postedOn).getTime())
 
   return (
     <div>
       Filter by: skill, group, posted on date, schedule, location
       <ul>
-        {jobqueries.map((q: any) => {
+        {sorted.map((q: any) => {
           const contactText = `Contact ${q.postedBy.object.username || q.postedBy.object.profile.name}`
           return (
             <div className="card" key={q.id}>
@@ -49,7 +50,7 @@ const Jobqueries = () => {
                   </div>
                   <div className="details-item">
                     <p>Schedule</p>
-                    <p className="details-value">{q.startSchedule.substring(0,10)} •••  {q.endSchedule.substring(0,10)}</p>
+                    <p className="details-value">{q.startSchedule.substring(0, 10)} •••  {q.endSchedule.substring(0, 10)}</p>
                   </div>
                 </div>
               </div>
