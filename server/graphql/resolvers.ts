@@ -468,14 +468,15 @@ const resolvers: IResolvers = {
           }
         }
         for (let id of notificationReceiverIds) {
-          //TODO, remove poster from list of notification getters
-          const receiver = await User.findOne({ _id: JSON.parse(id) }) || await Group.findOne({ _id: JSON.parse(id) })
-          receiver.notifications = receiver.notifications.concat(newNotification)
-          await receiver.save()
+          if (JSON.parse(id) !== postedBy) {
+            const receiver = await User.findOne({ _id: JSON.parse(id) }) || await Group.findOne({ _id: JSON.parse(id) })
+            receiver.notifications = receiver.notifications.concat(newNotification)
+            await receiver.save()
+          }
         }
 
         pubsub.publish('NOTIFICATION_ADDED', { notificationAdded: newNotification })
-        console.log("ALRIGHT MAN, JOBQUERY ADDED SUCCESFULLY")
+        console.log("JOBQUERY ADDED SUCCESFULLY")
         return savedQuery
       } catch (error) {
         console.log("CATCHED ERROR ON CREATE JOBQUERY", error.message)
