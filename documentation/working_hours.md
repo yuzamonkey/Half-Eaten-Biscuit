@@ -137,6 +137,11 @@
 
     Tue: 
       PM: Jobmarket notifications
+    Wed:
+      AM: Jobmarket notifications
+      PM: Jobquery form
+    Fri:
+      AM: Notifications
 
 
 
@@ -194,5 +199,6 @@
 | 2.8.  | 1.5 | Custom merge functions for caching |
 | Week 32 |||   
 | 10.8.  | 2.5 | Jobquery notifications |
-| 11.8.  | 2, 0.5 | Jobquery notifications, jobquery form |
-| =     | 135.5      |               |
+| 11.8.  | 2.5 | Jobquery notifications, jobquery form |
+| 13.8.  | 1215 |  |
+| =     | 136.0      |               |

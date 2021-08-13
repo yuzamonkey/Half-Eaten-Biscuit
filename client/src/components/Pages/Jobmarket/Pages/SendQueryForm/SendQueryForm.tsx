@@ -1,7 +1,5 @@
-import React, { useContext, useState } from 'react';
-import { useMutation, useQuery } from '@apollo/client'
-import { CREATE_JOBQUERY } from '../../../../../graphql/mutations';
-import { UserContext } from '../../../../UtilityComponents/UserContext';
+import React, { useState } from 'react';
+import { useQuery } from '@apollo/client'
 import { ALL_GROUP_SKILL_CATEGORIES, ALL_SKILL_CATEGORIES } from '../../../../../graphql/queries';
 import { Button, Loading } from '../../../../UtilityComponents/UtilityComponents';
 import JobqueryInfoForm from './Views/JobqueryInfoForm';

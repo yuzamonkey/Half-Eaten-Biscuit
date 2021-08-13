@@ -445,17 +445,38 @@ const resolvers: IResolvers = {
           }
         })
         newNotification.save()
-        const allUsers = await User.find({})
-        for (let user of allUsers) {
-          if (user.username === 'Bob Bobbanson' || user.username === 'Claus Clauson') {
-            user.notifications = user.notifications.concat(newNotification)
-            user.save()
-            console.log("BOB AND CLAUS WILL GET THE NOTIFICATION?")
+        //manage who will get the notification
+        const notificationReceiverIds: string[] = []
+        for (let category of wantedCategoryObjects) {
+          if (category.kind === 'SkillCategory') {
+            for (let userId of category.object.users) {
+              if (!notificationReceiverIds.includes(JSON.stringify(userId))) {
+                notificationReceiverIds.push(JSON.stringify(userId))
+              }
+            }
+          }
+          else if (category.kind === 'GroupCategory') {
+            for (let groupId of category.object.groups) {
+              if (!notificationReceiverIds.includes(JSON.stringify(groupId))) {
+                notificationReceiverIds.push(JSON.stringify(groupId))
+              }
+            }
+          }
+          else {
+            console.log("NO CATEGORY FOUND")
+            throw new UserInputError('No GroupCategory or SkillCategory found')
           }
         }
+        for (let id of notificationReceiverIds) {
+          const receiver = await User.findOne({ _id: JSON.parse(id) }) || await Group.findOne({ _id: JSON.parse(id) })
+          receiver.notifications = receiver.notifications.concat(newNotification)
+          await receiver.save()
+        }
+
         pubsub.publish('NOTIFICATION_ADDED', { notificationAdded: newNotification })
         return savedQuery
       } catch (error) {
+        console.log("CATCHED ERROR ON CREATE JOBQUERY", error.message)
         throw new UserInputError(error.message, {
           invalidArgs: args,
         })
@@ -606,7 +627,7 @@ const resolvers: IResolvers = {
           await user.save()
         });
         for (let skill of skills) {
-          const skillObject = await GroupCategory.findOne({_id: skill})
+          const skillObject = await GroupCategory.findOne({ _id: skill })
           skillObject.groups = skillObject.groups.concat(savedGroup)
           skillObject.save()
         }
