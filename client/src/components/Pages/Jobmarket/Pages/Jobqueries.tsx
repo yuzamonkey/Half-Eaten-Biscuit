@@ -12,8 +12,12 @@ interface Jobquery {
 
 const Jobqueries = () => {
   const history = useHistory()
-  const result = useQuery(ALL_JOBQUERIES, { onCompleted: (data) => setOrderedQueries(data.allJobqueries) })
-  const orderOptions = ['Latest post', 'Earliest post', 'Earlier starting date', 'Later starting date']
+  const result = useQuery(ALL_JOBQUERIES, { 
+    onCompleted: (data) => {
+      setOrderedQueries([...data.allJobqueries].sort((q1, q2) => new Date(q2.postedOn).getTime() - new Date(q1.postedOn).getTime())) 
+    }
+  })
+  const orderOptions = ['Most recent post', 'Earliest post', 'Later starting date', 'Earlier starting date']
   const [orderedQueries, setOrderedQueries] = useState<Jobquery[]>([])
 
   if (result.loading) {
@@ -33,10 +37,10 @@ const Jobqueries = () => {
       setOrderedQueries([...jobqueries].sort((q1, q2) => new Date(q1.postedOn).getTime() - new Date(q2.postedOn).getTime()))
     }
     else if (value === orderOptions[2]) {
-      setOrderedQueries([...jobqueries].sort((q1, q2) => new Date(q1.startSchedule).getTime() - new Date(q2.startSchedule).getTime()))
+      setOrderedQueries([...jobqueries].sort((q1, q2) => new Date(q2.startSchedule).getTime() - new Date(q1.startSchedule).getTime()))
     }
     else if (value === orderOptions[3]) {
-      setOrderedQueries([...jobqueries].sort((q1, q2) => new Date(q2.startSchedule).getTime() - new Date(q1.startSchedule).getTime()))
+      setOrderedQueries([...jobqueries].sort((q1, q2) => new Date(q1.startSchedule).getTime() - new Date(q2.startSchedule).getTime()))
     }
   }
 
@@ -63,7 +67,6 @@ const Jobqueries = () => {
                   </p>
 
                 </div>
-                {/* <p>{q.content}</p> */}
                 <div className="details-container">
                   <div className="details-item">
                     <p>Salary</p>

@@ -3,14 +3,12 @@
 ## Do ⏺
 - REMEMBER TO UPDATE ROUTES!
 - Sometimes new profile is created on db without user
+- Jobqueries -> Jobposts
 
 ## Fix ❌
 - Handling too large images
 - Testing in deployment pipeline on GitHub
-- 'Cache data may be lost when replacing the me field of a Query object' -warning
 - Remove hover-effects in mobile view
-- Cache problems in messaging after page refresh
-- (fixed?) Refreshing profiles-page and messages gives error. Might be express issue
 
 ## Fixed ✅
 - Figure out a way for routes to be active when refreshing on published site. Now refresh makes navlinks not active and clicking them messes up the relative url path

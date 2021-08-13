@@ -141,7 +141,7 @@
       AM: Jobmarket notifications
       PM: Jobquery form
     Fri:
-      AM: Notifications
+      PM: Notifications, jobmarket, bugfixes, search handling
 
 
 
@@ -200,5 +200,5 @@
 | Week 32 |||   
 | 10.8.  | 2.5 | Jobquery notifications |
 | 11.8.  | 2.5 | Jobquery notifications, jobquery form |
-| 13.8.  | 2, 1500- |  |
-| =     | 138.0      |               |
+| 13.8.  | 4 | Notifications, jobmarket, bugfixes, search handling |
+| =     | 140.0      |               |
