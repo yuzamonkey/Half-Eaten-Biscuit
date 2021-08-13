@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
 
 import '../Jobmarket.css'
@@ -6,25 +6,50 @@ import { ALL_JOBQUERIES } from '../../../../graphql/queries';
 import { Button, Loading } from '../../../UtilityComponents/UtilityComponents';
 import { useHistory } from 'react-router-dom';
 
+interface Jobquery {
+  postedOn: Date
+}
+
 const Jobqueries = () => {
   const history = useHistory()
-  const result = useQuery(ALL_JOBQUERIES)
+  const result = useQuery(ALL_JOBQUERIES, { onCompleted: (data) => setOrderedQueries(data.allJobqueries) })
+  const orderOptions = ['Latest post', 'Earliest post', 'Earlier starting date', 'Later starting date']
+  const [orderedQueries, setOrderedQueries] = useState<Jobquery[]>([])
 
   if (result.loading) {
     return <Loading />
   }
-  const handleMoreInfoPress = (q) => {
+  const handleMoreInfoClick = (q) => {
     history.push(`/jobmarket/queries/${q.id}`)
   }
 
   const jobqueries = result.data.allJobqueries
-  const sorted = [...jobqueries].sort((q1, q2) => new Date(q2.postedOn).getTime() - new Date(q1.postedOn).getTime())
+
+  const handleSelectedOrderChange = (value) => {
+    if (value === orderOptions[0]) {
+      setOrderedQueries([...jobqueries].sort((q1, q2) => new Date(q2.postedOn).getTime() - new Date(q1.postedOn).getTime()))
+    }
+    else if (value === orderOptions[1]) {
+      setOrderedQueries([...jobqueries].sort((q1, q2) => new Date(q1.postedOn).getTime() - new Date(q2.postedOn).getTime()))
+    }
+    else if (value === orderOptions[2]) {
+      setOrderedQueries([...jobqueries].sort((q1, q2) => new Date(q1.startSchedule).getTime() - new Date(q2.startSchedule).getTime()))
+    }
+    else if (value === orderOptions[3]) {
+      setOrderedQueries([...jobqueries].sort((q1, q2) => new Date(q2.startSchedule).getTime() - new Date(q1.startSchedule).getTime()))
+    }
+  }
 
   return (
     <div>
       Filter by: skill, group, posted on date, schedule, location
+      <label>Order by </label>
+      <select onChange={(e) => handleSelectedOrderChange(e.target.value)}>
+        {orderOptions.map(option => <option>{option}</option>)}
+      </select>
+
       <ul>
-        {sorted.map((q: any) => {
+        {orderedQueries.map((q: any) => {
           const contactText = `Contact ${q.postedBy.object.username || q.postedBy.object.profile.name}`
           return (
             <div className="card" key={q.id}>
@@ -56,7 +81,7 @@ const Jobqueries = () => {
               </div>
               <div className="buttons-container">
                 <Button text={contactText} handleClick={() => console.log("CONTACT SOMEBODY")} />
-                <Button text="More info" handleClick={() => handleMoreInfoPress(q)} />
+                <Button text="More info" handleClick={() => handleMoreInfoClick(q)} />
               </div>
             </div>
           )
