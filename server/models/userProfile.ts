@@ -8,6 +8,18 @@ const userProfileSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
+  firstName: {
+    type: String,
+    required: true
+  },
+  lastName: {
+    type: String,
+    required: true
+  },
+  name: {
+    type: String,
+    required: true
+  },
   about: {
     type: String,
     default: 'This is a user profile default text'

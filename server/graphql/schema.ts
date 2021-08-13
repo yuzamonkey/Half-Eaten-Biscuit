@@ -87,6 +87,9 @@ const typeDefs = gql`
   type UserProfile {
     id: ID!
     user: User!
+    name: String!,
+    firstName: String!,
+    lastName: String!,
     about: String,
     image: String,
     skills: [SkillCategory],
@@ -145,6 +148,8 @@ const typeDefs = gql`
       password: String!
     ): User
     createUserProfile(
+      firstName: String!,
+      lastName: String!,
       skills: [ID]!,
       about: String!,
       image: String
