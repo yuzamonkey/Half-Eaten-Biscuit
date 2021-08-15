@@ -4,6 +4,11 @@ import { CREATE_JOBQUERY } from "../../../../../../graphql/mutations"
 import { UserContext } from "../../../../../UtilityComponents/UserContext"
 import { Button } from "../../../../../UtilityComponents/UtilityComponents"
 
+interface Category {
+  id: string,
+  name: string
+}
+
 const Summary = ({ wantedCategories, content, location, salary, startSchedule, endSchedule, }) => {
 
   const userContext = useContext(UserContext)
@@ -14,17 +19,28 @@ const Summary = ({ wantedCategories, content, location, salary, startSchedule, e
     }
   })
 
-  const submit = async (event: any) => {
-    event.preventDefault()
+  const categoriesWithParentsRemoved = (categories) : Category[] => {
+    let filtered = [...categories]
+    for (let category of categories) {
+      const parentObj = filtered.find(c => c.name === category.parent?.name)
+      if (parentObj) {
+        filtered = filtered.filter(c => c.name !== parentObj.name)
+      }
+    }
+    return filtered
+  }
+
+  const submit = () => {
     const postedBy = userContext.sessionId
-    const wantedCategoryIds = wantedCategories.map(c => c.id)
+    const parentsRemoved = categoriesWithParentsRemoved(wantedCategories)
+    const categoryIds = parentsRemoved.map(c => c.id)
 
     createQuery({
       variables: {
         content: content,
         startSchedule: startSchedule,
         endSchedule: endSchedule,
-        wantedCategories: wantedCategoryIds,
+        wantedCategories: categoryIds,
         postedBy: postedBy,
         salary: salary,
         location: location
@@ -35,7 +51,7 @@ const Summary = ({ wantedCategories, content, location, salary, startSchedule, e
   return (
     <div>
       <h1>Summary</h1>
-      {wantedCategories.map(category => <div>{category.name}</div>)}
+      {categoriesWithParentsRemoved(wantedCategories).map(category => <div key={category.id}>{category.name}</div>)}
       <p>content: {content}</p>
       <p>location: {location}</p>
       <p>salary: {salary}</p>
