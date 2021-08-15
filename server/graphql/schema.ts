@@ -144,12 +144,12 @@ const typeDefs = gql`
 
   type Mutation {
     createUser(
+      firstName: String!,
+      lastName: String!,
       username: String!,
       password: String!
     ): User
     createUserProfile(
-      firstName: String!,
-      lastName: String!,
       skills: [ID]!,
       about: String!,
       image: String

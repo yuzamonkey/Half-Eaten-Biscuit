@@ -5,6 +5,8 @@ import { SIGNUP } from '../../../graphql/mutations'
 
 const SignUp = () => {
   const history = useHistory()
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -23,7 +25,14 @@ const SignUp = () => {
 
   const submit = async (event: any) => {
     event.preventDefault()
-    signup({ variables: { username, password } })
+    signup({
+      variables: {
+        firstName: firstName,
+        lastName: lastName,
+        username: username,
+        password: password
+      }
+    })
   }
 
   return (
@@ -34,6 +43,18 @@ const SignUp = () => {
           username <input
             value={username}
             onChange={({ target }) => setUsername(target.value)}
+          />
+        </div>
+        <div>
+          first name <input
+            value={firstName}
+            onChange={({ target }) => setFirstName(target.value)}
+          />
+        </div>
+        <div>
+          last name <input
+            value={lastName}
+            onChange={({ target }) => setLastName(target.value)}
           />
         </div>
         <div>
