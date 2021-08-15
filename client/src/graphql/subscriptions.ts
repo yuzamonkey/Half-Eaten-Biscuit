@@ -7,3 +7,11 @@ export const MESSAGE_ADDED = gql`
     }
   }
 `
+
+export const NOTIFICATION_ADDED = gql`
+  subscription {
+    notificationAdded {
+      content
+    }
+  }
+`

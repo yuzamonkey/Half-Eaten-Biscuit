@@ -1,28 +1,32 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation, useApolloClient, useSubscription } from '@apollo/client';
 
 import './Conversation.css'
-import { FIND_CONVERSATION, MY_ID } from '../../../../graphql/queries';
+import { FIND_CONVERSATION } from '../../../../graphql/queries';
 import { SEND_MESSAGE } from '../../../../graphql/mutations';
 import { MESSAGE_ADDED } from '../../../../graphql/subscriptions';
+import { UserContext } from '../../../UtilityComponents/UserContext';
+import { Loading } from '../../../UtilityComponents/UtilityComponents';
 
 const Conversation = ({ setShowContacts }: any) => {
+  const userContext = useContext(UserContext)
   const { id }: any = useParams();
   const client = useApolloClient()
+  const [numberOfMessages, setNumberOfMessages] = useState(0)
 
   const conversationResult = useQuery(FIND_CONVERSATION, {
     variables: { id },
-    onCompleted: () => scrollToBottom()
+    onCompleted: (data) => {
+      setNumberOfMessages(data.findConversation.messages.length)
+      //scrollToBottom()
+    }
   })
-  
+
   useEffect(() => {
-    const element = document.getElementById('conversation-content')
-    element?.scrollTo({
-      top: element.scrollHeight,
-      behavior: 'smooth'
-    })
-  }, [conversationResult.loading])
+    // console.log("NUMBER", numberOfMessages)
+    scrollToBottom()
+  }, [numberOfMessages])
 
   const scrollToBottom = () => {
     const element = document.getElementById('conversation-content')
@@ -42,78 +46,94 @@ const Conversation = ({ setShowContacts }: any) => {
       query: FIND_CONVERSATION,
       variables: { id }
     })
-    console.log("DATA IN STORE", dataInStore)
+    //console.log("DATA IN STORE", dataInStore)
     if (dataInStore === null) {
       console.log("NO DATA IN STORE")
       // BUG! Continue from here. After refreshing the page, dataInStore returns null even if the data is in the cache.
       //Note, check useQuery documentation. There are some cache options
+      // Now the bug seems to have disappeared 2.8.2021
     }
     else if (!includedIn(dataInStore.findConversation.messages, addedMessage)) {
+      console.log("LENGTH NOW", dataInStore.findConversation.messages.length)
       client.writeQuery({
         query: FIND_CONVERSATION,
         variables: { id },
         data: { findConversation: dataInStore.findConversation.messages.concat(addedMessage) }
       })
+      setNumberOfMessages(numberOfMessages + 1)
     }
   }
 
   useSubscription(MESSAGE_ADDED, {
-    onSubscriptionData: ({ subscriptionData }) => {
+    onSubscriptionData: async ({ subscriptionData }) => {
+      console.log("SUBSCRIPTION DATA", subscriptionData)
       const addedMessage = subscriptionData.data
-      updateCacheWith(addedMessage)
+      await updateCacheWith(addedMessage)
     },
-    onSubscriptionComplete: () => scrollToBottom()
   })
 
   const [sendMessage] = useMutation(SEND_MESSAGE, {
     onError: (error) => {
       console.log("ERROR ON SENDING MESSAGE", error)
-    },
-    onCompleted: () => scrollToBottom()
+    }
     // update: (store, response) => {
     //   updateCacheWith(response.data.sendMessage)
     // }
   })
 
-  const myIdResult = useQuery(MY_ID)
-
   const [messageInput, setMessageInput] = useState('')
 
-  if (conversationResult.loading || myIdResult.loading) {
-    return <div>Loading...</div>
+  if (conversationResult.loading) {
+    return <Loading />
   }
 
-  const users = conversationResult.data.findConversation.users
+  if (!conversationResult.data) {
+    return <h1>Conversation not found</h1>
+  }
+
+  const participants = conversationResult.data.findConversation.participants
   const messages = conversationResult.data.findConversation.messages
   const conversationId = conversationResult.data.findConversation.id
 
-  const myId = myIdResult.data.me.id
-
   const handleSendMessage = async (event) => {
     event.preventDefault()
-    await sendMessage({ variables: { id: conversationId, body: messageInput } })
+    await sendMessage({
+      variables: {
+        conversationId: conversationId,
+        senderId: userContext.sessionId,
+        body: messageInput
+      }
+    })
     setMessageInput('')
+  }
+
+
+  if (!participants.map(p => p.object.id).includes(userContext.sessionId)) {
+    return null
   }
 
   return (
     <div className="conversation-container">
       <div className="conversation-info">
         <div className="conversation-usernames">
-          {users.map(p => p.username === myIdResult.data.me.username ? <b key={p.id}>Me • </b> : <b key={p.id}>{p.username} • </b>)}
+          {participants.map(p => {
+            return p.object.id === userContext.sessionId
+              ? <b key={p.object.id}>Me • </b>
+              : <b key={p.object.id}>{p.object.username || p.object.profile.name} • </b>
+          }
+          )}
         </div>
         <div onClick={() => setShowContacts(true)} className="show-contacts-toggle"><i className={"fas fa-arrow-down"}></i></div>
       </div>
-      {/* <h2>Conversation {id}</h2> */}
       <div id='conversation-content' className="conversation-content">
         {messages.map(message => {
           return (
-            message.sender.id === myId
-              ? <div className="message-container user-sent" key={message.id}>
-                {message.body}
-              </div>
-              : <div className="message-container" key={message.id}>
-                {message.body}
-              </div>
+            <div
+              className={message.sender.object.id === userContext.sessionId ? "message-container user-sent" : "message-container"}
+              key={message.id}>
+              <img src={message.sender.object.profile.image} alt="profileimg" className="message-profile-image"></img>
+              {message.body}
+            </div>
           )
         })}
       </div>

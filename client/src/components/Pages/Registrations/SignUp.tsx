@@ -16,7 +16,7 @@ const SignUp = () => {
 
   useEffect(() => {
     if (result.data) {
-      console.log("(sign up) RESULT DATA USE EFFECT", result.data)
+      //console.log("(sign up) RESULT DATA USE EFFECT", result.data)
       history.push('/signin')
     }
   }, [result.data]) // eslint-disable-line

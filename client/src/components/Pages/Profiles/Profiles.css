@@ -4,26 +4,6 @@
   flex-direction: column;
 }
 
-.profiles-container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  overflow: scroll;
-  flex-flow: row wrap;
-}
-
-.profile-container {
-  width: 250px;
-  height: 350px;
-  background-color: white;
-  border-radius: 5px;
-  box-shadow: 0 0 10pt 1pt var(--bg-grey);
-  display: flex;
-  flex-direction: column;
-  margin: 20px;
-  transition: transform .2s;
-}
 
 .profiles-title-and-searchbar-container {
   display: flex;
@@ -37,76 +17,17 @@
   width: 30%;
 }
 
-.profile-container:hover {
-  transform: scale(1.025);
-}
-
-.upper-container {
+.profiles-container {
   width: 100%;
-  height: 50%;
-}
-
-.profile-image-container {
+  height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  overflow: scroll;
+  flex-flow: row wrap;
 }
 
-.profile-image {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 50%;
-  padding-top: 15px;
-}
-
-.lower-container {
-  width: 100%;
-  height: 50%;
-  display: flex;
-  flex-direction: column;
-}
-
-.name-container {
-  width: 100%;
-  height: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.profile-name {
-  font-size: 2em;
-}
-
-.profiles-buttons-container {
-  width: 100%;
-  height: 50%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.profiles-button {
-  margin: 10px;
-  padding: 10px;
-  color: var(--black);
-  border-style: none;
-  border-radius: 5px;
-  width: 100%; 
-}
-
-.to-profile-button {
-  background-color: var(--blue);
-  cursor: pointer;
-}
-.profiles-contact-button {
-  background-color: #42b371;
-  cursor: pointer;
-}
-.disabled-button {
-  background-color: lightsteelblue;
+.profile-container {
+  margin: 20px;
 }
 
 @media screen and (max-width: 960px) {
@@ -118,5 +39,4 @@
     width: 100%;
     max-width: 350px;
   }
-
 }

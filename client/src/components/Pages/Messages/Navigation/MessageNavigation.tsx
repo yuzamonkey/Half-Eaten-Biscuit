@@ -1,38 +1,44 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { useQuery } from '@apollo/client';
 import { NavLink } from "react-router-dom";
-import { CONVERSATION_INFOS } from '../../../../graphql/queries';
+import { CONVERSATION_PARTICIPANTS_BY_SESSION_ID } from '../../../../graphql/queries';
 
 import './MessageNavigation.css'
-import { Searchbar } from '../../../UtilityComponents/UtilityComponents';
+import { Loading, Searchbar } from '../../../UtilityComponents/UtilityComponents';
+import { UserContext } from '../../../UtilityComponents/UserContext';
 
 const MessageNavigation = ({ setShowContacts }: any) => {
-  const result = useQuery(CONVERSATION_INFOS)
+  const [searchInput, setSearchInput] = useState('')
+  const userContext = useContext(UserContext)
+  const participants = useQuery(CONVERSATION_PARTICIPANTS_BY_SESSION_ID, {
+    variables: {
+      id: userContext.sessionId
+    }
+  })
 
-  if (result.loading) {
-    return <div>Loading...</div>
+  if (participants.loading) {
+    return <Loading />
   }
-  const conversations = result.data.me.conversations
 
   return (
     <nav className="msg-navigation">
       <div className="msg-nav-container">
         <div className="messages-filter-container">
-          <Searchbar />
+          <Searchbar input={searchInput} setInput={setSearchInput} />
         </div>
         <ul className="msg-nav-menu">
-          {conversations.map(conversation => {
-            const usernames = conversation.users.map(user =>
-              user.username !== result.data.me.username && user.username
-            )
+          {participants.data?.findUserOrGroup.conversations.map(conversation => {
+            const names = conversation.participants.map(participant => participant.object.profile.name).join(', ')
             const linkTo = `/messages/${conversation.id}`
-            return (
-              <li className="msg-nav-item" key={conversation.id}>
-                <NavLink exact to={linkTo} activeClassName="msg-active" className="msg-nav-links" onClick={() => setShowContacts(false)}>
-                  {usernames}
-                </NavLink>
-              </li>
-            )
+            if (names.toLowerCase().includes(searchInput.toLowerCase())) {
+              return (
+                <li className="msg-nav-item" key={conversation.id}>
+                  <NavLink exact to={linkTo} activeClassName="msg-active" className="msg-nav-links" onClick={() => setShowContacts(false)}>
+                    {names}
+                  </NavLink>
+                </li>
+              )
+            } return null
           })}
         </ul>
       </div>

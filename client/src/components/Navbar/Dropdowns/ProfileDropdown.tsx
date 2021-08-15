@@ -1,20 +1,22 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useApolloClient, useQuery, useLazyQuery } from "@apollo/client";
 import { useHistory } from 'react-router';
 
 import { FIND_USER_OR_GROUP, ME } from '../../../graphql/queries';
 import { SESSION_TOKEN } from '../../../utils/constants';
 import './Dropdown.css'
+import { UserContext } from '../../UtilityComponents/UserContext';
+import { LargeProfileImage, Loading } from '../../UtilityComponents/UtilityComponents';
 
 const ProfileDropdown = ({ show, setShow }: any) => {
   const client = useApolloClient()
 
   const me = useQuery(ME)
-  const sessionId = sessionStorage.getItem(SESSION_TOKEN)
-  //const currentProfile = useQuery(FIND_USER_OR_GROUP, { variables: { id: sessionId } })
+  const userContext = useContext(UserContext)
+
   const [findUserOrGroup, { loading, data }] = useLazyQuery(FIND_USER_OR_GROUP)
   useEffect(() => {
-    findUserOrGroup({ variables: { id: sessionId } })
+    userContext.sessionId && findUserOrGroup({ variables: { id: userContext.sessionId } })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -24,8 +26,10 @@ const ProfileDropdown = ({ show, setShow }: any) => {
     return null
   }
 
-  if (loading) {
-    return <div className="dropdown">Loading...</div>
+  if (loading || me.loading) {
+    return <div className="dropdown">
+      <Loading />
+    </div>
   }
 
   const handleLogout = async () => {
@@ -47,45 +51,48 @@ const ProfileDropdown = ({ show, setShow }: any) => {
 
   const handleMeClick = () => {
     sessionStorage.setItem(SESSION_TOKEN, me.data.me.id)
+    userContext.setSessionId(me.data.me.id)
     findUserOrGroup({ variables: { id: me.data.me.id } })
   }
 
-  const handleNewGroupClick = () => {
-    console.log("NEW GROUP CLICKED")
-    history.push('/newgroup')
+  const handleProfileChange = (groupId) => {
+    sessionStorage.setItem(SESSION_TOKEN, groupId)
+    userContext.setSessionId(groupId)
+    findUserOrGroup({ variables: { id: groupId } })
   }
 
-  const handleProfileChange = async (groupId) => {
-    console.log("SWITCH PROFILE TO ", groupId)
-    sessionStorage.setItem(SESSION_TOKEN, groupId)
-    findUserOrGroup({ variables: { id: groupId } })
+  const handleNewGroupClick = () => {
+    history.push('/creategroup')
+    setShow(false)
   }
 
   return (
     <div className="dropdown">
       <div className="dropdown-profile" onClick={handleProfileClick}>
         <div>
-          <img src={me.data.me.profile.image} alt="profileimg" className="profile-image"></img>
+          <LargeProfileImage image={data.findUserOrGroup.profile.image} />
         </div>
-        <h3 className="profile-name">{data.findUserOrGroup.username || data.findUserOrGroup.name}</h3>
+        <h3 className="profile-name">{data.findUserOrGroup.username || data.findUserOrGroup.profile.name}</h3>
         <p className="secondary-text">Show profile</p>
       </div>
-      <div className="dropdown-link" onClick={handleMeClick}><b>Me</b></div>
-      <div className="dropdown-my-groups">
-      <div className="dropdown-link new-group-link" onClick={handleNewGroupClick}><b>My groups +</b></div>
-        {me.data.me.groups.map(group => {
-          return (
-            <div
-              className="dropdown-link"
-              onClick={() => handleProfileChange(group.id)}
-              key={group.id}>
-              {group.name}
-            </div>
-          )
-        })}
+      <div className="profile-switch-options">
+        <b>Switch profile</b>
+        {me.data.me.id !== userContext.sessionId &&
+          <div className="dropdown-link" onClick={handleMeClick}>{me.data.me.username}</div>
+        }
+        {me.data.me.groups.map(group =>
+          group.id !== userContext.sessionId &&
+          <div
+            className="dropdown-link"
+            onClick={() => handleProfileChange(group.id)}
+            key={group.id}>
+            {group.profile.name}
+          </div>
+        )}
       </div>
+      <div className="dropdown-link" onClick={handleNewGroupClick}>New group +</div>
       <div className="dropdown-link" onClick={handleSettingsClick}>Settings</div>
-      <div className="dropdown-link" onClick={handleLogout} >Log out</div>
+      <div className="dropdown-link" onClick={handleLogout}>Log out</div>
     </div>
   )
 }

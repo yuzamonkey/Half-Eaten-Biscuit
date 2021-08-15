@@ -1,26 +1,39 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
 import './Profiles.css'
-import { MY_ID, ALL_USER_PROFILES } from '../../../graphql/queries';
+import { MY_ID, ALL_USERS_AND_GROUPS } from '../../../graphql/queries';
 import { NEW_CONVERSATION } from '../../../graphql/mutations';
-import { Button, Searchbar } from '../../UtilityComponents/UtilityComponents';
+import { LargeProfileCard, Loading, Searchbar } from '../../UtilityComponents/UtilityComponents';
+import { UserContext } from '../../UtilityComponents/UserContext';
 
 const Profiles = () => {
-  const allUsersResult = useQuery(ALL_USER_PROFILES)
+  const userContext = useContext(UserContext)
   const myIdResult = useQuery(MY_ID)
+  const [allUsersAndGroups, setAllUsersAndGroups] = useState([])
+  const allUsersAndGroupsResult = useQuery(ALL_USERS_AND_GROUPS, {
+    onCompleted: (data) => {
+      setAllUsersAndGroups(data.allUsersAndGroups)
+    }
+  })
   const [newConversation] = useMutation(NEW_CONVERSATION)
   const history = useHistory()
+  const [searchInput, setSearchInput] = useState<string>('')
 
-  if (allUsersResult.loading || myIdResult.loading) {
-    return <div>loading...</div>
+  if (myIdResult.loading || allUsersAndGroupsResult.loading) {
+    return <Loading />
   }
 
   const handleContactButtonPress = async (receiverId: any) => {
     console.log("CONTACT BUTTON PRESSED FOR", receiverId)
     //check for users conversations where only user is the receiver
-    const result = await newConversation({ variables: { receiverId } })
+    const result = await newConversation({
+      variables: {
+        senderId: userContext.sessionId,
+        receiverId: receiverId
+      }
+    })
     const newConversationId = result.data.createConversation.id
     history.push(`/messages/${newConversationId}`)
   }
@@ -30,39 +43,30 @@ const Profiles = () => {
       <div className="profiles-title-and-searchbar-container">
         <h1>Profiles</h1>
         <div className="profiles-searchbar-container">
-          <Searchbar />
+          <Searchbar input={searchInput} setInput={setSearchInput} />
         </div>
       </div>
 
       <div className="profiles-container">
-        {allUsersResult.data?.allUserProfiles.map((profile: any) => {
-          const profileUrl = `/profiles/${profile.user.id}`
-          return (
-            <div className="profile-container" key={profile.id}>
-              <div className="upper-container">
-                <div className="profile-image-container">
-                  <div className="profile-image">
-                    <img src={profile.image} alt="profileimg" className="profile-image"></img>
-                  </div>
-                </div>
+        {allUsersAndGroups.map((item: any) => {
+          const name = item.profile.name
+          if (name.toLowerCase().includes(searchInput.toLowerCase())) {
+            const profileUrl = `/profiles/${item.id}`
+            return (
+              <div className="profile-container" key={item.id}>
+                <LargeProfileCard
+                  id={item.id}
+                  image={item.profile.image}
+                  name={item.profile.name}
+                  skills={item.profile.skills || item.profile.groupTypes}
+                  url={profileUrl}
+                  contactFunction={() => handleContactButtonPress(item.id)}
+                />
               </div>
-              <div className="lower-container">
-                <div className="name-container">
-                  <h3 className="profile-name">{profile.user.username}</h3>
-                  {profile.skills.map(skill => <p key={skill.id}>{skill.name}</p>)}
-                </div>
-                <div className="profiles-buttons-container">
-                  <Button text='To profile' handleClick={() => history.push(profileUrl)} />
-                  {profile.user.id !== myIdResult.data.me.id
-                    ? <Button text='Contact' handleClick={() => handleContactButtonPress(profile.user.id)} />
-                    : null
-                  }
-                </div>
-              </div>
-            </div>
-          )
-        }
-        )}
+            )
+          }
+          return null
+        })}
       </div>
     </div>
   )

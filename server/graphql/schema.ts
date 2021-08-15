@@ -3,30 +3,62 @@ const { gql } = require('apollo-server')
 const typeDefs = gql`
   scalar Date
 
-  type Category {
+  type SkillCategory {
     id: ID!
     name: String!
-    parent: Category
-    children: [Category]
+    profession: String!
+    parent: SkillCategory
+    children: [SkillCategory]
+    users: [User]
+  }
+
+  type GroupCategory {
+    id: ID!
+    name: String!
+    parent: GroupCategory
+    children: [GroupCategory]
+    groups: [Group]
   }
 
   type Message {
     id: ID!
-    body: String
-    sender: User!
+    body: String!
+    sender: Participant!
+    time: Date
+  }
+
+  type Participant {
+    kind: String,
+    object: UserOrGroup
   }
 
   type Conversation {
     id: ID!
-    users: [User]!
+    participants: [Participant]!
     messages: [Message]!
   }
 
   type Jobquery {
     id: ID!
     content: String!
-    date: Date!
-    user: User!
+    postedOn: Date!
+    startSchedule: Date!
+    endSchedule: Date
+    wantedCategories: [WantedCategory!]!
+    visible: Boolean!
+    postedBy: JobqueryPostedBy!
+    location: String
+    salary: String
+  }
+
+  type WantedCategory {
+    kind: String,
+    object: SkillCategoryOrGroupCategory
+  }
+
+  type JobqueryPostedBy {
+    kind: String,
+    object: UserOrGroup
   }
 
   type User {
@@ -37,30 +69,48 @@ const typeDefs = gql`
     conversations: [Conversation]!
     profile: UserProfile!
     groups: [Group]!
+    available: Boolean!
+    kind: String!
+    notifications: [Notification]!
   }
 
   type Group {
     id: ID!
-    name: String!
     users: [User!]!
     profile: GroupProfile!
     jobQueries: [Jobquery]!
     conversations: [Conversation]!
+    kind: String!
+    notifications: [Notification]!
   }
 
   type UserProfile {
     id: ID!
     user: User!
+    name: String!,
+    firstName: String!,
+    lastName: String!,
     about: String,
     image: String,
-    skills: [Category],
+    skills: [SkillCategory],
     isEditedByUser: Boolean!
   }
 
   type GroupProfile {
     id: ID!
     group: Group!
+    name: String!
     about: String
+    image: String
+    groupTypes: [GroupCategory]
+  }
+
+  type Notification {
+    id: ID!
+    date: Date
+    content: String,
+    link: String,
+    relatedObject: NotificationRelatedObject
   }
 
   type Token {
@@ -68,20 +118,27 @@ const typeDefs = gql`
     id: ID!
   }
 
+  union NotificationRelatedObject = Jobquery
+
   union UserOrGroup = User | Group
+
+  union SkillCategoryOrGroupCategory = SkillCategory | GroupCategory
 
   type Query {
     allJobqueries: [Jobquery]
+    findJobquery(id: ID!): Jobquery,
     allUsers: [User]!
-    allGroups: [Group]!
     allUserProfiles: [UserProfile]!
-    findJobqueries(content: String!): [Jobquery],
     findUser(id: ID!): User
+    allGroups: [Group]!
     findGroup(id: ID!): Group
+    allUsersAndGroups: [UserOrGroup]!
     findUserOrGroup(id: ID!): UserOrGroup
     allConversations: [Conversation]
     findConversation(id: ID!): Conversation
-    allCategories: [Category]
+    allSkillCategories: [SkillCategory]
+    allGroupSkillCategories: [GroupCategory]
+    allNotifications: [Notification]!
     me: User,
   }
 
@@ -91,6 +148,8 @@ const typeDefs = gql`
       password: String!
     ): User
     createUserProfile(
+      firstName: String!,
+      lastName: String!,
       skills: [ID]!,
       about: String!,
       image: String
@@ -104,26 +163,43 @@ const typeDefs = gql`
     ): UserProfile
     createGroup(
       name: String!,
-      users: [ID!]!
+      users: [ID!]!,
+      about: String!,
+      image: String,
+      skills: [ID]!
     ): Group
     createJobquery(
       content: String!
+      startSchedule: Date!
+      endSchedule: Date
+      wantedCategories: [ID!]!
+      postedBy: ID!
+      salary: String!
+      location: String!
     ): Jobquery
     createConversation(
+      senderId: ID!
       receiverId: ID!
     ): Conversation
     sendMessage(
+      senderId: ID!
       conversationId: ID!
       body: String!
     ): Message
-    addCategory(
+    addSkillCategory(
+      name: String!
+      profession: String!
+      parent: String
+    ): SkillCategory
+    addGroupCategory(
       name: String!
       parent: String
-    ): Category
+    ): GroupCategory
   }
 
   type Subscription {
     messageAdded: Message!
+    notificationAdded: Notification!
   }
 `
 

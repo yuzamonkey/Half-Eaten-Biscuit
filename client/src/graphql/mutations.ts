@@ -17,34 +17,33 @@ export const SIGNUP = gql`
 }
 `
 export const CREATE_JOBQUERY = gql`
-  mutation createJobquery($content: String!) {
-    createJobquery(content: $content) {
+  mutation createJobquery ($content: String!, $startSchedule: Date!, $endSchedule: Date, $wantedCategories: [ID!]!, $postedBy: ID!, $location: String!, $salary: String!) {
+    createJobquery(content: $content, startSchedule: $startSchedule, endSchedule: $endSchedule, wantedCategories: $wantedCategories, postedBy: $postedBy, location: $location, salary: $salary) {
       content
     }
-}
+  }
 `
 
 export const NEW_CONVERSATION = gql`
-  mutation newConversation($receiverId: ID!) {
-    createConversation(receiverId: $receiverId) {
+  mutation newConversation($senderId: ID!, $receiverId: ID!) {
+    createConversation(senderId: $senderId, receiverId: $receiverId) {
       id
     }
   }
 `
 
 export const SEND_MESSAGE = gql`
-  mutation sendMessage($id: ID!, $body: String!) {
-    sendMessage(conversationId: $id, body: $body) {
-      id, 
-      body
+  mutation sendMessage($senderId: ID!, $conversationId: ID!, $body: String!){
+    sendMessage(senderId: $senderId, conversationId: $conversationId, body: $body) {
+      id, body
     }
-}
+  }
 `
 
 export const CREATE_GROUP = gql`
-  mutation createGroup($name: String!, $users: [ID!]!){
-    createGroup(name: $name, users: $users) {
-      name
+  mutation createGroup($name: String!, $users: [ID!]!, $about: String!, $image: String!, $skills: [ID]!){
+    createGroup(name: $name, users: $users, about: $about, image: $image, skills: $skills) {
+      kind
     }
   }
 `

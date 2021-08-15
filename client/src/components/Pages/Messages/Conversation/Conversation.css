@@ -41,6 +41,11 @@
   align-self: flex-end;
 }
 
+.message-profile-image {
+  width: 25px;
+  padding: 5px;
+}
+
 .conversation-input-container {
   background-color: var(--bg-grey);
   height: var(--navbar-height);

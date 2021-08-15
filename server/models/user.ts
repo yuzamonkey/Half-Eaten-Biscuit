@@ -15,6 +15,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 3
   },
+  available: {
+    type: Boolean,
+    default: true
+  },
   jobQueries: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Jobquery'
@@ -31,6 +35,14 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'UserProfile'
   },
+  notifications: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Notification'
+  }],
+  kind: {
+    type: String,
+    default: 'User'
+  }
 })
 
 userSchema.set('toJSON', {

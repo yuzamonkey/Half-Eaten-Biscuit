@@ -3,17 +3,27 @@ const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 
 const conversationSchema = new mongoose.Schema({
-  users: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+  participants: [{
+    kind: String,
+    object: {
+      type: mongoose.Schema.Types.ObjectId,
+      refPath: 'participants.kind'
+    }
   }],
   messages: [{
     body: String,
     sender: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
+      kind: String,
+      object: {
+        type: mongoose.Schema.Types.ObjectId,
+        refPath: 'messages.sender.kind'
+      }
+    },
+    time: {
+      type: Date,
+      default: new Date()
     }
-  }]
+  }],
 })
 
 conversationSchema.set('toJSON', {

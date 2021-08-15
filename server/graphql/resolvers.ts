@@ -1,18 +1,18 @@
 import { AuthenticationError, IResolvers, UserInputError, PubSub } from "apollo-server"
-import { IConversation } from "../types/types"
+//import { IConversation } from "../types/types"
 
 require('dotenv')
 const bcrypt = require('bcrypt')
 
-//const MaterializedCategory = require('../models/materializedCategory')
-//const ParentCategory = require('../models/parentCategory')
-
-const Category = require('../models/category')
+const SkillCategory = require('../models/skillCategory')
+const GroupCategory = require('../models/groupCategory')
 const Jobquery = require('../models/jobquery')
-const User = require('../models/user')
 const Conversation = require('../models/conversation')
-const Group = require('../models/group')
+const User = require('../models/user')
 const UserProfile = require('../models/userProfile')
+const Group = require('../models/group')
+const GroupProfile = require('../models/groupProfile')
+const NotificationModel = require('../models/notification')
 
 const jwt = require('jsonwebtoken')
 
@@ -41,10 +41,10 @@ const resolvers: IResolvers = {
     }
   }),
   Query: {
-    me: (_root, _args, context) => {
+    me: async (_root, _args, context) => {
       //return context.currentUser
-      return User.findOne({ _id: context.currentUser._id })
-        .populate('jobQueries conversations groups profile')
+      const result = await User.findOne({ _id: context.currentUser._id })
+        .populate('jobQueries notifications')
         .populate({
           path: 'profile',
           populate: {
@@ -54,10 +54,26 @@ const resolvers: IResolvers = {
             }
           }
         })
+        .populate({
+          path: 'groups',
+          populate: {
+            path: 'profile'
+          }
+        })
+        .populate({
+          path: 'conversations',
+          populate: {
+            path: 'participants.object',
+            populate: {
+              path: 'profile'
+            }
+          }
+        })
+      return result
     },
     allUsers: () => {
       return User.find({})
-        .populate('jobQueries conversations groups profile')
+        .populate('jobQueries conversations profile notifications')
         .populate({
           path: 'profile',
           populate: {
@@ -65,13 +81,18 @@ const resolvers: IResolvers = {
             populate: {
               path: 'parent children'
             }
+          }
+        })
+        .populate({
+          path: 'groups',
+          populate: {
+            path: 'profile'
           }
         })
     },
     findUser: (_root, args) => {
-      console.log("ID", args.id)
       return User.findOne({ _id: args.id })
-        .populate('jobQueries conversations groups profile')
+        .populate('jobQueries conversations profile notifications')
         .populate({
           path: 'profile',
           populate: {
@@ -79,15 +100,52 @@ const resolvers: IResolvers = {
             populate: {
               path: 'parent children'
             }
+          }
+        })
+        .populate({
+          path: 'groups',
+          populate: {
+            path: 'profile'
           }
         })
     },
     allUserProfiles: (_root) => {
       return UserProfile.find({}).populate('user skills')
     },
+    allUsersAndGroups: async (_root) => {
+      const users = await User.find({}).populate({
+        path: 'profile',
+        populate: {
+          path: 'skills',
+          populate: {
+            path: 'parent children'
+          }
+        }
+      })
+      const groups = await Group.find({})
+        .populate('users')
+        .populate({
+          path: 'profile', populate: {
+            path: 'groupTypes',
+            populate: {
+              path: 'parent children'
+            }
+          }
+        })
+        .populate({
+          path: 'conversations',
+          populate: {
+            path: 'participants.object',
+            populate: {
+              path: 'profile'
+            }
+          }
+        })
+      return users.concat(groups)
+    },
     findUserOrGroup: async (_root, args) => {
       const user = await User.findOne({ _id: args.id })
-        .populate('jobQueries conversations groups profile')
+        .populate('jobQueries profile notifications')
         .populate({
           path: 'profile',
           populate: {
@@ -97,93 +155,203 @@ const resolvers: IResolvers = {
             }
           }
         })
-      const group = await Group.findOne({ _id: args.id }).populate('users')
+        .populate({
+          path: 'groups',
+          populate: {
+            path: 'profile'
+          }
+        })
+        .populate({
+          path: 'conversations',
+          populate: {
+            path: 'participants.object',
+            populate: {
+              path: 'profile'
+            }
+          }
+        })
+      const group = await Group.findOne({ _id: args.id })
+        .populate('users notifications')
+        .populate({
+          path: 'profile', populate: {
+            path: 'groupTypes'
+          }
+        })
+        .populate({
+          path: 'conversations',
+          populate: {
+            path: 'participants.object',
+            populate: {
+              path: 'profile'
+            }
+          }
+        })
       return user || group
     },
     allGroups: () => {
-      return Group.find({}).populate('users')
-    },
-    findGroup: (_root, args) => {
-      return Group.findOne({ _id: args.id }).populate('users')
-    },
-    allConversations: () => {
-      return Conversation.find({}).populate('users')
-    },
-    findConversation: (_root, args) => {
-      return Conversation.findOne({ _id: args.id })
+      return Group.find({})
         .populate('users')
         .populate({
-          path: 'messages',
-          populate: { path: 'sender' }
+          path: 'profile', populate: {
+            path: 'groupTypes'
+          }
+        })
+
+    },
+    findGroup: (_root, args) => {
+      return Group.findOne({ _id: args.id })
+        .populate('users')
+        .populate({
+          path: 'profile', populate: {
+            path: 'groupTypes'
+          }
         })
     },
-    allJobqueries: () => {
+    allConversations: () => {
+      return Conversation.find({})
+        .populate({
+          path: 'participants.object',
+          populate: {
+            path: 'profile'
+          }
+        })
+    },
+    findConversation: async (_root, args) => {
+      return await Conversation.findOne({ _id: args.id })
+        .populate({
+          path: 'participants.object',
+          populate: {
+            path: 'profile'
+          }
+        })
+        .populate({
+          path: 'messages.sender.object',
+          populate: {
+            path: 'profile'
+          }
+        })
+    },
+    allJobqueries: async () => {
       return Jobquery.find({})
         .populate({
-          path: 'user',
+          path: 'postedBy.object',
           populate: {
             path: 'profile'
           }
         })
-    },
-    findJobqueries: (_root, args) => {
-      return Jobquery.find({ content: args.content })
         .populate({
-          path: 'user',
+          path: 'wantedCategories.object',
+          populate: {
+            path: 'parent children'
+          }
+        })
+    },
+    findJobquery: async (_root, args) => {
+      return await Jobquery.findOne({ _id: args.id })
+        .populate({
+          path: 'postedBy.object',
           populate: {
             path: 'profile'
           }
         })
+        .populate({
+          path: 'wantedCategories.object',
+          populate: {
+            path: 'parent children'
+          }
+        })
     },
-    allCategories: () => {
-      return Category.find({}).populate('parent children')
+    allSkillCategories: async () => {
+      return SkillCategory.find({}).populate('parent children')
     },
-  },
-  User: {
-    conversations: async (root) => {
-      const conversationIds = root.conversations.map((c: IConversation) => c._id)
-      const conversations = await Conversation.find({
-        _id: { $in: conversationIds }
-      }).populate('users')
-      return conversations
+    allGroupSkillCategories: async () => {
+      return GroupCategory.find({}).populate('parent children')
     },
+    allNotifications: () => {
+      return NotificationModel.find({})
+    }
   },
   UserOrGroup: {
-    __resolveType(obj: { username: any; users: any }, _context: any, _info: any) {
-      if (obj.username) return 'User'
-      if (obj.users) return 'Group'
-      return null;
+    async __resolveType(obj: { kind: string; }, _context: any, _info: any) {
+      if (obj.kind === 'User') return 'User'
+      if (obj.kind === 'Group') return 'Group'
+      else {
+        const id = obj
+        const result = await User.findOne({ _id: id }) || await Group.findOne({ _id: id })
+        return result.kind
+      }
+    }
+  },
+  SkillCategoryOrGroupCategory: {
+    async __resolveType(obj: any) {
+      if (obj.kind === 'GroupCategory') return 'GroupCategory'
+      if (obj.kind === 'SkillCategory') return 'SkillCategory'
+      else {
+        const id = obj
+        const result = await SkillCategory.findOne({ _id: id }) || await GroupCategory.findOne({ _id: id })
+        return result.kind
+      }
+    }
+  },
+  NotificationRelatedObject: {
+    async __resolveType(obj: any) {
+      if (obj.kind === 'Jobquery') return 'Jobquery'
+      else {
+        return null
+      }
     }
   },
   Mutation: {
-    addCategory: async (_root, args) => {
+    addSkillCategory: async (_root, args) => {
       const name = args.name
+      const profession = args.profession
       const parentName = args.parent
 
-      console.log("NAME", name, "PARENT", parentName)
-
       try {
-        const parent = await Category.findOne({ name: parentName })
-        const newCategory = new Category({
+        const parent = await SkillCategory.findOne({ name: parentName })
+        const newSkillCategory = new SkillCategory({
           name: name,
+          profession: profession,
           parent: parent?._id,
           children: []
         })
-        const savedCategory = await newCategory.save()
+        const savedSkillCategory = await newSkillCategory.save()
         if (parent) {
-          parent.children = parent.children.concat(savedCategory._id)
+          parent.children = parent.children.concat(savedSkillCategory._id)
           await parent.save()
         }
-        return savedCategory
-
+        return savedSkillCategory
       } catch (error) {
-        console.log("ERROR ON ADD CATEGORY")
+        console.log("ERROR ON ADD SKILLCATEGORY", error)
         throw new UserInputError(error.message, {
           invalidArgs: args,
         })
       }
     },
+    addGroupCategory: async (_root, args) => {
+      const name = args.name
+      const parentName = args.parent
+      try {
+        const parent = await GroupCategory.findOne({ name: parentName })
+        const newGroupCategory = new GroupCategory({
+          name: name,
+          parent: parent?._id,
+          children: []
+        })
+        const savedGroupCategory = await newGroupCategory.save()
+        if (parent) {
+          parent.children = parent.children.concat(savedGroupCategory._id)
+          await parent.save()
+        }
+        return savedGroupCategory
+      } catch (error) {
+        console.log("ERROR ON ADD GROUP CATEGORY", error)
+        throw new UserInputError(error.message, {
+          invalidArgs: args,
+        })
+      }
 
+    },
     createUser: async (_root, args) => {
       const username = args.username
 
@@ -208,7 +376,6 @@ const resolvers: IResolvers = {
         })
       }
     },
-
     login: async (_root, args) => {
       const user = await User.findOne({ username: args.username })
 
@@ -224,7 +391,6 @@ const resolvers: IResolvers = {
 
       return { value: jwt.sign(userForToken, JWT_SECRET), id: user._id }
     },
-
     createJobquery: async (_root, args, context) => {
       const currentUser = context.currentUser
 
@@ -234,30 +400,94 @@ const resolvers: IResolvers = {
       }
 
       const content = args.content
-      const date = new Date()
-      const userId = currentUser.id
-      console.log("USER ID IN CREATE QUERY RESOLVER", userId)
+      const postedBy = args.postedBy
+      const startSchedule = args.startSchedule
+      const endSchedule = args.endSchedule
+      const wantedCategories = args.wantedCategories
+      const location = args.location
+      const salary = args.salary
 
-      const newQuery = new Jobquery({
+      let wantedCategoryObjects = []
+
+      for (let categoryId of wantedCategories) {
+        const obj = await SkillCategory.findOne({ _id: categoryId }) || await GroupCategory.findOne({ _id: categoryId })
+        if (!obj) {
+          console.log("ERROR on new jobquery. No category with id", categoryId)
+          throw new UserInputError("No category with id", categoryId)
+        }
+        wantedCategoryObjects.push({ _id: categoryId, kind: obj.kind, object: obj })
+      }
+
+      const postedByObject = await User.findOne({ _id: postedBy }) || await Group.findOne({ _id: postedBy })
+      if (!postedByObject) {
+        console.log("ERROR ON new jobquery. No user or group with id", postedBy)
+        throw new UserInputError("No category with id", postedBy)
+      }
+
+      const newJobquery = new Jobquery({
         content: content,
-        date: date,
-        user: userId
+        postedBy: { _id: postedBy, kind: postedByObject.kind, object: postedByObject },
+        startSchedule: startSchedule,
+        endSchedule: endSchedule,
+        wantedCategories: wantedCategoryObjects,
+        location: location,
+        salary: salary
       })
 
-      console.log(`NEW JOBQUERY: ${newQuery}`)
-
       try {
-        const savedQuery = await newQuery.save()
-        currentUser.jobQueries = currentUser.jobQueries.concat(newQuery)
-        await currentUser.save()
+        const savedQuery = await newJobquery.save()
+        postedByObject.jobQueries = postedByObject.jobQueries.concat(newJobquery)
+        await postedByObject.save()
+        //for now, to test, post notification to all users
+        const newNotification = new NotificationModel({
+          content: "New jobpost for you: " + content,
+          link: `/jobmarket/queries/${savedQuery._id}`,
+          relatedObject: {
+            kind: 'Jobquery',
+            object: savedQuery
+          }
+        })
+        newNotification.save()
+        //manage who will get the notification
+        const notificationReceiverIds: string[] = []
+        for (let category of wantedCategoryObjects) {
+          if (category.kind === 'SkillCategory') {
+            for (let userId of category.object.users) {
+              if (!notificationReceiverIds.includes(JSON.stringify(userId))) {
+                notificationReceiverIds.push(JSON.stringify(userId))
+              }
+            }
+          }
+          else if (category.kind === 'GroupCategory') {
+            for (let groupId of category.object.groups) {
+              if (!notificationReceiverIds.includes(JSON.stringify(groupId))) {
+                notificationReceiverIds.push(JSON.stringify(groupId))
+              }
+            }
+          }
+          else {
+            console.log("NO CATEGORY FOUND")
+            throw new UserInputError('No GroupCategory or SkillCategory found')
+          }
+        }
+        for (let id of notificationReceiverIds) {
+          if (JSON.parse(id) !== postedBy) {
+            const receiver = await User.findOne({ _id: JSON.parse(id) }) || await Group.findOne({ _id: JSON.parse(id) })
+            receiver.notifications = receiver.notifications.concat(newNotification)
+            await receiver.save()
+          }
+        }
+
+        pubsub.publish('NOTIFICATION_ADDED', { notificationAdded: newNotification })
+        console.log("JOBQUERY ADDED SUCCESFULLY")
         return savedQuery
       } catch (error) {
+        console.log("CATCHED ERROR ON CREATE JOBQUERY", error.message)
         throw new UserInputError(error.message, {
           invalidArgs: args,
         })
       }
     },
-
     createConversation: async (_root, args, context) => {
       const currentUser = context.currentUser
 
@@ -266,43 +496,100 @@ const resolvers: IResolvers = {
         throw new AuthenticationError("not authenticated")
       }
 
-      const currentUserId = currentUser.id
+      const senderId = args.senderId
       const receiverId = args.receiverId
 
-      if (currentUserId === receiverId) {
-        console.log("NO RECEIVER")
-        return null
+
+      const sender = await User.findOne({ _id: senderId }) || await Group.findOne({ _id: senderId })
+      const receiver = await User.findOne({ _id: receiverId }) || await Group.findOne({ _id: receiverId })
+
+      console.log("\nSENDER •••", sender._id)
+      console.log("RECEIVER •••", receiver._id)
+
+      if (!sender || !receiver) {
+        console.log("NO SENDER OR RECEIVER")
+        throw new UserInputError('No sender or receiver', {
+          invalidArgs: args,
+        })
       }
 
-      const currentUserName = currentUser.username
-      const receiver = await User.findOne({ _id: receiverId })
-      console.log("sender", currentUserName, currentUserId)
-      console.log("receiver", receiver, receiverId)
-      
-      if (!receiver) {
-        console.log("NO RECEIVER")
-        return null
-      }
-      
       const newConversation = new Conversation({
-        users: [currentUser.id, receiverId]
+        participants: [
+          {
+            _id: sender.id,
+            kind: sender.kind,
+            object: sender
+          },
+          {
+            _id: receiver.id,
+            kind: receiver.kind,
+            object: receiver
+          }
+        ]
       })
+
+      console.log("•••NEW CONVERSATION•••\n", newConversation)
 
       try {
         const savedConversation = await newConversation.save()
         console.log("SAVED CONVERSATION SUCCESS, ", savedConversation)
-        currentUser.conversations = currentUser.conversations.concat(newConversation)
-        await currentUser.save()
+        sender.conversations = sender.conversations.concat(newConversation)
+        await sender.save()
         receiver.conversations = receiver.conversations.concat(newConversation)
         await receiver.save()
         return savedConversation
       } catch (error) {
+        console.log("CREATE CONVERSATION ERROR", error.message)
         throw new UserInputError(error.message, {
           invalidArgs: args,
         })
       }
     },
+    sendMessage: async (_root, args, context) => {
+      const currentUser = context.currentUser
 
+      if (!currentUser) {
+        console.log(`Not authenticated user`)
+        throw new AuthenticationError("not authenticated")
+      }
+
+      const senderId = args.senderId
+      const conversationId = args.conversationId
+      const body = args.body
+
+      const sender = await User.findOne({ _id: senderId }) || await Group.findOne({ _id: senderId })
+      const conversation = await Conversation.findOne({ _id: conversationId })
+
+      if (!sender) {
+        throw new UserInputError('No sender found', {
+          invalidArgs: args
+        })
+      }
+
+      if (!conversation) {
+        throw new UserInputError('No conversation found', {
+          invalidArgs: args
+        })
+      }
+
+      const newMessage = {
+        body: body,
+        sender: {
+          kind: sender.kind,
+          object: sender
+        }
+      }
+
+      try {
+        conversation.messages = conversation.messages.concat(newMessage)
+        const messageWithId = conversation.messages[conversation.messages.length - 1]
+        await conversation.save()
+        pubsub.publish('MESSAGE_ADDED', { messageAdded: messageWithId })
+        return messageWithId
+      } catch (error) {
+        throw new TypeError(error.message)
+      }
+    },
     createGroup: async (_root, args, context) => {
       const currentUser = context.currentUser
 
@@ -311,33 +598,73 @@ const resolvers: IResolvers = {
         throw new AuthenticationError("not authenticated")
       }
 
-      const name = args.name
-      console.log("•••NAME", name)
-      const userIds = args.users.concat(String(currentUser._id))
-      console.log(typeof (currentUser.id))
+      const groupName = args.name
+      console.log("•••NAME", groupName)
+      const userIds = args.users
+      //validate that current user is included in userIds
       console.log("•••IDS", userIds)
+      const about = args.about
+      const image = args.image
+      const skills = args.skills
 
       try {
+        //create group
         const newGroup = new Group({
-          name: name,
           users: userIds
         })
-
-        console.log("NEW GROUP", newGroup)
         const savedGroup = await newGroup.save()
+
+        //create groupProfile
+        const newGroupProfile = new GroupProfile({
+          name: groupName,
+          group: savedGroup,
+          about: about,
+          image: image,
+          groupTypes: skills
+        })
+        const savedGroupProfile = await newGroupProfile.save()
+        savedGroup.profile = savedGroupProfile
+        await savedGroup.save()
+
+        //concat group to each group member
         await userIds.forEach(async (id: String) => {
           const user = await User.findOne({ _id: id })
           user.groups = user.groups.concat(savedGroup)
           await user.save()
         });
+        for (let skill of skills) {
+          const skillObject = await GroupCategory.findOne({ _id: skill })
+          skillObject.groups = skillObject.groups.concat(savedGroup)
+          skillObject.save()
+        }
+        //notifications
+        const newNotification = new NotificationModel({
+          content: "You have been added to a new group " + groupName,
+          link: `/profiles/${savedGroup._id}`,
+          relatedObject: {
+            kind: 'Group',
+            object: savedGroup
+          }
+        })
+        await newNotification.save()
+        for (let id of userIds) {
+          if (id !== currentUser.id) {
+            const user = await User.findOne({ _id: id })
+            if (user) {
+              user.notifications = user.notifications.concat(newNotification)
+              await user.save()
+            }
+          }
+        }
+        pubsub.publish('NOTIFICATION_ADDED', { notificationAdded: newNotification })
         return savedGroup
       } catch (error) {
+        console.log("ERROR ON CREATE GROUP", error.message)
         throw new UserInputError(error.message, {
           invalidArgs: args,
         })
       }
     },
-
     createUserProfile: async (_root, args, context) => {
       const currentUser = context.currentUser
 
@@ -350,19 +677,25 @@ const resolvers: IResolvers = {
       const skills = args.skills
       const about = args.about
       const image = args.image
-
-      console.log("SKILLS ••• ", skills)
-      console.log("ABOUT ••• ", about)
-      console.log("IMAGE ••• ", image)
+      const firstName = args.firstName
+      const lastName = args.lastName
+      const name = `${firstName} ${lastName}`
 
       try {
         const userProfile = await UserProfile.findOne({ user: myId })
-        console.log("USER PROFILE", userProfile)
+        userProfile.name = name
+        userProfile.firstName = firstName
+        userProfile.lastName = lastName
         userProfile.about = about
         userProfile.skills = skills
         userProfile.image = image
         userProfile.isEditedByUser = true
         const savedUserProfile = await userProfile.save()
+        for (let skill of skills) {
+          const skillObject = await SkillCategory.findOne({ _id: skill })
+          skillObject.users = skillObject.users.concat(myId)
+          skillObject.save()
+        }
         return savedUserProfile
       } catch (error) {
         throw new UserInputError(error.message, {
@@ -370,7 +703,6 @@ const resolvers: IResolvers = {
         })
       }
     },
-
     editUserProfile: async (_root, args, context) => {
       const currentUser = context.currentUser
 
@@ -405,44 +737,14 @@ const resolvers: IResolvers = {
         })
       }
     },
-
-    sendMessage: async (_root, args, context) => {
-      const currentUser = context.currentUser
-
-      if (!currentUser) {
-        console.log(`Not authenticated user`)
-        throw new AuthenticationError("not authenticated")
-      }
-
-      const content = args.body
-      //const date = new Date()
-      const userId = currentUser.id
-      const conversationId = args.conversationId
-
-      try {
-        const newMessage = {
-          body: content,
-          sender: userId
-        }
-
-        const conversation = await Conversation.findOne({ _id: conversationId })
-        conversation.messages = conversation.messages.concat(newMessage)
-        const messageWithId = conversation.messages[conversation.messages.length - 1]
-        await conversation.save()
-        pubsub.publish('MESSAGE_ADDED', { messageAdded: messageWithId })
-        return messageWithId
-      } catch (error) {
-        throw new UserInputError(error.message, {
-          invalidArgs: args,
-        })
-      }
-    }
   },
-
   Subscription: {
     messageAdded: {
       subscribe: () => pubsub.asyncIterator(['MESSAGE_ADDED'])
-    }
+    },
+    notificationAdded: {
+      subscribe: () => pubsub.asyncIterator(['NOTIFICATION_ADDED'])
+    },
   }
 }
 

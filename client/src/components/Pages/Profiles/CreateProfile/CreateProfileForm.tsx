@@ -9,7 +9,7 @@ import Summary from "./Views/Summary"
 import './CreateProfileForm.css'
 import { useQuery } from "@apollo/client"
 import { ME } from "../../../../graphql/queries"
-import { Button } from "../../../UtilityComponents/UtilityComponents"
+import { Button, Loading } from "../../../UtilityComponents/UtilityComponents"
 
 interface Category {
   id: string,
@@ -19,7 +19,6 @@ interface Category {
 }
 
 const CreateProfileForm = () => {
-  const [currentView, setCurrentView] = useState(0)
   const [skills, setSkills] = useState<Category[]>([])
   const [aboutText, setAboutText] = useState('')
   const [image, setImage] = useState()
@@ -28,6 +27,7 @@ const CreateProfileForm = () => {
     setImage(data.me.profile.image)
     setAboutText(data.me.profile.about)
   } })
+  const [currentView, setCurrentView] = useState(0)
   const views = [
     <CreateProfileInfo name={data?.me.username}/>,
     <Skills skills={skills} setSkills={setSkills} />,
@@ -37,7 +37,7 @@ const CreateProfileForm = () => {
   ]
 
   if (loading) {
-    return <div>Loading...</div>
+    return <Loading />
   }
 
   const handlePrevPress = () => {

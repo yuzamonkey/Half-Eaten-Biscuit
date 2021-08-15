@@ -3,10 +3,6 @@ const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 
 const groupSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
   users: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
@@ -22,6 +18,14 @@ const groupSchema = new mongoose.Schema({
   profile: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'GroupProfile'
+  },
+  notifications: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Notification'
+  }],
+  kind: {
+    type: String,
+    default: 'Group'
   }
 })
 

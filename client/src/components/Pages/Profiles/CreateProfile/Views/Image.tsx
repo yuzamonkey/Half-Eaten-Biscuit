@@ -1,7 +1,7 @@
 import React from "react";
 
 const Image = ({image, setImage}) => {
-  
+
   const handleImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();

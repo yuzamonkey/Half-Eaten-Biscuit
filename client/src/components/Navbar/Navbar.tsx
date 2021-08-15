@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { NavLink } from "react-router-dom";
 import './Navbar.css'
 import NotificationsDropdown from './Dropdowns/NotificationsDropdown'
 import ProfileOptionsDropdown from './Dropdowns/ProfileDropdown'
+import { UserContext } from '../UtilityComponents/UserContext';
+import { useQuery } from '@apollo/client';
+import { FIND_USER_OR_GROUP } from '../../graphql/queries';
 
 const Navbar = () => {
+  const userContext = useContext(UserContext)
+  const currentUserNameResult = useQuery(FIND_USER_OR_GROUP, {variables: {id: userContext.sessionId}})
+
   const [showMenu, setShowMenu] = useState(false);
   const [showNotification, setShowNotifications] = useState(false)
   const [showProfileOptionsDropdown, setShowProfileOptionsDropdown] = useState(false)
@@ -42,7 +48,7 @@ const Navbar = () => {
             <i className={showMenu ? "fas fa-arrow-left" : "fas fa-bars"}></i>
           </div>
 
-          <NavLink to="/" className="nav-logo nav-menu">
+          <NavLink to="/" className="nav-logo nav-menu" onClick={() => window.location.assign('/')}>
             HalfEatenBiscuit <i className="fas fa-cookie-bite"></i>
           </NavLink>
 
@@ -86,25 +92,25 @@ const Navbar = () => {
                 setShow={setShowNotifications} />
             </li>
 
-              <li className="nav-item dropdown-container">
-                <div
-                  onClick={handleProfileDrop}
-                  tabIndex={0}
-                  className="nav-links">
-                  <i className="fa fa-user"> ▿</i>
-                </div>
-                <ProfileOptionsDropdown
-                  show={showProfileOptionsDropdown}
-                  setShow={setShowProfileOptionsDropdown}
-                />
-              </li>
-
+            <li className="nav-item dropdown-container">
+              <div
+                onClick={handleProfileDrop}
+                tabIndex={0}
+                className="nav-links">
+                <i className="fa fa-user"> ▿ </i>
+                <span className="nav-current-session-name"> {currentUserNameResult.data && (currentUserNameResult.data.findUserOrGroup.username || currentUserNameResult.data.findUserOrGroup.profile.name)}</span>
+              </div>
+              <ProfileOptionsDropdown
+                show={showProfileOptionsDropdown}
+                setShow={setShowProfileOptionsDropdown}
+              />
+            </li>
           </ul>
         </div>
 
       </nav>
     </>
-      );
+  );
 }
 
-      export default Navbar;
+export default Navbar;

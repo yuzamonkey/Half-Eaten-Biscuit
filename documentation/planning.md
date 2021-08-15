@@ -82,3 +82,4 @@ Suomi, Englanti
 - React google analytics
 - Date fns for date handling
 - aos
+- Google maps API
