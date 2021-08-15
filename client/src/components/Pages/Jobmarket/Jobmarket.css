@@ -12,15 +12,13 @@
 }
 
 .job-navigation {
-  /* position: absolute; */
   background-color: var(--bg-grey);
-  width: 300px;
+  min-width: 250px;
   height: calc(100vh - var(--navbar-height));
   display: flex;
   justify-content: center;
   font-size: 1.5rem;
   font-weight: 500;
-  /* Positive z-index makes navbar stay top. E.g. not behind text */
 }
 
 .job-nav-container {
@@ -59,6 +57,10 @@
   |
   V 
 */
+
+.jobqueries-container {
+  position: relative;
+}
 
 .card {
   margin: 1.3rem;
@@ -134,38 +136,22 @@
   align-items: center;
 }
 
-/* .card-button {
-  margin: 10px;
-  padding: 10px;
-  color: var(--black);
-  border-style: none;
-  border-radius: 5px;
-  font-size: 1.3rem;
-  width: 100%;
+/* JOBINFO */
+.job-details-container {
+  background-color: red;
+  position: fixed;
+  left: 100%;
+  width: calc(100% - 250px);
+  height: calc(100vh - var(--navbar-height));
+  z-index: 10;
+  transition: left 0.5s ease;
 }
 
-.more-info-button {
-  background-color: #00aeda;
-  color: white;
+.job-details-container.active {
+  background-color: blue;
+  left: 250px;
 }
 
-.jq-contact-button {
-  background-color: #42b371;
-  color: white;
-}
-
-.more-info-button:hover {
-  color: white;
-  background-color: var(--blue);
-  cursor: pointer;
-}
-
-.jq-contact-button:hover {
-  color: white;
-  background-color: #348d59;
-  cursor: pointer;
-}
- */
 
 @media screen and (max-width: 960px) {
   .job-page {
@@ -206,6 +192,12 @@
   }
   .buttons-container {
     flex-direction: row;
+  }
+  .job-details-container {
+    width: 100vw;
+  }
+  .job-details-container.active {
+    left: 0;
   }
 }
 

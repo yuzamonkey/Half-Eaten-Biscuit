@@ -6,6 +6,7 @@ import { ALL_JOBQUERIES } from '../../../../graphql/queries';
 import { Button, Loading } from '../../../UtilityComponents/UtilityComponents';
 import { useHistory } from 'react-router-dom';
 import { dateAsDDMMYYYY } from '../../../../utils/utilityFunctions';
+import JobDetails from './JobDetails';
 
 interface Jobquery {
   postedOn: Date
@@ -13,19 +14,24 @@ interface Jobquery {
 
 const Jobqueries = () => {
   const history = useHistory()
-  const result = useQuery(ALL_JOBQUERIES, { 
+  const result = useQuery(ALL_JOBQUERIES, {
     onCompleted: (data) => {
-      setOrderedQueries([...data.allJobqueries].sort((q1, q2) => new Date(q2.postedOn).getTime() - new Date(q1.postedOn).getTime())) 
+      setOrderedQueries([...data.allJobqueries].sort((q1, q2) => new Date(q2.postedOn).getTime() - new Date(q1.postedOn).getTime()))
     }
   })
   const orderOptions = ['Most recent post', 'Earliest post', 'Later starting date', 'Earlier starting date']
   const [orderedQueries, setOrderedQueries] = useState<Jobquery[]>([])
 
+  const [selectedJob, setSelectedJob] = useState<Jobquery>()
+  const [showJobInfo, setShowJobInfo] = useState(false)
+
   if (result.loading) {
     return <Loading />
   }
   const handleMoreInfoClick = (q) => {
-    history.push(`/jobmarket/queries/${q.id}`)
+    //history.push(`/jobmarket/queries/${q.id}`)
+    setSelectedJob(q)
+    setShowJobInfo(true)
   }
 
   const jobqueries = result.data.allJobqueries
@@ -46,7 +52,11 @@ const Jobqueries = () => {
   }
 
   return (
-    <div>
+    <div className="jobqueries-container">
+      <div className={showJobInfo ? "job-details-container active" : "job-details-container"}>
+        <button onClick={() => setShowJobInfo(false)}>Back</button>
+        <JobDetails job={selectedJob} />
+      </div>
       Filter by: skill, group, posted on date, schedule, location
       <label>Order by </label>
       <select onChange={(e) => handleSelectedOrderChange(e.target.value)}>
