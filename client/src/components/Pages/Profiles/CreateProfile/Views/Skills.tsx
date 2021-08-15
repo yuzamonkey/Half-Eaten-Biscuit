@@ -25,13 +25,11 @@ const Skills = ({ skills, setSkills }) => {
     return found
   }
 
-  //ADD THESE METHODS TO CATEGORY SELECTION, Sun 15. 11.00
-
-  const removableCategories = (obj, children, removableArray) => {
+  const categoriesToRemove = (obj, children, removableArray) => {
     for (let child of children) {
       const childObj = allCategories.find(obj => obj.name === child.name)
       if (childObj && skills.map(s => s.id).includes(childObj?.id)) {
-        removableArray = removableCategories(childObj, childObj.children, removableArray)
+        removableArray = categoriesToRemove(childObj, childObj.children, removableArray)
       }
     }
     return removableArray.concat(obj)
@@ -39,12 +37,17 @@ const Skills = ({ skills, setSkills }) => {
 
   const handlePathClick = (clickedName) => {
     const obj = allCategories.find(obj => obj.name === clickedName)
-    if (obj && !skillsIncludeCategory(obj)) {
-      setSkills(skills.concat(obj))
-      obj.children.length && setCurrentPath(currentPath.concat(clickedName))
-    } else if (obj && skillsIncludeCategory(obj)) {
-      const removableArray = removableCategories(obj, obj.children, [])
-      setSkills(skills.filter((category) => removableArray.indexOf(category) === -1))
+    if (obj) {
+      if (!skillsIncludeCategory(obj)) {
+        obj.children.length && setCurrentPath(currentPath.concat(clickedName))
+        setSkills(skills.concat(obj))
+      } else if (skillsIncludeCategory(obj)) {
+        const removableArray = categoriesToRemove(obj, obj.children, [])
+        const filteredSkills = skills.filter((category) => {
+          return !removableArray.map(c => c.id).includes(category.id)
+        })
+        setSkills(filteredSkills)
+      }
     }
   }
 
