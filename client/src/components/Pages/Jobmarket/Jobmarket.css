@@ -59,7 +59,12 @@
 */
 
 .jobqueries-container {
-  position: relative;
+  opacity: 0.1;
+  transition: opacity 0.5s ease;
+}
+
+.jobqueries-container.active {
+  opacity: 1;
 }
 
 .card {
@@ -138,18 +143,27 @@
 
 /* JOBINFO */
 .job-details-container {
-  background-color: red;
   position: fixed;
   left: 100%;
   width: calc(100% - 250px);
   height: calc(100vh - var(--navbar-height));
   z-index: 10;
   transition: left 0.5s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .job-details-container.active {
-  background-color: blue;
   left: 250px;
+}
+
+.job-details-content {
+  width: 95%;
+  height: 95%;
+  background-color: white;
+  box-shadow: 0 0 10pt 1pt var(--bg-grey);
+  border-radius: 5px;
 }
 
 
@@ -194,22 +208,10 @@
     flex-direction: row;
   }
   .job-details-container {
+    height: calc(100vh - var(--navbar-height) - 60px);
     width: 100vw;
   }
   .job-details-container.active {
     left: 0;
   }
 }
-
-/* 
-@keyframes from-top-to-frame {
-  from {
-    bottom: 100%;
-    opacity: 0;
-  }
-  to {
-    bottom: 0%;
-    opacity: 1;
-  }
-} 
-*/
