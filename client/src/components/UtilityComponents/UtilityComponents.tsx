@@ -119,7 +119,47 @@ export const LargeProfileCard = ({ id, image, name, skills, url, contactFunction
   )
 }
 
-export const CategorySelection = ({ allCategories, currentPath, skillsIncludeCategory, handlePathClick, handlePathChangeToPrevious }) => {
+export const CategorySelection = ({ allCategories, selectedCategories, setSelectedCategories, currentPath, setCurrentPath }) => {
+  
+  const skillsIncludeCategory = (selectedObj) => {
+    const objId = selectedObj.id
+    let found = false
+    selectedCategories.forEach(skill => (objId === skill.id) && (found = true))
+    return found
+  }
+
+  const categoriesToRemove = (obj, children, removableArray) => {
+    for (let child of children) {
+      const childObj = allCategories.find(obj => obj.name === child.name)
+      if (childObj && selectedCategories.map(s => s.id).includes(childObj?.id)) {
+        removableArray = categoriesToRemove(childObj, childObj.children, removableArray)
+      }
+    }
+    return removableArray.concat(obj)
+  }
+
+  const handlePathClick = (clickedName) => {
+    const obj = allCategories.find(obj => obj.name === clickedName)
+    if (obj) {
+      if (!skillsIncludeCategory(obj)) {
+        obj.children.length && setCurrentPath(currentPath.concat(clickedName))
+        setSelectedCategories(selectedCategories.concat(obj))
+      } else if (skillsIncludeCategory(obj)) {
+        const removableArray = categoriesToRemove(obj, obj.children, [])
+        const filteredSkills = selectedCategories.filter((category) => {
+          return !removableArray.map(c => c.id).includes(category.id)
+        })
+        setSelectedCategories(filteredSkills)
+      }
+    }
+  }
+
+  const handlePathChangeToPrevious = () => {
+    if (currentPath.length > 1) {
+      setCurrentPath(currentPath.splice(0, currentPath.length - 1))
+    }
+  }
+  
   return (
     <div className="skills-container">
       <h3>{currentPath.map(name => <span key={currentPath.indexOf(name)}>{name} → </span>)}</h3>

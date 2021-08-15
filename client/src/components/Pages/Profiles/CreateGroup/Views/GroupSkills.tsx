@@ -18,35 +18,42 @@ const GroupSkills = ({ skills, setSkills }) => {
 
   if (loading) return <Loading />
 
-  const skillsIncludeCategory = (selectedObj) => {
-    const objId = selectedObj.id
-    let found = false
-    skills.forEach(skill => (objId === skill.id) && (found = true))
-    return found
-  }
+  // const skillsIncludeCategory = (selectedObj) => {
+  //   const objId = selectedObj.id
+  //   let found = false
+  //   skills.forEach(skill => (objId === skill.id) && (found = true))
+  //   return found
+  // }
 
-  const handlePathClick = (clickedName) => {
-    const obj = allCategories.find(obj => obj.name === clickedName)
-    obj && !skillsIncludeCategory(obj) && setSkills(skills.concat(obj))
-    obj?.children.length && setCurrentPath(currentPath.concat(clickedName))
-  }
+  // const handlePathClick = (clickedName) => {
+  //   const obj = allCategories.find(obj => obj.name === clickedName)
+  //   obj && !skillsIncludeCategory(obj) && setSkills(skills.concat(obj))
+  //   obj?.children.length && setCurrentPath(currentPath.concat(clickedName))
+  // }
 
-  const handlePathChangeToPrevious = () => {
-    if (currentPath.length > 1) {
-      setCurrentPath(currentPath.splice(0, currentPath.length - 1))
-    }
-  }
+  // const handlePathChangeToPrevious = () => {
+  //   if (currentPath.length > 1) {
+  //     setCurrentPath(currentPath.splice(0, currentPath.length - 1))
+  //   }
+  // }
 
   return (
     <div>
     <h2>Select your skills</h2>
-    <CategorySelection
+    {/* <CategorySelection
       allCategories={allCategories}
       currentPath={currentPath}
       skillsIncludeCategory={skillsIncludeCategory}
       handlePathClick={handlePathClick}
       handlePathChangeToPrevious={handlePathChangeToPrevious}
-    />
+    /> */}
+      <CategorySelection
+        selectedCategories={skills}
+        setSelectedCategories={setSkills}
+        allCategories={allCategories}
+        currentPath={currentPath}
+        setCurrentPath={setCurrentPath}
+      />
     {skills.map(s => <div key={s.id}>{s.name}</div>)}
   </div>
   )
