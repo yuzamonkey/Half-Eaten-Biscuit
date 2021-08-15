@@ -300,8 +300,9 @@ export const ALL_JOBQUERIES = gql`
         kind 
         object {
           ...on User {
-            username
             profile {
+              firstName
+              name
               image
             }
           }
@@ -317,6 +318,7 @@ export const ALL_JOBQUERIES = gql`
         object {
           ...on SkillCategory {
             name
+            profession
           }
           ... on GroupCategory {
             name

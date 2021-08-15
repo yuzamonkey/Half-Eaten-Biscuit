@@ -634,10 +634,28 @@ const resolvers: IResolvers = {
           skillObject.groups = skillObject.groups.concat(savedGroup)
           skillObject.save()
         }
+        //notifications
+        const newNotification = new NotificationModel({
+          content: "You have been added to a new group " + groupName,
+          link: "",
+          relatedObject: {
+            kind: 'Group',
+            object: savedGroup
+          }
+        })
+        newNotification.save()
+        for (let id of userIds) {
+          if (id !== currentUser.id) {
+            const user = await User.findOne({ _id: id })
+            user.notifications = user.notifications.concat(newNotification)
+            await user.save()
+          }
+        }
+        pubsub.publish('NOTIFICATION_ADDED', { notificationAdded: newNotification })
         console.log("RETURN SAVED GROUP, ALL DONE HERE")
         return savedGroup
       } catch (error) {
-        console.log("ERROR ON CREATE GROUP")
+        console.log("ERROR ON CREATE GROUP", error.message)
         throw new UserInputError(error.message, {
           invalidArgs: args,
         })
@@ -722,8 +740,7 @@ const resolvers: IResolvers = {
     },
     notificationAdded: {
       subscribe: () => pubsub.asyncIterator(['NOTIFICATION_ADDED'])
-    }
-
+    },
   }
 }
 

@@ -54,7 +54,7 @@ const Jobqueries = () => {
 
       <ul>
         {orderedQueries.map((q: any) => {
-          const contactText = `Contact ${q.postedBy.object.username || q.postedBy.object.profile.name}`
+          const contactText = `Contact ${q.postedBy.object.profile.firstName || q.postedBy.object.profile.name}`
           return (
             <div className="card" key={q.id}>
               <div className="general-info-container">
@@ -62,8 +62,8 @@ const Jobqueries = () => {
                   <div className="image-container">
                     <img src={q.postedBy.object.profile.image} alt="profileimg" className="jobquery-user-profile-image"></img>
                   </div>
-                  <p><b>{q.postedBy.object.username || q.postedBy.object.profile.name}</b> is looking for <br />
-                    {q.wantedCategories.map(category => category.object.name)}
+                  <p><b>{q.postedBy.object.profile.name}</b> is looking for <br />
+                    {q.wantedCategories.map(category => category.object.profession || category.object.name)}
                   </p>
 
                 </div>
