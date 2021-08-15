@@ -201,5 +201,5 @@
 | 10.8.  | 2.5 | Jobquery notifications |
 | 11.8.  | 2.5 | Jobquery notifications, jobquery form |
 | 13.8.  | 4 | Notifications, jobmarket, bugfixes, search handling |
-| 15.8.  | 1000-11, 1630-1915 |  |
-| =     | 140.0      |               |
+| 15.8.  | 4.5 | Miscellaneous, push to heroku |
+| =     | 144.5      |               |
