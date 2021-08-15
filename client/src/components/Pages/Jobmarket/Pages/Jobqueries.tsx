@@ -5,6 +5,7 @@ import '../Jobmarket.css'
 import { ALL_JOBQUERIES } from '../../../../graphql/queries';
 import { Button, Loading } from '../../../UtilityComponents/UtilityComponents';
 import { useHistory } from 'react-router-dom';
+import { dateAsDDMMYYYY } from '../../../../utils/utilityFunctions';
 
 interface Jobquery {
   postedOn: Date
@@ -49,7 +50,7 @@ const Jobqueries = () => {
       Filter by: skill, group, posted on date, schedule, location
       <label>Order by </label>
       <select onChange={(e) => handleSelectedOrderChange(e.target.value)}>
-        {orderOptions.map(option => <option>{option}</option>)}
+        {orderOptions.map(option => <option key={option}>{option}</option>)}
       </select>
 
       <ul>
@@ -78,7 +79,7 @@ const Jobqueries = () => {
                   </div>
                   <div className="details-item">
                     <p>Schedule</p>
-                    <p className="details-value">{q.startSchedule.substring(0, 10)} •••  {q.endSchedule.substring(0, 10)}</p>
+                    <p className="details-value">{dateAsDDMMYYYY(q.startSchedule)} - {dateAsDDMMYYYY(q.endSchedule)}</p>
                   </div>
                 </div>
               </div>

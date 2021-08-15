@@ -15,3 +15,11 @@ export const categoriesWithParentsRemoved = (categories): Category[] => {
   }
   return filtered
 }
+
+export const dateAsDDMMYYYY = (dateInput) => {
+  const date = dateInput.substring(0, 10)
+  const year = date.substring(0,4)
+  const month = date.substring(5, 7)
+  const day = date.substring(8, 10)
+  return `${day}.${month}.${year}`
+}
