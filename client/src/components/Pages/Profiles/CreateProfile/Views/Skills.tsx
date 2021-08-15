@@ -25,10 +25,27 @@ const Skills = ({ skills, setSkills }) => {
     return found
   }
 
+  //ADD THESE METHODS TO CATEGORY SELECTION, Sun 15. 11.00
+
+  const removableCategories = (obj, children, removableArray) => {
+    for (let child of children) {
+      const childObj = allCategories.find(obj => obj.name === child.name)
+      if (childObj && skills.map(s => s.id).includes(childObj?.id)) {
+        removableArray = removableCategories(childObj, childObj.children, removableArray)
+      }
+    }
+    return removableArray.concat(obj)
+  }
+
   const handlePathClick = (clickedName) => {
     const obj = allCategories.find(obj => obj.name === clickedName)
-    obj && !skillsIncludeCategory(obj) && setSkills(skills.concat(obj))
-    obj?.children.length && setCurrentPath(currentPath.concat(clickedName))
+    if (obj && !skillsIncludeCategory(obj)) {
+      setSkills(skills.concat(obj))
+      obj.children.length && setCurrentPath(currentPath.concat(clickedName))
+    } else if (obj && skillsIncludeCategory(obj)) {
+      const removableArray = removableCategories(obj, obj.children, [])
+      setSkills(skills.filter((category) => removableArray.indexOf(category) === -1))
+    }
   }
 
   const handlePathChangeToPrevious = () => {

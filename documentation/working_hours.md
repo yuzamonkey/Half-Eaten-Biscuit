@@ -168,7 +168,7 @@
 | Week 25 |||   
 | 21.6. | 5 | Messaging, designing mobile views |
 | 22.6. | 5 | Backend testing config, typescript configurations, planning of larger backend structure |
-| 23.6. | 6 | Heroku deployment, how tf apollo testing |
+| 23.6. | 6 | Heroku deployment, apollo testing |
 | 24.6. | 4 | Move to monorepo, fix heroku deployment, backend testing config and tests |
 | 25.6. | 5.5 | Deployment pipeline |
 | Week 26 |||   
@@ -178,7 +178,7 @@
 | 1.7.  | 3.5 | Smaller React components, create group from frontend |
 | Week 28 |||   
 | 12.7.  | 1.5 | Profile and skills planning |
-| 13.7.  | 5 | Failing at form navigation, minor css improvements |
+| 13.7.  | 5 | Form navigation, minor css improvements |
 | 14.7.  | 4 | Subscriptions on messaging |
 | 15.7.  | 2.5 | Refresh messaging cache problemsolving (still bugs), searchbar css |
 | 16.7.  | 2.5 | Portfolio form |
@@ -201,4 +201,5 @@
 | 10.8.  | 2.5 | Jobquery notifications |
 | 11.8.  | 2.5 | Jobquery notifications, jobquery form |
 | 13.8.  | 4 | Notifications, jobmarket, bugfixes, search handling |
+| 15.8.  | 1000-11 |  |
 | =     | 140.0      |               |
