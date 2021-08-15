@@ -1,13 +1,10 @@
 import { useMutation } from "@apollo/client"
 import { useContext } from "react"
 import { CREATE_JOBQUERY } from "../../../../../../graphql/mutations"
+import { categoriesWithParentsRemoved } from "../../../../../../utils/utilityFunctions"
 import { UserContext } from "../../../../../UtilityComponents/UserContext"
 import { Button } from "../../../../../UtilityComponents/UtilityComponents"
 
-interface Category {
-  id: string,
-  name: string
-}
 
 const Summary = ({ wantedCategories, content, location, salary, startSchedule, endSchedule, }) => {
 
@@ -18,17 +15,6 @@ const Summary = ({ wantedCategories, content, location, salary, startSchedule, e
       console.log("Error at create query mutation: \n", error)
     }
   })
-
-  const categoriesWithParentsRemoved = (categories) : Category[] => {
-    let filtered = [...categories]
-    for (let category of categories) {
-      const parentObj = filtered.find(c => c.name === category.parent?.name)
-      if (parentObj) {
-        filtered = filtered.filter(c => c.name !== parentObj.name)
-      }
-    }
-    return filtered
-  }
 
   const submit = () => {
     const postedBy = userContext.sessionId
