@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
+import { categoriesWithParentsRemoved } from '../../utils/utilityFunctions'
 import { UserContext } from './UserContext'
 import './UtilityComponents.css'
 
@@ -105,7 +106,8 @@ export const LargeProfileCard = ({ id, image, name, skills, url, contactFunction
       <div className="lower-container">
         <div className="name-container">
           <h3 className="profile-name">{name}</h3>
-          {skills?.map(skill => <p key={skill.id}>{skill.profession || skill.name}</p>)}
+          {/* {skills?.map(skill => <p key={skill.id}>{skill.profession || skill.name}</p>)} */}
+          {categoriesWithParentsRemoved(skills).map(skill => <p key={skill.id}>{skill.profession || skill.name}</p>)}
         </div>
         <div className="profiles-buttons-container">
           <Button text='Profile' handleClick={() => history.push(url)} />

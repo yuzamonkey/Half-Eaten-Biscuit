@@ -126,7 +126,10 @@ const resolvers: IResolvers = {
         .populate('users')
         .populate({
           path: 'profile', populate: {
-            path: 'groupTypes'
+            path: 'groupTypes',
+            populate: {
+              path: 'parent children'
+            }
           }
         })
         .populate({

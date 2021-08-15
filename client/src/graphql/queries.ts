@@ -404,6 +404,9 @@ export const ALL_USERS_AND_GROUPS = gql`
             id
             name
             profession
+            parent {
+              name
+            }
           }
         }
       }
@@ -417,6 +420,9 @@ export const ALL_USERS_AND_GROUPS = gql`
           groupTypes {
             id
             name
+            parent {
+              name
+            }
           }
         }
       }
