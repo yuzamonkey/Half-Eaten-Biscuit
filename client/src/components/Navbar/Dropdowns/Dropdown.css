@@ -72,6 +72,15 @@
   border-radius: 10px;
 }
 
+.notification-container {
+  min-height: 50px;
+  padding: 10px 0;
+  transition: background-color 0.2s ease;
+}
+.notification-container:hover {
+  background-color: var(--bg-grey);
+}
+
 @media screen and (max-width: 580px) {
   .dropdown {
     width: 100%;

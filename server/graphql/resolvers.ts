@@ -440,8 +440,8 @@ const resolvers: IResolvers = {
         await postedByObject.save()
         //for now, to test, post notification to all users
         const newNotification = new NotificationModel({
-          content: "New jobquery for you: " + content,
-          link: JSON.stringify(savedQuery._id),
+          content: "New jobpost for you: " + content,
+          link: `/jobmarket/queries/${savedQuery._id}`,
           relatedObject: {
             kind: 'Jobquery',
             object: savedQuery
@@ -640,22 +640,23 @@ const resolvers: IResolvers = {
         //notifications
         const newNotification = new NotificationModel({
           content: "You have been added to a new group " + groupName,
-          link: "",
+          link: `/profiles/${savedGroup._id}`,
           relatedObject: {
             kind: 'Group',
             object: savedGroup
           }
         })
-        newNotification.save()
+        await newNotification.save()
         for (let id of userIds) {
           if (id !== currentUser.id) {
             const user = await User.findOne({ _id: id })
-            user.notifications = user.notifications.concat(newNotification)
-            await user.save()
+            if (user) {
+              user.notifications = user.notifications.concat(newNotification)
+              await user.save()
+            }
           }
         }
         pubsub.publish('NOTIFICATION_ADDED', { notificationAdded: newNotification })
-        console.log("RETURN SAVED GROUP, ALL DONE HERE")
         return savedGroup
       } catch (error) {
         console.log("ERROR ON CREATE GROUP", error.message)

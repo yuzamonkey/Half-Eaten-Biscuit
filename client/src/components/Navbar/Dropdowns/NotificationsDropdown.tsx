@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { useApolloClient, useLazyQuery, useSubscription } from '@apollo/client'
 
 import './Dropdown.css'
@@ -13,6 +14,7 @@ interface INotification {
 }
 
 const NotificationsDropdown = ({ show, setShow }: any) => {
+  const history = useHistory()
   const client = useApolloClient()
   const userContext = useContext(UserContext)
   const [notifications, setNotifications] = useState<INotification[]>([])
@@ -41,6 +43,11 @@ const NotificationsDropdown = ({ show, setShow }: any) => {
     return null
   }
 
+  const handleNotificationPress = (notification) => {
+    console.log(notification)
+    history.push(notification.link)
+  }
+
   return (
     <div className="dropdown">
       <h3 className="notifications-title">Notifications</h3>
@@ -50,7 +57,7 @@ const NotificationsDropdown = ({ show, setShow }: any) => {
           return (
             <div key={n.id}>
               <ul>
-                <li>•{n.content}</li>
+                <li className="notification-container" onClick={() => handleNotificationPress(n)}>{n.content}</li>
               </ul>
             </div>
           )
