@@ -112,7 +112,7 @@ export const LargeProfileCard = ({ id, image, name, skills, url, contactFunction
         <div className="profiles-buttons-container">
           <Button text='Profile' handleClick={() => history.push(url)} />
           {id !== userContext.sessionId
-            ? <Button text='Contact' handleClick={() => contactFunction} />
+            ? <Button text='Contact' handleClick={contactFunction} />
             : null
           }
         </div>
