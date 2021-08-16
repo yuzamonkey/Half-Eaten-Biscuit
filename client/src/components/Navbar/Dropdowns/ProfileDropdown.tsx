@@ -22,10 +22,6 @@ const ProfileDropdown = ({ show, setShow }: any) => {
 
   const history = useHistory()
 
-  if (!show) {
-    return null
-  }
-
   if (loading || me.loading) {
     return <div className="dropdown">
       <Loading />
@@ -67,7 +63,7 @@ const ProfileDropdown = ({ show, setShow }: any) => {
   }
 
   return (
-    <div className="dropdown">
+    <div className={show ? "dropdown active" : "dropdown"}>
       <div className="dropdown-profile" onClick={handleProfileClick}>
         <div>
           <LargeProfileImage image={data.findUserOrGroup.profile.image} />

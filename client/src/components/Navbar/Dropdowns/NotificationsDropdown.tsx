@@ -47,17 +47,13 @@ const NotificationsDropdown = ({ show, setShow }: any) => {
     },
   })
 
-  if (!show) {
-    return null
-  }
-
   const handleNotificationPress = (notification) => {
     setShow(false)
     history.push(notification.link)
   }
 
   return (
-    <div className="dropdown">
+    <div className={show ? "dropdown active" : "dropdown"}>
       <h3 className="notifications-title">Notifications</h3>
       {notifications.length !== 0
         ?
