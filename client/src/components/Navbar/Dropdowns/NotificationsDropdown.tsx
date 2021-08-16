@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
 import { useApolloClient, useLazyQuery, useSubscription } from '@apollo/client'
+import { useHistory } from 'react-router-dom'
 
 import './Dropdown.css'
 import { NOTIFICATION_ADDED } from '../../../graphql/subscriptions'
@@ -10,7 +10,8 @@ import { UserContext } from '../../UtilityComponents/UserContext'
 interface INotification {
   id: string,
   content: string,
-  link: string
+  link: string,
+  date: string
 }
 
 const NotificationsDropdown = ({ show, setShow }: any) => {
@@ -28,8 +29,15 @@ const NotificationsDropdown = ({ show, setShow }: any) => {
   }, [userContext.sessionId])
 
   useEffect(() => {
-    setNotifications(data?.findUserOrGroup.notifications)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (data) {
+      const sorted = [...data.findUserOrGroup.notifications].sort((n1: any, n2: any) => {
+        const n1date = new Date(n1.date).getTime()
+        const n2date = new Date(n2.date).getTime()
+        return n2date - n1date
+      })
+      setNotifications(sorted)
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }
   }, [data])
 
   useSubscription(NOTIFICATION_ADDED, {
@@ -44,7 +52,7 @@ const NotificationsDropdown = ({ show, setShow }: any) => {
   }
 
   const handleNotificationPress = (notification) => {
-    console.log(notification)
+    setShow(false)
     history.push(notification.link)
   }
 
