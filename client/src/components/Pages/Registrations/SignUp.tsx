@@ -38,7 +38,7 @@ const SignUp = () => {
 
   return (
     <div className="registration-container">
-      <div className="registration-items-container">
+      <div className="registration-items-container signup">
         <div className="registration-title-and-logo-container">
           <TitleAndLogo />
           <h2>Sign up</h2>
@@ -46,7 +46,7 @@ const SignUp = () => {
         <form onSubmit={submit}>
           <div className="registration-inputs-container">
             <div>
-              first name
+              First name
               <br />
               <input
                 value={firstName}
@@ -55,7 +55,7 @@ const SignUp = () => {
             </div>
             <br />
             <div>
-              last name
+              Last name
               <br />
               <input
                 value={lastName}
@@ -64,7 +64,7 @@ const SignUp = () => {
             </div>
             <br />
             <div>
-              email/username
+              Email or username
               <br />
               <input
                 value={username}
@@ -73,7 +73,7 @@ const SignUp = () => {
             </div>
             <br />
             <div>
-              password
+              Password
               <br />
               <input
                 type='password'
@@ -81,7 +81,16 @@ const SignUp = () => {
                 onChange={({ target }) => setPassword(target.value)}
               />
             </div>
-            <br />
+              <br />
+            <div>
+              Password again
+              <br />
+              <input
+                type='password'
+                value={password}
+                onChange={({ target }) => setPassword(target.value)}
+              />
+            </div>
           </div>
           <div className="registration-submit-button-container">
             <button className="blue-button" type='submit'>Sign up</button>

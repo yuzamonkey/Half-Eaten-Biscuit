@@ -41,7 +41,7 @@ const SignIn = () => {
 
   return (
     <div className="registration-container">
-      <div className="registration-items-container">
+      <div className="registration-items-container signin">
         <div className="registration-title-and-logo-container">
           <TitleAndLogo />
           <h2>Sign in</h2>
