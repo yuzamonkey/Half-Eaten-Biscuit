@@ -33,27 +33,10 @@ export const Button = ({ text, handleClick }) => {
 }
 
 export const Searchbar = ({input, setInput}: any) => {
-  
-  // useEffect(() => {
-  //   handleBlur()
-  // }, [])
-
-  // const handleFocus = () => {
-  //   if (input === 'Search') {
-  //     setInput('')
-  //   }
-  // }
-
-  // const handleBlur = () => {
-  //   if (input === '') {
-  //     setInput('Search')
-  //   }
-  // }
 
   return (
     <div className="searchbar-container">
-      <div className="searchbar-outline">
-        {/* <input className="searchbar-input" value={input} onChange={e => handleInputChange(e)} onFocus={handleFocus} onBlur={handleBlur}></input> */}
+      <div className={input === '' ? "searchbar-outline empty": "searchbar-outline"}>
         <input className="searchbar-input" value={input} onChange={e => setInput(e.target.value)}></input>
         <div className="searchbar-icon-container">
           <div className="searchbar-icon">⚲</div>
