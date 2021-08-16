@@ -49,7 +49,7 @@ const SignIn = () => {
         <form onSubmit={submit}>
           <div className="registration-inputs-container">
             <div>
-              email/username 
+              Email or username 
               <br />
               <input
                 value={username}
@@ -58,7 +58,7 @@ const SignIn = () => {
             </div>
             <br />
             <div>
-              password 
+              Password 
               <br />
               <input
                 type='password'

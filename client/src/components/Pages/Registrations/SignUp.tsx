@@ -83,7 +83,7 @@ const SignUp = () => {
             </div>
               <br />
             <div>
-              Password again
+              Confirm password
               <br />
               <input
                 type='password'
