@@ -182,6 +182,6 @@ export const CategorySelection = ({ allCategories, selectedCategories, setSelect
 
 export const TitleAndLogo = () => {
   return (
-    <h3 className="title-and-logo">HalfEatenBiscuit <i className="fas fa-cookie-bite"></i></h3>
+    <h3 className="title-and-logo" onClick={() => window.location.assign('/')}>HalfEatenBiscuit <i className="fas fa-cookie-bite"></i></h3>
   )
 }

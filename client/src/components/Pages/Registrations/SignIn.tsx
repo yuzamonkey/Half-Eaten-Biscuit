@@ -41,24 +41,39 @@ const SignIn = () => {
 
   return (
     <div className="registration-container">
-      <div className="registration-form-container">
-        <TitleAndLogo />
+      <div className="registration-items-container">
+        <div className="registration-title-and-logo-container">
+          <TitleAndLogo />
+          <h2>Sign in</h2>
+        </div>
         <form onSubmit={submit}>
-          <div>
-            username <input
-              value={username}
-              onChange={({ target }) => setUsername(target.value)}
-            />
+          <div className="registration-inputs-container">
+            <div>
+              email/username 
+              <br />
+              <input
+                value={username}
+                onChange={({ target }) => setUsername(target.value)}
+              />
+            </div>
+            <br />
+            <div>
+              password 
+              <br />
+              <input
+                type='password'
+                value={password}
+                onChange={({ target }) => setPassword(target.value)}
+              />
+            </div>
           </div>
-          <div>
-            password <input
-              type='password'
-              value={password}
-              onChange={({ target }) => setPassword(target.value)}
-            />
+          <div className="registration-submit-button-container">
+            <button className="blue-button" type='submit'>Sign in</button>
           </div>
-          <button className="blue-button-container" type='submit'>Sign in</button>
         </form>
+        <p className="registration-switch-view-text">
+        No account? <a href="/signup">Sign up</a>
+        </p>
       </div>
     </div>
   )

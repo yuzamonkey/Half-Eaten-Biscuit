@@ -205,5 +205,5 @@
 | 13.8.  | 4 | Notifications, jobmarket, bugfixes, search handling |
 | 15.8.  | 4.5 | Miscellaneous, push to heroku |
 | Week 33 |||   
-| 16.8.  | 1230- |  |
+| 16.8.  | 1230-1340 |  |
 | =     | 144.5      |               |
