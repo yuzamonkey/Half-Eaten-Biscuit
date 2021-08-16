@@ -1,0 +1,34 @@
+.registration-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.registration-form-container {
+  background-color: white;
+  padding: 30px;
+  box-shadow: 0 0 10pt 3pt var(--grey);
+}
+
+.blue-button-container {
+  margin: 10px;
+  height: 30px;
+  width: fit-content;
+  min-width: 50px;
+  white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 10px;
+  background-color: var(--blue);
+  border-radius: 5px;
+  color: white;
+  border: none;
+  box-shadow: 0 0 3pt 1pt var(--grey);
+}
+
+.blue-button-container:hover {
+  background-color: var(--dark-blue);
+  cursor: pointer;
+}

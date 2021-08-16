@@ -5,6 +5,9 @@ import { useHistory } from 'react-router-dom'
 import { SESSION_TOKEN, SIGN_IN_TOKEN } from '../../../utils/constants'
 import { UserContext } from '../../UtilityComponents/UserContext'
 
+import './Registrations.css'
+import { TitleAndLogo } from '../../UtilityComponents/UtilityComponents'
+
 const SignIn = () => {
   const userContext = useContext(UserContext)
   const history = useHistory()
@@ -37,23 +40,26 @@ const SignIn = () => {
   }
 
   return (
-    <div>
-      <form onSubmit={submit}>
-        <div>
-          username <input
-            value={username}
-            onChange={({ target }) => setUsername(target.value)}
-          />
-        </div>
-        <div>
-          password <input
-            type='password'
-            value={password}
-            onChange={({ target }) => setPassword(target.value)}
-          />
-        </div>
-        <button type='submit'>login</button>
-      </form>
+    <div className="registration-container">
+      <div className="registration-form-container">
+        <TitleAndLogo />
+        <form onSubmit={submit}>
+          <div>
+            username <input
+              value={username}
+              onChange={({ target }) => setUsername(target.value)}
+            />
+          </div>
+          <div>
+            password <input
+              type='password'
+              value={password}
+              onChange={({ target }) => setPassword(target.value)}
+            />
+          </div>
+          <button className="blue-button-container" type='submit'>Sign in</button>
+        </form>
+      </div>
     </div>
   )
 }

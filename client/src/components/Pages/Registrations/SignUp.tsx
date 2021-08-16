@@ -36,11 +36,12 @@ const SignUp = () => {
   }
 
   return (
-    <div>
+    <div className="registration-container">
+      <div className="registration-form-container">
       <h2>Sign up</h2>
       <form onSubmit={submit}>
         <div>
-          username <input
+          email/username <input
             value={username}
             onChange={({ target }) => setUsername(target.value)}
           />
@@ -64,8 +65,9 @@ const SignUp = () => {
             onChange={({ target }) => setPassword(target.value)}
           />
         </div>
-        <button type='submit'>Sign up</button>
+        <button type='submit' className="blue-button-container">Sign up</button>
       </form>
+    </div>
     </div>
   )
 }

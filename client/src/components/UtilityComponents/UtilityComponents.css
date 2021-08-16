@@ -341,3 +341,10 @@
 .skill-container-selected:hover {
   background-color: lightcoral;
 }
+
+/* TITLE AND LOGO */
+.title-and-logo {
+  color: var(--black);
+  text-shadow: 0.5pt 0.5pt 1pt var(--grey);
+  font-weight: 230;
+}
