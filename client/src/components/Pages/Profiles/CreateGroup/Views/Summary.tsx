@@ -7,6 +7,7 @@ import { useState } from "react"
 const Summary = ({ selectedUsers, groupName, image, skills, about }) => {
   const [submitCompleted, setSubmitCompleted] = useState(false)
   const [redirectAdress, setRedirectAdress] = useState('')
+
   const [createGroup, { loading }] = useMutation(CREATE_GROUP, {
     onError: (error) => {
       console.log("Error at create user profile mutation: \n", error)
@@ -26,7 +27,6 @@ const Summary = ({ selectedUsers, groupName, image, skills, about }) => {
         skills: skillIds
       }
     })
-    console.log("RESPONSE", response)
     if (response.data?.createGroup.kind === 'Group') {
       setSubmitCompleted(true)
       setRedirectAdress(`/profiles/${response.data.createGroup.id}`)
@@ -42,18 +42,18 @@ const Summary = ({ selectedUsers, groupName, image, skills, about }) => {
 
   return (
     !submitCompleted
-    ?
-    <div>
-      <h1>Summary</h1>
-      USERS: {selectedUsers.map(u => <p>{u.username}</p>)}
-      NAME: {groupName}
-      <img src={image} alt="summaryimage"></img>
-      {skills.map(skill => <p>{skill.name}</p>)}
-      ABOUT: {about}
-      <Button handleClick={handleSubmit} text='Submit' />
-    </div>
-    :
-    <div>
+      ?
+      <div>
+        <h1>Summary</h1>
+        USERS: {selectedUsers.map(u => <p>{u.username}</p>)}
+        NAME: {groupName}
+        <img src={image} alt="summaryimage"></img>
+        {skills.map(skill => <p>{skill.name}</p>)}
+        ABOUT: {about}
+        <Button handleClick={handleSubmit} text='Submit' />
+      </div>
+      :
+      <div>
         <h1>Group created succesfully</h1>
         <p>See it <a href={redirectAdress}>here</a></p>
       </div>
