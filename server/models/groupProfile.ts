@@ -1,4 +1,4 @@
-import { groupImage } from "../images/images";
+import { blankGroupImage } from "../images/images";
 
 export { };
 const mongoose = require('mongoose')
@@ -24,7 +24,7 @@ const groupProfileSchema = new mongoose.Schema({
   }],
   image: {
     type: String,
-    default: groupImage
+    default: blankGroupImage
   }
 })
 
