@@ -36,6 +36,15 @@ export const ME = gql`
   }
 `
 
+export const MY_ID = gql`
+  query myId {
+    me {
+      id,
+      username
+    }
+  }
+`
+
 export const GET_NOTIFICATIONS = gql`
   query getNotifications($id: ID!) {
     findUserOrGroup(id: $id) {
@@ -105,15 +114,6 @@ export const FIND_USER_OR_GROUP = gql`
           image
         }
       }
-    }
-  }
-`
-
-export const MY_ID = gql`
-  query myId {
-    me {
-      id,
-      username
     }
   }
 `
@@ -198,6 +198,27 @@ export const CONVERSATION_PARTICIPANTS_BY_SESSION_ID = gql`
               }
             }
           }
+        }
+      }
+    }
+  }
+`
+
+export const JOBQUERIES_SENT_BY_SESSION_ID = gql`
+  query jobqueriesBySessionId($id: ID!) {
+    findUserOrGroup(id: $id) {
+        ... on User {
+        jobQueries {
+          id
+          content
+          visible
+        }
+      }
+      ... on Group {
+        jobQueries {
+          id
+          content
+          visible
         }
       }
     }

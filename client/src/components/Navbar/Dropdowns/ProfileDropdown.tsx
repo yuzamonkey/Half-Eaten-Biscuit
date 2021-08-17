@@ -23,7 +23,7 @@ const ProfileDropdown = ({ show, setShow }: any) => {
   const history = useHistory()
 
   if (loading || me.loading) {
-    return <div className="dropdown active">
+    return <div className={show ? "dropdown active" : "dropdown"}>
       <Loading />
     </div>
   }

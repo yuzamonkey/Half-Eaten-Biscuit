@@ -171,7 +171,7 @@ const resolvers: IResolvers = {
           }
         })
       const group = await Group.findOne({ _id: args.id })
-        .populate('users notifications')
+        .populate('jobQueries users notifications')
         .populate({
           path: 'profile', populate: {
             path: 'groupTypes'
