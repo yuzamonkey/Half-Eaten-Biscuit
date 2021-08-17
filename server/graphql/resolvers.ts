@@ -267,8 +267,14 @@ const resolvers: IResolvers = {
     allGroupSkillCategories: async () => {
       return GroupCategory.find({}).populate('parent children')
     },
-    allNotifications: () => {
-      return NotificationModel.find({})
+    allNotifications: async () => {
+      const notifications = await NotificationModel.find({})
+      const sorted = notifications.sort((n1: any, n2: any) => {
+        const n1date = new Date(n1.date).getTime()
+        const n2date = new Date(n2.date).getTime()
+        return n2date - n1date
+      })
+      return sorted
     }
   },
   UserOrGroup: {

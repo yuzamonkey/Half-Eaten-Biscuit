@@ -44,6 +44,7 @@ export const GET_NOTIFICATIONS = gql`
           id
           content
           link
+          date
         }
       }
       ... on Group {
@@ -51,6 +52,7 @@ export const GET_NOTIFICATIONS = gql`
           id
           content
           link
+          date
         }
       }
     }

@@ -48,7 +48,8 @@ app.get('/log', (_req, res) => {
   const log = [
     '2021/06/25 14.36 add backend testing to pipeline (15.16 does not work, connecting to undefined. Cause?: GitHub Actions does not recognise envvar)',
     '2021/06/25 15.08 tsCompiler: ES2020 -> ES2019',
-    '2021/08/15 19.38 lots of new components'
+    '2021/08/15 19.38 lots of new components',
+    '2021/08/17 13.10 add css to registration pages'
   ]
   res.send(log)
 })

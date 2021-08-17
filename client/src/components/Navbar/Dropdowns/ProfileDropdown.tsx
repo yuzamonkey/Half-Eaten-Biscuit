@@ -22,10 +22,6 @@ const ProfileDropdown = ({ show, setShow }: any) => {
 
   const history = useHistory()
 
-  if (!show) {
-    return null
-  }
-
   if (loading || me.loading) {
     return <div className="dropdown">
       <Loading />
@@ -67,7 +63,7 @@ const ProfileDropdown = ({ show, setShow }: any) => {
   }
 
   return (
-    <div className="dropdown">
+    <div className={show ? "dropdown active" : "dropdown"}>
       <div className="dropdown-profile" onClick={handleProfileClick}>
         <div>
           <LargeProfileImage image={data.findUserOrGroup.profile.image} />
@@ -75,21 +71,23 @@ const ProfileDropdown = ({ show, setShow }: any) => {
         <h3 className="profile-name">{data.findUserOrGroup.username || data.findUserOrGroup.profile.name}</h3>
         <p className="secondary-text">Show profile</p>
       </div>
-      <div className="profile-switch-options">
-        <b>Switch profile</b>
-        {me.data.me.id !== userContext.sessionId &&
-          <div className="dropdown-link" onClick={handleMeClick}>{me.data.me.username}</div>
-        }
-        {me.data.me.groups.map(group =>
-          group.id !== userContext.sessionId &&
-          <div
-            className="dropdown-link"
-            onClick={() => handleProfileChange(group.id)}
-            key={group.id}>
-            {group.profile.name}
-          </div>
-        )}
-      </div>
+      {me.data.me.groups.length > 0 &&
+        <div className="profile-switch-options">
+          <b>Switch profile</b>
+          {me.data.me.id !== userContext.sessionId &&
+            <div className="dropdown-link" onClick={handleMeClick}>{me.data.me.username}</div>
+          }
+          {me.data.me.groups.map(group =>
+            group.id !== userContext.sessionId &&
+            <div
+              className="dropdown-link"
+              onClick={() => handleProfileChange(group.id)}
+              key={group.id}>
+              {group.profile.name}
+            </div>
+          )}
+        </div>
+      }
       <div className="dropdown-link" onClick={handleNewGroupClick}>New group +</div>
       <div className="dropdown-link" onClick={handleSettingsClick}>Settings</div>
       <div className="dropdown-link" onClick={handleLogout}>Log out</div>

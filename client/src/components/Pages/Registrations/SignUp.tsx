@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/client'
 import { SIGNUP } from '../../../graphql/mutations'
+import { TitleAndLogo } from '../../UtilityComponents/UtilityComponents';
 
 const SignUp = () => {
   const history = useHistory()
@@ -36,36 +37,69 @@ const SignUp = () => {
   }
 
   return (
-    <div>
-      <h2>Sign up</h2>
-      <form onSubmit={submit}>
-        <div>
-          username <input
-            value={username}
-            onChange={({ target }) => setUsername(target.value)}
-          />
+    <div className="registration-container">
+      <div className="registration-items-container signup">
+        <div className="registration-title-and-logo-container">
+          <TitleAndLogo />
+          <h2>Sign up</h2>
         </div>
-        <div>
-          first name <input
-            value={firstName}
-            onChange={({ target }) => setFirstName(target.value)}
-          />
-        </div>
-        <div>
-          last name <input
-            value={lastName}
-            onChange={({ target }) => setLastName(target.value)}
-          />
-        </div>
-        <div>
-          password <input
-            type='password'
-            value={password}
-            onChange={({ target }) => setPassword(target.value)}
-          />
-        </div>
-        <button type='submit'>Sign up</button>
-      </form>
+        <form onSubmit={submit}>
+          <div className="registration-inputs-container">
+            <div>
+              First name
+              <br />
+              <input
+                value={firstName}
+                onChange={({ target }) => setFirstName(target.value)}
+              />
+            </div>
+            <br />
+            <div>
+              Last name
+              <br />
+              <input
+                value={lastName}
+                onChange={({ target }) => setLastName(target.value)}
+              />
+            </div>
+            <br />
+            <div>
+              Email or username
+              <br />
+              <input
+                value={username}
+                onChange={({ target }) => setUsername(target.value)}
+              />
+            </div>
+            <br />
+            <div>
+              Password
+              <br />
+              <input
+                type='password'
+                value={password}
+                onChange={({ target }) => setPassword(target.value)}
+              />
+            </div>
+              <br />
+            <div>
+              Confirm password
+              <br />
+              <input
+                type='password'
+                value={password}
+                onChange={({ target }) => setPassword(target.value)}
+              />
+            </div>
+          </div>
+          <div className="registration-submit-button-container">
+            <button className="blue-button" type='submit'>Sign up</button>
+          </div>
+        </form>
+        <p className="registration-switch-view-text">
+          Already have an account? <a href="/signin">Sign in</a>
+        </p>
+      </div>
     </div>
   )
 }

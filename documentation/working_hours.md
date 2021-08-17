@@ -142,6 +142,8 @@
       PM: Jobquery form
     Fri:
       PM: Notifications, jobmarket, bugfixes, search handling
+    Sun: 
+      PM: Miscellaneous
 
 
 
@@ -174,7 +176,7 @@
 | Week 26 |||   
 | 28.6. | 6.5 | Frontend css improvements |
 | 29.6. | 3 | Adding groups |
-| 30.6. | 2.5 | Switch between user and group by using sessionStorage |
+| 30.6. | 2.5 | Switch between user and group by using session storage |
 | 1.7.  | 3.5 | Smaller React components, create group from frontend |
 | Week 28 |||   
 | 12.7.  | 1.5 | Profile and skills planning |
@@ -202,4 +204,6 @@
 | 11.8.  | 2.5 | Jobquery notifications, jobquery form |
 | 13.8.  | 4 | Notifications, jobmarket, bugfixes, search handling |
 | 15.8.  | 4.5 | Miscellaneous, push to heroku |
-| =     | 144.5      |               |
+| Week 33 |||   
+| 16.8.  | 2.5 | CSS |
+| =     | 147.0      |               |

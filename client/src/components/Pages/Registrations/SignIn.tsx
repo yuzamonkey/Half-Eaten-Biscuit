@@ -5,6 +5,9 @@ import { useHistory } from 'react-router-dom'
 import { SESSION_TOKEN, SIGN_IN_TOKEN } from '../../../utils/constants'
 import { UserContext } from '../../UtilityComponents/UserContext'
 
+import './Registrations.css'
+import { TitleAndLogo } from '../../UtilityComponents/UtilityComponents'
+
 const SignIn = () => {
   const userContext = useContext(UserContext)
   const history = useHistory()
@@ -37,23 +40,41 @@ const SignIn = () => {
   }
 
   return (
-    <div>
-      <form onSubmit={submit}>
-        <div>
-          username <input
-            value={username}
-            onChange={({ target }) => setUsername(target.value)}
-          />
+    <div className="registration-container">
+      <div className="registration-items-container signin">
+        <div className="registration-title-and-logo-container">
+          <TitleAndLogo />
+          <h2>Sign in</h2>
         </div>
-        <div>
-          password <input
-            type='password'
-            value={password}
-            onChange={({ target }) => setPassword(target.value)}
-          />
-        </div>
-        <button type='submit'>login</button>
-      </form>
+        <form onSubmit={submit}>
+          <div className="registration-inputs-container">
+            <div>
+              Email or username 
+              <br />
+              <input
+                value={username}
+                onChange={({ target }) => setUsername(target.value)}
+              />
+            </div>
+            <br />
+            <div>
+              Password 
+              <br />
+              <input
+                type='password'
+                value={password}
+                onChange={({ target }) => setPassword(target.value)}
+              />
+            </div>
+          </div>
+          <div className="registration-submit-button-container">
+            <button className="blue-button" type='submit'>Sign in</button>
+          </div>
+        </form>
+        <p className="registration-switch-view-text">
+        No account? <a href="/signup">Sign up</a>
+        </p>
+      </div>
     </div>
   )
 }
