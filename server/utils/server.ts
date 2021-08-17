@@ -42,7 +42,7 @@ app.get('/log', (_req, res) => {
     '2021/06/25 15.08 tsCompiler: ES2020 -> ES2019',
     '2021/08/15 19.38 lots of new components',
     '2021/08/17 13.10 add css to registration pages',
-    '2021/08/17 hh.mm filesizelimit',
+    '2021/08/17 16.40 filesizelimit, minor ux improvements',
   ]
   res.send(log)
 })
