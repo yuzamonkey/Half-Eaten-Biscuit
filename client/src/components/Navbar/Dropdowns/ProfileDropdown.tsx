@@ -23,7 +23,7 @@ const ProfileDropdown = ({ show, setShow }: any) => {
   const history = useHistory()
 
   if (loading || me.loading) {
-    return <div className="dropdown">
+    return <div className={show ? "dropdown active" : "dropdown"}>
       <Loading />
     </div>
   }
@@ -68,7 +68,7 @@ const ProfileDropdown = ({ show, setShow }: any) => {
         <div>
           <LargeProfileImage image={data.findUserOrGroup.profile.image} />
         </div>
-        <h3 className="profile-name">{data.findUserOrGroup.username || data.findUserOrGroup.profile.name}</h3>
+        <h3 className="profile-name">{data.findUserOrGroup.profile.name}</h3>
         <p className="secondary-text">Show profile</p>
       </div>
       {me.data.me.groups.length > 0 &&

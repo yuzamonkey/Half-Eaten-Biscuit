@@ -19,6 +19,7 @@ export const SIGNUP = gql`
 export const CREATE_JOBQUERY = gql`
   mutation createJobquery ($content: String!, $startSchedule: Date!, $endSchedule: Date, $wantedCategories: [ID!]!, $postedBy: ID!, $location: String!, $salary: String!) {
     createJobquery(content: $content, startSchedule: $startSchedule, endSchedule: $endSchedule, wantedCategories: $wantedCategories, postedBy: $postedBy, location: $location, salary: $salary) {
+      id
       content
     }
   }
@@ -43,6 +44,7 @@ export const SEND_MESSAGE = gql`
 export const CREATE_GROUP = gql`
   mutation createGroup($name: String!, $users: [ID!]!, $about: String!, $image: String!, $skills: [ID]!){
     createGroup(name: $name, users: $users, about: $about, image: $image, skills: $skills) {
+      id
       kind
     }
   }
@@ -51,6 +53,7 @@ export const CREATE_GROUP = gql`
 export const CREATE_USER_PROFILE = gql`
   mutation createUserProfile($skills: [ID]!, $about: String!, $image: String){
     createUserProfile(skills: $skills, about: $about, image: $image) {
+      id
       about
     }
   }

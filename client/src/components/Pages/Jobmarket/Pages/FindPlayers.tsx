@@ -1,4 +1,5 @@
 import React from 'react'
+import Profiles from '../../Profiles/Profiles'
 
 const FindPlayers = () => {
   return (
@@ -8,6 +9,7 @@ const FindPlayers = () => {
         <li>Group or individuals,</li>
         <li>By instrument, by group type</li>
       </ul>
+    <Profiles />
     </div>
   )
 }

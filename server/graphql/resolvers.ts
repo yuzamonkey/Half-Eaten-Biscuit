@@ -171,7 +171,7 @@ const resolvers: IResolvers = {
           }
         })
       const group = await Group.findOne({ _id: args.id })
-        .populate('users notifications')
+        .populate('jobQueries users notifications')
         .populate({
           path: 'profile', populate: {
             path: 'groupTypes'
@@ -689,15 +689,9 @@ const resolvers: IResolvers = {
       const skills = args.skills
       const about = args.about
       const image = args.image
-      const firstName = args.firstName
-      const lastName = args.lastName
-      const name = `${firstName} ${lastName}`
 
       try {
         const userProfile = await UserProfile.findOne({ user: myId })
-        userProfile.name = name
-        userProfile.firstName = firstName
-        userProfile.lastName = lastName
         userProfile.about = about
         userProfile.skills = skills
         userProfile.image = image

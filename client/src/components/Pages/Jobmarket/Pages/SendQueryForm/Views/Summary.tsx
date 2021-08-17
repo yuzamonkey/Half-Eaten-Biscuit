@@ -1,27 +1,30 @@
 import { useMutation } from "@apollo/client"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { CREATE_JOBQUERY } from "../../../../../../graphql/mutations"
 import { categoriesWithParentsRemoved } from "../../../../../../utils/utilityFunctions"
 import { UserContext } from "../../../../../UtilityComponents/UserContext"
-import { Button } from "../../../../../UtilityComponents/UtilityComponents"
+import { Button, Loading } from "../../../../../UtilityComponents/UtilityComponents"
 
 
 const Summary = ({ wantedCategories, content, location, salary, startSchedule, endSchedule, }) => {
 
+  const [submitCompleted, setSubmitCompleted] = useState(false)
+  const [redirectAdress, setRedirectAdress] = useState('')
+
   const userContext = useContext(UserContext)
 
-  const [createQuery] = useMutation(CREATE_JOBQUERY, {
+  const [createQuery, { loading }] = useMutation(CREATE_JOBQUERY, {
     onError: (error) => {
       console.log("Error at create query mutation: \n", error)
     }
   })
 
-  const submit = () => {
+  const submit = async () => {
     const postedBy = userContext.sessionId
     const parentsRemoved = categoriesWithParentsRemoved(wantedCategories)
     const categoryIds = parentsRemoved.map(c => c.id)
 
-    createQuery({
+    const response = await createQuery({
       variables: {
         content: content,
         startSchedule: startSchedule,
@@ -32,19 +35,36 @@ const Summary = ({ wantedCategories, content, location, salary, startSchedule, e
         location: location
       }
     })
+    if (response.data?.createJobquery.content === content) {
+      setSubmitCompleted(true)
+      setRedirectAdress(`/jobmarket/queries/${response.data.createJobquery.id}`)
+    } else {
+      console.log("The name might be taken")
+    }
+  }
+
+  if (loading) {
+    return <Loading />
   }
 
   return (
-    <div>
-      <h1>Summary</h1>
-      {categoriesWithParentsRemoved(wantedCategories).map(category => <div key={category.id}>{category.name}</div>)}
-      <p>content: {content}</p>
-      <p>location: {location}</p>
-      <p>salary: {salary}</p>
-      <p>startSchedule: {startSchedule}</p>
-      <p>endSchedule: {endSchedule}</p>
-      <Button text="Submit" handleClick={submit} />
-    </div>
+    !submitCompleted
+      ?
+      <div>
+        <h1>Summary</h1>
+        {categoriesWithParentsRemoved(wantedCategories).map(category => <div key={category.id}>{category.name}</div>)}
+        <p>content: {content}</p>
+        <p>location: {location}</p>
+        <p>salary: {salary}</p>
+        <p>startSchedule: {startSchedule}</p>
+        <p>endSchedule: {endSchedule}</p>
+        <Button text="Submit" handleClick={submit} />
+      </div>
+      :
+      <div>
+        <h1>Jobpost added</h1>
+        <p>See it <a href={redirectAdress}>here</a></p>
+      </div>
   )
 }
 

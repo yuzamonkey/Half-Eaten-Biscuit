@@ -98,7 +98,7 @@ const Navbar = () => {
                 tabIndex={0}
                 className="nav-links">
                 <i className="fa fa-user"> ▿ </i>
-                <span className="nav-current-session-name"> {currentUserNameResult.data && (currentUserNameResult.data.findUserOrGroup.username || currentUserNameResult.data.findUserOrGroup.profile.name)}</span>
+                <span className="nav-current-session-name"> {currentUserNameResult.data && (currentUserNameResult.data.findUserOrGroup.profile.firstName || currentUserNameResult.data.findUserOrGroup.profile.name)}</span>
               </div>
               <ProfileOptionsDropdown
                 show={showProfileOptionsDropdown}
