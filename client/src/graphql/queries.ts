@@ -88,7 +88,9 @@ export const FIND_USER_OR_GROUP = gql`
         username
         profile {
           about,
-          image
+          image,
+          firstName,
+          name
         }
       }
       ... on Group {
