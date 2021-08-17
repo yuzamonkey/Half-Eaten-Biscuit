@@ -33,7 +33,7 @@ app.get('/health', (_req, res) => {
 })
 
 app.get('/version', (_req, res) => {
-  res.send('0.0.3')
+  res.send('0.0.4, 17.8.2021 16.52')
 })
 
 app.get('/log', (_req, res) => {
