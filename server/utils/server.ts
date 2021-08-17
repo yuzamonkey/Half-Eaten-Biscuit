@@ -22,8 +22,7 @@ const frontendRoutes = [
   '/profiles/:id',
   '/settings',
   '/creategroup',
-  '/createprofile',
-  '/:invalidroute'
+  '/createprofile'
 ]
 
 frontendRoutes.forEach(route => app.use(route, express.static("public")))
@@ -33,7 +32,7 @@ app.get('/health', (_req, res) => {
 })
 
 app.get('/version', (_req, res) => {
-  res.send('0.0.4, 17.8.2021 16.52')
+  res.send('0.0.4, 17.8.2021 18.26')
 })
 
 app.get('/log', (_req, res) => {
@@ -43,6 +42,7 @@ app.get('/log', (_req, res) => {
     '2021/08/15 19.38 lots of new components',
     '2021/08/17 13.10 add css to registration pages',
     '2021/08/17 16.40 filesizelimit, minor ux improvements',
+    '2021/08/17 18.25 remove invalid route, caused issue with playground',
   ]
   res.send(log)
 })
