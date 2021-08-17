@@ -14,14 +14,15 @@ const Summary = ({ skills, about, image }) => {
 
   const handleSubmit = () => {
     const skillIds = skills.map(s => s.id)
-    createUserProfile({
+    const response = createUserProfile({
       variables: {
         skills: skillIds,
         about: about,
         image: image
       }
     })
-    window.location.assign('/')
+    console.log("RESPONSE", response)
+    //window.location.assign('/')
   }
 
   return (
