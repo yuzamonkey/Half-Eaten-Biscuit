@@ -1,21 +1,23 @@
 import { useMutation } from "@apollo/client"
 
-import { Button } from "../../../../UtilityComponents/UtilityComponents"
+import { Button, Loading } from "../../../../UtilityComponents/UtilityComponents"
 import { CREATE_GROUP } from "../../../../../graphql/mutations"
+import { useState } from "react"
 
 const Summary = ({ selectedUsers, groupName, image, skills, about }) => {
-  
-  const [createGroup] = useMutation(CREATE_GROUP, {
+  const [submitCompleted, setSubmitCompleted] = useState(false)
+  const [redirectAdress, setRedirectAdress] = useState('')
+  const [createGroup, { loading }] = useMutation(CREATE_GROUP, {
     onError: (error) => {
       console.log("Error at create user profile mutation: \n", error)
     }
   })
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const skillIds = skills.map(skill => skill.id)
     const userIds = selectedUsers.map(user => user.id)
 
-    createGroup({
+    const response = await createGroup({
       variables: {
         name: groupName,
         users: userIds,
@@ -24,10 +26,23 @@ const Summary = ({ selectedUsers, groupName, image, skills, about }) => {
         skills: skillIds
       }
     })
-    window.location.assign('/')
+    console.log("RESPONSE", response)
+    if (response.data?.createGroup.kind === 'Group') {
+      setSubmitCompleted(true)
+      setRedirectAdress(`/profiles/${response.data.createGroup.id}`)
+    } else {
+      console.log("The name might be taken")
+    }
+    //window.location.assign('/')
+  }
+
+  if (loading) {
+    return <Loading />
   }
 
   return (
+    !submitCompleted
+    ?
     <div>
       <h1>Summary</h1>
       USERS: {selectedUsers.map(u => <p>{u.username}</p>)}
@@ -37,6 +52,11 @@ const Summary = ({ selectedUsers, groupName, image, skills, about }) => {
       ABOUT: {about}
       <Button handleClick={handleSubmit} text='Submit' />
     </div>
+    :
+    <div>
+        <h1>Group created succesfully</h1>
+        <p>See it <a href={redirectAdress}>here</a></p>
+      </div>
   )
 }
 

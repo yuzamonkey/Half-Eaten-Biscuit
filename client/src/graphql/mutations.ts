@@ -43,6 +43,7 @@ export const SEND_MESSAGE = gql`
 export const CREATE_GROUP = gql`
   mutation createGroup($name: String!, $users: [ID!]!, $about: String!, $image: String!, $skills: [ID]!){
     createGroup(name: $name, users: $users, about: $about, image: $image, skills: $skills) {
+      id
       kind
     }
   }

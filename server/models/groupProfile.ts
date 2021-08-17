@@ -8,6 +8,7 @@ const groupProfileSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
+    unique: true,
   },
   group: {
     type: mongoose.Schema.Types.ObjectId,
