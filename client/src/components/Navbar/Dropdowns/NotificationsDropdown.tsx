@@ -39,16 +39,23 @@ const NotificationsDropdown = ({ show, setShow, setHasUnseenNotifications }: any
         return n2date - n1date
       })
       setNotifications(sorted)
-      for (let n of sorted) {
-        console.log("N", n.seen)
-        if (!n.seen) {
-          setHasUnseenNotifications(true)
-          break
-        }
-      }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }
   }, [data])
+
+  useEffect(() => {
+    if (notifications) {
+      let hasUnseenNotifications = false
+      for (let n of notifications) {
+        if (!n.seen) {
+          hasUnseenNotifications = true
+          break
+        }
+      }
+      setHasUnseenNotifications(hasUnseenNotifications)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [notifications])
 
   useSubscription(NOTIFICATION_ADDED, {
     onSubscriptionData: async ({ subscriptionData }) => {
@@ -62,6 +69,9 @@ const NotificationsDropdown = ({ show, setShow, setHasUnseenNotifications }: any
     //TODO: set notification as seen
     history.push(notification.object.link)
   }
+
+
+
 
   return (
     <div className={show ? "dropdown active" : "dropdown"}>
