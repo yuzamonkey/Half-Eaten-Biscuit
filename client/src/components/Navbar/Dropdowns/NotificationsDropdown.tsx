@@ -9,12 +9,15 @@ import { UserContext } from '../../UtilityComponents/UserContext'
 
 interface INotification {
   id: string,
-  content: string,
-  link: string,
-  date: string
+  seen: boolean,
+  object: {
+    content: string,
+    link: string,
+    date: string
+  }
 }
 
-const NotificationsDropdown = ({ show, setShow }: any) => {
+const NotificationsDropdown = ({ show, setShow, setHasUnseenNotifications }: any) => {
   const history = useHistory()
   const client = useApolloClient()
   const userContext = useContext(UserContext)
@@ -36,6 +39,13 @@ const NotificationsDropdown = ({ show, setShow }: any) => {
         return n2date - n1date
       })
       setNotifications(sorted)
+      for (let n of sorted) {
+        console.log("N", n.seen)
+        if (!n.seen) {
+          setHasUnseenNotifications(true)
+          break
+        }
+      }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }
   }, [data])
@@ -49,25 +59,26 @@ const NotificationsDropdown = ({ show, setShow }: any) => {
 
   const handleNotificationPress = (notification) => {
     setShow(false)
-    history.push(notification.link)
+    //TODO: set notification as seen
+    history.push(notification.object.link)
   }
 
   return (
     <div className={show ? "dropdown active" : "dropdown"}>
       <h3 className="notifications-title">Notifications</h3>
-      {notifications.length !== 0
+      {notifications.length === 0
         ?
+        <div>No notifications</div>
+        :
         notifications.map(n => {
           return (
             <div key={n.id}>
               <ul>
-                <li className="notification-container" onClick={() => handleNotificationPress(n)}>{n.content}</li>
+                <li className="notification-container" onClick={() => handleNotificationPress(n)}>{n.seen ? n.object.content : <b>{n.object.content}</b>}</li>
               </ul>
             </div>
           )
         })
-        :
-        <div>No notifications</div>
       }
     </div>
   )

@@ -92,7 +92,7 @@ const resolvers: IResolvers = {
     },
     findUser: (_root, args) => {
       return User.findOne({ _id: args.id })
-        .populate('jobAds conversations profile notifications')
+        .populate('jobAds conversations profile')
         .populate({
           path: 'profile',
           populate: {
@@ -106,6 +106,12 @@ const resolvers: IResolvers = {
           path: 'groups',
           populate: {
             path: 'profile'
+          }
+        })
+        .populate({
+          path: 'notifications',
+          populate: {
+            path: 'object'
           }
         })
     },
@@ -145,7 +151,7 @@ const resolvers: IResolvers = {
     },
     findUserOrGroup: async (_root, args) => {
       const user = await User.findOne({ _id: args.id })
-        .populate('jobAds profile notifications')
+        .populate('jobAds profile')
         .populate({
           path: 'profile',
           populate: {
@@ -170,8 +176,14 @@ const resolvers: IResolvers = {
             }
           }
         })
+        .populate({
+          path: 'notifications',
+          populate: {
+            path: 'object'
+          }
+        })
       const group = await Group.findOne({ _id: args.id })
-        .populate('jobAds users notifications')
+        .populate('jobAds users')
         .populate({
           path: 'profile', populate: {
             path: 'categories'
@@ -184,6 +196,12 @@ const resolvers: IResolvers = {
             populate: {
               path: 'profile'
             }
+          }
+        })
+        .populate({
+          path: 'notifications',
+          populate: {
+            path: 'object'
           }
         })
       return user || group
@@ -459,7 +477,7 @@ const resolvers: IResolvers = {
             object: savedJobAd
           }
         })
-        newNotification.save()
+        await newNotification.save()
 
         //manage who will get the notification
         const notificationReceiverIds: string[] = []
@@ -484,12 +502,16 @@ const resolvers: IResolvers = {
           }
         }
 
-        //BUG BELOW
+        const notificationObject = {
+          seen: false,
+          object: newNotification
+        }
+
         for (let id of notificationReceiverIds) {
           if (JSON.parse(id) !== postedBy) {
             const receiver = await User.findOne({ _id: JSON.parse(id) }) || await Group.findOne({ _id: JSON.parse(id) })
             if (receiver) {
-              receiver.notifications = receiver.notifications.concat(newNotification)
+              receiver.notifications = receiver.notifications.concat(notificationObject)
               await receiver.save()
             }
           }
@@ -664,11 +686,17 @@ const resolvers: IResolvers = {
           }
         })
         await newNotification.save()
+
+        const notificationObject = {
+          seen: false,
+          object: newNotification
+        }
+
         for (let id of userIds) {
           if (id !== currentUser.id) {
             const user = await User.findOne({ _id: id })
             if (user) {
-              user.notifications = user.notifications.concat(newNotification)
+              user.notifications = user.notifications.concat(notificationObject)
               await user.save()
             }
           }

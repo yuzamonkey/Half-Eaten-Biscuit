@@ -1,11 +1,12 @@
 import React, { useContext, useState } from 'react';
 import { NavLink } from "react-router-dom";
-import './Navbar.css'
-import NotificationsDropdown from './Dropdowns/NotificationsDropdown'
-import ProfileOptionsDropdown from './Dropdowns/ProfileDropdown'
 import { UserContext } from '../UtilityComponents/UserContext';
 import { useQuery } from '@apollo/client';
+
+import './Navbar.css'
 import { FIND_USER_OR_GROUP } from '../../graphql/queries';
+import NotificationsDropdown from './Dropdowns/NotificationsDropdown'
+import ProfileOptionsDropdown from './Dropdowns/ProfileDropdown'
 
 const Navbar = () => {
   const userContext = useContext(UserContext)
@@ -14,6 +15,8 @@ const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [showNotification, setShowNotifications] = useState(false)
   const [showProfileOptionsDropdown, setShowProfileOptionsDropdown] = useState(false)
+
+  const [hasUnseenNotifications, setHasUnseenNotifications] = useState(false)
 
   const handleClick = () => {
     setShowMenu(!showMenu);
@@ -85,11 +88,13 @@ const Navbar = () => {
                 tabIndex={0}
                 className="nav-links">
                 {/* Notifications ▼ */}
-                <i className="fa fa-bell"> ▿</i>
+                <i className={hasUnseenNotifications ? "fa fa-bell new-notifications" : "fa fa-bell"}> ▿</i>
               </div>
               <NotificationsDropdown
                 show={showNotification}
-                setShow={setShowNotifications} />
+                setShow={setShowNotifications} 
+                setHasUnseenNotifications={setHasUnseenNotifications}
+                />
             </li>
 
             <li className="nav-item dropdown-container">

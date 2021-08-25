@@ -50,18 +50,24 @@ export const GET_NOTIFICATIONS = gql`
     findUserOrGroup(id: $id) {
         ... on User {
         notifications {
-          id
-          content
-          link
-          date
+          seen
+          object {
+            id
+            content
+            link
+            date
+          }
         }
       }
       ... on Group {
         notifications {
-          id
-          content
-          link
-          date
+          seen
+          object {
+            id
+            content
+            link
+            date
+          }
         }
       }
     }

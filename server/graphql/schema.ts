@@ -71,7 +71,7 @@ const typeDefs = gql`
     groups: [Group]!
     available: Boolean!
     kind: String!
-    notifications: [Notification]!
+    notifications: [NotificationObject]!
   }
 
   type Group {
@@ -81,7 +81,12 @@ const typeDefs = gql`
     jobAds: [JobAd]!
     conversations: [Conversation]!
     kind: String!
-    notifications: [Notification]!
+    notifications: [NotificationObject]!
+  }
+
+  type NotificationObject {
+    seen: Boolean
+    object: Notification
   }
 
   type UserProfile {

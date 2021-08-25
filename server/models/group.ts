@@ -20,8 +20,14 @@ const groupSchema = new mongoose.Schema({
     ref: 'GroupProfile'
   },
   notifications: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Notification'
+    seen: {
+      type: Boolean,
+      default: false
+    },
+    object: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Notification'
+    }
   }],
   kind: {
     type: String,
