@@ -4,7 +4,7 @@ import { Button, Loading } from "../../../../UtilityComponents/UtilityComponents
 import { CREATE_GROUP } from "../../../../../graphql/mutations"
 import { useState } from "react"
 
-const Summary = ({ selectedUsers, groupName, image, skills, about }) => {
+const Summary = ({ selectedUsers, groupName, image, categories, about }) => {
   const [submitCompleted, setSubmitCompleted] = useState(false)
   const [redirectAdress, setRedirectAdress] = useState('')
 
@@ -15,7 +15,7 @@ const Summary = ({ selectedUsers, groupName, image, skills, about }) => {
   })
 
   const handleSubmit = async () => {
-    const skillIds = skills.map(skill => skill.id)
+    const categoryIds = categories.map(skill => skill.id)
     const userIds = selectedUsers.map(user => user.id)
 
     const response = await createGroup({
@@ -24,7 +24,7 @@ const Summary = ({ selectedUsers, groupName, image, skills, about }) => {
         users: userIds,
         about: about,
         image: image,
-        skills: skillIds
+        categories: categoryIds
       }
     })
     if (response.data?.createGroup.kind === 'Group') {
@@ -48,7 +48,7 @@ const Summary = ({ selectedUsers, groupName, image, skills, about }) => {
         USERS: {selectedUsers.map(u => <p>{u.username}</p>)}
         NAME: {groupName}
         <img src={image} alt="summaryimage"></img>
-        {skills.map(skill => <p>{skill.name}</p>)}
+        {categories.map(skill => <p>{skill.name}</p>)}
         ABOUT: {about}
         <Button handleClick={handleSubmit} text='Submit' />
       </div>
