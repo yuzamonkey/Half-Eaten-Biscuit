@@ -104,9 +104,9 @@ export const FIND_USER_OR_GROUP = gql`
         kind
         username
         profile {
-          about,
-          image,
-          firstName,
+          about
+          image
+          firstName
           name
         }
       }
@@ -115,11 +115,15 @@ export const FIND_USER_OR_GROUP = gql`
         kind
         users {
           id
-          username
+          profile {
+            name
+            image
+          }
         }
         profile {
-          name,
+          name
           image
+          about
         }
       }
     }

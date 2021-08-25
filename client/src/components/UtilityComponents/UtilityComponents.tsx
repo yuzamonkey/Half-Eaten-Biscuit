@@ -64,6 +64,12 @@ export const LargeProfileImage = ({ image }) => {
   )
 }
 
+export const VeryLargeProfileImage = ({ image }) => {
+  return (
+    <img src={image} alt="profileimg" className="very-large-profile-image"></img>
+  )
+}
+
 export const SmallProfileCard = ({ id, image, name }) => {
   return (
     <div className="small-profile-card-container">

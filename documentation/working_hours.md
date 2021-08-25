@@ -208,5 +208,5 @@
 | 16.8.  | 2.5 | CSS |
 | 17.8.  | 2 | Miscellaneous |
 | Week 34 |||   
-| 25.8.  | 3.5, 1900- | Refactoring, notifications |
-| =     | 152.5      |               |
+| 25.8.  | 4.5 | Refactoring, notifications, css |
+| =     | 153.5      |               |

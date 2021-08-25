@@ -53,7 +53,7 @@ const Profiles = () => {
           if (name.toLowerCase().includes(searchInput.toLowerCase())) {
             const profileUrl = `/profiles/${item.id}`
             return (
-              <div className="profile-container" key={item.id}>
+              <div className="profile-card-container" key={item.id}>
                 <LargeProfileCard
                   id={item.id}
                   image={item.profile.image}

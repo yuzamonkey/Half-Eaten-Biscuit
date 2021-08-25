@@ -244,6 +244,15 @@
   border-radius: 50%;
 }
 
+/* VERY_LARGE_PROFILE_IMAGE */
+
+.very-large-profile-image {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
 /* SMALL_PROFILE_CARD */
 
 .small-profile-card-container {

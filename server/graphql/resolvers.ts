@@ -183,7 +183,12 @@ const resolvers: IResolvers = {
           }
         })
       const group = await Group.findOne({ _id: args.id })
-        .populate('jobAds users')
+        .populate('jobAds')
+        .populate({
+          path: 'users', populate: {
+            path: 'profile'
+          }
+        })
         .populate({
           path: 'profile', populate: {
             path: 'categories'

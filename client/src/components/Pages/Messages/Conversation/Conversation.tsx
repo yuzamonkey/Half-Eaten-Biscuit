@@ -7,7 +7,7 @@ import { FIND_CONVERSATION } from '../../../../graphql/queries';
 import { SEND_MESSAGE } from '../../../../graphql/mutations';
 import { MESSAGE_ADDED } from '../../../../graphql/subscriptions';
 import { UserContext } from '../../../UtilityComponents/UserContext';
-import { Loading } from '../../../UtilityComponents/UtilityComponents';
+import { Loading, SmallProfileImage } from '../../../UtilityComponents/UtilityComponents';
 
 const Conversation = ({ setShowContacts }: any) => {
   const userContext = useContext(UserContext)
@@ -131,7 +131,7 @@ const Conversation = ({ setShowContacts }: any) => {
             <div
               className={message.sender.object.id === userContext.sessionId ? "message-container user-sent" : "message-container"}
               key={message.id}>
-              <img src={message.sender.object.profile.image} alt="profileimg" className="message-profile-image"></img>
+              <SmallProfileImage image={message.sender.object.profile.image} />
               {message.body}
             </div>
           )
