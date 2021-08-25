@@ -220,6 +220,15 @@
 /* SMALL_PROFILE_IMAGE */
 
 .small-profile-image {
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* MEDIUM_PROFILE_IMAGE */
+
+.medium-profile-image {
   width: 85px;
   height: 85px;
   object-fit: cover;

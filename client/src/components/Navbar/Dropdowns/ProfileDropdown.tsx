@@ -75,7 +75,7 @@ const ProfileDropdown = ({ show, setShow }: any) => {
         <div className="profile-switch-options">
           <b>Switch profile</b>
           {me.data.me.id !== userContext.sessionId &&
-            <div className="dropdown-link" onClick={handleMeClick}>{me.data.me.username}</div>
+            <div className="dropdown-link" onClick={handleMeClick}>{me.data.me.profile.name}</div>
           }
           {me.data.me.groups.map(group =>
             group.id !== userContext.sessionId &&

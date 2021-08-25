@@ -7,10 +7,11 @@ import './Navbar.css'
 import { FIND_USER_OR_GROUP } from '../../graphql/queries';
 import NotificationsDropdown from './Dropdowns/NotificationsDropdown'
 import ProfileOptionsDropdown from './Dropdowns/ProfileDropdown'
+import { SmallProfileImage } from '../UtilityComponents/UtilityComponents';
 
 const Navbar = () => {
   const userContext = useContext(UserContext)
-  const currentUserNameResult = useQuery(FIND_USER_OR_GROUP, {variables: {id: userContext.sessionId}})
+  const currentProfileResult = useQuery(FIND_USER_OR_GROUP, { variables: { id: userContext.sessionId } })
 
   const [showMenu, setShowMenu] = useState(false);
   const [showNotification, setShowNotifications] = useState(false)
@@ -92,9 +93,9 @@ const Navbar = () => {
               </div>
               <NotificationsDropdown
                 show={showNotification}
-                setShow={setShowNotifications} 
+                setShow={setShowNotifications}
                 setHasUnseenNotifications={setHasUnseenNotifications}
-                />
+              />
             </li>
 
             <li className="nav-item dropdown-container">
@@ -102,8 +103,19 @@ const Navbar = () => {
                 onClick={handleProfileDrop}
                 tabIndex={0}
                 className="nav-links">
-                <i className="fa fa-user"> ▿ </i>
-                <span className="nav-current-session-name"> {currentUserNameResult.data && (currentUserNameResult.data.findUserOrGroup.profile.firstName || currentUserNameResult.data.findUserOrGroup.profile.name)}</span>
+                {/* <i className="fa fa-user"> ▿ </i> */}
+                <span className="nav-current-session-name">
+                  {currentProfileResult.data &&
+                    (currentProfileResult.data.findUserOrGroup.profile.firstName ||
+                      currentProfileResult.data.findUserOrGroup.profile.name)}
+                </span>
+                &nbsp;
+                {currentProfileResult.data &&
+                  <SmallProfileImage
+                    image={currentProfileResult.data.findUserOrGroup.profile.image}
+                  />}
+                &nbsp;
+                ▿
               </div>
               <ProfileOptionsDropdown
                 show={showProfileOptionsDropdown}

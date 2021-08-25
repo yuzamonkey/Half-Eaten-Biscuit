@@ -52,6 +52,12 @@ export const SmallProfileImage = ({ image }) => {
   )
 }
 
+export const MediumProfileImage = ({ image }) => {
+  return (
+    <img src={image} alt="profileimg" className="medium-profile-image"></img>
+  )
+}
+
 export const LargeProfileImage = ({ image }) => {
   return (
     <img src={image} alt="profileimg" className="large-profile-image"></img>
@@ -63,7 +69,7 @@ export const SmallProfileCard = ({ id, image, name }) => {
     <div className="small-profile-card-container">
       <div className="upper-container">
         <div className="profile-image-container">
-          <SmallProfileImage image={image} />
+          <MediumProfileImage image={image} />
         </div>
       </div>
       <div className="lower-container">

@@ -62,9 +62,13 @@
 
 .nav-links {
   color: var(--bg-white);
+  height: 20px;
   text-decoration: none;
   padding: 0.5rem 1rem;
   transition: box-shadow 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .nav-links:hover {
