@@ -18,7 +18,7 @@ export const ME = gql`
         }
       },
       profile {
-        skills {
+        categories {
           id
           name
           parent {
@@ -376,7 +376,7 @@ export const ALL_USER_PROFILES = gql`
         username
         }
       about
-      skills {
+      categories {
         id
         name
       }
@@ -385,9 +385,9 @@ export const ALL_USER_PROFILES = gql`
   }
 `
 
-export const ALL_SKILL_CATEGORIES = gql`
-  query allSkillCategories {
-    allSkillCategories {
+export const ALL_USER_CATEGORIES = gql`
+  query allUserCategories {
+    allUserCategories {
       id
       name
       parent {
@@ -400,9 +400,9 @@ export const ALL_SKILL_CATEGORIES = gql`
   }
 `
 
-export const ALL_GROUP_SKILL_CATEGORIES = gql`
-  query allGroupSkillCategories {
-    allGroupSkillCategories {
+export const ALL_GROUP_CATEGORIES = gql`
+  query allGroupCategories {
+    allGroupCategories {
       id
       name
       parent {
@@ -426,7 +426,7 @@ export const ALL_USERS_AND_GROUPS = gql`
           name
           about
           image
-          skills {
+          categories {
             id
             name
             profession
@@ -443,7 +443,7 @@ export const ALL_USERS_AND_GROUPS = gql`
           name
           image
           about
-          groupTypes {
+          categories {
             id
             name
             parent {

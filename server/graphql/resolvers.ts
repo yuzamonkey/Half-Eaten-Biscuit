@@ -4,7 +4,7 @@ import { AuthenticationError, IResolvers, UserInputError, PubSub } from "apollo-
 require('dotenv')
 const bcrypt = require('bcrypt')
 
-const SkillCategory = require('../models/skillCategory')
+const UserCategory = require('../models/userCategory')
 const GroupCategory = require('../models/groupCategory')
 const JobAd = require('../models/jobAd')
 const Conversation = require('../models/conversation')
@@ -48,7 +48,7 @@ const resolvers: IResolvers = {
         .populate({
           path: 'profile',
           populate: {
-            path: 'skills',
+            path: 'categories',
             populate: {
               path: 'parent children'
             }
@@ -77,7 +77,7 @@ const resolvers: IResolvers = {
         .populate({
           path: 'profile',
           populate: {
-            path: 'skills',
+            path: 'categories',
             populate: {
               path: 'parent children'
             }
@@ -96,7 +96,7 @@ const resolvers: IResolvers = {
         .populate({
           path: 'profile',
           populate: {
-            path: 'skills',
+            path: 'categories',
             populate: {
               path: 'parent children'
             }
@@ -110,13 +110,13 @@ const resolvers: IResolvers = {
         })
     },
     allUserProfiles: (_root) => {
-      return UserProfile.find({}).populate('user skills')
+      return UserProfile.find({}).populate('user categories')
     },
     allUsersAndGroups: async (_root) => {
       const users = await User.find({}).populate({
         path: 'profile',
         populate: {
-          path: 'skills',
+          path: 'categories',
           populate: {
             path: 'parent children'
           }
@@ -126,7 +126,7 @@ const resolvers: IResolvers = {
         .populate('users')
         .populate({
           path: 'profile', populate: {
-            path: 'groupTypes',
+            path: 'categories',
             populate: {
               path: 'parent children'
             }
@@ -149,7 +149,7 @@ const resolvers: IResolvers = {
         .populate({
           path: 'profile',
           populate: {
-            path: 'skills',
+            path: 'categories',
             populate: {
               path: 'parent children'
             }
@@ -174,7 +174,7 @@ const resolvers: IResolvers = {
         .populate('jobAds users notifications')
         .populate({
           path: 'profile', populate: {
-            path: 'groupTypes'
+            path: 'categories'
           }
         })
         .populate({
@@ -193,7 +193,7 @@ const resolvers: IResolvers = {
         .populate('users')
         .populate({
           path: 'profile', populate: {
-            path: 'groupTypes'
+            path: 'categories'
           }
         })
 
@@ -203,7 +203,7 @@ const resolvers: IResolvers = {
         .populate('users')
         .populate({
           path: 'profile', populate: {
-            path: 'groupTypes'
+            path: 'categories'
           }
         })
     },
@@ -261,10 +261,10 @@ const resolvers: IResolvers = {
           }
         })
     },
-    allSkillCategories: async () => {
-      return SkillCategory.find({}).populate('parent children')
+    allUserCategories: async () => {
+      return UserCategory.find({}).populate('parent children')
     },
-    allGroupSkillCategories: async () => {
+    allGroupCategories: async () => {
       return GroupCategory.find({}).populate('parent children')
     },
     allNotifications: async () => {
@@ -288,13 +288,13 @@ const resolvers: IResolvers = {
       }
     }
   },
-  SkillCategoryOrGroupCategory: {
+  UserCategoryOrGroupCategory: {
     async __resolveType(obj: any) {
       if (obj.kind === 'GroupCategory') return 'GroupCategory'
-      if (obj.kind === 'SkillCategory') return 'SkillCategory'
+      if (obj.kind === 'UserCategory') return 'UserCategory'
       else {
         const id = obj
-        const result = await SkillCategory.findOne({ _id: id }) || await GroupCategory.findOne({ _id: id })
+        const result = await UserCategory.findOne({ _id: id }) || await GroupCategory.findOne({ _id: id })
         return result.kind
       }
     }
@@ -308,27 +308,27 @@ const resolvers: IResolvers = {
     }
   },
   Mutation: {
-    addSkillCategory: async (_root, args) => {
+    addUserCategory: async (_root, args) => {
       const name = args.name
       const profession = args.profession
       const parentName = args.parent
 
       try {
-        const parent = await SkillCategory.findOne({ name: parentName })
-        const newSkillCategory = new SkillCategory({
+        const parent = await UserCategory.findOne({ name: parentName })
+        const newUserCategory = new UserCategory({
           name: name,
           profession: profession,
           parent: parent?._id,
           children: []
         })
-        const savedSkillCategory = await newSkillCategory.save()
+        const savedUserCategory = await newUserCategory.save()
         if (parent) {
-          parent.children = parent.children.concat(savedSkillCategory._id)
+          parent.children = parent.children.concat(savedUserCategory._id)
           await parent.save()
         }
-        return savedSkillCategory
+        return savedUserCategory
       } catch (error) {
-        console.log("ERROR ON ADD SKILLCATEGORY", error)
+        console.log("ERROR ON ADD UserCATEGORY", error)
         throw new UserInputError(error.message, {
           invalidArgs: args,
         })
@@ -422,7 +422,7 @@ const resolvers: IResolvers = {
       let wantedCategoryObjects = []
 
       for (let categoryId of wantedCategories) {
-        const obj = await SkillCategory.findOne({ _id: categoryId }) || await GroupCategory.findOne({ _id: categoryId })
+        const obj = await UserCategory.findOne({ _id: categoryId }) || await GroupCategory.findOne({ _id: categoryId })
         if (!obj) {
           console.log("ERROR on new JobAd. No category with id", categoryId)
           throw new UserInputError("No category with id", categoryId)
@@ -464,7 +464,7 @@ const resolvers: IResolvers = {
         //manage who will get the notification
         const notificationReceiverIds: string[] = []
         for (let category of wantedCategoryObjects) {
-          if (category.kind === 'SkillCategory') {
+          if (category.kind === 'UserCategory') {
             for (let userId of category.object.users) {
               if (!notificationReceiverIds.includes(JSON.stringify(userId))) {
                 notificationReceiverIds.push(JSON.stringify(userId))
@@ -480,7 +480,7 @@ const resolvers: IResolvers = {
           }
           else {
             console.log("NO CATEGORY FOUND")
-            throw new UserInputError('No GroupCategory or SkillCategory found')
+            throw new UserInputError('No GroupCategory or UserCategory found')
           }
         }
 
@@ -622,7 +622,7 @@ const resolvers: IResolvers = {
       console.log("•••IDS", userIds)
       const about = args.about
       const image = args.image
-      const skills = args.skills
+      const categories = args.categories
 
       try {
         //create group
@@ -637,7 +637,7 @@ const resolvers: IResolvers = {
           group: savedGroup,
           about: about,
           image: image,
-          groupTypes: skills
+          categories: categories
         })
         const savedGroupProfile = await newGroupProfile.save()
         savedGroup.profile = savedGroupProfile
@@ -649,10 +649,10 @@ const resolvers: IResolvers = {
           user.groups = user.groups.concat(savedGroup)
           await user.save()
         });
-        for (let skill of skills) {
-          const skillObject = await GroupCategory.findOne({ _id: skill })
-          skillObject.groups = skillObject.groups.concat(savedGroup)
-          skillObject.save()
+        for (let categoryId of categories) {
+          const categoryObject = await GroupCategory.findOne({ _id: categoryId })
+          categoryObject.groups = categoryObject.groups.concat(savedGroup)
+          categoryObject.save()
         }
         //notifications
         const newNotification = new NotificationModel({
@@ -691,21 +691,21 @@ const resolvers: IResolvers = {
       }
 
       const myId = currentUser.id
-      const skills = args.skills
+      const categories = args.categories
       const about = args.about
       const image = args.image
 
       try {
         const userProfile = await UserProfile.findOne({ user: myId })
         userProfile.about = about
-        userProfile.skills = skills
+        userProfile.categories = categories
         userProfile.image = image
         userProfile.isEditedByUser = true
         const savedUserProfile = await userProfile.save()
-        for (let skill of skills) {
-          const skillObject = await SkillCategory.findOne({ _id: skill })
-          skillObject.users = skillObject.users.concat(myId)
-          skillObject.save()
+        for (let categoryId of categories) {
+          const categoryObject = await UserCategory.findOne({ _id: categoryId })
+          categoryObject.users = categoryObject.users.concat(myId)
+          categoryObject.save()
         }
         return savedUserProfile
       } catch (error) {

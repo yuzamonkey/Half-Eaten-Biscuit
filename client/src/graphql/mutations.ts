@@ -42,8 +42,8 @@ export const SEND_MESSAGE = gql`
 `
 
 export const CREATE_GROUP = gql`
-  mutation createGroup($name: String!, $users: [ID!]!, $about: String!, $image: String!, $skills: [ID]!){
-    createGroup(name: $name, users: $users, about: $about, image: $image, skills: $skills) {
+  mutation createGroup($name: String!, $users: [ID!]!, $about: String!, $image: String!, $categories: [ID]!){
+    createGroup(name: $name, users: $users, about: $about, image: $image, categories: $categories) {
       id
       kind
     }
@@ -51,8 +51,8 @@ export const CREATE_GROUP = gql`
 `
 
 export const CREATE_USER_PROFILE = gql`
-  mutation createUserProfile($skills: [ID]!, $about: String!, $image: String){
-    createUserProfile(skills: $skills, about: $about, image: $image) {
+  mutation createUserProfile($categories: [ID]!, $about: String!, $image: String){
+    createUserProfile(categories: $categories, about: $about, image: $image) {
       id
       about
     }

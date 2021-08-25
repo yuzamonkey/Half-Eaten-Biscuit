@@ -3,12 +3,12 @@ const { gql } = require('apollo-server')
 const typeDefs = gql`
   scalar Date
 
-  type SkillCategory {
+  type UserCategory {
     id: ID!
     name: String!
     profession: String!
-    parent: SkillCategory
-    children: [SkillCategory]
+    parent: UserCategory
+    children: [UserCategory]
     users: [User]
   }
 
@@ -53,7 +53,7 @@ const typeDefs = gql`
 
   type WantedCategory {
     kind: String,
-    object: SkillCategoryOrGroupCategory
+    object: UserCategoryOrGroupCategory
   }
 
   type JobAdPostedBy {
@@ -92,7 +92,7 @@ const typeDefs = gql`
     lastName: String!,
     about: String,
     image: String,
-    skills: [SkillCategory],
+    categories: [UserCategory],
     isEditedByUser: Boolean!
   }
 
@@ -102,7 +102,7 @@ const typeDefs = gql`
     name: String!
     about: String
     image: String
-    groupTypes: [GroupCategory]
+    categories: [GroupCategory]
   }
 
   type Notification {
@@ -122,7 +122,7 @@ const typeDefs = gql`
 
   union UserOrGroup = User | Group
 
-  union SkillCategoryOrGroupCategory = SkillCategory | GroupCategory
+  union UserCategoryOrGroupCategory = UserCategory | GroupCategory
 
   type Query {
     allJobAds: [JobAd]
@@ -136,8 +136,8 @@ const typeDefs = gql`
     findUserOrGroup(id: ID!): UserOrGroup
     allConversations: [Conversation]
     findConversation(id: ID!): Conversation
-    allSkillCategories: [SkillCategory]
-    allGroupSkillCategories: [GroupCategory]
+    allUserCategories: [UserCategory]
+    allGroupCategories: [GroupCategory]
     allNotifications: [Notification]!
     me: User,
   }
@@ -150,7 +150,7 @@ const typeDefs = gql`
       password: String!
     ): User
     createUserProfile(
-      skills: [ID]!,
+      categories: [ID]!,
       about: String!,
       image: String
     ): UserProfile
@@ -166,7 +166,7 @@ const typeDefs = gql`
       users: [ID!]!,
       about: String!,
       image: String,
-      skills: [ID]!
+      categories: [ID]!
     ): Group
     createJobAd(
       content: String!
@@ -186,11 +186,11 @@ const typeDefs = gql`
       conversationId: ID!
       body: String!
     ): Message
-    addSkillCategory(
+    addUserCategory(
       name: String!
       profession: String!
       parent: String
-    ): SkillCategory
+    ): UserCategory
     addGroupCategory(
       name: String!
       parent: String

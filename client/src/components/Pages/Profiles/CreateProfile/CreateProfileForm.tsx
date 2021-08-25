@@ -19,21 +19,21 @@ interface Category {
 }
 
 const CreateProfileForm = () => {
-  const [skills, setSkills] = useState<Category[]>([])
+  const [categories, setCategories] = useState<Category[]>([])
   const [aboutText, setAboutText] = useState('')
   const [image, setImage] = useState()
   const { loading, data } = useQuery(ME, { onCompleted: () => {
-    setSkills(data.me.profile.skills)
+    setCategories(data.me.profile.categories)
     setImage(data.me.profile.image)
     setAboutText(data.me.profile.about)
   } })
   const [currentView, setCurrentView] = useState(0)
   const views = [
     <CreateProfileInfo name={data?.me.username}/>,
-    <Skills skills={skills} setSkills={setSkills} />,
+    <Skills categories={categories} setCategories={setCategories} />,
     <About text={aboutText} setText={setAboutText} />,
     <Image image={image} setImage={setImage} />,
-    <Summary skills={skills} about={aboutText} image={image} />
+    <Summary categories={categories} about={aboutText} image={image} />
   ]
 
   if (loading) {

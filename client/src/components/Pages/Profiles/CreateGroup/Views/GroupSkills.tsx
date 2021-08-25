@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useQuery } from "@apollo/client"
-import { ALL_GROUP_SKILL_CATEGORIES } from "../../../../../graphql/queries"
+import { ALL_GROUP_CATEGORIES } from "../../../../../graphql/queries"
 
 import { CategorySelection, Loading } from "../../../../UtilityComponents/UtilityComponents"
 
@@ -14,7 +14,7 @@ interface Category {
 const GroupSkills = ({ skills, setSkills }) => {
   const [allCategories, setAllCategories] = useState<Category[]>([])
   const [currentPath, setCurrentPath] = useState([undefined])
-  const { loading, data } = useQuery(ALL_GROUP_SKILL_CATEGORIES, { onCompleted: () => setAllCategories(data.allGroupSkillCategories) })
+  const { loading, data } = useQuery(ALL_GROUP_CATEGORIES, { onCompleted: () => setAllCategories(data.allGroupCategories) })
 
   if (loading) return <Loading />
   

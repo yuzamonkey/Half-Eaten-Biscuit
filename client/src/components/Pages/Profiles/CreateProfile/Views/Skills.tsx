@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useQuery } from "@apollo/client"
-import { ALL_SKILL_CATEGORIES } from "../../../../../graphql/queries"
+import { ALL_USER_CATEGORIES } from "../../../../../graphql/queries"
 
 import { CategorySelection, Loading } from "../../../../UtilityComponents/UtilityComponents"
 
@@ -11,24 +11,24 @@ interface Category {
   children: [Category]
 }
 
-const Skills = ({ skills, setSkills }) => {
+const Skills = ({ categories, setCategories }) => {
   const [allCategories, setAllCategories] = useState<Category[]>([])
   const [currentPath, setCurrentPath] = useState([undefined])
-  const { loading, data } = useQuery(ALL_SKILL_CATEGORIES, { onCompleted: () => setAllCategories(data.allSkillCategories) })
+  const { loading, data } = useQuery(ALL_USER_CATEGORIES, { onCompleted: () => setAllCategories(data.allUserCategories) })
 
   if (loading) return <Loading />
 
   return (
     <div>
-      <h2>Select your skills</h2>
+      <h2>Select your categories</h2>
       <CategorySelection
-        selectedCategories={skills}
-        setSelectedCategories={setSkills}
+        selectedCategories={categories}
+        setSelectedCategories={setCategories}
         allCategories={allCategories}
         currentPath={currentPath}
         setCurrentPath={setCurrentPath}
       />
-      {skills.map(s => <div key={s.id}>{s.name}</div>)}
+      {categories.map(s => <div key={s.id}>{s.name}</div>)}
     </div>
   )
 }

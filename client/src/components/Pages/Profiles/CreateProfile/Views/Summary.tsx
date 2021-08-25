@@ -5,7 +5,7 @@ import { Button, Loading } from "../../../../UtilityComponents/UtilityComponents
 import { CREATE_USER_PROFILE } from "../../../../../graphql/mutations"
 import { MY_ID } from "../../../../../graphql/queries"
 
-const Summary = ({ skills, about, image }) => {
+const Summary = ({ categories, about, image }) => {
   const myId = useQuery(MY_ID, { onCompleted: () => setRedirectAdress(`/profiles/${myId.data.me.id}`) })
   const [submitCompleted, setSubmitCompleted] = useState(false)
   const [redirectAdress, setRedirectAdress] = useState('')
@@ -17,10 +17,10 @@ const Summary = ({ skills, about, image }) => {
   })
 
   const handleSubmit = async () => {
-    const skillIds = skills.map(s => s.id)
+    const categoryIds = categories.map(s => s.id)
     const response = await createUserProfile({
       variables: {
-        skills: skillIds,
+        categories: categoryIds,
         about: about,
         image: image
       }
@@ -39,7 +39,7 @@ const Summary = ({ skills, about, image }) => {
       ?
       <div>
         <h3>Summary</h3>
-        {skills.map(s => <div key={s.id}>{s.name}</div>)}
+        {categories.map(s => <div key={s.id}>{s.name}</div>)}
         <br></br>
         {about}
         <img src={image} alt="" width={200} />

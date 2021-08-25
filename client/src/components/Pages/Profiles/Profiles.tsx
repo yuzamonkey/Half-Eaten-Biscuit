@@ -58,7 +58,7 @@ const Profiles = () => {
                   id={item.id}
                   image={item.profile.image}
                   name={item.profile.name}
-                  skills={item.profile.skills || item.profile.groupTypes}
+                  categories={item.profile.categories}
                   url={profileUrl}
                   contactFunction={() => handleContactButtonPress(item.id)}
                 />

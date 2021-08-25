@@ -76,7 +76,7 @@ export const SmallProfileCard = ({ id, image, name }) => {
   )
 }
 
-export const LargeProfileCard = ({ id, image, name, skills, url, contactFunction }) => {
+export const LargeProfileCard = ({ id, image, name, categories, url, contactFunction }) => {
   const history = useHistory()
   const userContext = useContext(UserContext)
   return (
@@ -89,8 +89,7 @@ export const LargeProfileCard = ({ id, image, name, skills, url, contactFunction
       <div className="lower-container">
         <div className="name-container">
           <h3 className="profile-name">{name}</h3>
-          {/* {skills?.map(skill => <p key={skill.id}>{skill.profession || skill.name}</p>)} */}
-          {categoriesWithParentsRemoved(skills).map(skill => <p key={skill.id}>{skill.profession || skill.name}</p>)}
+          {categoriesWithParentsRemoved(categories).map(category => <p key={category.id}>{category.profession || category.name}</p>)}
         </div>
         <div className="profiles-buttons-container">
           <Button text='Profile' handleClick={() => history.push(url)} />
@@ -106,10 +105,10 @@ export const LargeProfileCard = ({ id, image, name, skills, url, contactFunction
 
 export const CategorySelection = ({ allCategories, selectedCategories, setSelectedCategories, currentPath, setCurrentPath }) => {
   
-  const skillsIncludeCategory = (selectedObj) => {
+  const categoriesIncludeCategory = (selectedObj) => {
     const objId = selectedObj.id
     let found = false
-    selectedCategories.forEach(skill => (objId === skill.id) && (found = true))
+    selectedCategories.forEach(category => (objId === category.id) && (found = true))
     return found
   }
 
@@ -126,15 +125,15 @@ export const CategorySelection = ({ allCategories, selectedCategories, setSelect
   const handlePathClick = (clickedName) => {
     const obj = allCategories.find(obj => obj.name === clickedName)
     if (obj) {
-      if (!skillsIncludeCategory(obj)) {
+      if (!categoriesIncludeCategory(obj)) {
         obj.children.length && setCurrentPath(currentPath.concat(clickedName))
         setSelectedCategories(selectedCategories.concat(obj))
-      } else if (skillsIncludeCategory(obj)) {
+      } else if (categoriesIncludeCategory(obj)) {
         const removableArray = categoriesToRemove(obj, obj.children, [])
-        const filteredSkills = selectedCategories.filter((category) => {
+        const filteredCategories = selectedCategories.filter((category) => {
           return !removableArray.map(c => c.id).includes(category.id)
         })
-        setSelectedCategories(filteredSkills)
+        setSelectedCategories(filteredCategories)
       }
     }
   }
@@ -146,13 +145,13 @@ export const CategorySelection = ({ allCategories, selectedCategories, setSelect
   }
   
   return (
-    <div className="skills-container">
+    <div className="categories-container">
       <h3>{currentPath.map(name => <span key={currentPath.indexOf(name)}>{name} → </span>)}</h3>
       {allCategories.map(obj => {
         return (
           currentPath[currentPath.length - 1] === obj.parent?.name &&
           <div
-            className={skillsIncludeCategory(obj) ? "skill-container skill-container-selected" : "skill-container"}
+            className={categoriesIncludeCategory(obj) ? "category-container category-container-selected" : "category-container"}
             key={obj.id}
             onClick={() => handlePathClick(obj.name)}>
             {obj.name} {obj.children.length ? '→' : '☑'}</div>

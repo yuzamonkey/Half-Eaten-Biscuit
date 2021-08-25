@@ -24,9 +24,9 @@ const userProfileSchema = new mongoose.Schema({
     type: String,
     default: 'This is a user profile default text'
   },
-  skills: [{
+  categories: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'SkillCategory'
+    ref: 'UserCategory'
   }],
   image: {
     type: String,

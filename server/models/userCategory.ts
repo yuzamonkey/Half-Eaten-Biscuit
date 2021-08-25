@@ -2,7 +2,7 @@ export { };
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 
-const skillCategorySchema = new mongoose.Schema({
+const userCategorySchema = new mongoose.Schema({
   name: {
     type: String,
     unique: true,
@@ -15,15 +15,15 @@ const skillCategorySchema = new mongoose.Schema({
   },
   parent: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'SkillCategory'
+    ref: 'UserCategory'
   },
   children: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'SkillCategory'
+    ref: 'UserCategory'
   }],
   kind: {
     type: String,
-    default: 'SkillCategory'
+    default: 'UserCategory'
   },
   users: [{
     type: mongoose.Schema.Types.ObjectId,
@@ -31,7 +31,7 @@ const skillCategorySchema = new mongoose.Schema({
   }]
 })
 
-skillCategorySchema.set('toJSON', {
+userCategorySchema.set('toJSON', {
   transform: (_document: any, returnedObject: any) => {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
@@ -39,6 +39,6 @@ skillCategorySchema.set('toJSON', {
   }
 })
 
-skillCategorySchema.plugin(uniqueValidator)
+userCategorySchema.plugin(uniqueValidator)
 
-module.exports = mongoose.model('SkillCategory', skillCategorySchema)
+module.exports = mongoose.model('UserCategory', userCategorySchema)

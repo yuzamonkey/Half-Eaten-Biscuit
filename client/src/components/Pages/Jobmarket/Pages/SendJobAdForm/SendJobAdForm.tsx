@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client'
 
-import { ALL_GROUP_SKILL_CATEGORIES, ALL_SKILL_CATEGORIES } from '../../../../../graphql/queries';
+import { ALL_GROUP_CATEGORIES, ALL_USER_CATEGORIES } from '../../../../../graphql/queries';
 import JobAdInfoForm from './Views/JobAdInfoForm';
 import WantedCategoriesSelection from './Views/WantedCategoriesSelection'
 import Summary from './Views/Summary'
@@ -24,11 +24,11 @@ const SendJobAdForm = () => {
   const [skillCategories, setSkillCategories] = useState<Category[]>([])
   const [groupCategories, setGroupCategories] = useState<Category[]>([])
 
-  const skillCategoriesResult = useQuery(ALL_SKILL_CATEGORIES, {
-    onCompleted: () => setSkillCategories(skillCategoriesResult.data.allSkillCategories)
+  const userCategoriesResult = useQuery(ALL_USER_CATEGORIES, {
+    onCompleted: () => setSkillCategories(userCategoriesResult.data.allUserCategories)
   })
-  const groupCategoriesResult = useQuery(ALL_GROUP_SKILL_CATEGORIES, {
-    onCompleted: () => setGroupCategories(groupCategoriesResult.data.allGroupSkillCategories)
+  const groupCategoriesResult = useQuery(ALL_GROUP_CATEGORIES, {
+    onCompleted: () => setGroupCategories(groupCategoriesResult.data.allGroupCategories)
   })
 
   const views = [
@@ -62,7 +62,7 @@ const SendJobAdForm = () => {
 
   const [currentView, setCurrentView] = useState(0)
 
-  if (skillCategoriesResult.loading || groupCategoriesResult.loading) {
+  if (userCategoriesResult.loading || groupCategoriesResult.loading) {
     return <Loading />
   }
 
