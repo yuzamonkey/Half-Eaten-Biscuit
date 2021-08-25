@@ -361,6 +361,7 @@ export const ALL_USERS = gql`
       username 
       profile {
         image
+        name
       }
     }
   }

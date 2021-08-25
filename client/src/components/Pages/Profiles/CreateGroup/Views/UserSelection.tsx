@@ -45,7 +45,7 @@ const UserSelection = ({ selectedUsers, setSelectedUsers }) => {
             <div
               className="selected-user"
               onClick={() => handleRemoveFromSelectedUsers(u)}>
-              <SmallProfileCard id={u.id} image={u.profile.image} name={u.username} />
+              <SmallProfileCard id={u.id} image={u.profile.image} name={u.profile.name} />
               <div className="small-profile-card-overlay selected-user-overlay">Remove</div>
             </div>
           )
@@ -55,8 +55,8 @@ const UserSelection = ({ selectedUsers, setSelectedUsers }) => {
         {allUsersResult.data.allUsers.map(u => {
           return (
             <div className="all-user-container" onClick={() => setSelectedUsers(selectedUsers.concat(u))}>
-              {!selectedUsers.find(user => user.username === u.username) &&
-                <SmallProfileCard id={u.id} image={u.profile.image} name={u.username} />}
+              {!selectedUsers.find(user => user.username === u.profile.name) &&
+                <SmallProfileCard id={u.id} image={u.profile.image} name={u.profile.name} />}
               <div className="small-profile-card-overlay all-user-overlay">Add</div>
             </div>
           )

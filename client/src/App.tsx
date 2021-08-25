@@ -25,8 +25,10 @@ import ErrorPage from "./components/Pages/ErrorPage";
 
 const App = () => {
   const localStorageToken = localStorage.getItem(SIGN_IN_TOKEN)
+  const sessionStorageToken = sessionStorage.getItem(SESSION_TOKEN)
+  
   const [token, setToken] = useState(localStorageToken);
-  const [sessionId, setSessionId] = useState(sessionStorage.getItem(SESSION_TOKEN))
+  const [sessionId, setSessionId] = useState(sessionStorageToken)
 
   return (
     <ErrorBoundary>
