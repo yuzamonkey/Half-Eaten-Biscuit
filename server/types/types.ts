@@ -10,7 +10,7 @@ export interface IConversation {
   messages: [IMessage]
 }
 
-export interface IJobquery {
+export interface IJobAd {
   _id: Object
   content: String
   date: Date
@@ -21,7 +21,7 @@ export interface IUser {
   _id: Object
   username: String
   passwordHash: String
-  jobQueries: [IJobquery]
+  jobAds: [IJobAd]
   conversations: [IConversation]
   profile: UserProfile
 }

@@ -38,7 +38,7 @@ const typeDefs = gql`
     messages: [Message]!
   }
 
-  type Jobquery {
+  type JobAd {
     id: ID!
     content: String!
     postedOn: Date!
@@ -46,7 +46,7 @@ const typeDefs = gql`
     endSchedule: Date
     wantedCategories: [WantedCategory!]!
     visible: Boolean!
-    postedBy: JobqueryPostedBy!
+    postedBy: JobAdPostedBy!
     location: String
     salary: String
   }
@@ -56,7 +56,7 @@ const typeDefs = gql`
     object: SkillCategoryOrGroupCategory
   }
 
-  type JobqueryPostedBy {
+  type JobAdPostedBy {
     kind: String,
     object: UserOrGroup
   }
@@ -65,7 +65,7 @@ const typeDefs = gql`
     id: ID!
     username: String!
     passwordHash: String!
-    jobQueries: [Jobquery]!
+    jobAds: [JobAd]!
     conversations: [Conversation]!
     profile: UserProfile!
     groups: [Group]!
@@ -78,7 +78,7 @@ const typeDefs = gql`
     id: ID!
     users: [User!]!
     profile: GroupProfile!
-    jobQueries: [Jobquery]!
+    jobAds: [JobAd]!
     conversations: [Conversation]!
     kind: String!
     notifications: [Notification]!
@@ -118,15 +118,15 @@ const typeDefs = gql`
     id: ID!
   }
 
-  union NotificationRelatedObject = Jobquery
+  union NotificationRelatedObject = JobAd
 
   union UserOrGroup = User | Group
 
   union SkillCategoryOrGroupCategory = SkillCategory | GroupCategory
 
   type Query {
-    allJobqueries: [Jobquery]
-    findJobquery(id: ID!): Jobquery,
+    allJobAds: [JobAd]
+    findJobAd(id: ID!): JobAd,
     allUsers: [User]!
     allUserProfiles: [UserProfile]!
     findUser(id: ID!): User
@@ -168,7 +168,7 @@ const typeDefs = gql`
       image: String,
       skills: [ID]!
     ): Group
-    createJobquery(
+    createJobAd(
       content: String!
       startSchedule: Date!
       endSchedule: Date
@@ -176,7 +176,7 @@ const typeDefs = gql`
       postedBy: ID!
       salary: String!
       location: String!
-    ): Jobquery
+    ): JobAd
     createConversation(
       senderId: ID!
       receiverId: ID!

@@ -19,9 +19,9 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: true
   },
-  jobQueries: [{
+  jobAds: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Jobquery'
+    ref: 'JobAd'
   }],
   conversations: [{
     type: mongoose.Schema.Types.ObjectId,

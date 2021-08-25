@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt')
 
 const SkillCategory = require('../models/skillCategory')
 const GroupCategory = require('../models/groupCategory')
-const Jobquery = require('../models/jobquery')
+const JobAd = require('../models/jobAd')
 const Conversation = require('../models/conversation')
 const User = require('../models/user')
 const UserProfile = require('../models/userProfile')
@@ -231,8 +231,8 @@ const resolvers: IResolvers = {
           }
         })
     },
-    allJobqueries: async () => {
-      return Jobquery.find({})
+    allJobAds: async () => {
+      return JobAd.find({})
         .populate({
           path: 'postedBy.object',
           populate: {
@@ -246,8 +246,8 @@ const resolvers: IResolvers = {
           }
         })
     },
-    findJobquery: async (_root, args) => {
-      return await Jobquery.findOne({ _id: args.id })
+    findJobAd: async (_root, args) => {
+      return await JobAd.findOne({ _id: args.id })
         .populate({
           path: 'postedBy.object',
           populate: {
@@ -301,7 +301,7 @@ const resolvers: IResolvers = {
   },
   NotificationRelatedObject: {
     async __resolveType(obj: any) {
-      if (obj.kind === 'Jobquery') return 'Jobquery'
+      if (obj.kind === 'JobAd') return 'JobAd'
       else {
         return null
       }
@@ -403,7 +403,7 @@ const resolvers: IResolvers = {
 
       return { value: jwt.sign(userForToken, JWT_SECRET), id: user._id }
     },
-    createJobquery: async (_root, args, context) => {
+    createJobAd: async (_root, args, context) => {
       const currentUser = context.currentUser
 
       if (!currentUser) {
@@ -424,7 +424,7 @@ const resolvers: IResolvers = {
       for (let categoryId of wantedCategories) {
         const obj = await SkillCategory.findOne({ _id: categoryId }) || await GroupCategory.findOne({ _id: categoryId })
         if (!obj) {
-          console.log("ERROR on new jobquery. No category with id", categoryId)
+          console.log("ERROR on new JobAd. No category with id", categoryId)
           throw new UserInputError("No category with id", categoryId)
         }
         wantedCategoryObjects.push({ _id: categoryId, kind: obj.kind, object: obj })
@@ -432,11 +432,11 @@ const resolvers: IResolvers = {
 
       const postedByObject = await User.findOne({ _id: postedBy }) || await Group.findOne({ _id: postedBy })
       if (!postedByObject) {
-        console.log("ERROR ON new jobquery. No user or group with id", postedBy)
+        console.log("ERROR ON new JobAd. No user or group with id", postedBy)
         throw new UserInputError("No category with id", postedBy)
       }
 
-      const newJobquery = new Jobquery({
+      const newJobAd = new JobAd({
         content: content,
         postedBy: { _id: postedBy, kind: postedByObject.kind, object: postedByObject },
         startSchedule: startSchedule,
@@ -447,16 +447,16 @@ const resolvers: IResolvers = {
       })
 
       try {
-        const savedQuery = await newJobquery.save()
-        postedByObject.jobQueries = postedByObject.jobQueries.concat(newJobquery)
+        const savedJobAd = await newJobAd.save()
+        postedByObject.jobQueries = postedByObject.jobQueries.concat(newJobAd)
         await postedByObject.save()
         //for now, to test, post notification to all users
         const newNotification = new NotificationModel({
-          content: "New jobpost for you: " + content,
-          link: `/jobmarket/queries/${savedQuery._id}`,
+          content: "New jobad for you: " + content,
+          link: `/jobmarket/jobads/${savedJobAd._id}`,
           relatedObject: {
-            kind: 'Jobquery',
-            object: savedQuery
+            kind: 'JobAd',
+            object: savedJobAd
           }
         })
         newNotification.save()
@@ -491,10 +491,10 @@ const resolvers: IResolvers = {
         }
 
         pubsub.publish('NOTIFICATION_ADDED', { notificationAdded: newNotification })
-        console.log("JOBQUERY ADDED SUCCESFULLY")
-        return savedQuery
+        console.log("JobAd ADDED SUCCESFULLY")
+        return savedJobAd
       } catch (error) {
-        console.log("CATCHED ERROR ON CREATE JOBQUERY", error.message)
+        console.log("CATCHED ERROR ON CREATE JobAd", error.message)
         throw new UserInputError(error.message, {
           invalidArgs: args,
         })
