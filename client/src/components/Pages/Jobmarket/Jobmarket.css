@@ -58,12 +58,12 @@
   V 
 */
 
-.jobqueries-container {
+.jobads-container {
   opacity: 0.1;
   transition: opacity 0.5s ease;
 }
 
-.jobqueries-container.active {
+.jobads-container.active {
   opacity: 1;
 }
 
@@ -100,7 +100,7 @@
 
 .image-container {}
 
-.jobquery-user-profile-image {
+.jobad-user-profile-image {
   width: 70px;
   height: 70px;
   min-width: 70px;

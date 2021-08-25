@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import './Jobmarket.css'
-import Jobqueries from './Pages/Jobqueries';
+import JobAds from './Pages/JobAds';
 import JobmarketNavigation from './JobmarketNavigation/JobmarketNavigation';
-import SendQuery from './Pages/SendQuery';
-import MyQueries from './Pages/MyQueries';
+import SendJobAd from './Pages/SendJobAd';
+import MyJobAds from './Pages/MyJobAds';
 import FindPlayers from './Pages/FindPlayers';
 import JobInfo from './Pages/JobInfo';
 
@@ -17,10 +17,10 @@ const Jobmarket = () => {
           <div className="job-pages">
             <Switch>
               <Route path="/jobmarket/findplayers/" component={FindPlayers} />
-              <Route path="/jobmarket/queries/:id" component={JobInfo} />
-              <Route path="/jobmarket/queries/" component={Jobqueries} />
-              <Route path="/jobmarket/sendquery/" component={SendQuery} />
-              <Route path="/jobmarket/myqueries/" component={MyQueries} />
+              <Route path="/jobmarket/jobads/:id" component={JobInfo} />
+              <Route path="/jobmarket/jobads/" component={JobAds} />
+              <Route path="/jobmarket/sendjobad/" component={SendJobAd} />
+              <Route path="/jobmarket/myads/" component={MyJobAds} />
             </Switch>
           </div>
         </div>

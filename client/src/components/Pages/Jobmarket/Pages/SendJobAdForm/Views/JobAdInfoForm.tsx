@@ -1,4 +1,4 @@
-const JobqueryInfoForm = ({
+const JobAdInfoForm = ({
   content,
   setContent,
   location,
@@ -13,7 +13,7 @@ const JobqueryInfoForm = ({
   return (
     <div>
       <h1>
-        Jobquery info form
+        Job Ad info form
       </h1>
       <div>
         description <textarea
@@ -51,4 +51,4 @@ const JobqueryInfoForm = ({
   )
 }
 
-export default JobqueryInfoForm
+export default JobAdInfoForm

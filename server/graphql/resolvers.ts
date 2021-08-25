@@ -44,7 +44,7 @@ const resolvers: IResolvers = {
     me: async (_root, _args, context) => {
       //return context.currentUser
       const result = await User.findOne({ _id: context.currentUser._id })
-        .populate('jobQueries notifications')
+        .populate('jobAds notifications')
         .populate({
           path: 'profile',
           populate: {
@@ -73,7 +73,7 @@ const resolvers: IResolvers = {
     },
     allUsers: () => {
       return User.find({})
-        .populate('jobQueries conversations profile notifications')
+        .populate('jobAds conversations profile notifications')
         .populate({
           path: 'profile',
           populate: {
@@ -92,7 +92,7 @@ const resolvers: IResolvers = {
     },
     findUser: (_root, args) => {
       return User.findOne({ _id: args.id })
-        .populate('jobQueries conversations profile notifications')
+        .populate('jobAds conversations profile notifications')
         .populate({
           path: 'profile',
           populate: {
@@ -145,7 +145,7 @@ const resolvers: IResolvers = {
     },
     findUserOrGroup: async (_root, args) => {
       const user = await User.findOne({ _id: args.id })
-        .populate('jobQueries profile notifications')
+        .populate('jobAds profile notifications')
         .populate({
           path: 'profile',
           populate: {
@@ -171,7 +171,7 @@ const resolvers: IResolvers = {
           }
         })
       const group = await Group.findOne({ _id: args.id })
-        .populate('jobQueries users notifications')
+        .populate('jobAds users notifications')
         .populate({
           path: 'profile', populate: {
             path: 'groupTypes'
@@ -448,9 +448,9 @@ const resolvers: IResolvers = {
 
       try {
         const savedJobAd = await newJobAd.save()
-        postedByObject.jobQueries = postedByObject.jobQueries.concat(newJobAd)
+        postedByObject.jobAds = postedByObject.jobAds.concat(newJobAd)
         await postedByObject.save()
-        //for now, to test, post notification to all users
+
         const newNotification = new NotificationModel({
           content: "New jobad for you: " + content,
           link: `/jobmarket/jobads/${savedJobAd._id}`,
@@ -460,6 +460,7 @@ const resolvers: IResolvers = {
           }
         })
         newNotification.save()
+
         //manage who will get the notification
         const notificationReceiverIds: string[] = []
         for (let category of wantedCategoryObjects) {
@@ -482,11 +483,15 @@ const resolvers: IResolvers = {
             throw new UserInputError('No GroupCategory or SkillCategory found')
           }
         }
+
+        //BUG BELOW
         for (let id of notificationReceiverIds) {
           if (JSON.parse(id) !== postedBy) {
             const receiver = await User.findOne({ _id: JSON.parse(id) }) || await Group.findOne({ _id: JSON.parse(id) })
-            receiver.notifications = receiver.notifications.concat(newNotification)
-            await receiver.save()
+            if (receiver) {
+              receiver.notifications = receiver.notifications.concat(newNotification)
+              await receiver.save()
+            }
           }
         }
 

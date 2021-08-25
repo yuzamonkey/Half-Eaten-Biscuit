@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client"
 import { useContext, useState } from "react"
-import { CREATE_JOBQUERY } from "../../../../../../graphql/mutations"
+import { CREATE_JOBAD } from "../../../../../../graphql/mutations"
 import { categoriesWithParentsRemoved } from "../../../../../../utils/utilityFunctions"
 import { UserContext } from "../../../../../UtilityComponents/UserContext"
 import { Button, Loading } from "../../../../../UtilityComponents/UtilityComponents"
@@ -13,7 +13,7 @@ const Summary = ({ wantedCategories, content, location, salary, startSchedule, e
 
   const userContext = useContext(UserContext)
 
-  const [createQuery, { loading }] = useMutation(CREATE_JOBQUERY, {
+  const [createQuery, { loading }] = useMutation(CREATE_JOBAD, {
     onError: (error) => {
       console.log("Error at create query mutation: \n", error)
     }
@@ -35,9 +35,10 @@ const Summary = ({ wantedCategories, content, location, salary, startSchedule, e
         location: location
       }
     })
-    if (response.data?.createJobquery.content === content) {
+    console.log("POSTED JOBAD RESPONSE", response)
+    if (response.data?.createJobAd.content === content) {
       setSubmitCompleted(true)
-      setRedirectAdress(`/jobmarket/queries/${response.data.createJobquery.id}`)
+      setRedirectAdress(`/jobmarket/jobads/${response.data.createJobAd.id}`)
     } else {
       console.log("The name might be taken")
     }

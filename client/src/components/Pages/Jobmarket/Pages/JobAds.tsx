@@ -2,25 +2,25 @@ import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
 
 import '../Jobmarket.css'
-import { ALL_JOBQUERIES } from '../../../../graphql/queries';
+import { ALL_JOBADS } from '../../../../graphql/queries';
 import { Button, Loading } from '../../../UtilityComponents/UtilityComponents';
 import { dateAsDDMMYYYY } from '../../../../utils/utilityFunctions';
 import JobDetails from './JobDetails';
 
-interface Jobquery {
+interface JobAd {
   postedOn: Date
 }
 
-const Jobqueries = () => {
-  const result = useQuery(ALL_JOBQUERIES, {
+const JobAds = () => {
+  const result = useQuery(ALL_JOBADS, {
     onCompleted: (data) => {
-      setOrderedQueries([...data.allJobqueries].sort((q1, q2) => new Date(q2.postedOn).getTime() - new Date(q1.postedOn).getTime()))
+      setOrderedQueries([...data.allJobAds].sort((q1, q2) => new Date(q2.postedOn).getTime() - new Date(q1.postedOn).getTime()))
     }
   })
   const orderOptions = ['Most recent post', 'Earliest post', 'Later starting date', 'Earlier starting date']
-  const [orderedQueries, setOrderedQueries] = useState<Jobquery[]>([])
+  const [orderedQueries, setOrderedQueries] = useState<JobAd[]>([])
 
-  const [selectedJob, setSelectedJob] = useState<Jobquery>()
+  const [selectedJob, setSelectedJob] = useState<JobAd>()
   const [showJobInfo, setShowJobInfo] = useState(false)
 
   if (result.loading) {
@@ -32,20 +32,20 @@ const Jobqueries = () => {
     setShowJobInfo(true)
   }
 
-  const jobqueries = result.data.allJobqueries
+  const jobads = result.data.allJobAds
 
   const handleSelectedOrderChange = (value) => {
     if (value === orderOptions[0]) {
-      setOrderedQueries([...jobqueries].sort((q1, q2) => new Date(q2.postedOn).getTime() - new Date(q1.postedOn).getTime()))
+      setOrderedQueries([...jobads].sort((q1, q2) => new Date(q2.postedOn).getTime() - new Date(q1.postedOn).getTime()))
     }
     else if (value === orderOptions[1]) {
-      setOrderedQueries([...jobqueries].sort((q1, q2) => new Date(q1.postedOn).getTime() - new Date(q2.postedOn).getTime()))
+      setOrderedQueries([...jobads].sort((q1, q2) => new Date(q1.postedOn).getTime() - new Date(q2.postedOn).getTime()))
     }
     else if (value === orderOptions[2]) {
-      setOrderedQueries([...jobqueries].sort((q1, q2) => new Date(q2.startSchedule).getTime() - new Date(q1.startSchedule).getTime()))
+      setOrderedQueries([...jobads].sort((q1, q2) => new Date(q2.startSchedule).getTime() - new Date(q1.startSchedule).getTime()))
     }
     else if (value === orderOptions[3]) {
-      setOrderedQueries([...jobqueries].sort((q1, q2) => new Date(q1.startSchedule).getTime() - new Date(q2.startSchedule).getTime()))
+      setOrderedQueries([...jobads].sort((q1, q2) => new Date(q1.startSchedule).getTime() - new Date(q2.startSchedule).getTime()))
     }
   }
 
@@ -58,7 +58,7 @@ const Jobqueries = () => {
         </div>
       </div>
 
-      <div className={showJobInfo ? "jobqueries-container" : "jobqueries-container active"}>
+      <div className={showJobInfo ? "jobads-container" : "jobads-container active"}>
         Filter by: skill, group, posted on date, schedule, location
         <label>Order by </label>
         <select onChange={(e) => handleSelectedOrderChange(e.target.value)}>
@@ -73,7 +73,7 @@ const Jobqueries = () => {
                 <div className="general-info-container">
                   <div className="image-and-name-container">
                     <div className="image-container">
-                      <img src={q.postedBy.object.profile.image} alt="profileimg" className="jobquery-user-profile-image"></img>
+                      <img src={q.postedBy.object.profile.image} alt="profileimg" className="jobad-user-profile-image"></img>
                     </div>
                     <p><b>{q.postedBy.object.profile.name}</b> is looking for <br />
                       {q.wantedCategories.map(category => category.object.profession || category.object.name)}
@@ -109,4 +109,4 @@ const Jobqueries = () => {
   )
 };
 
-export default Jobqueries;
+export default JobAds;

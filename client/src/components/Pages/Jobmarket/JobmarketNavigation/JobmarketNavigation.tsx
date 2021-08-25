@@ -8,8 +8,8 @@ const JobmarketNavigation = () => {
         <div className="job-nav-container">
           <ul className="job-nav-menu">
             <li className="job-nav-item">
-              <NavLink exact to="/jobmarket/queries/" activeClassName="job-active" className="job-nav-links"> 
-                Queries
+              <NavLink exact to="/jobmarket/jobads/" activeClassName="job-active" className="job-nav-links"> 
+                Job ads
               </NavLink>
             </li>
             <li className="job-nav-item">
@@ -18,13 +18,13 @@ const JobmarketNavigation = () => {
               </NavLink>
             </li>
             <li className="job-nav-item">
-              <NavLink exact to="/jobmarket/sendquery/" activeClassName="job-active" className="job-nav-links"> 
-                Send query
+              <NavLink exact to="/jobmarket/sendjobad/" activeClassName="job-active" className="job-nav-links"> 
+                Send ad
               </NavLink>
             </li>
             <li className="job-nav-item">
-              <NavLink exact to="/jobmarket/myqueries/" activeClassName="job-active" className="job-nav-links"> 
-                My queries
+              <NavLink exact to="/jobmarket/myads/" activeClassName="job-active" className="job-nav-links"> 
+                My ads
               </NavLink>
             </li>
           </ul>

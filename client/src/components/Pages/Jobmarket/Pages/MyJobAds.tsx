@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { useQuery } from '@apollo/client';
-import { JOBQUERIES_SENT_BY_SESSION_ID } from '../../../../graphql/queries';
+import { JOBADS_SENT_BY_SESSION_ID } from '../../../../graphql/queries';
 import { Toggle, Loading } from '../../../UtilityComponents/UtilityComponents';
 import { UserContext } from '../../../UtilityComponents/UserContext';
 
-const MyQueries = () => {
+const MyJobAds = () => {
   const userContext = useContext(UserContext)
-  const result = useQuery(JOBQUERIES_SENT_BY_SESSION_ID, { variables: { id: userContext.sessionId } })
+  const result = useQuery(JOBADS_SENT_BY_SESSION_ID, { variables: { id: userContext.sessionId } })
 
   const handleToggleClick = (id) => {
     console.log("SET VISIBILITY OF", id)
@@ -19,7 +19,7 @@ const MyQueries = () => {
   return (
     <div>
       <h3>My queries</h3>
-      {result.data.findUserOrGroup.jobQueries.map((q: any) => {
+      {result.data.findUserOrGroup.jobAds.map((q: any) => {
         return (
           <div key={q.id} className="card">
             <div>
@@ -33,4 +33,4 @@ const MyQueries = () => {
   )
 };
 
-export default MyQueries;
+export default MyJobAds;

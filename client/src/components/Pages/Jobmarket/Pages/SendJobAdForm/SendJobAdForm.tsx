@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useQuery } from '@apollo/client'
 
 import { ALL_GROUP_SKILL_CATEGORIES, ALL_SKILL_CATEGORIES } from '../../../../../graphql/queries';
-import JobqueryInfoForm from './Views/JobqueryInfoForm';
+import JobAdInfoForm from './Views/JobAdInfoForm';
 import WantedCategoriesSelection from './Views/WantedCategoriesSelection'
 import Summary from './Views/Summary'
 import { Button, Loading } from '../../../../UtilityComponents/UtilityComponents';
@@ -12,7 +12,7 @@ interface Category {
   name: string
 }
 
-const SendQueryForm = () => {
+const SendJobAdForm = () => {
 
   const [content, setContent] = useState('Details about everything, detailed schedule, locations and addresses, nature of the project...')
   const [location, setLocation] = useState('')
@@ -38,7 +38,7 @@ const SendQueryForm = () => {
       wantedCategories={wantedCategories}
       setWantedCategories={setWantedCategories}
     />,
-    <JobqueryInfoForm
+    <JobAdInfoForm
       content={content}
       setContent={setContent}
       location={location}
@@ -92,4 +92,4 @@ const SendQueryForm = () => {
   )
 };
 
-export default SendQueryForm;
+export default SendJobAdForm;

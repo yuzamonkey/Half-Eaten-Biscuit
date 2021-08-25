@@ -16,9 +16,9 @@ export const SIGNUP = gql`
     }
 }
 `
-export const CREATE_JOBQUERY = gql`
-  mutation createJobquery ($content: String!, $startSchedule: Date!, $endSchedule: Date, $wantedCategories: [ID!]!, $postedBy: ID!, $location: String!, $salary: String!) {
-    createJobquery(content: $content, startSchedule: $startSchedule, endSchedule: $endSchedule, wantedCategories: $wantedCategories, postedBy: $postedBy, location: $location, salary: $salary) {
+export const CREATE_JOBAD= gql`
+  mutation createJobAd ($content: String!, $startSchedule: Date!, $endSchedule: Date, $wantedCategories: [ID!]!, $postedBy: ID!, $location: String!, $salary: String!) {
+    createJobAd(content: $content, startSchedule: $startSchedule, endSchedule: $endSchedule, wantedCategories: $wantedCategories, postedBy: $postedBy, location: $location, salary: $salary) {
       id
       content
     }

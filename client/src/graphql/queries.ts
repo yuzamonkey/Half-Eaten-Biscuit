@@ -5,7 +5,7 @@ export const ME = gql`
     me {
       id
       username
-      jobQueries {
+      jobAds {
         id, 
         content, 
         postedOn,
@@ -204,18 +204,18 @@ export const CONVERSATION_PARTICIPANTS_BY_SESSION_ID = gql`
   }
 `
 
-export const JOBQUERIES_SENT_BY_SESSION_ID = gql`
-  query jobqueriesBySessionId($id: ID!) {
+export const JOBADS_SENT_BY_SESSION_ID = gql`
+  query jobAdsBySessionId($id: ID!) {
     findUserOrGroup(id: $id) {
         ... on User {
-        jobQueries {
+        jobAds {
           id
           content
           visible
         }
       }
       ... on Group {
-        jobQueries {
+        jobAds {
           id
           content
           visible
@@ -270,9 +270,9 @@ export const FIND_CONVERSATION = gql`
   }
 `
 
-export const FIND_JOBQUERY = gql`
-  query findJobquery($id: ID!) {
-    findJobquery(id: $id) {
+export const FIND_JOBAD = gql`
+  query findJobAd($id: ID!) {
+    findJobAd(id: $id) {
       id,
       content,
       postedOn,
@@ -311,9 +311,9 @@ export const FIND_JOBQUERY = gql`
   }
 `
 
-export const ALL_JOBQUERIES = gql`
-  query allJobqueries {
-    allJobqueries {
+export const ALL_JOBADS = gql`
+  query allJobAds {
+    allJobAds {
       id,
       content,
       postedOn,
