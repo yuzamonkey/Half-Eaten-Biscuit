@@ -299,7 +299,7 @@ export const FIND_JOBAD = gql`
       }
       wantedCategories {
         object {
-          ...on SkillCategory {
+          ...on UserCategory {
             name
           }
           ... on GroupCategory {
@@ -341,7 +341,7 @@ export const ALL_JOBADS = gql`
       }
       wantedCategories {
         object {
-          ...on SkillCategory {
+          ...on UserCategory {
             name
             profession
           }
