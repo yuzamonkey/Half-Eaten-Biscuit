@@ -6,7 +6,7 @@ import { FIND_USER_OR_GROUP, ME } from '../../../graphql/queries';
 import { SESSION_TOKEN } from '../../../utils/constants';
 import './Dropdown.css'
 import { UserContext } from '../../UtilityComponents/UserContext';
-import { LargeProfileImage, Loading } from '../../UtilityComponents/UtilityComponents';
+import { LargeProfileImage, Loading, SmallProfileImage } from '../../UtilityComponents/UtilityComponents';
 
 const ProfileDropdown = ({ show, setShow }: any) => {
   const client = useApolloClient()
@@ -75,15 +75,25 @@ const ProfileDropdown = ({ show, setShow }: any) => {
         <div className="profile-switch-options">
           <b>Switch profile</b>
           {me.data.me.id !== userContext.sessionId &&
-            <div className="dropdown-link" onClick={handleMeClick}>{me.data.me.profile.name}</div>
+            <div className="dropdown-link profile-switch-profile-link" onClick={handleMeClick}>
+              <div>
+                <SmallProfileImage image={me.data.me.profile.image} />
+              </div>
+              <p>{me.data.me.profile.name}</p>
+              <span />
+            </div>
           }
           {me.data.me.groups.map(group =>
             group.id !== userContext.sessionId &&
             <div
-              className="dropdown-link"
+              className="dropdown-link profile-switch-profile-link"
               onClick={() => handleProfileChange(group.id)}
               key={group.id}>
-              {group.profile.name}
+              <div>
+                <SmallProfileImage image={group.profile.image} />
+              </div>
+              <p>{group.profile.name}</p>
+              <span />
             </div>
           )}
         </div>

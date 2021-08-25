@@ -15,6 +15,7 @@ export const ME = gql`
         id
         profile {
           name
+          image
         }
       },
       profile {

@@ -51,6 +51,16 @@
   cursor: pointer;
 }
 
+.profile-switch-profile-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-switch-profile-link  > * {
+  width: 100%;
+}
+
 .notifications-title {
   font-size: 2em;
   color: var(--black);
