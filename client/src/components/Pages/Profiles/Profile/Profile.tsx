@@ -14,8 +14,6 @@ const Profile = () => {
     return <Loading />
   }
 
-  console.log("USER/GROUP RESULT", result.data)
-
   if (!result.data) {
     return <h1>Profile not found...</h1>
   }
