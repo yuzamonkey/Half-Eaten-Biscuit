@@ -135,19 +135,21 @@ export const MY_CONVERSATIONS_PARTICIPANTS_LIST = gql`
       me {
         username
         conversations {
-          id,
-          participants {
-            object {
-            ...on User {
-              id,
-              kind,
-              username
-            }
-            ...on Group {
-              id,
-              kind,
-              profile {
-                name
+          object {
+            id,
+            participants {
+              object {
+              ...on User {
+                id,
+                kind,
+                username
+              }
+              ...on Group {
+                id,
+                kind,
+                profile {
+                  name
+                }
               }
             }
           }
@@ -163,21 +165,23 @@ export const CONVERSATION_PARTICIPANTS_BY_SESSION_ID = gql`
       ...on User {
         username
         conversations {
-          id
-          participants {
-            object {
-              ...on User {
-                id
-                kind
-                profile {
-                  name
+          object {
+            id
+            participants {
+              object {
+                ...on User {
+                  id
+                  kind
+                  profile {
+                    name
+                  }
                 }
-              }
-              ...on Group {
-                id
-                kind
-                profile {
-                  name
+                ...on Group {
+                  id
+                  kind
+                  profile {
+                    name
+                  }
                 }
               }
             }
@@ -189,23 +193,25 @@ export const CONVERSATION_PARTICIPANTS_BY_SESSION_ID = gql`
           name
         }
         conversations {
-          id
-          participants {
-            kind
-            object {
-              ...on User {
-                id
-                kind
-                username
-                profile {
-                  name
+          object {
+            id
+            participants {
+              kind
+              object {
+                ...on User {
+                  id
+                  kind
+                  username
+                  profile {
+                    name
+                  }
                 }
-              }
-              ...on Group {
-                id
-                kind
-                profile {
-                  name
+                ...on Group {
+                  id
+                  kind
+                  profile {
+                    name
+                  }
                 }
               }
             }

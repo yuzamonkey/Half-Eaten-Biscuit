@@ -24,8 +24,14 @@ const userSchema = new mongoose.Schema({
     ref: 'JobAd'
   }],
   conversations: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Conversation'
+    hasUnreadMessages: {
+      type: Boolean,
+      default: false
+    },
+    object: { 
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Conversation'
+    }
   }],
   groups: [{
     type: mongoose.Schema.Types.ObjectId,

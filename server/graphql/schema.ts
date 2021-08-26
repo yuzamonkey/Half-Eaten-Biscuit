@@ -66,7 +66,7 @@ const typeDefs = gql`
     username: String!
     passwordHash: String!
     jobAds: [JobAd]!
-    conversations: [Conversation]!
+    conversations: [ConversationObject]!
     profile: UserProfile!
     groups: [Group]!
     available: Boolean!
@@ -79,7 +79,7 @@ const typeDefs = gql`
     users: [User!]!
     profile: GroupProfile!
     jobAds: [JobAd]!
-    conversations: [Conversation]!
+    conversations: [ConversationObject]!
     kind: String!
     notifications: [NotificationObject]!
   }
@@ -87,6 +87,11 @@ const typeDefs = gql`
   type NotificationObject {
     seen: Boolean
     object: Notification
+  }
+
+  type ConversationObject {
+    hasUnreadMessages: Boolean
+    object: Conversation
   }
 
   type UserProfile {

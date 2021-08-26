@@ -20,6 +20,8 @@ const MessageNavigation = ({ setShowContacts }: any) => {
     return <Loading />
   }
 
+  console.log("PARTICIPANTS", participants)
+
   return (
     <nav className="msg-navigation">
       <div className="msg-nav-container">
@@ -27,7 +29,8 @@ const MessageNavigation = ({ setShowContacts }: any) => {
           <Searchbar input={searchInput} setInput={setSearchInput} />
         </div>
         <ul className="msg-nav-menu">
-          {participants.data?.findUserOrGroup.conversations.map(conversation => {
+          {participants.data?.findUserOrGroup.conversations.map(c => {
+            const conversation = c.object
             const names = conversation.participants.map(participant => participant.object.profile.name).join(', ')
             const linkTo = `/messages/${conversation.id}`
             if (names.toLowerCase().includes(searchInput.toLowerCase())) {

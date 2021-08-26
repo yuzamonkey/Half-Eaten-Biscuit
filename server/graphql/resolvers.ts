@@ -63,9 +63,12 @@ const resolvers: IResolvers = {
         .populate({
           path: 'conversations',
           populate: {
-            path: 'participants.object',
+            path: 'object',
             populate: {
-              path: 'profile'
+              path: 'participants.object',
+              populate: {
+                path: 'profile'
+              }
             }
           }
         })
@@ -170,9 +173,12 @@ const resolvers: IResolvers = {
         .populate({
           path: 'conversations',
           populate: {
-            path: 'participants.object',
+            path: 'object',
             populate: {
-              path: 'profile'
+              path: 'participants.object',
+              populate: {
+                path: 'profile'
+              }
             }
           }
         })
@@ -197,9 +203,12 @@ const resolvers: IResolvers = {
         .populate({
           path: 'conversations',
           populate: {
-            path: 'participants.object',
+            path: 'object',
             populate: {
-              path: 'profile'
+              path: 'participants.object',
+              populate: {
+                path: 'profile'
+              }
             }
           }
         })
@@ -577,9 +586,14 @@ const resolvers: IResolvers = {
       try {
         const savedConversation = await newConversation.save()
         console.log("SAVED CONVERSATION SUCCESS, ", savedConversation)
-        sender.conversations = sender.conversations.concat(newConversation)
+        const conversationObject = {
+          _id: savedConversation._id,
+          hasUnreadMessages: true,
+          object: savedConversation
+        }
+        sender.conversations = sender.conversations.concat(conversationObject)
         await sender.save()
-        receiver.conversations = receiver.conversations.concat(newConversation)
+        receiver.conversations = receiver.conversations.concat(conversationObject)
         await receiver.save()
         return savedConversation
       } catch (error) {
@@ -622,6 +636,33 @@ const resolvers: IResolvers = {
           kind: sender.kind,
           object: sender
         }
+      }
+
+      const participants = conversation.participants
+      for (let participant of participants) {
+        if (JSON.stringify(senderId) !== JSON.stringify(participant._id)) {
+          if (participant.kind === 'User') {
+            const user = await User.findOne({ _id: participant._id })
+            if (user) {
+              const c = user.conversations.find((conv: any) => JSON.stringify(conv._id) === JSON.stringify(conversationId))
+              if (c) {
+                c.hasUnreadMessages = true
+                user.save()
+              }
+            }
+          }
+          if (participant.kind === 'Group') {
+            const group = await Group.findOne({ _id: participant._id })
+            if (group) {
+              const c = group.conversations.find((conv: any) => JSON.stringify(conv._id) === JSON.stringify(conversationId))
+              if (c) {
+                c.hasUnreadMessages = true
+                group.save()
+              }
+            }
+          }
+        }
+
       }
 
       try {
