@@ -2,3 +2,58 @@
   width: 100%;
   height: calc(100vh - var(--navbar-height));
 }
+
+.image-name-and-categories-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 0;
+  background-image: linear-gradient(var(--dark-blue), var(--bg-white));
+}
+
+.image-name-and-categories-container > * {
+  margin: 5px 0;
+}
+
+.profile-content-container {
+  display: flex;
+  width: 100vw;
+  justify-content: space-between;
+}
+
+.profile-content-container > * {
+  width: 100%;
+}
+
+.users-or-groups-container {
+  width: fit-content;
+}
+
+.small-card-container {
+  margin: 10px;
+}
+
+.about-container {
+
+}
+
+.contact-container {
+  display: flex;
+  justify-content: center;
+  width: fit-content;
+  padding: 0 20px;
+}
+
+@media screen and (max-width: 960px) { 
+  .profile-content-container {
+    flex-direction: column;
+  }
+
+  .users-or-groups-container >*{
+    display: flex;
+    overflow-x: scroll;
+    max-width: 100vw;
+  }
+
+}

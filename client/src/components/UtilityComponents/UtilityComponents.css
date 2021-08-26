@@ -29,15 +29,14 @@
   }
 }
 
-.loader,
-.loader:before,
-.loader:after {
+.loader, .loader:before, .loader:after {
   background: var(--dark-blue);
   -webkit-animation: load1 1s infinite ease-in-out;
   animation: load1 1s infinite ease-in-out;
   width: 1em;
   height: 4em;
 }
+
 .loader {
   color: var(--dark-blue);
   text-indent: -9999em;
@@ -50,24 +49,25 @@
   -webkit-animation-delay: -0.16s;
   animation-delay: -0.16s;
 }
-.loader:before,
-.loader:after {
+
+.loader:before, .loader:after {
   position: absolute;
   top: 0;
   content: '';
 }
+
 .loader:before {
   left: -1.5em;
   -webkit-animation-delay: -0.32s;
   animation-delay: -0.32s;
 }
+
 .loader:after {
   left: 1.5em;
 }
+
 @-webkit-keyframes load1 {
-  0%,
-  80%,
-  100% {
+  0%, 80%, 100% {
     box-shadow: 0 0;
     height: 4em;
   }
@@ -76,10 +76,9 @@
     height: 5em;
   }
 }
+
 @keyframes load1 {
-  0%,
-  80%,
-  100% {
+  0%, 80%, 100% {
     box-shadow: 0 0;
     height: 4em;
   }
@@ -142,6 +141,29 @@
 
 .button-container:hover {
   background-color: var(--grey);
+  cursor: pointer;
+}
+
+/* CONTACT BUTTON */
+
+.contact-button {
+  height: 20px;
+  width: 150px;
+  white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--blue);
+  border-radius: 5px;
+  color: white;
+  border: none;
+  box-shadow: 0 0 3pt 1pt var(--grey);
+  font-size: 1.1em;
+}
+
+.contact-button:hover {
+  background-color: var(--dark-blue);
   cursor: pointer;
 }
 
@@ -256,6 +278,34 @@
 /* SMALL_PROFILE_CARD */
 
 .small-profile-card-container {
+  width: 250px;
+  height: 75px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 10pt 1pt var(--bg-grey);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  transition: transform .2s;
+}
+
+.small-profile-card-container>* {
+  margin: 0 5px;
+}
+
+.small-profile-card-container:hover {
+  transform: scale(1.025);
+  cursor: pointer;
+}
+
+.small-profile-name {
+  font-size: 1.3em;
+}
+
+/* MEDIUM_PROFILE_CARD */
+
+.medium-profile-card-container {
   width: 150px;
   height: 200px;
   background-color: white;
@@ -267,11 +317,11 @@
   transition: transform .2s;
 }
 
-.small-profile-card-container:hover {
+.medium-profile-card-container:hover {
   transform: scale(1.025);
 }
 
-.small-profile-name {
+.medium-profile-name {
   font-size: 1.5em;
 }
 
@@ -368,6 +418,7 @@
 }
 
 /* TITLE AND LOGO */
+
 .title-and-logo {
   color: var(--blue);
   text-shadow: 0.5pt 0.5pt 1pt var(--grey);

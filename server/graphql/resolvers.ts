@@ -197,7 +197,10 @@ const resolvers: IResolvers = {
         })
         .populate({
           path: 'profile', populate: {
-            path: 'categories'
+            path: 'categories',
+            populate: {
+              path: 'parent children'
+            }
           }
         })
         .populate({

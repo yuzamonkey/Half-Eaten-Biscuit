@@ -32,11 +32,19 @@ export const Button = ({ text, handleClick }) => {
   )
 }
 
-export const Searchbar = ({input, setInput}: any) => {
+export const ContactButton = () => {
+  return (
+    <div className="contact-button">
+      Contact &nbsp; <i className="fa fa-comment"></i>
+    </div>
+  )
+}
+
+export const Searchbar = ({ input, setInput }: any) => {
 
   return (
     <div className="searchbar-container">
-      <div className={input === '' ? "searchbar-outline empty": "searchbar-outline"}>
+      <div className={input === '' ? "searchbar-outline empty" : "searchbar-outline"}>
         <input className="searchbar-input" value={input} onChange={e => setInput(e.target.value)}></input>
         <div className="searchbar-icon-container">
           <div className="searchbar-icon">⚲</div>
@@ -70,9 +78,19 @@ export const VeryLargeProfileImage = ({ image }) => {
   )
 }
 
-export const SmallProfileCard = ({ id, image, name }) => {
+export const SmallProfileCard = ({ name, image }) => {
   return (
     <div className="small-profile-card-container">
+      <SmallProfileImage image={image} />
+      <h3 className="small-profile-name">{name}</h3>
+      <div></div>
+    </div>
+  )
+}
+
+export const MediumProfileCard = ({ image, name }) => {
+  return (
+    <div className="medium-profile-card-container">
       <div className="upper-container">
         <div className="profile-image-container">
           <MediumProfileImage image={image} />
@@ -80,11 +98,10 @@ export const SmallProfileCard = ({ id, image, name }) => {
       </div>
       <div className="lower-container">
         <div className="name-container">
-          <h3 className="small-profile-name">{name}</h3>
+          <h3 className="medium-profile-name">{name}</h3>
         </div>
       </div>
     </div>
-
   )
 }
 
@@ -116,7 +133,7 @@ export const LargeProfileCard = ({ id, image, name, categories, url, contactFunc
 }
 
 export const CategorySelection = ({ allCategories, selectedCategories, setSelectedCategories, currentPath, setCurrentPath }) => {
-  
+
   const categoriesIncludeCategory = (selectedObj) => {
     const objId = selectedObj.id
     let found = false
@@ -155,7 +172,7 @@ export const CategorySelection = ({ allCategories, selectedCategories, setSelect
       setCurrentPath(currentPath.splice(0, currentPath.length - 1))
     }
   }
-  
+
   return (
     <div className="categories-container">
       <h3>{currentPath.map(name => <span key={currentPath.indexOf(name)}>{name} → </span>)}</h3>

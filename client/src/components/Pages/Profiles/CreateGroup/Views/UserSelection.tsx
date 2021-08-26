@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useQuery } from '@apollo/client'
 
 import { ALL_USERS, MY_ID } from '../../../../../graphql/queries'
-import { Loading, SmallProfileCard } from '../../../../UtilityComponents/UtilityComponents'
+import { Loading, MediumProfileCard } from '../../../../UtilityComponents/UtilityComponents'
 import '../CreateGroupForm.css'
 
 interface User {
@@ -45,7 +45,7 @@ const UserSelection = ({ selectedUsers, setSelectedUsers }) => {
             <div
               className="selected-user"
               onClick={() => handleRemoveFromSelectedUsers(u)}>
-              <SmallProfileCard id={u.id} image={u.profile.image} name={u.profile.name} />
+              <MediumProfileCard image={u.profile.image} name={u.profile.name} />
               <div className="small-profile-card-overlay selected-user-overlay">Remove</div>
             </div>
           )
@@ -56,7 +56,7 @@ const UserSelection = ({ selectedUsers, setSelectedUsers }) => {
           return (
             <div className="all-user-container" onClick={() => setSelectedUsers(selectedUsers.concat(u))}>
               {!selectedUsers.find(user => user.profile.name === u.profile.name) &&
-                <SmallProfileCard id={u.id} image={u.profile.image} name={u.profile.name} />}
+                <MediumProfileCard image={u.profile.image} name={u.profile.name} />}
               <div className="small-profile-card-overlay all-user-overlay">Add</div>
             </div>
           )

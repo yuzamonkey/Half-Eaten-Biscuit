@@ -108,6 +108,20 @@ export const FIND_USER_OR_GROUP = gql`
           image
           firstName
           name
+          categories {
+            parent {
+              name
+            }
+            name
+            profession
+          }
+        }
+        groups {
+          id
+          profile {
+            name
+            image
+          }
         }
       }
       ... on Group {
@@ -124,6 +138,12 @@ export const FIND_USER_OR_GROUP = gql`
           name
           image
           about
+          categories {
+            name
+            parent {
+              name
+            }
+          }
         }
       }
     }
