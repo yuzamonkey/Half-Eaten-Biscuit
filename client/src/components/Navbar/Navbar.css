@@ -103,6 +103,20 @@
   left: 14px;
 }
 
+.new-messages {
+  position: relative;
+}
+
+.new-messages::after {
+  content: '•';
+  color: red;
+  position: absolute;
+  top: -8px;
+  left: 17px;
+}
+
+
+
 @media screen and (max-width: 960px) {
   .nav-icon.nav-menu {
     color: var(--bg-white);

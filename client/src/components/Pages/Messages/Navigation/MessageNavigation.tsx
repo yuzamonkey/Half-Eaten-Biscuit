@@ -36,7 +36,7 @@ const MessageNavigation = ({ setShowContacts }: any) => {
             if (names.toLowerCase().includes(searchInput.toLowerCase())) {
               return (
                 <li className="msg-nav-item" key={conversation.id}>
-                  <NavLink exact to={linkTo} activeClassName="msg-active" className="msg-nav-links" onClick={() => setShowContacts(false)}>
+                  <NavLink exact to={linkTo} activeClassName="msg-active" className={c.hasUnreadMessages ? "msg-nav-links has-unread-messages" : "msg-nav-links"} onClick={() => setShowContacts(false)}>
                     {names}
                   </NavLink>
                 </li>

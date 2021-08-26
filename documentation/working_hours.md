@@ -209,5 +209,5 @@
 | 17.8.  | 2 | Miscellaneous |
 | Week 34 |||   
 | 25.8.  | 4.5 | Refactoring, notifications, css |
-| 26.8.  | 930- | Messaging notifications |
-| =     | 153.5      |               |
+| 26.8.  | 1, 1145- | Messaging notifications |
+| =     | 154.5      |               |

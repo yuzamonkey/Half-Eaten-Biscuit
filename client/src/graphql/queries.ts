@@ -130,30 +130,18 @@ export const FIND_USER_OR_GROUP = gql`
   }
 `
 
-export const MY_CONVERSATIONS_PARTICIPANTS_LIST = gql`
-  query myConversationsParticipantsList {
-      me {
-        username
+export const GET_CONVERSATION_SEEN_BY_SESSION_ID = gql`
+  query getConversationSeenBySessionId ($id: ID!) {
+    findUserOrGroup(id: $id) {
+      ...on User {
         conversations {
-          object {
-            id,
-            participants {
-              object {
-              ...on User {
-                id,
-                kind,
-                username
-              }
-              ...on Group {
-                id,
-                kind,
-                profile {
-                  name
-                }
-              }
-            }
-          }
-        }  
+          hasUnreadMessages
+        }
+      }
+      ...on Group {
+        conversations {
+          hasUnreadMessages
+        }
       }
     }
   }
@@ -165,6 +153,7 @@ export const CONVERSATION_PARTICIPANTS_BY_SESSION_ID = gql`
       ...on User {
         username
         conversations {
+          hasUnreadMessages
           object {
             id
             participants {
@@ -193,6 +182,7 @@ export const CONVERSATION_PARTICIPANTS_BY_SESSION_ID = gql`
           name
         }
         conversations {
+          hasUnreadMessages
           object {
             id
             participants {

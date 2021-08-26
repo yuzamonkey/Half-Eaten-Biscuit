@@ -1,10 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { NavLink } from "react-router-dom";
 import { UserContext } from '../UtilityComponents/UserContext';
 import { useQuery } from '@apollo/client';
 
 import './Navbar.css'
-import { FIND_USER_OR_GROUP } from '../../graphql/queries';
+import { FIND_USER_OR_GROUP, GET_CONVERSATION_SEEN_BY_SESSION_ID } from '../../graphql/queries';
 import NotificationsDropdown from './Dropdowns/NotificationsDropdown'
 import ProfileOptionsDropdown from './Dropdowns/ProfileDropdown'
 import { SmallProfileImage } from '../UtilityComponents/UtilityComponents';
@@ -12,12 +12,27 @@ import { SmallProfileImage } from '../UtilityComponents/UtilityComponents';
 const Navbar = () => {
   const userContext = useContext(UserContext)
   const currentProfileResult = useQuery(FIND_USER_OR_GROUP, { variables: { id: userContext.sessionId } })
+  const messageInfo = useQuery(GET_CONVERSATION_SEEN_BY_SESSION_ID, { variables: { id: userContext.sessionId }, })
+
+  useEffect(() => {
+    if (messageInfo.data) {
+      let hasNewMessages = false
+      for (let c of messageInfo.data.findUserOrGroup.conversations) {
+        if (c.hasUnreadMessages) {
+          hasNewMessages = true
+          break;
+        }
+      }
+      setHasUnreadMessages(hasNewMessages)
+    }
+  }, [messageInfo.data])
 
   const [showMenu, setShowMenu] = useState(false);
   const [showNotification, setShowNotifications] = useState(false)
   const [showProfileOptionsDropdown, setShowProfileOptionsDropdown] = useState(false)
 
   const [hasUnseenNotifications, setHasUnseenNotifications] = useState(false)
+  const [hasUnreadMessages, setHasUnreadMessages] = useState(false)
 
   const handleClick = () => {
     setShowMenu(!showMenu);
@@ -78,7 +93,7 @@ const Navbar = () => {
             <li className="nav-item">
               <NavLink exact to="/messages" activeClassName="active" className="nav-links" onClick={handleMessagesView}>
                 {/* Messages */}
-                <i className="fa fa-comment"></i>
+                <i className={hasUnreadMessages ? "fa fa-comment new-messages" : "fa fa-comment"}></i>
               </NavLink>
             </li>
 

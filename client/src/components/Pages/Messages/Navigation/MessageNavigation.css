@@ -45,3 +45,15 @@
   background-color: var(--dark-blue);
   color: var(--bg-white);
 }
+
+.has-unread-messages {
+  position: relative;
+}
+
+.has-unread-messages::after {
+  content: '•••';
+  color: red;
+  position: absolute;
+  right: 0;
+  height: 100%;
+}
