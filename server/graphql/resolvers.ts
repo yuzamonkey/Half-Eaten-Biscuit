@@ -675,6 +675,30 @@ const resolvers: IResolvers = {
         throw new TypeError(error.message)
       }
     },
+    setConversationAsSeen: async (_root, args, context) => {
+      const currentUser = context.currentUser
+
+      if (!currentUser) {
+        console.log(`Not authenticated user`)
+        throw new AuthenticationError("not authenticated")
+      }
+
+      const currentProfileId = args.currentProfileId
+      const conversationId = args.conversationId
+
+      try {
+        const currentProfile = await User.findOne({ _id: currentProfileId }) || await Group.findOne({ _id: currentProfileId })
+
+        const conversation = currentProfile.conversations.find((c: any) => JSON.stringify(c._id) === JSON.stringify(conversationId))
+        conversation.hasUnreadMessages = false
+        await currentProfile.save()
+
+        return currentProfile
+      } catch (error) {
+        console.log("ERROR ON SET CONVERSATION AS SEEN")
+        throw new Error(error.message)
+      }
+    },
     createGroup: async (_root, args, context) => {
       const currentUser = context.currentUser
 

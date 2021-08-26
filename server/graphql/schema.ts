@@ -191,6 +191,10 @@ const typeDefs = gql`
       senderId: ID!
       receiverId: ID!
     ): Conversation
+    setConversationAsSeen(
+      currentProfileId: ID!
+      conversationId: ID!
+    ): UserOrGroup
     sendMessage(
       senderId: ID!
       conversationId: ID!

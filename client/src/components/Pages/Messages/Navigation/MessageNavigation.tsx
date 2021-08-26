@@ -1,13 +1,15 @@
 import React, { useContext, useState } from 'react'
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { NavLink } from "react-router-dom";
 import { CONVERSATION_PARTICIPANTS_BY_SESSION_ID } from '../../../../graphql/queries';
 
 import './MessageNavigation.css'
 import { Loading, Searchbar } from '../../../UtilityComponents/UtilityComponents';
 import { UserContext } from '../../../UtilityComponents/UserContext';
+import { SET_CONVERSATION_AS_SEEN } from '../../../../graphql/mutations';
 
 const MessageNavigation = ({ setShowContacts }: any) => {
+  const [setConversationAsSeen] = useMutation(SET_CONVERSATION_AS_SEEN)
   const [searchInput, setSearchInput] = useState('')
   const userContext = useContext(UserContext)
   const participants = useQuery(CONVERSATION_PARTICIPANTS_BY_SESSION_ID, {
@@ -20,7 +22,16 @@ const MessageNavigation = ({ setShowContacts }: any) => {
     return <Loading />
   }
 
-  console.log("PARTICIPANTS", participants)
+  const handleClick = (conversationId) => {
+    setShowContacts(false)
+    console.log("SOMETHING", conversationId)
+    //set conversation as seen
+    setConversationAsSeen({variables: {
+      currentProfileId: userContext.sessionId,
+      conversationId: conversationId
+    }})
+    //update cache
+  }
 
   return (
     <nav className="msg-navigation">
@@ -36,7 +47,7 @@ const MessageNavigation = ({ setShowContacts }: any) => {
             if (names.toLowerCase().includes(searchInput.toLowerCase())) {
               return (
                 <li className="msg-nav-item" key={conversation.id}>
-                  <NavLink exact to={linkTo} activeClassName="msg-active" className={c.hasUnreadMessages ? "msg-nav-links has-unread-messages" : "msg-nav-links"} onClick={() => setShowContacts(false)}>
+                  <NavLink exact to={linkTo} activeClassName="msg-active" className={c.hasUnreadMessages ? "msg-nav-links has-unread-messages" : "msg-nav-links"} onClick={() => handleClick(conversation.id)}>
                     {names}
                   </NavLink>
                 </li>

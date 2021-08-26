@@ -58,3 +58,16 @@ export const CREATE_USER_PROFILE = gql`
     }
   }
 `
+
+export const SET_CONVERSATION_AS_SEEN = gql`
+  mutation setConversationAsSeen($currentProfileId: ID!, $conversationId: ID!) {
+    setConversationAsSeen(currentProfileId: $currentProfileId, conversationId: $conversationId) {
+      ...on User {
+        id
+      }
+      ...on Group {
+        id
+      }
+    }
+  }
+`

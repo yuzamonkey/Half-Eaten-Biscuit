@@ -52,6 +52,7 @@ const Conversation = ({ setShowContacts }: any) => {
       // BUG! Continue from here. After refreshing the page, dataInStore returns null even if the data is in the cache.
       //Note, check useQuery documentation. There are some cache options
       // Now the bug seems to have disappeared 2.8.2021
+      // But it sometimes occurs, so fix later 26.8.2021
     }
     else if (!includedIn(dataInStore.findConversation.messages, addedMessage)) {
       console.log("LENGTH NOW", dataInStore.findConversation.messages.length)
