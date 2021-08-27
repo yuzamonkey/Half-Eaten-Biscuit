@@ -675,6 +675,7 @@ const resolvers: IResolvers = {
         pubsub.publish('MESSAGE_ADDED', { messageAdded: conversation })
         return messageWithId
       } catch (error) {
+        console.log("ERROR ON SENDING MESSAGE", error.message)
         throw new TypeError(error.message)
       }
     },
@@ -855,9 +856,9 @@ const resolvers: IResolvers = {
       subscribe: withFilter(
         () => pubsub.asyncIterator(['MESSAGE_ADDED']),
         (payload, variables) => {
-          const conversationId = payload.messageAdded.id
-          const conversationIds = variables.conversationIds
-          const returnValue = conversationIds.includes(conversationId)
+          const participants = payload.messageAdded.participants.map((p: any) => p.id)
+          const userOrGroupId = variables.userOrGroupId
+          const returnValue = participants.includes(userOrGroupId)
           return returnValue;
         }
       )
@@ -868,7 +869,6 @@ const resolvers: IResolvers = {
         (payload, variables) => {
           console.log("•PAYLOAD", payload)
           console.log("•VARIABLES", variables)
-
           return true
         }
         )

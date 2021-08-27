@@ -101,7 +101,7 @@ const Conversation = ({ setShowContacts }: any) => {
 
   const handleSendMessage = async (event) => {
     event.preventDefault()
-    await sendMessage({
+    sendMessage({
       variables: {
         conversationId: conversationId,
         senderId: userContext.sessionId,

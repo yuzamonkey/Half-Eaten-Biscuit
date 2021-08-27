@@ -212,8 +212,8 @@ const typeDefs = gql`
   }
 
   type Subscription {
-    messageAdded(conversationIds: [ID]!): Conversation!
-    notificationAdded: Notification!
+    messageAdded(userOrGroupId: ID!): Conversation!
+    notificationAdded(userOrGroupId: ID!): Notification!
   }
 `
 

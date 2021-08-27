@@ -8,16 +8,16 @@ import { gql } from '@apollo/client';
 //   }
 // `
 export const MESSAGE_ADDED = gql`
-  subscription ($conversationIds: [ID]!){
-    messageAdded(conversationIds: $conversationIds) {
+  subscription ($userOrGroupId: ID!){
+    messageAdded(userOrGroupId: $userOrGroupId) {
       id
     }
   }
 `
 
 export const NOTIFICATION_ADDED = gql`
-  subscription {
-    notificationAdded {
+  subscription ($userOrGroupId: ID!){
+    notificationAdded(userOrGroupId: $userOrGroupId) {
       content
     }
   }

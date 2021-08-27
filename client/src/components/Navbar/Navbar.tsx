@@ -4,7 +4,7 @@ import { UserContext } from '../UtilityComponents/UserContext';
 import { useQuery, useSubscription } from '@apollo/client';
 
 import './Navbar.css'
-import { CURRENT_PROFILE_CONVERSATION_IDS, FIND_USER_OR_GROUP, GET_CONVERSATION_SEEN_BY_SESSION_ID } from '../../graphql/queries';
+import { FIND_USER_OR_GROUP, GET_CONVERSATION_SEEN_BY_SESSION_ID } from '../../graphql/queries';
 import NotificationsDropdown from './Dropdowns/NotificationsDropdown'
 import ProfileOptionsDropdown from './Dropdowns/ProfileDropdown'
 import { SmallProfileImage } from '../UtilityComponents/UtilityComponents';
@@ -14,9 +14,6 @@ const Navbar = () => {
   const userContext = useContext(UserContext)
   const currentProfileResult = useQuery(FIND_USER_OR_GROUP, { variables: { id: userContext.sessionId } })
   const messageInfo = useQuery(GET_CONVERSATION_SEEN_BY_SESSION_ID, { variables: { id: userContext.sessionId }, })
-
-  const myConversationIdsResult = useQuery(CURRENT_PROFILE_CONVERSATION_IDS, { variables: { sessionId: userContext.sessionId } })
-  console.log("MY CONVERSATIONS IDS", myConversationIdsResult)
 
   useEffect(() => {
     if (messageInfo.data) {
@@ -34,7 +31,7 @@ const Navbar = () => {
 
   useSubscription(MESSAGE_ADDED, {
     variables: {
-      conversationIds: myConversationIdsResult.data?.findUserOrGroup.conversations.map(c => c.object.id)
+      userOrGroupId: userContext.sessionId
     },
     onSubscriptionData: async ({ subscriptionData }) => {
       console.log("SUBSCRIPTION DATA", subscriptionData)
