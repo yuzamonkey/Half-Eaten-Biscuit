@@ -486,16 +486,6 @@ const resolvers: IResolvers = {
         postedByObject.jobAds = postedByObject.jobAds.concat(newJobAd)
         await postedByObject.save()
 
-        const newNotification = new NotificationModel({
-          content: "New jobad for you: " + content,
-          link: `/jobmarket/jobads/${savedJobAd._id}`,
-          relatedObject: {
-            kind: 'JobAd',
-            object: savedJobAd
-          }
-        })
-        await newNotification.save()
-
         //manage who will get the notification
         const notificationReceiverIds: string[] = []
         for (let category of wantedCategoryObjects) {
@@ -518,6 +508,17 @@ const resolvers: IResolvers = {
             throw new UserInputError('No GroupCategory or UserCategory found')
           }
         }
+
+        const newNotification = new NotificationModel({
+          content: "New jobad for you: " + content,
+          link: `/jobmarket/jobads/${savedJobAd._id}`,
+          relatedObject: {
+            kind: 'JobAd',
+            object: savedJobAd
+          },
+          receivers: notificationReceiverIds.map(id => JSON.parse(id))
+        })
+        await newNotification.save()
 
         const notificationObject = {
           seen: false,
@@ -757,7 +758,8 @@ const resolvers: IResolvers = {
           relatedObject: {
             kind: 'Group',
             object: savedGroup
-          }
+          },
+          receivers: userIds
         })
         await newNotification.save()
 
@@ -867,9 +869,10 @@ const resolvers: IResolvers = {
       subscribe: withFilter(
         () => pubsub.asyncIterator(['NOTIFICATION_ADDED']),
         (payload, variables) => {
-          console.log("•PAYLOAD", payload)
-          console.log("•VARIABLES", variables)
-          return true
+          const userOrGroupId = JSON.stringify(variables.userOrGroupId)
+          const receivers = payload.notificationAdded.receivers.map((r: any) => JSON.stringify(r))
+          const returnValue = receivers.includes(userOrGroupId)
+          return returnValue
         }
         )
     },

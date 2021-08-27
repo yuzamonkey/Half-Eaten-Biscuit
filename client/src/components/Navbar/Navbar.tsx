@@ -8,7 +8,7 @@ import { FIND_USER_OR_GROUP, GET_CONVERSATION_SEEN_BY_SESSION_ID } from '../../g
 import NotificationsDropdown from './Dropdowns/NotificationsDropdown'
 import ProfileOptionsDropdown from './Dropdowns/ProfileDropdown'
 import { SmallProfileImage } from '../UtilityComponents/UtilityComponents';
-import { MESSAGE_ADDED } from '../../graphql/subscriptions';
+import { MESSAGE_ADDED, NOTIFICATION_ADDED } from '../../graphql/subscriptions';
 
 const Navbar = () => {
   const userContext = useContext(UserContext)
@@ -34,8 +34,18 @@ const Navbar = () => {
       userOrGroupId: userContext.sessionId
     },
     onSubscriptionData: async ({ subscriptionData }) => {
-      console.log("SUBSCRIPTION DATA", subscriptionData)
+      console.log("SUBSCRIPTION DATA ON MESSAGE ADDED\n", subscriptionData)
       setHasUnreadMessages(true)
+    },
+  })
+
+  useSubscription(NOTIFICATION_ADDED, {
+    variables: {
+      userOrGroupId: userContext.sessionId
+    },
+    onSubscriptionData: async ({ subscriptionData }) => {
+      console.log("SUBSCRIPTION DATA ON NOTIFICATION ADDED\n", subscriptionData)
+      setHasUnseenNotifications(true)
     },
   })
 
