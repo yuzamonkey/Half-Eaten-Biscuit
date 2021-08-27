@@ -65,13 +65,16 @@ const Conversation = ({ setShowContacts }: any) => {
     }
   }
 
-  useSubscription(MESSAGE_ADDED, {
-    onSubscriptionData: async ({ subscriptionData }) => {
-      console.log("SUBSCRIPTION DATA", subscriptionData)
-      const addedMessage = subscriptionData.data
-      await updateCacheWith(addedMessage)
-    },
-  })
+  // useSubscription(MESSAGE_ADDED, {
+  //   variables: {
+  //     conversationId: conversationResult.data?.findConversation.id
+  //   },
+  //   onSubscriptionData: async ({ subscriptionData }) => {
+  //     console.log("SUBSCRIPTION DATA", subscriptionData)
+  //     const addedMessage = subscriptionData.data
+  //     await updateCacheWith(addedMessage)
+  //   },
+  // })
 
   const [sendMessage] = useMutation(SEND_MESSAGE, {
     onError: (error) => {

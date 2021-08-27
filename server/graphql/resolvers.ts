@@ -1,4 +1,4 @@
-import { AuthenticationError, IResolvers, UserInputError, PubSub } from "apollo-server"
+import { AuthenticationError, IResolvers, UserInputError, PubSub, withFilter } from "apollo-server"
 //import { IConversation } from "../types/types"
 
 require('dotenv')
@@ -672,7 +672,7 @@ const resolvers: IResolvers = {
         conversation.messages = conversation.messages.concat(newMessage)
         const messageWithId = conversation.messages[conversation.messages.length - 1]
         await conversation.save()
-        pubsub.publish('MESSAGE_ADDED', { messageAdded: messageWithId })
+        pubsub.publish('MESSAGE_ADDED', { messageAdded: conversation })
         return messageWithId
       } catch (error) {
         throw new TypeError(error.message)
@@ -852,10 +852,26 @@ const resolvers: IResolvers = {
   },
   Subscription: {
     messageAdded: {
-      subscribe: () => pubsub.asyncIterator(['MESSAGE_ADDED'])
+      subscribe: withFilter(
+        () => pubsub.asyncIterator(['MESSAGE_ADDED']),
+        (payload, variables) => {
+          const conversationId = payload.messageAdded.id
+          const conversationIds = variables.conversationIds
+          const returnValue = conversationIds.includes(conversationId)
+          return returnValue;
+        }
+      )
     },
     notificationAdded: {
-      subscribe: () => pubsub.asyncIterator(['NOTIFICATION_ADDED'])
+      subscribe: withFilter(
+        () => pubsub.asyncIterator(['NOTIFICATION_ADDED']),
+        (payload, variables) => {
+          console.log("•PAYLOAD", payload)
+          console.log("•VARIABLES", variables)
+
+          return true
+        }
+        )
     },
   }
 }

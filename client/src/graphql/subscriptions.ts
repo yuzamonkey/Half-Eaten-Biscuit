@@ -1,9 +1,16 @@
 import { gql } from '@apollo/client';
 
+// export const MESSAGE_ADDED = gql`
+//   subscription {
+//     messageAdded {
+//       id
+//     }
+//   }
+// `
 export const MESSAGE_ADDED = gql`
-  subscription {
-    messageAdded {
-      body
+  subscription ($conversationIds: [ID]!){
+    messageAdded(conversationIds: $conversationIds) {
+      id
     }
   }
 `
