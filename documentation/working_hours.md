@@ -210,5 +210,5 @@
 | Week 34 |||   
 | 25.8.  | 4.5 | Refactoring, notifications, css |
 | 26.8.  | 4 | Messaging notifications, structure changing, caching problems, css |
-| 27.8.  | 1300-14, 1715- | Filtering subscriptions |
-| =     | 158.5      |               |
+| 27.8.  | 2 | Filtering subscriptions, bug fixes |
+| =     | 160.5      |               |
