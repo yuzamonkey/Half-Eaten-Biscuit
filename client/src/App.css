@@ -15,6 +15,7 @@ body {
   background-color: red;
   color: white;
   max-height: 20px;
+  opacity: 0.5;
 }
 
 .app-container {
