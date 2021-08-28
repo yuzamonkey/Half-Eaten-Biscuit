@@ -16,7 +16,7 @@ interface IConversation {
   hasUnreadMessages: Boolean
 }
 
-const ProfileDropdown = ({ show, setShow }: any) => {
+const ProfileDropdown = ({ show, setShow, hasUnseen, setHasUnseen }: any) => {
   const client = useApolloClient()
   const me = useQuery(ME)
   const userContext = useContext(UserContext)
@@ -67,18 +67,20 @@ const ProfileDropdown = ({ show, setShow }: any) => {
     }
     for (let n of notifications) {
       if (!n.seen) {
+        setHasUnseen(true)
         return true
       }
     }
     for (let c of conversations) {
       if (c.hasUnreadMessages) {
+        setHasUnseen(true)
         return true
       }
     }
+    hasUnseen === false && setHasUnseen(false)
     return false;
   }
 
-  console.log("ME", me.data?.me)
   return (
     <div className={show ? "dropdown active" : "dropdown"}>
       <div className="dropdown-profile" onClick={handleProfileClick}>

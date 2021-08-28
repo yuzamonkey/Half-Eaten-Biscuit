@@ -55,6 +55,7 @@ const Navbar = () => {
 
   const [hasUnseenNotifications, setHasUnseenNotifications] = useState(false)
   const [hasUnreadMessages, setHasUnreadMessages] = useState(false)
+  const [hasUnseenOnOtherProfile, setHasUnseenOnOtherProfile] = useState(false)
 
   const handleClick = () => {
     setShowMenu(!showMenu);
@@ -79,6 +80,8 @@ const Navbar = () => {
     setShowNotifications(false)
     setShowProfileOptionsDropdown(false)
   };
+
+  console.log("HAS UNSEEN ON OTHER PROFILE", hasUnseenOnOtherProfile)
 
   return (
     <>
@@ -115,7 +118,8 @@ const Navbar = () => {
             <li className="nav-item">
               <NavLink exact to="/messages" activeClassName="active" className="nav-links" onClick={handleMessagesView}>
                 {/* Messages */}
-                <i className={hasUnreadMessages ? "fa fa-comment new-messages" : "fa fa-comment"}></i>
+                <i className="fa fa-comment"></i>
+                <span className={hasUnreadMessages ? "new-messages" : ""}></span>
               </NavLink>
             </li>
 
@@ -126,7 +130,9 @@ const Navbar = () => {
                 tabIndex={0}
                 className="nav-links">
                 {/* Notifications ▼ */}
-                <i className={hasUnseenNotifications ? "fa fa-bell new-notifications" : "fa fa-bell"}></i>&ensp;▿
+                <i className="fa fa-bell"></i>&ensp;
+                <span className={hasUnseenNotifications ? "new-notifications" : ""}></span>
+                ▿
               </div>
               <NotificationsDropdown
                 show={showNotification}
@@ -134,7 +140,7 @@ const Navbar = () => {
                 setHasUnseenNotifications={setHasUnseenNotifications}
               />
             </li>
-            
+
             <li className="nav-item dropdown-container">
               <div
                 onClick={handleProfileDrop}
@@ -148,15 +154,18 @@ const Navbar = () => {
                 </span>
                 &ensp;
                 {currentProfileResult.data &&
-                  <SmallProfileImage
-                    image={currentProfileResult.data.findUserOrGroup.profile.image}
-                  />}
+                    <SmallProfileImage
+                      image={currentProfileResult.data.findUserOrGroup.profile.image}
+                    />}
                 &nbsp;
                 ▿
+                <span className={hasUnseenOnOtherProfile ? "new-notifications-on-other-profile" : ""}></span>
               </div>
               <ProfileOptionsDropdown
                 show={showProfileOptionsDropdown}
                 setShow={setShowProfileOptionsDropdown}
+                hasUnseen={hasUnseenOnOtherProfile}
+                setHasUnseen={setHasUnseenOnOtherProfile}
               />
             </li>
           </ul>
