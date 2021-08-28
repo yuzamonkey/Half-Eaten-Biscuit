@@ -126,7 +126,7 @@ const Navbar = () => {
                 tabIndex={0}
                 className="nav-links">
                 {/* Notifications ▼ */}
-                <i className={hasUnseenNotifications ? "fa fa-bell new-notifications" : "fa fa-bell"}> ▿</i>
+                <i className={hasUnseenNotifications ? "fa fa-bell new-notifications" : "fa fa-bell"}></i>&ensp;▿
               </div>
               <NotificationsDropdown
                 show={showNotification}
@@ -134,7 +134,7 @@ const Navbar = () => {
                 setHasUnseenNotifications={setHasUnseenNotifications}
               />
             </li>
-
+            
             <li className="nav-item dropdown-container">
               <div
                 onClick={handleProfileDrop}
@@ -146,7 +146,7 @@ const Navbar = () => {
                     (currentProfileResult.data.findUserOrGroup.profile.firstName ||
                       currentProfileResult.data.findUserOrGroup.profile.name)}
                 </span>
-                &nbsp;
+                &ensp;
                 {currentProfileResult.data &&
                   <SmallProfileImage
                     image={currentProfileResult.data.findUserOrGroup.profile.image}

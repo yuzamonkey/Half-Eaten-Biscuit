@@ -5,6 +5,12 @@ export const ME = gql`
     me {
       id
       username
+      notifications {
+        seen
+      }
+      conversations {
+        hasUnreadMessages
+      }
       jobAds {
         id, 
         content, 
@@ -13,6 +19,12 @@ export const ME = gql`
       },
       groups {
         id
+        conversations {
+          hasUnreadMessages
+        }
+        notifications {
+          seen
+        }
         profile {
           name
           image
@@ -46,27 +58,6 @@ export const MY_ID = gql`
     }
   }
 `
-
-// export const CURRENT_PROFILE_CONVERSATION_IDS = gql`
-//   query currentProfileConversationIds($sessionId: ID!) {
-//     findUserOrGroup(id: $sessionId) {
-//       ...on User {
-//         conversations {
-//           object {
-//             id
-//           }
-//         }
-//       }
-//       ...on Group {
-//         conversations {
-//           object {
-//             id
-//           }
-//         }
-//       }
-//     }
-//   }
-// `
 
 export const GET_NOTIFICATIONS = gql`
   query getNotifications($id: ID!) {

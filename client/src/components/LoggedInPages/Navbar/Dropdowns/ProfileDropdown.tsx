@@ -8,6 +8,14 @@ import './Dropdown.css'
 import { UserContext } from '../../../UtilityComponents/UserContext';
 import { LargeProfileImage, Loading, SmallProfileImage } from '../../../UtilityComponents/UtilityComponents';
 
+interface INotification {
+  seen: Boolean
+}
+
+interface IConversation {
+  hasUnreadMessages: Boolean
+}
+
 const ProfileDropdown = ({ show, setShow }: any) => {
   const client = useApolloClient()
   const me = useQuery(ME)
@@ -53,6 +61,24 @@ const ProfileDropdown = ({ show, setShow }: any) => {
     setShow(false)
   }
 
+  const hasMessagesOrNotifications = (notifications: [INotification], conversations: [IConversation]) => {
+    if (notifications === undefined || conversations === undefined) {
+      return false
+    }
+    for (let n of notifications) {
+      if (!n.seen) {
+        return true
+      }
+    }
+    for (let c of conversations) {
+      if (c.hasUnreadMessages) {
+        return true
+      }
+    }
+    return false;
+  }
+
+  console.log("ME", me.data?.me)
   return (
     <div className={show ? "dropdown active" : "dropdown"}>
       <div className="dropdown-profile" onClick={handleProfileClick}>
@@ -71,7 +97,7 @@ const ProfileDropdown = ({ show, setShow }: any) => {
                 <SmallProfileImage image={me.data.me.profile.image} />
               </div>
               <p>{me.data.me.profile.name}</p>
-              <span />
+              {hasMessagesOrNotifications(me.data.me.notifications, me.data.me.conversations) ? <div className="alert-dot">•••</div> : <div />}
             </div>
           }
           {me.data.me.groups.map(group =>
@@ -84,7 +110,7 @@ const ProfileDropdown = ({ show, setShow }: any) => {
                 <SmallProfileImage image={group.profile.image} />
               </div>
               <p>{group.profile.name}</p>
-              <span />
+              {hasMessagesOrNotifications(group.notifications, group.conversations) ? <div className="alert-dot">•••</div> : <div />}
             </div>
           )}
         </div>

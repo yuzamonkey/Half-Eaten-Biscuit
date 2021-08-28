@@ -83,6 +83,12 @@
   background-color: var(--bg-grey);
 }
 
+.alert-dot {
+  color: red;
+  /* font-size: 40px; */
+  line-height: 0;
+}
+
 @media screen and (max-width: 580px) {
   .dropdown {
     background-color: var(--grey);
