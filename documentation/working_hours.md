@@ -211,5 +211,5 @@
 | 25.8.  | 4.5 | Refactoring, notifications, css |
 | 26.8.  | 4 | Messaging notifications, structure changing, caching problems, css |
 | 27.8.  | 2 | Filtering subscriptions, bug fixes |
-| 28.8.  | 1600-17 | Organizing component directories, planning how to query and show notifications for each group |
-| =     | 160.5      |               |
+| 28.8.  | 2.5 | Organizing component directories, show notification dot on each navbar constant link |
+| =     | 163.0      |               |
