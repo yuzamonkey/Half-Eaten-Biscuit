@@ -21,10 +21,49 @@ const ProfileDropdown = ({ show, setShow, hasUnseen, setHasUnseen }: any) => {
   const me = useQuery(ME)
   const userContext = useContext(UserContext)
   const [findUserOrGroup, { loading, data }] = useLazyQuery(FIND_USER_OR_GROUP)
+
   useEffect(() => {
     userContext.sessionId && findUserOrGroup({ variables: { id: userContext.sessionId } })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userContext.sessionId])
+
+  const hasMessagesOrNotifications = (notifications: [INotification], conversations: [IConversation]) => {
+    if (notifications === undefined || conversations === undefined) {
+      return false
+    }
+    for (let n of notifications) {
+      if (!n.seen) {
+        return true
+      }
+    }
+    for (let c of conversations) {
+      if (c.hasUnreadMessages) {
+        return true
+      }
+    }
+    return false;
+  }
+
+  useEffect(() => {
+    if (me.data) {
+      if (userContext.sessionId !== me.data.me.id) {
+        if (hasMessagesOrNotifications(me.data.me.notifications, me.data.me.conversations)) {
+          setHasUnseen(true)
+          return
+        }
+      }
+      for (let group of me.data.me.groups) {
+        if (group.id !== userContext.sessionId) {
+          if (hasMessagesOrNotifications(group.notifications, group.conversations)) {
+            setHasUnseen(true)
+            return
+          }
+        }
+      }
+      setHasUnseen(false)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data])
 
   const history = useHistory()
 
@@ -59,26 +98,6 @@ const ProfileDropdown = ({ show, setShow, hasUnseen, setHasUnseen }: any) => {
   const handleNewGroupClick = () => {
     history.push('/creategroup')
     setShow(false)
-  }
-
-  const hasMessagesOrNotifications = (notifications: [INotification], conversations: [IConversation]) => {
-    if (notifications === undefined || conversations === undefined) {
-      return false
-    }
-    for (let n of notifications) {
-      if (!n.seen) {
-        setHasUnseen(true)
-        return true
-      }
-    }
-    for (let c of conversations) {
-      if (c.hasUnreadMessages) {
-        setHasUnseen(true)
-        return true
-      }
-    }
-    hasUnseen === false && setHasUnseen(false)
-    return false;
   }
 
   return (

@@ -81,8 +81,6 @@ const Navbar = () => {
     setShowProfileOptionsDropdown(false)
   };
 
-  console.log("HAS UNSEEN ON OTHER PROFILE", hasUnseenOnOtherProfile)
-
   return (
     <>
       <nav className="navbar">
