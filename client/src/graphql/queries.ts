@@ -173,8 +173,8 @@ export const FIND_USER_OR_GROUP = gql`
   }
 `
 
-export const GET_CONVERSATION_SEEN_BY_SESSION_ID = gql`
-  query getConversationSeenBySessionId ($id: ID!) {
+export const GET_CONVERSATIONS_SEEN_BY_SESSION_ID = gql`
+  query getConversationsSeenBySessionId ($id: ID!) {
     findUserOrGroup(id: $id) {
       ...on User {
         conversations {

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import { useApolloClient, useQuery, useLazyQuery } from "@apollo/client";
+import { useApolloClient, useQuery, useLazyQuery, useSubscription } from "@apollo/client";
 import { useHistory } from 'react-router';
 
 import { FIND_USER_OR_GROUP, ME } from '../../../../graphql/queries';
@@ -7,6 +7,7 @@ import { SESSION_TOKEN } from '../../../../utils/constants';
 import './Dropdown.css'
 import { UserContext } from '../../../UtilityComponents/UserContext';
 import { LargeProfileImage, Loading, SmallProfileImage } from '../../../UtilityComponents/UtilityComponents';
+import { MESSAGE_ADDED, NOTIFICATION_ADDED } from '../../../../graphql/subscriptions';
 
 interface INotification {
   seen: Boolean
@@ -16,7 +17,7 @@ interface IConversation {
   hasUnreadMessages: Boolean
 }
 
-const ProfileDropdown = ({ show, setShow, hasUnseen, setHasUnseen }: any) => {
+const ProfileDropdown = ({ show, setShow, setHasUnseen }: any) => {
   const client = useApolloClient()
   const me = useQuery(ME)
   const userContext = useContext(UserContext)
@@ -25,7 +26,7 @@ const ProfileDropdown = ({ show, setShow, hasUnseen, setHasUnseen }: any) => {
   useEffect(() => {
     userContext.sessionId && findUserOrGroup({ variables: { id: userContext.sessionId } })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userContext.sessionId])
+  }, [userContext.sessionId, me.data])
 
   const hasMessagesOrNotifications = (notifications: [INotification], conversations: [IConversation]) => {
     if (notifications === undefined || conversations === undefined) {
@@ -66,6 +67,28 @@ const ProfileDropdown = ({ show, setShow, hasUnseen, setHasUnseen }: any) => {
   }, [data])
 
   const history = useHistory()
+
+  useSubscription(MESSAGE_ADDED, {
+    variables: {
+      userOrGroupIds: userContext.userAndGroupIds
+    },
+    onSubscriptionData: async ({ subscriptionData }) => {
+      console.log("SUBS MESSAGE vierasta dataa\n", subscriptionData)
+      me.refetch()
+      //setHasUnreadMessages(true)
+    },
+  })
+
+  useSubscription(NOTIFICATION_ADDED, {
+    variables: {
+      userOrGroupIds: userContext.userAndGroupIds
+    },
+    onSubscriptionData: async ({ subscriptionData }) => {
+      console.log("SUBS NOTIFICATION vierasta dataa\n", subscriptionData)
+      me.refetch()
+      //setHasUnseenNotifications(true)
+    },
+  })
 
   if (loading || me.loading) {
     return <div className={show ? "dropdown active" : "dropdown"}>

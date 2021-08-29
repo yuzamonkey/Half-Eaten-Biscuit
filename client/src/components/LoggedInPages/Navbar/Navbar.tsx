@@ -4,7 +4,7 @@ import { UserContext } from '../../UtilityComponents/UserContext';
 import { useQuery, useSubscription } from '@apollo/client';
 
 import './Navbar.css'
-import { FIND_USER_OR_GROUP, GET_CONVERSATION_SEEN_BY_SESSION_ID } from '../../../graphql/queries';
+import { FIND_USER_OR_GROUP, GET_CONVERSATIONS_SEEN_BY_SESSION_ID } from '../../../graphql/queries';
 import NotificationsDropdown from './Dropdowns/NotificationsDropdown'
 import ProfileOptionsDropdown from './Dropdowns/ProfileDropdown'
 import { SmallProfileImage } from '../../UtilityComponents/UtilityComponents';
@@ -13,7 +13,7 @@ import { MESSAGE_ADDED, NOTIFICATION_ADDED } from '../../../graphql/subscription
 const Navbar = () => {
   const userContext = useContext(UserContext)
   const currentProfileResult = useQuery(FIND_USER_OR_GROUP, { variables: { id: userContext.sessionId } })
-  const messageInfo = useQuery(GET_CONVERSATION_SEEN_BY_SESSION_ID, { variables: { id: userContext.sessionId }, })
+  const messageInfo = useQuery(GET_CONVERSATIONS_SEEN_BY_SESSION_ID, { variables: { id: userContext.sessionId }, })
 
   useEffect(() => {
     if (messageInfo.data) {
@@ -30,21 +30,23 @@ const Navbar = () => {
 
   useSubscription(MESSAGE_ADDED, {
     variables: {
-      userOrGroupIds: userContext.userAndGroupIds
+      userOrGroupIds: [userContext.sessionId]
     },
     onSubscriptionData: async ({ subscriptionData }) => {
-      console.log("SUBSCRIPTION DATA ON MESSAGE ADDED\n", subscriptionData)
-      setHasUnreadMessages(true)
+      console.log("SUBSCRIPTION MESSAGE omaa dataa\n", subscriptionData)
+      currentProfileResult.refetch()
+      //setHasUnreadMessages(true)
     },
   })
 
   useSubscription(NOTIFICATION_ADDED, {
     variables: {
-      userOrGroupIds: userContext.userAndGroupIds
+      userOrGroupIds: [userContext.sessionId]
     },
     onSubscriptionData: async ({ subscriptionData }) => {
-      console.log("SUBSCRIPTION DATA ON NOTIFICATION ADDED\n", subscriptionData)
-      setHasUnseenNotifications(true)
+      console.log("SUBSCRIPTION NOTIFICATION ADDED omaa dataa\n", subscriptionData)
+      currentProfileResult.refetch()
+      //setHasUnseenNotifications(true)
     },
   })
 
@@ -161,7 +163,6 @@ const Navbar = () => {
               <ProfileOptionsDropdown
                 show={showProfileOptionsDropdown}
                 setShow={setShowProfileOptionsDropdown}
-                hasUnseen={hasUnseenOnOtherProfile}
                 setHasUnseen={setHasUnseenOnOtherProfile}
               />
             </li>

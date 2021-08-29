@@ -1,31 +1,33 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery, useMutation, useSubscription } from '@apollo/client';
 
 import './Conversation.css'
 import { FIND_CONVERSATION } from '../../../../../graphql/queries';
-import { SEND_MESSAGE } from '../../../../../graphql/mutations';
+import { SEND_MESSAGE, SET_CONVERSATION_AS_SEEN } from '../../../../../graphql/mutations';
 import { UserContext } from '../../../../UtilityComponents/UserContext';
 import { Loading, SmallProfileImage } from '../../../../UtilityComponents/UtilityComponents';
+import { MESSAGE_ADDED } from '../../../../../graphql/subscriptions';
 
 const Conversation = ({ setShowContacts }: any) => {
   const userContext = useContext(UserContext)
   const { id }: any = useParams();
   //const client = useApolloClient()
-  const [numberOfMessages, setNumberOfMessages] = useState(0)
+  const [setConversationAsSeen] = useMutation(SET_CONVERSATION_AS_SEEN)
 
   const conversationResult = useQuery(FIND_CONVERSATION, {
-    variables: { id },
-    onCompleted: (data) => {
-      setNumberOfMessages(data.findConversation.messages.length)
-      //scrollToBottom()
-    }
+    variables: { id }
   })
 
   useEffect(() => {
     // console.log("NUMBER", numberOfMessages)
+    setConversationAsSeen({variables: {
+      currentProfileId: userContext.sessionId,
+      conversationId: id
+    }})
     scrollToBottom()
-  }, [numberOfMessages])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [conversationResult.data])
 
   const scrollToBottom = () => {
     const element = document.getElementById('conversation-content')
@@ -64,16 +66,17 @@ const Conversation = ({ setShowContacts }: any) => {
   //   }
   // }
 
-  // useSubscription(MESSAGE_ADDED, {
-  //   variables: {
-  //     conversationId: conversationResult.data?.findConversation.id
-  //   },
-  //   onSubscriptionData: async ({ subscriptionData }) => {
-  //     console.log("SUBSCRIPTION DATA", subscriptionData)
-  //     const addedMessage = subscriptionData.data
-  //     await updateCacheWith(addedMessage)
-  //   },
-  // })
+  useSubscription(MESSAGE_ADDED, {
+    variables: {
+      userOrGroupIds: [userContext.sessionId]
+    },
+    onSubscriptionData: async ({ subscriptionData }) => {
+      console.log("SUBSCRIPTION DATA ON CONVERSATION COMPONENT", subscriptionData)
+      conversationResult.refetch()
+      //const addedMessage = subscriptionData.data
+      //await updateCacheWith(addedMessage)
+    },
+  })
 
   const [sendMessage] = useMutation(SEND_MESSAGE, {
     onError: (error) => {
