@@ -28,8 +28,6 @@ const Navbar = () => {
     }
   }, [messageInfo.data])
 
-  console.log("USER CONTEXT U AND G IDS", userContext.userAndGroupIds)
-
   useSubscription(MESSAGE_ADDED, {
     variables: {
       userOrGroupIds: userContext.userAndGroupIds

@@ -91,42 +91,6 @@
   font-size: 1.4rem;
 }
 
-/* .new-notifications {
-  position: relative;
-}
-
-.new-notifications::after {
-  content: '•';
-  color: red;
-  position: absolute;
-  top: -8px;
-  left: 14px;
-}
-
-.new-messages {
-  position: relative;
-}
-
-.new-messages::after {
-  content: '•';
-  color: red;
-  position: absolute;
-  top: -8px;
-  left: 17px;
-}
-
-.new-notifications-on-other-profile {
-  position: relative;
-}
-
-.new-notifications-on-other-profile::after {
-  content: '•';
-  color: red;
-  position: absolute;
-  top: -8px;
-  left: 13px;
-} */
-
 .new-messages, .new-notifications, .new-notifications-on-other-profile {
   position: relative
 }
@@ -134,21 +98,27 @@
 .new-messages::after, .new-notifications::after, .new-notifications-on-other-profile::after {
   content: '•';
   color: red;
+  text-shadow:
+  -1px -1px 0 var(--blue),
+  1px -1px 0 var(--blue),
+  -1px 1px 0 var(--blue),
+  1px 1px 0 var(--blue);
   font-size: 40px;
   position: absolute;
-  bottom: -10px;
+  bottom: -12px;
 }
 
 .new-messages::after {
-  right: -10px;
+  right: -8px;
 }
 
 .new-notifications::after {
-  right: 0;
+  right: 2px;
 }
 
 .new-notifications-on-other-profile::after {
-  right: 11px;
+  right: 16px;
+  bottom: -8px;
 }
 
 

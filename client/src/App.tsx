@@ -33,8 +33,6 @@ const App = () => {
     sessionStorage.setItem(SESSION_TOKEN, id)
   }
 
-  //VALIDATE SESSION STORAGE TOKEN
-
   return (
     <div className="app-container">
       {process.env.NODE_ENV !== 'development' &&
