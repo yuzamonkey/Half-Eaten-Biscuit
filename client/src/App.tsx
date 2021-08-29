@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { BrowserRouter as Router } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { MY_ID, MY_USER_AND_GROUP_IDS } from "./graphql/queries";
+import { MY_ID } from "./graphql/queries";
 
 import './App.css';
 import { SESSION_TOKEN, SIGN_IN_TOKEN } from "./utils/constants";

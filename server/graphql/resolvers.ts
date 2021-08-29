@@ -853,6 +853,28 @@ const resolvers: IResolvers = {
         })
       }
     },
+    setNotificationAsSeen: async (_root, args, context) => {
+      const currentUser = context.currentUser
+      if (!currentUser) {
+        console.log(`Not authenticated user`)
+        throw new AuthenticationError("not authenticated")
+      }
+
+      const currentProfileId = args.currentProfileId
+      const notificationId = args.notificationId
+      const userOrGroup = await User.findOne({ _id: currentProfileId }) || await Group.findOne({ _id: currentProfileId })
+      if (!userOrGroup) {
+        throw new Error("NO USER OR GROUP FOUND")
+      }
+      try {
+        const notification = userOrGroup.notifications.find((n: any) => JSON.stringify(n.object) === JSON.stringify(notificationId))
+        notification.seen = true
+        await userOrGroup.save()
+        return notification
+      } catch (error) {
+        throw new Error(error.message)
+      }
+    },
   },
   Subscription: {
     messageAdded: {
@@ -871,7 +893,7 @@ const resolvers: IResolvers = {
         () => pubsub.asyncIterator(['NOTIFICATION_ADDED']),
         (payload, variables) => {
           const receivers = payload.notificationAdded.receivers.map((r: any) => JSON.stringify(r))
-          const userOrGroupIds = variables.userOrGroupIds.map((u:any) => JSON.stringify(u))
+          const userOrGroupIds = variables.userOrGroupIds.map((u: any) => JSON.stringify(u))
           const found = userOrGroupIds.some((id: any) => receivers.includes(id))
           return found;
         }

@@ -201,6 +201,10 @@ const typeDefs = gql`
       conversationId: ID!
       body: String!
     ): Message
+    setNotificationAsSeen(
+      currentProfileId: ID!
+      notificationId: ID!
+    ): Notification
     addUserCategory(
       name: String!
       profession: String!

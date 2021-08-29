@@ -1,18 +1,17 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
-import { useQuery, useMutation, useApolloClient, useSubscription } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 
 import './Conversation.css'
 import { FIND_CONVERSATION } from '../../../../../graphql/queries';
 import { SEND_MESSAGE } from '../../../../../graphql/mutations';
-import { MESSAGE_ADDED } from '../../../../../graphql/subscriptions';
 import { UserContext } from '../../../../UtilityComponents/UserContext';
 import { Loading, SmallProfileImage } from '../../../../UtilityComponents/UtilityComponents';
 
 const Conversation = ({ setShowContacts }: any) => {
   const userContext = useContext(UserContext)
   const { id }: any = useParams();
-  const client = useApolloClient()
+  //const client = useApolloClient()
   const [numberOfMessages, setNumberOfMessages] = useState(0)
 
   const conversationResult = useQuery(FIND_CONVERSATION, {
@@ -36,34 +35,34 @@ const Conversation = ({ setShowContacts }: any) => {
     })
   }
 
-  const updateCacheWith = async (addedMessage) => {
-    const includedIn = (set, object) => {
-      const isIncluded = set.map(message => message.id).includes(object.id)
-      return isIncluded
-    }
+  // const updateCacheWith = async (addedMessage) => {
+  //   const includedIn = (set, object) => {
+  //     const isIncluded = set.map(message => message.id).includes(object.id)
+  //     return isIncluded
+  //   }
 
-    const dataInStore = await client.readQuery({
-      query: FIND_CONVERSATION,
-      variables: { id }
-    })
-    //console.log("DATA IN STORE", dataInStore)
-    if (dataInStore === null) {
-      console.log("NO DATA IN STORE")
-      // BUG! Continue from here. After refreshing the page, dataInStore returns null even if the data is in the cache.
-      //Note, check useQuery documentation. There are some cache options
-      // Now the bug seems to have disappeared 2.8.2021
-      // But it sometimes occurs, so fix later 26.8.2021
-    }
-    else if (!includedIn(dataInStore.findConversation.messages, addedMessage)) {
-      console.log("LENGTH NOW", dataInStore.findConversation.messages.length)
-      client.writeQuery({
-        query: FIND_CONVERSATION,
-        variables: { id },
-        data: { findConversation: dataInStore.findConversation.messages.concat(addedMessage) }
-      })
-      setNumberOfMessages(numberOfMessages + 1)
-    }
-  }
+  //   const dataInStore = await client.readQuery({
+  //     query: FIND_CONVERSATION,
+  //     variables: { id }
+  //   })
+  //   //console.log("DATA IN STORE", dataInStore)
+  //   if (dataInStore === null) {
+  //     console.log("NO DATA IN STORE")
+  //     // BUG! Continue from here. After refreshing the page, dataInStore returns null even if the data is in the cache.
+  //     //Note, check useQuery documentation. There are some cache options
+  //     // Now the bug seems to have disappeared 2.8.2021
+  //     // But it sometimes occurs, so fix later 26.8.2021
+  //   }
+  //   else if (!includedIn(dataInStore.findConversation.messages, addedMessage)) {
+  //     console.log("LENGTH NOW", dataInStore.findConversation.messages.length)
+  //     client.writeQuery({
+  //       query: FIND_CONVERSATION,
+  //       variables: { id },
+  //       data: { findConversation: dataInStore.findConversation.messages.concat(addedMessage) }
+  //     })
+  //     setNumberOfMessages(numberOfMessages + 1)
+  //   }
+  // }
 
   // useSubscription(MESSAGE_ADDED, {
   //   variables: {

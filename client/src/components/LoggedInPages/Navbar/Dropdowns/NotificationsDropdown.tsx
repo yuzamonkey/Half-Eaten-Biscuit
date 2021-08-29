@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useApolloClient, useLazyQuery, useSubscription } from '@apollo/client'
+import { useLazyQuery, useMutation } from '@apollo/client'
 import { useHistory } from 'react-router-dom'
 
 import './Dropdown.css'
-import { NOTIFICATION_ADDED } from '../../../../graphql/subscriptions'
 import { GET_NOTIFICATIONS } from '../../../../graphql/queries'
 import { UserContext } from '../../../UtilityComponents/UserContext'
+import { SET_NOTIFICATION_AS_SEEN } from '../../../../graphql/mutations'
 
 interface INotification {
   id: string,
@@ -19,10 +19,10 @@ interface INotification {
 
 const NotificationsDropdown = ({ show, setShow, setHasUnseenNotifications }: any) => {
   const history = useHistory()
-  const client = useApolloClient()
   const userContext = useContext(UserContext)
   const [notifications, setNotifications] = useState<INotification[]>([])
   const [getNotifications, { data }] = useLazyQuery(GET_NOTIFICATIONS)
+  const [setNotificationAsSeen] = useMutation(SET_NOTIFICATION_AS_SEEN)
 
   useEffect(() => {
     getNotifications({
@@ -57,16 +57,21 @@ const NotificationsDropdown = ({ show, setShow, setHasUnseenNotifications }: any
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notifications])
 
-  useSubscription(NOTIFICATION_ADDED, {
-    onSubscriptionData: async ({ subscriptionData }) => {
-      // below works, but not optimal
-      client.reFetchObservableQueries()
-    },
-  })
+  // useSubscription(NOTIFICATION_ADDED, {
+  //   onSubscriptionData: async ({ subscriptionData }) => {
+  //     // below works, but not optimal
+  //     client.reFetchObservableQueries()
+  //   },
+  // })
 
   const handleNotificationPress = (notification) => {
     setShow(false)
     //TODO: set notification as seen
+    console.log("NOTIFICATION", notification)
+    setNotificationAsSeen({variables: {
+      currentProfileId: userContext.sessionId, 
+      notificationId: notification.object.id
+    }})
     history.push(notification.object.link)
   }
 

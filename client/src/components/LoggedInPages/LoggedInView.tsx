@@ -4,7 +4,6 @@ import { Route, Switch } from "react-router-dom"
 import { MY_USER_AND_GROUP_IDS } from "../../graphql/queries"
 import { UserContext } from "../UtilityComponents/UserContext"
 import Navbar from "./Navbar/Navbar"
-import ErrorPage from "./Pages/ErrorPage"
 import Jobmarket from "./Pages/Jobmarket/Jobmarket"
 import Messages from "./Pages/Messages/Messages"
 import CreateGroup from "./Pages/Profiles/CreateGroup/CreateGroup"
@@ -31,13 +30,12 @@ const LoggedInView = () => {
       <Switch>
         <Route path="/messages" component={Messages} />
         <Route path="/jobmarket" component={Jobmarket} />
-        <Route path="/profiles" component={Profiles} />
         <Route path="/profiles/:id" component={Profile} />
+        <Route path="/profiles" component={Profiles} />
         <Route path="/settings" component={Settings} />
         <Route path="/creategroup" component={CreateGroup} />
         <Route path="/createprofile" component={CreateProfile} />
-        <Route path="/:invalidroute" component={ErrorPage} />
-        <Route exact path="/" component={Welcome} />
+        <Route path="/" component={Welcome} />
       </Switch>
     </div >
   )
