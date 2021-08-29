@@ -59,6 +59,17 @@ export const MY_ID = gql`
   }
 `
 
+export const MY_USER_AND_GROUP_IDS = gql`
+  query myUserAndGroupIds {
+    me {
+      id
+      groups {
+        id
+      }
+    }
+  }
+`
+
 export const GET_NOTIFICATIONS = gql`
   query getNotifications($id: ID!) {
     findUserOrGroup(id: $id) {
