@@ -20,13 +20,20 @@ const Conversation = ({ setShowContacts }: any) => {
   })
 
   useEffect(() => {
-    // console.log("NUMBER", numberOfMessages)
-    setConversationAsSeen({variables: {
-      currentProfileId: userContext.sessionId,
-      conversationId: id
-    }})
+    if (conversationResult.data) {
+      if (!conversationResult.data.findConversation.participants.map(p => p.object.id).includes(userContext.sessionId)) {
+        console.log("NOT IN THE CONVERSATION")
+      } else {
+        setConversationAsSeen({
+          variables: {
+            currentProfileId: userContext.sessionId,
+            conversationId: id
+          }
+        })
+      }
+    }
     scrollToBottom()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationResult.data])
 
   const scrollToBottom = () => {
