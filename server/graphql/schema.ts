@@ -120,7 +120,8 @@ const typeDefs = gql`
     date: Date
     content: String,
     link: String,
-    relatedObject: NotificationRelatedObject
+    relatedObject: NotificationRelatedObject,
+    receivers: [ID]!
   }
 
   type Token {
@@ -212,8 +213,8 @@ const typeDefs = gql`
   }
 
   type Subscription {
-    messageAdded(userOrGroupId: ID!): Conversation!
-    notificationAdded(userOrGroupId: ID!): Notification!
+    messageAdded(userOrGroupIds: [ID]!): Conversation!
+    notificationAdded(userOrGroupIds: [ID]!): Notification!
   }
 `
 

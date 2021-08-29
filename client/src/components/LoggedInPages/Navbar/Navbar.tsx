@@ -28,10 +28,11 @@ const Navbar = () => {
     }
   }, [messageInfo.data])
 
+  console.log("USER CONTEXT U AND G IDS", userContext.userAndGroupIds)
 
   useSubscription(MESSAGE_ADDED, {
     variables: {
-      userOrGroupId: userContext.sessionId
+      userOrGroupIds: userContext.userAndGroupIds
     },
     onSubscriptionData: async ({ subscriptionData }) => {
       console.log("SUBSCRIPTION DATA ON MESSAGE ADDED\n", subscriptionData)
@@ -41,7 +42,7 @@ const Navbar = () => {
 
   useSubscription(NOTIFICATION_ADDED, {
     variables: {
-      userOrGroupId: userContext.sessionId
+      userOrGroupIds: userContext.userAndGroupIds
     },
     onSubscriptionData: async ({ subscriptionData }) => {
       console.log("SUBSCRIPTION DATA ON NOTIFICATION ADDED\n", subscriptionData)

@@ -525,10 +525,11 @@ const resolvers: IResolvers = {
           object: newNotification
         }
 
-        for (let id of notificationReceiverIds) {
-          if (JSON.parse(id) !== postedBy) {
-            const receiver = await User.findOne({ _id: JSON.parse(id) }) || await Group.findOne({ _id: JSON.parse(id) })
+        for (let id of notificationReceiverIds.map(id => JSON.parse(id))) {
+          if (id !== postedBy) {
+            const receiver = await User.findOne({ _id: id }) || await Group.findOne({ _id: id })
             if (receiver) {
+              console.log("YES RECEIVER")
               receiver.notifications = receiver.notifications.concat(notificationObject)
               await receiver.save()
             }
@@ -859,9 +860,9 @@ const resolvers: IResolvers = {
         () => pubsub.asyncIterator(['MESSAGE_ADDED']),
         (payload, variables) => {
           const participants = payload.messageAdded.participants.map((p: any) => p.id)
-          const userOrGroupId = variables.userOrGroupId
-          const returnValue = participants.includes(userOrGroupId)
-          return returnValue;
+          const userOrGroupIds = variables.userOrGroupIds
+          const found = userOrGroupIds.some((id: any) => participants.includes(id))
+          return found;
         }
       )
     },
@@ -869,12 +870,12 @@ const resolvers: IResolvers = {
       subscribe: withFilter(
         () => pubsub.asyncIterator(['NOTIFICATION_ADDED']),
         (payload, variables) => {
-          const userOrGroupId = JSON.stringify(variables.userOrGroupId)
           const receivers = payload.notificationAdded.receivers.map((r: any) => JSON.stringify(r))
-          const returnValue = receivers.includes(userOrGroupId)
-          return returnValue
+          const userOrGroupIds = variables.userOrGroupIds.map((u:any) => JSON.stringify(u))
+          const found = userOrGroupIds.some((id: any) => receivers.includes(id))
+          return found;
         }
-        )
+      )
     },
   }
 }

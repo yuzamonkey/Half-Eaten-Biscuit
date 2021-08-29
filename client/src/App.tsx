@@ -15,14 +15,6 @@ import { Loading } from "./components/UtilityComponents/UtilityComponents";
 
 const App = () => {
   const myId = useQuery(MY_ID)
-  const myUserAndGroupIds = useQuery(MY_USER_AND_GROUP_IDS, { 
-    onCompleted: (data) => {
-      const myId = data.me.id
-      const groupIds = data.me.groups.map(g => g.id)
-      const all = groupIds.concat(myId)
-      setUserAndGroupIds(all)
-    }
-  })
 
   const localStorageToken = localStorage.getItem(SIGN_IN_TOKEN)
   const sessionStorageToken = sessionStorage.getItem(SESSION_TOKEN)
@@ -31,7 +23,7 @@ const App = () => {
   const [sessionId, setSessionId] = useState(sessionStorageToken)
   const [userAndGroupIds, setUserAndGroupIds] = useState<string[]>([])
 
-  if (myId.loading || myUserAndGroupIds.loading) {
+  if (myId.loading) {
     return <Loading />
   }
 

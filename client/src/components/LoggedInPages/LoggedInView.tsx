@@ -1,4 +1,8 @@
+import { useQuery } from "@apollo/client"
+import { useContext } from "react"
 import { Route, Switch } from "react-router-dom"
+import { MY_USER_AND_GROUP_IDS } from "../../graphql/queries"
+import { UserContext } from "../UtilityComponents/UserContext"
 import Navbar from "./Navbar/Navbar"
 import ErrorPage from "./Pages/ErrorPage"
 import Jobmarket from "./Pages/Jobmarket/Jobmarket"
@@ -11,6 +15,16 @@ import Settings from "./Pages/Settings/Settings"
 import Welcome from "./Pages/Welcome/Welcome"
 
 const LoggedInView = () => {
+  const userContext = useContext(UserContext)
+  useQuery(MY_USER_AND_GROUP_IDS, { 
+    onCompleted: (data) => {
+      const myId = data.me.id
+      const groupIds = data.me.groups.map(g => g.id)
+      const all = groupIds.concat(myId)
+      userContext.setUserAndGroupIds(all)
+    }
+  })
+
   return (
     <div>
       <Navbar />
