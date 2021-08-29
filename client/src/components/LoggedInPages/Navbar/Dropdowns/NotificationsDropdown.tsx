@@ -13,7 +13,8 @@ interface INotification {
   object: {
     content: string,
     link: string,
-    date: string
+    date: string,
+    id: string
   }
 }
 
@@ -66,12 +67,18 @@ const NotificationsDropdown = ({ show, setShow, setHasUnseenNotifications }: any
 
   const handleNotificationPress = (notification) => {
     setShow(false)
-    //TODO: set notification as seen
-    console.log("NOTIFICATION", notification)
     setNotificationAsSeen({variables: {
       currentProfileId: userContext.sessionId, 
       notificationId: notification.object.id
     }})
+    setNotifications(notifications.map(n => {
+      if (n.object.id === notification.object.id) {
+        const updated = { ...n, seen: true }
+        return updated
+      } else {
+        return n
+      }
+    }))
     history.push(notification.object.link)
   }
 
