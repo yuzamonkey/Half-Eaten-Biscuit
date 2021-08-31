@@ -1,14 +1,14 @@
 .job-page {
   display: flex;
   flex-direction: row;
-  height: calc(100vh - 80px);
+  height: calc(100vh - var(--navbar-height));
 }
 
 .job-pages {
   display: inline;
   width: 100%;
   overflow: scroll;
-  /* line-height: 4rem; */
+  box-shadow: 0 0 1pt 1pt var(--bg-grey);
 }
 
 .job-navigation {
@@ -18,7 +18,7 @@
   display: flex;
   justify-content: center;
   font-size: 1.5rem;
-  font-weight: 500;
+  font-weight: 300;
 }
 
 .job-nav-container {
@@ -41,10 +41,11 @@
   text-decoration: none;
   display: table;
   width: 100%;
+  transition: background-color 0.2s ease;
 }
 
 .job-nav-links:hover {
-  background: var(--blue);
+  background-color: var(--bg-grey);
 }
 
 .job-active {
@@ -52,7 +53,7 @@
   color: var(--bg-white);
 }
 
-/* Queries page
+/* Jobads page
   |
   |
   V 
@@ -67,6 +68,12 @@
   opacity: 1;
 }
 
+.job-cards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .card {
   margin: 1.3rem;
   /* padding: 10px; */
@@ -79,6 +86,8 @@
   display: flex;
   flex-direction: row;
   transition: transform .2s;
+  width: 90%;
+  max-width: 900px;
 }
 
 .card:hover {

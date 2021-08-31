@@ -37,10 +37,11 @@
   text-decoration: none;
   display: table;
   width: 100%;
+  transition: background-color 0.2s ease;
 }
 
 .msg-nav-links:hover {
-  background: var(--blue);
+  background-color: var(--bg-grey);
 }
 
 .msg-active {

@@ -19,8 +19,6 @@ const Conversation = ({ setShowContacts }: any) => {
     variables: { id }
   })
 
-  console.log("DATA", conversationResult.data)
-
   useEffect(() => {
     if (conversationResult.data) {
       if (!conversationResult.data.findConversation.participants.map(p => p.object.id).includes(userContext.sessionId)) {
@@ -79,18 +77,20 @@ const Conversation = ({ setShowContacts }: any) => {
 
   const handleSendMessage = async (event) => {
     event.preventDefault()
-    sendMessage({
-      variables: {
-        conversationId: conversationId,
-        senderId: userContext.sessionId,
-        body: messageInput
-      }
-    })
-    setMessageInput('')
+    if (messageInput !== '') {
+      sendMessage({
+        variables: {
+          conversationId: conversationId,
+          senderId: userContext.sessionId,
+          body: messageInput
+        }
+      })
+      setMessageInput('')
+    }
   }
 
   if (!participants.map(p => p.object.id).includes(userContext.sessionId)) {
-    return <SelectConversation setShowContacts={setShowContacts}/>
+    return <SelectConversation setShowContacts={setShowContacts} />
   }
 
   return (

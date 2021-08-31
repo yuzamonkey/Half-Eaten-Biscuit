@@ -65,7 +65,7 @@ const JobAds = () => {
           {orderOptions.map(option => <option key={option}>{option}</option>)}
         </select>
 
-        <ul>
+        <ul className="job-cards">
           {orderedQueries.map((q: any) => {
             const contactText = `Contact ${q.postedBy.object.profile.firstName || q.postedBy.object.profile.name}`
             return (

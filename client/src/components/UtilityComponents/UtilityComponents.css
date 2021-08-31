@@ -242,8 +242,8 @@
 /* SMALL_PROFILE_IMAGE */
 
 .small-profile-image {
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   object-fit: cover;
   border-radius: 50%;
 }

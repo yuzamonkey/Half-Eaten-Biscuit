@@ -214,5 +214,5 @@
 | 28.8.  | 2.5 | Organizing component directories, show notification dot on each navbar constant link |
 | 29.8.  | 3 | Notifications |
 | Week 35 |||   
-| 31.8.  | 930-1030, 1045-12 | Notifications |
+| 31.8.  | 930-1030, 1045-1245 | Notifications, css |
 | =     | 166.0      |               |
