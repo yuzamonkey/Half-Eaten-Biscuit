@@ -561,9 +561,6 @@ const resolvers: IResolvers = {
       const sender = await User.findOne({ _id: senderId }) || await Group.findOne({ _id: senderId })
       const receiver = await User.findOne({ _id: receiverId }) || await Group.findOne({ _id: receiverId })
 
-      console.log("\nSENDER •••", sender._id)
-      console.log("RECEIVER •••", receiver._id)
-
       if (!sender || !receiver) {
         console.log("NO SENDER OR RECEIVER")
         throw new UserInputError('No sender or receiver', {
@@ -571,26 +568,32 @@ const resolvers: IResolvers = {
         })
       }
 
-      const newConversation = new Conversation({
-        participants: [
-          {
-            _id: sender.id,
-            kind: sender.kind,
-            object: sender
-          },
-          {
-            _id: receiver.id,
-            kind: receiver.kind,
-            object: receiver
-          }
-        ]
-      })
-
-      console.log("•••NEW CONVERSATION•••\n", newConversation)
+      // Check if there's already a conversation between sender and receiver. Return the conversation if true
+      for (let c of sender.conversations) {
+        const conversation = await Conversation.findOne({ _id: c.object })
+        const participants = conversation.participants.map((p: any) => p.object)
+        if (participants.length === 2 && participants.includes(sender._id) && participants.includes(receiver._id)) {
+          return conversation
+        }
+      }
 
       try {
+        const newConversation = new Conversation({
+          participants: [
+            {
+              _id: sender.id,
+              kind: sender.kind,
+              object: sender
+            },
+            {
+              _id: receiver.id,
+              kind: receiver.kind,
+              object: receiver
+            }
+          ]
+        })
+
         const savedConversation = await newConversation.save()
-        console.log("SAVED CONVERSATION SUCCESS, ", savedConversation)
         const conversationObject = {
           _id: savedConversation._id,
           hasUnreadMessages: true,
@@ -603,9 +606,7 @@ const resolvers: IResolvers = {
         return savedConversation
       } catch (error) {
         console.log("CREATE CONVERSATION ERROR", error.message)
-        throw new UserInputError(error.message, {
-          invalidArgs: args,
-        })
+        throw new Error(error.message)
       }
     },
     sendMessage: async (_root, args, context) => {
@@ -886,7 +887,7 @@ const resolvers: IResolvers = {
           const varId = JSON.stringify(variables.conversationId)
           const retVal = updatedConvId === varId
           return retVal;
-        } 
+        }
       )
     },
     messageAdded: {
