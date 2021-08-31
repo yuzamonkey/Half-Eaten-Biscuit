@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 import MessageNavigation from './Navigation/MessageNavigation'
 import Conversation from './Conversation/Conversation';
@@ -12,7 +12,6 @@ const Messages = () => {
 
   return (
     <div className="messages-container">
-      <Router>
         <div className={showContacts ? "msg-contacts-container active": "msg-contacts-container"}>
           <MessageNavigation setShowContacts={setShowContacts} />
         </div>
@@ -22,7 +21,6 @@ const Messages = () => {
             <Route path="/messages/" component={() => <SelectConversation setShowContacts={setShowContacts} />} />
           </Switch>
         </div>
-      </Router>
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client"
 import { useContext } from "react"
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import { Route, Switch } from "react-router-dom"
+
 import { MY_USER_AND_GROUP_IDS } from "../../graphql/queries"
 import { UserContext } from "../UtilityComponents/UserContext"
 import Navbar from "./Navbar/Navbar"
@@ -15,7 +16,7 @@ import Welcome from "./Pages/Welcome/Welcome"
 
 const LoggedInView = () => {
   const userContext = useContext(UserContext)
-  useQuery(MY_USER_AND_GROUP_IDS, { 
+  useQuery(MY_USER_AND_GROUP_IDS, {
     onCompleted: (data) => {
       const myId = data.me.id
       const groupIds = data.me.groups.map(g => g.id)
@@ -26,17 +27,17 @@ const LoggedInView = () => {
 
   return (
     <div>
-      <Navbar />
-      <Switch>
-        <Route path="/messages" component={Messages} />
-        <Route path="/jobmarket" component={Jobmarket} />
-        <Route path="/profiles/:id" component={Profile} />
-        <Route path="/profiles" component={Profiles} />
-        <Route path="/settings" component={Settings} />
-        <Route path="/creategroup" component={CreateGroup} />
-        <Route path="/createprofile" component={CreateProfile} />
-        <Route path="/" component={Welcome} />
-      </Switch>
+        <Navbar />
+        <Switch>
+          <Route path="/messages" component={Messages} />
+          <Route path="/jobmarket" component={Jobmarket} />
+          <Route path="/profiles/:id" component={Profile} />
+          <Route path="/profiles" component={Profiles} />
+          <Route path="/settings" component={Settings} />
+          <Route path="/creategroup" component={CreateGroup} />
+          <Route path="/createprofile" component={CreateProfile} />
+          <Route path="/" component={Welcome} />
+        </Switch>
     </div >
   )
 }

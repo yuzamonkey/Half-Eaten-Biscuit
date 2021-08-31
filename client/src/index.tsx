@@ -7,9 +7,7 @@ import {
   InMemoryCache,
   split
 } from '@apollo/client'
-
 import { setContext } from '@apollo/link-context';
-
 import { getMainDefinition } from '@apollo/client/utilities'
 import { WebSocketLink } from '@apollo/client/link/ws'
 

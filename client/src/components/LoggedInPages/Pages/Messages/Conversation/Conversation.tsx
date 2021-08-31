@@ -100,7 +100,7 @@ const Conversation = ({ setShowContacts }: any) => {
 
   const handleStuff = (id) => {
     console.log("handle stuff called", id)
-    history.push(`/profiles`)
+    history.push(`/profiles/${id}`)
   }
 
   return (
@@ -111,6 +111,7 @@ const Conversation = ({ setShowContacts }: any) => {
             return (
               <div className="conversation-participant" onClick={() => handleStuff(p.object.id)}>
                 <SmallProfileImage image={p.object.profile.image} />
+                &nbsp;
                 <b>{p.object.username || p.object.profile.name}</b>
               </div>
             )

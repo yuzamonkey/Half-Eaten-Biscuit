@@ -45,13 +45,17 @@
   width: 100%;
   overflow-x: scroll;
   display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0;
 }
 
 .conversation-participant {
   display: flex;
   align-items: center;
-  padding: 10px;
-  border-radius: 5px;
+  padding: 0 10px;
+  height: 100%;
+  transition: background-color 0.2s ease;
 }
 
 .conversation-participant:hover {
