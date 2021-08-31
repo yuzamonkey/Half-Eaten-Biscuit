@@ -213,4 +213,6 @@
 | 27.8.  | 2 | Filtering subscriptions, bug fixes |
 | 28.8.  | 2.5 | Organizing component directories, show notification dot on each navbar constant link |
 | 29.8.  | 3 | Notifications |
+| Week 35 |||   
+| 31.8.  | 930- | Notifications |
 | =     | 166.0      |               |

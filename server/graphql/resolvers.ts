@@ -675,6 +675,7 @@ const resolvers: IResolvers = {
         const messageWithId = conversation.messages[conversation.messages.length - 1]
         await conversation.save()
         pubsub.publish('MESSAGE_ADDED', { messageAdded: conversation })
+        pubsub.publish('CONVERSATION_UPDATE', { conversationUpdate: conversation })
         return messageWithId
       } catch (error) {
         console.log("ERROR ON SENDING MESSAGE", error.message)
@@ -877,6 +878,16 @@ const resolvers: IResolvers = {
     },
   },
   Subscription: {
+    conversationUpdate: {
+      subscribe: withFilter(
+        () => pubsub.asyncIterator(['CONVERSATION_UPDATE']),
+        (payload, variables) => {
+          console.log("PAYLOAD", payload)
+          console.log("VARIABLES", variables)
+          return true;
+        } 
+      )
+    },
     messageAdded: {
       subscribe: withFilter(
         () => pubsub.asyncIterator(['MESSAGE_ADDED']),
