@@ -91,12 +91,12 @@ export const SmallProfileCard = ({ name, image }) => {
 export const MediumProfileCard = ({ image, name }) => {
   return (
     <div className="medium-profile-card-container">
-      <div className="upper-container">
+      <div className="medium-upper-container">
         <div className="profile-image-container">
           <MediumProfileImage image={image} />
         </div>
       </div>
-      <div className="lower-container">
+      <div className="medium-lower-container">
         <div className="name-container">
           <h3 className="medium-profile-name">{name}</h3>
         </div>

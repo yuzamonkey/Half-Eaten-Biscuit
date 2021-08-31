@@ -26,7 +26,7 @@
 }
 
 .conversation-info {
-  height: 75px;
+  min-height: var(--navbar-height);
   width: 100%;
   background-color: var(--grey);
   display: flex;

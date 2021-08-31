@@ -23,6 +23,8 @@ const App = () => {
   const [sessionId, setSessionId] = useState(sessionStorageToken)
   const [userAndGroupIds, setUserAndGroupIds] = useState<string[]>([])
 
+  const [noticeContainerVisible, setNoticeContainerVisible] = useState(true)
+
   if (myId.loading) {
     return <Loading />
   }
@@ -35,8 +37,8 @@ const App = () => {
 
   return (
     <div className="app-container">
-      {process.env.NODE_ENV !== 'development' &&
-        <div className="production-notice-container">
+      {process.env.NODE_ENV !== 'development' && noticeContainerVisible &&
+        <div className="production-notice-container" onClick={() => setNoticeContainerVisible(false)}>
           In development
         </div>
       }

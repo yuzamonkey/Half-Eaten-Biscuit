@@ -45,6 +45,7 @@ export const ME = gql`
         image
         isEditedByUser
         name
+        firstName
       }
     }
   }

@@ -5,8 +5,6 @@
   height: calc(100vh - var(--navbar-height));
   display: flex;
   justify-content: center;
-  font-size: 1.5rem;
-  font-weight: 300;
   /* Positive z-index makes navbar stay top. E.g. not behind text */
 }
 
@@ -15,7 +13,10 @@
 }
 
 .messages-filter-container {
-  padding: 5px;
+  height: var(--navbar-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .msg-nav-menu {
@@ -28,7 +29,6 @@
   line-height: 4rem;
   text-align: center;
   overflow: hidden;
-  border-top: 1px solid var(--bg-grey);
   border-bottom: 1px solid var(--bg-grey);
 }
 
@@ -38,6 +38,8 @@
   display: table;
   width: 100%;
   transition: background-color 0.2s ease;
+  font-size: 1.2em;
+  font-weight: 300;
 }
 
 .msg-nav-links:hover {
@@ -50,8 +52,7 @@
 }
 
 .has-unread-messages {
-  border-top: 1px solid red;
-  border-bottom: 1px solid red;
+  border-right: 3px solid red;
 }
 
 /* 

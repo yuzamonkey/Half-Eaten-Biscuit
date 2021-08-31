@@ -5,7 +5,7 @@ const SelectConversation = ({ setShowContacts }) => {
   return (
     <div className="conversation-container">
       <div className="select-conversation-container">
-        <h1>Select conversation</h1>
+        <h1>Select a conversation</h1>
         <div className="show-contacts-button-container">
           <Button text="Show contacts" handleClick={() => setShowContacts(true)} />
         </div>

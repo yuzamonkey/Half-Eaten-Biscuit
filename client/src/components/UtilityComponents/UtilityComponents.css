@@ -180,7 +180,7 @@
   justify-content: center;
   align-items: center;
   padding: 0;
-  margin: 0;
+  margin: 0 5px;
   border: 1px solid var(--searchbar-color);
   border-radius: var(--searchbar-height);
 }
@@ -251,8 +251,8 @@
 /* MEDIUM_PROFILE_IMAGE */
 
 .medium-profile-image {
-  width: 85px;
-  height: 85px;
+  width: 100px;
+  height: 100px;
   object-fit: cover;
   border-radius: 50%;
 }
@@ -300,13 +300,14 @@
 }
 
 .small-profile-name {
+  text-align: center;
   font-size: 1.3em;
 }
 
 /* MEDIUM_PROFILE_CARD */
 
 .medium-profile-card-container {
-  width: 150px;
+  width: 175px;
   height: 200px;
   background-color: white;
   border-radius: 5px;
@@ -321,7 +322,17 @@
   transform: scale(1.025);
 }
 
+.medium-upper-container {
+  height: 60%;
+}
+.medium-lower-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
 .medium-profile-name {
+  text-align: center;
   font-size: 1.5em;
 }
 
@@ -372,6 +383,7 @@
 }
 
 .profile-name {
+  text-align: center;
   font-size: 2em;
 }
 

@@ -63,7 +63,11 @@ const Conversation = ({ setShowContacts }: any) => {
   const [messageInput, setMessageInput] = useState('')
 
   if (conversationResult.loading) {
-    return <Loading />
+    return (
+      <div className="conversation-container">
+        <Loading />
+      </div>
+    )
   }
 
   if (!conversationResult.data) {
