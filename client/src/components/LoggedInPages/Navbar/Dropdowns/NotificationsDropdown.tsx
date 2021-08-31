@@ -36,8 +36,8 @@ const NotificationsDropdown = ({ show, setShow, hasUnseenNotifications, setHasUn
   useEffect(() => {
     if (data) {
       const sorted = [...data.findUserOrGroup.notifications].sort((n1: any, n2: any) => {
-        const n1date = new Date(n1.date).getTime()
-        const n2date = new Date(n2.date).getTime()
+        const n1date = new Date(n1.object.date).getTime()
+        const n2date = new Date(n2.object.date).getTime()
         return n2date - n1date
       })
       setNotifications(sorted)
@@ -92,32 +92,33 @@ const NotificationsDropdown = ({ show, setShow, hasUnseenNotifications, setHasUn
         currentProfileId: userContext.sessionId
       }
     })
-    setNotifications(notifications.map(n => {return { ...n, seen: true }}))
+    setNotifications(notifications.map(n => { return { ...n, seen: true } }))
   }
 
-return (
-  <div className={show ? "dropdown active" : "dropdown"}>
-    <h3 className="notifications-title">Notifications</h3>
-    {notifications.length === 0
-      ?
-      <div>No notifications</div>
-      :
-      <div>
-        {hasUnseenNotifications && <button onClick={() => handleSetAll()}>Set all as seen</button>}
-        {notifications.map(n => {
-          return (
-            <div key={n.id}>
-              <ul>
-                <li className="notification-container" onClick={() => handleNotificationPress(n)}>{n.seen ? n.object.content : <b>{n.object.content}</b>}</li>
-              </ul>
-            </div>
-          )
-        })
-        }
+  return (
+    <div className={show ? "dropdown active" : "dropdown"}>
+      <div className="title-and-set-all-as-seen-container">
+        <h3 className="notifications-title">Notifications</h3>
+        {hasUnseenNotifications && <button onClick={() => handleSetAll()} className="set-all-notifications-seen-button">Set all as seen</button>}
       </div>
-    }
-  </div>
-)
+      {notifications.length === 0
+        ? <div>No notifications</div>
+        :
+        <div>
+          <ul>
+            {notifications.map(n => <li
+              key={n.id}
+              className="notification-container"
+              onClick={() => handleNotificationPress(n)}
+            >
+              {n.seen ? n.object.content : <b>{n.object.content}</b>} 
+            </li>
+            )}
+          </ul>
+        </div>
+      }
+    </div>
+  )
 }
 
 export default NotificationsDropdown;

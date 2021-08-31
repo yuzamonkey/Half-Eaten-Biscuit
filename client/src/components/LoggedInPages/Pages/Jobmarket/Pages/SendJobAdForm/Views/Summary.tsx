@@ -1,5 +1,6 @@
 import { useMutation } from "@apollo/client"
 import { useContext, useState } from "react"
+import { useHistory } from "react-router-dom"
 import { CREATE_JOBAD } from "../../../../../../../graphql/mutations"
 import { categoriesWithParentsRemoved } from "../../../../../../../utils/utilityFunctions"
 import { UserContext } from "../../../../../../UtilityComponents/UserContext"
@@ -7,7 +8,7 @@ import { Button, Loading } from "../../../../../../UtilityComponents/UtilityComp
 
 
 const Summary = ({ wantedCategories, content, location, salary, startSchedule, endSchedule, }) => {
-
+  const history = useHistory()
   const [submitCompleted, setSubmitCompleted] = useState(false)
   const [redirectAdress, setRedirectAdress] = useState('')
 
@@ -64,7 +65,7 @@ const Summary = ({ wantedCategories, content, location, salary, startSchedule, e
       :
       <div>
         <h1>Jobpost added</h1>
-        <p>See it <a href={redirectAdress}>here</a></p>
+        <p>See it <div  onClick={() => history.push(redirectAdress)}>here</div></p>
       </div>
   )
 }

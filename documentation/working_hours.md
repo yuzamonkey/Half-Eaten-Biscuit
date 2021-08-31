@@ -214,5 +214,5 @@
 | 28.8.  | 2.5 | Organizing component directories, show notification dot on each navbar constant link |
 | 29.8.  | 3 | Notifications |
 | Week 35 |||   
-| 31.8.  | 6, 1700- | Messaging subscription handling, bug fixes, css |
-| =     | 172.0      |               |
+| 31.8.  | 7.5 | Messaging subscription handling, bug fixes, css |
+| =     | 173.5      |               |

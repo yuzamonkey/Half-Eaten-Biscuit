@@ -61,6 +61,17 @@
   width: 100%;
 }
 
+.profile-switch-options {
+  border: 1px solid var(--bg-grey);
+  border-radius: 10px;
+}
+
+.title-and-set-all-as-seen-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
 .notifications-title {
   font-size: 2em;
   color: var(--black);
@@ -68,9 +79,19 @@
   padding: 10px 0;
 }
 
-.profile-switch-options {
-  border: 1px solid var(--bg-grey);
-  border-radius: 10px;
+.set-all-notifications-seen-button {
+  border: none;
+  box-shadow: 0 0 2pt 1pt var(--dark-blue);
+  border-radius: 5px;
+  padding: 5px;
+  background-color: var(--blue);
+  color: white;
+  width: 60px;
+}
+
+.set-all-notifications-seen-button:hover {
+  background-color: var(--dark-blue);
+  cursor: pointer;
 }
 
 .notification-container {
@@ -79,6 +100,7 @@
   border-top: 1px solid var(--bg-grey);
   transition: background-color 0.2s ease;
 }
+
 .notification-container:hover {
   background-color: var(--bg-grey);
 }
