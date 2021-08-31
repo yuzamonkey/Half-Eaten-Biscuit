@@ -34,7 +34,7 @@
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 1pt 3pt 1pt var(--bg-grey);
-  z-index: 10;
+  z-index: 5;
 }
 
 .conversation-info>* {

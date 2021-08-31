@@ -557,6 +557,9 @@ const resolvers: IResolvers = {
       const senderId = args.senderId
       const receiverId = args.receiverId
 
+      if (senderId === receiverId) {
+        throw new Error("Same sender and receiver") 
+      }
 
       const sender = await User.findOne({ _id: senderId }) || await Group.findOne({ _id: senderId })
       const receiver = await User.findOne({ _id: receiverId }) || await Group.findOne({ _id: receiverId })
