@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useQuery, useMutation, useSubscription } from '@apollo/client';
 
 import './Conversation.css'
@@ -11,6 +11,7 @@ import { CONVERSATION_UPDATE } from '../../../../../graphql/subscriptions';
 import SelectConversation from './SelectConversation';
 
 const Conversation = ({ setShowContacts }: any) => {
+  const history = useHistory()
   const userContext = useContext(UserContext)
   const { id }: any = useParams();
   const [setConversationAsSeen] = useMutation(SET_CONVERSATION_AS_SEEN)
@@ -97,11 +98,23 @@ const Conversation = ({ setShowContacts }: any) => {
     return <SelectConversation setShowContacts={setShowContacts} />
   }
 
+  const handleStuff = (id) => {
+    console.log("handle stuff called", id)
+    history.push(`/profiles`)
+  }
+
   return (
     <div className="conversation-container">
       <div className="conversation-info">
-        <div className="conversation-participants">
-          {participants.map(p => <b>{p.object.username || p.object.profile.name} • </b>)}
+        <div className="conversation-participants-container">
+          {participants.map(p => {
+            return (
+              <div className="conversation-participant" onClick={() => handleStuff(p.object.id)}>
+                <SmallProfileImage image={p.object.profile.image} />
+                <b>{p.object.username || p.object.profile.name}</b>
+              </div>
+            )
+          })}
         </div>
         <div onClick={() => setShowContacts(true)} className="show-contacts-toggle"><i className={"fas fa-arrow-down"}></i></div>
       </div>

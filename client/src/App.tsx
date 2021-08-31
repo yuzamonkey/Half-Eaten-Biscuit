@@ -45,7 +45,9 @@ const App = () => {
       <ErrorBoundary>
         <Router>
           <UserContext.Provider value={{ token, setToken, sessionId, setSessionId, userAndGroupIds, setUserAndGroupIds }}>
-            {token ? <LoggedInView /> : <LoggedOutView />}
+            {token
+              ? <LoggedInView />
+              : <LoggedOutView />}
           </UserContext.Provider>
         </Router>
       </ErrorBoundary>

@@ -286,11 +286,15 @@ export const FIND_CONVERSATION = gql`
           ... on User {
             id,
             username
+            profile {
+              image
+            }
           }
           ... on Group {
             id,
             profile {
               name
+              image
             }
           }
         }

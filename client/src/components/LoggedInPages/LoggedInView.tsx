@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client"
 import { useContext } from "react"
-import { Route, Switch } from "react-router-dom"
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import { MY_USER_AND_GROUP_IDS } from "../../graphql/queries"
 import { UserContext } from "../UtilityComponents/UserContext"
 import Navbar from "./Navbar/Navbar"

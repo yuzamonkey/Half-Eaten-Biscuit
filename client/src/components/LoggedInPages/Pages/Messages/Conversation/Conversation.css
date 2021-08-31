@@ -41,10 +41,22 @@
   padding: 0 10px;
 }
 
-.conversation-participants {
+.conversation-participants-container {
   width: 100%;
   overflow-x: scroll;
+  display: flex;
+}
 
+.conversation-participant {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.conversation-participant:hover {
+  background-color: var(--bg-grey);
+  cursor: pointer;
 }
 
 .conversation-content {
