@@ -67,8 +67,8 @@ const cache = new InMemoryCache({
       fields: {
         profile: {
           merge(existing, incoming) {
-            // console.log("profile\nEX: \n", existing, "\nINC:\n", incoming)
-            return incoming
+            //console.log("profile\nEX: \n", existing, "\nINC:\n", incoming)
+            return { ...existing, ...incoming };
           }
         }
       }

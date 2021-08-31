@@ -287,6 +287,8 @@ export const FIND_CONVERSATION = gql`
             id,
             username
             profile {
+              firstName
+              name
               image
             }
           }

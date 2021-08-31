@@ -108,7 +108,7 @@ const Conversation = ({ setShowContacts }: any) => {
               <div className="conversation-participant" onClick={() => history.push(`/profiles/${p.object.id}`)}>
                 <SmallProfileImage image={p.object.profile.image} />
                 &nbsp;
-                <b>{p.object.username || p.object.profile.name}</b>
+                <b>{p.object.profile.firstName || p.object.profile.name}</b>
               </div>
             )
           })}
