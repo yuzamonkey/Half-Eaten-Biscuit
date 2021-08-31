@@ -19,7 +19,6 @@ const Conversation = ({ setShowContacts }: any) => {
     variables: { id }
   })
 
-  console.log("YES", conversationResult.data)
   useEffect(() => {
     if (conversationResult.data) {
       if (!conversationResult.data.findConversation.participants.map(p => p.object.id).includes(userContext.sessionId)) {
