@@ -32,9 +32,11 @@ export const Button = ({ text, handleClick }) => {
   )
 }
 
-export const ContactButton = () => {
+export const ContactButton = ({ handleClick }) => {
   return (
-    <div className="contact-button">
+    <div
+      className="contact-button"
+      onClick={handleClick}>
       Contact &nbsp; <i className="fa fa-comment"></i>
     </div>
   )

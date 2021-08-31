@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 
 import './Profile.css'
+
 import { FIND_USER_OR_GROUP } from '../../../../../graphql/queries';
 import { VeryLargeProfileImage, Loading, SmallProfileCard, ContactButton } from '../../../../UtilityComponents/UtilityComponents';
 import { categoriesWithParentsRemoved } from '../../../../../utils/utilityFunctions';
+import { UserContext } from '../../../../UtilityComponents/UserContext';
+import { NEW_CONVERSATION } from '../../../../../graphql/mutations';
 
 const Profile = () => {
+  const userContext = useContext(UserContext)
   const history = useHistory()
   const { id }: any = useParams();
   const result = useQuery(FIND_USER_OR_GROUP, {
     variables: { id }
   })
+  const [newConversation] = useMutation(NEW_CONVERSATION)
 
   if (result.loading) {
     return <Loading />
@@ -22,20 +27,26 @@ const Profile = () => {
     return <h1>Profile not found...</h1>
   }
 
-  const userOrGroup = result.data.findUserOrGroup
-  console.log("THE DUDE", userOrGroup)
+  const handleContactClick = async (receiverId: any) => {
+    const result = await newConversation({
+      variables: {
+        senderId: userContext.sessionId,
+        receiverId: receiverId
+      }
+    })
+    const returnedId = result.data.createConversation.id
+    history.push(`/messages/${returnedId}`)
+  }
 
-  const c = userOrGroup.profile.categories
-  console.log("C", c)
-  const removedParents = categoriesWithParentsRemoved(c)
-  console.log("REMOVED", removedParents)
+  const userOrGroup = result.data.findUserOrGroup
+  const categories = categoriesWithParentsRemoved(userOrGroup.profile.categories)
 
   return (
     <div className="profile-container">
       <div className="image-name-and-categories-container">
         <VeryLargeProfileImage image={userOrGroup.profile.image} />
         <h1>{userOrGroup.profile.name}</h1>
-        {removedParents.map(c => <div>{c.profession || c.name}</div>)}
+        {categories.map(c => <div>{c.profession || c.name}</div>)}
       </div>
       <div className="profile-content-container">
         <div className="users-or-groups-container">
@@ -52,7 +63,9 @@ const Profile = () => {
           {userOrGroup.profile.about}
         </div>
         <div className="contact-container">
-          <ContactButton />
+          {userOrGroup.id !== userContext.sessionId &&
+            <ContactButton handleClick={() => handleContactClick(userOrGroup.id)} />
+          }
         </div>
       </div>
     </div>

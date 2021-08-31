@@ -26,16 +26,14 @@ const Profiles = () => {
   }
 
   const handleContactButtonPress = async (receiverId: any) => {
-    console.log("CONTACT BUTTON PRESSED FOR", receiverId)
-    //check for users conversations where only user is the receiver
     const result = await newConversation({
       variables: {
         senderId: userContext.sessionId,
         receiverId: receiverId
       }
     })
-    const newConversationId = result.data.createConversation.id
-    history.push(`/messages/${newConversationId}`)
+    const returnedId = result.data.createConversation.id
+    history.push(`/messages/${returnedId}`)
   }
 
   return (
