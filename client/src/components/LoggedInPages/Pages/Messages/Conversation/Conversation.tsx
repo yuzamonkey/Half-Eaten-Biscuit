@@ -7,7 +7,7 @@ import { FIND_CONVERSATION } from '../../../../../graphql/queries';
 import { SEND_MESSAGE, SET_CONVERSATION_AS_SEEN } from '../../../../../graphql/mutations';
 import { UserContext } from '../../../../UtilityComponents/UserContext';
 import { Loading, SmallProfileImage } from '../../../../UtilityComponents/UtilityComponents';
-import { CONVERSATION_UPDATE, MESSAGE_ADDED } from '../../../../../graphql/subscriptions';
+import { CONVERSATION_UPDATE } from '../../../../../graphql/subscriptions';
 
 const Conversation = ({ setShowContacts }: any) => {
   const userContext = useContext(UserContext)
@@ -78,10 +78,7 @@ const Conversation = ({ setShowContacts }: any) => {
       conversationId: id
     },
     onSubscriptionData: async ({ subscriptionData }) => {
-      console.log("SUBSCRIPTION DATA ON CONVERSATION COMPONENT", subscriptionData)
-      //conversationResult.refetch()
-      //const addedMessage = subscriptionData.data
-      //await updateCacheWith(addedMessage)
+      conversationResult.refetch()
     },
   })
 

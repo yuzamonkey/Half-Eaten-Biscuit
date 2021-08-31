@@ -882,9 +882,10 @@ const resolvers: IResolvers = {
       subscribe: withFilter(
         () => pubsub.asyncIterator(['CONVERSATION_UPDATE']),
         (payload, variables) => {
-          console.log("PAYLOAD", payload)
-          console.log("VARIABLES", variables)
-          return true;
+          const updatedConvId = JSON.stringify(payload.conversationUpdate._id)
+          const varId = JSON.stringify(variables.conversationId)
+          const retVal = updatedConvId === varId
+          return retVal;
         } 
       )
     },
