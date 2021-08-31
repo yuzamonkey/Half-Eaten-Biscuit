@@ -136,6 +136,7 @@ const Navbar = () => {
               <NotificationsDropdown
                 show={showNotification}
                 setShow={setShowNotifications}
+                hasUnseenNotifications={hasUnseenNotifications}
                 setHasUnseenNotifications={setHasUnseenNotifications}
               />
             </li>

@@ -703,7 +703,6 @@ const resolvers: IResolvers = {
         const conversation = currentProfile.conversations.find((c: any) => JSON.stringify(c._id) === JSON.stringify(conversationId))
         conversation.hasUnreadMessages = false
         await currentProfile.save()
-
         return currentProfile
       } catch (error) {
         console.log("ERROR ON SET CONVERSATION AS SEEN")
@@ -867,16 +866,43 @@ const resolvers: IResolvers = {
 
       const currentProfileId = args.currentProfileId
       const notificationId = args.notificationId
-      const userOrGroup = await User.findOne({ _id: currentProfileId }) || await Group.findOne({ _id: currentProfileId })
-      if (!userOrGroup) {
+      const currentProfile = await User.findOne({ _id: currentProfileId }) || await Group.findOne({ _id: currentProfileId })
+      
+      if (!currentProfile) {
         throw new Error("NO USER OR GROUP FOUND")
       }
+      
       try {
-        const notification = userOrGroup.notifications.find((n: any) => JSON.stringify(n.object) === JSON.stringify(notificationId))
+        const notification = currentProfile.notifications.find((n: any) => JSON.stringify(n.object) === JSON.stringify(notificationId))
         notification.seen = true
-        await userOrGroup.save()
+        await currentProfile.save()
         return notification
       } catch (error) {
+        throw new Error(error.message)
+      }
+    },
+    setAllNotificationsAsSeen: async (_root, args, context) => {
+      const currentUser = context.currentUser
+      if (!currentUser) {
+        console.log(`Not authenticated user`)
+        throw new AuthenticationError("not authenticated")
+      }
+
+      const currentProfileId = args.currentProfileId
+
+      try {
+        const currentProfile = await User.findOne({ _id: currentProfileId }) || await Group.findOne({ _id: currentProfileId })
+
+        const notifications = currentProfile.notifications
+        for (let n of notifications) {
+          if (!n.seen) {
+            n.seen = true
+          }
+        }
+        await currentProfile.save()
+        return currentProfile.notifications
+      } catch (error) {
+        console.log("ERROR ON SET ALL CONVERSATIONS AS SEEN")
         throw new Error(error.message)
       }
     },

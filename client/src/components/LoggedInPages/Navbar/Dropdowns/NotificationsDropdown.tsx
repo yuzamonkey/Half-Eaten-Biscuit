@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom'
 import './Dropdown.css'
 import { GET_NOTIFICATIONS } from '../../../../graphql/queries'
 import { UserContext } from '../../../UtilityComponents/UserContext'
-import { SET_NOTIFICATION_AS_SEEN } from '../../../../graphql/mutations'
+import { SET_NOTIFICATION_AS_SEEN, SET_ALL_NOTIFICATIONS_AS_SEEN } from '../../../../graphql/mutations'
 
 interface INotification {
   id: string,
@@ -18,12 +18,13 @@ interface INotification {
   }
 }
 
-const NotificationsDropdown = ({ show, setShow, setHasUnseenNotifications }: any) => {
+const NotificationsDropdown = ({ show, setShow, hasUnseenNotifications, setHasUnseenNotifications }: any) => {
   const history = useHistory()
   const userContext = useContext(UserContext)
   const [notifications, setNotifications] = useState<INotification[]>([])
   const [getNotifications, { data }] = useLazyQuery(GET_NOTIFICATIONS)
   const [setNotificationAsSeen] = useMutation(SET_NOTIFICATION_AS_SEEN)
+  const [setAllNotificationsAsSeen] = useMutation(SET_ALL_NOTIFICATIONS_AS_SEEN)
 
   useEffect(() => {
     getNotifications({
@@ -65,12 +66,15 @@ const NotificationsDropdown = ({ show, setShow, setHasUnseenNotifications }: any
   //   },
   // })
 
+
   const handleNotificationPress = (notification) => {
     setShow(false)
-    setNotificationAsSeen({variables: {
-      currentProfileId: userContext.sessionId, 
-      notificationId: notification.object.id
-    }})
+    setNotificationAsSeen({
+      variables: {
+        currentProfileId: userContext.sessionId,
+        notificationId: notification.object.id
+      }
+    })
     setNotifications(notifications.map(n => {
       if (n.object.id === notification.object.id) {
         const updated = { ...n, seen: true }
@@ -82,17 +86,25 @@ const NotificationsDropdown = ({ show, setShow, setHasUnseenNotifications }: any
     history.push(notification.object.link)
   }
 
+  const handleSetAll = () => {
+    setAllNotificationsAsSeen({
+      variables: {
+        currentProfileId: userContext.sessionId
+      }
+    })
+    setNotifications(notifications.map(n => {return { ...n, seen: true }}))
+  }
 
-
-
-  return (
-    <div className={show ? "dropdown active" : "dropdown"}>
-      <h3 className="notifications-title">Notifications</h3>
-      {notifications.length === 0
-        ?
-        <div>No notifications</div>
-        :
-        notifications.map(n => {
+return (
+  <div className={show ? "dropdown active" : "dropdown"}>
+    <h3 className="notifications-title">Notifications</h3>
+    {notifications.length === 0
+      ?
+      <div>No notifications</div>
+      :
+      <div>
+        {hasUnseenNotifications && <button onClick={() => handleSetAll()}>Set all as seen</button>}
+        {notifications.map(n => {
           return (
             <div key={n.id}>
               <ul>
@@ -101,9 +113,11 @@ const NotificationsDropdown = ({ show, setShow, setHasUnseenNotifications }: any
             </div>
           )
         })
-      }
-    </div>
-  )
+        }
+      </div>
+    }
+  </div>
+)
 }
 
 export default NotificationsDropdown;

@@ -205,6 +205,9 @@ const typeDefs = gql`
       currentProfileId: ID!
       notificationId: ID!
     ): Notification
+    setAllNotificationsAsSeen(
+      currentProfileId: ID!
+    ): [Notification]
     addUserCategory(
       name: String!
       profession: String!
