@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import MessageNavigation from './Navigation/MessageNavigation'
 import Conversation from './Conversation/Conversation';
 import './Messages.css'
+import SelectConversation from './Conversation/SelectConversation';
 
 
 const Messages = () => {
@@ -18,6 +19,7 @@ const Messages = () => {
         <div className="msg-conversation-container">
           <Switch>
             <Route path="/messages/:id" component={() => <Conversation setShowContacts={setShowContacts} />} />
+            <Route path="/messages/" component={SelectConversation} />
           </Switch>
         </div>
       </Router>

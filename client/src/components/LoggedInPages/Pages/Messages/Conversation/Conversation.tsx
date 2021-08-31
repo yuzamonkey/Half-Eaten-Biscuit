@@ -8,17 +8,18 @@ import { SEND_MESSAGE, SET_CONVERSATION_AS_SEEN } from '../../../../../graphql/m
 import { UserContext } from '../../../../UtilityComponents/UserContext';
 import { Loading, SmallProfileImage } from '../../../../UtilityComponents/UtilityComponents';
 import { CONVERSATION_UPDATE } from '../../../../../graphql/subscriptions';
+import SelectConversation from './SelectConversation';
 
 const Conversation = ({ setShowContacts }: any) => {
   const userContext = useContext(UserContext)
   const { id }: any = useParams();
-  //const client = useApolloClient()
   const [setConversationAsSeen] = useMutation(SET_CONVERSATION_AS_SEEN)
 
   const conversationResult = useQuery(FIND_CONVERSATION, {
     variables: { id }
   })
 
+  console.log("YES", conversationResult.data)
   useEffect(() => {
     if (conversationResult.data) {
       if (!conversationResult.data.findConversation.participants.map(p => p.object.id).includes(userContext.sessionId)) {
@@ -44,40 +45,12 @@ const Conversation = ({ setShowContacts }: any) => {
     })
   }
 
-  // const updateCacheWith = async (addedMessage) => {
-  //   const includedIn = (set, object) => {
-  //     const isIncluded = set.map(message => message.id).includes(object.id)
-  //     return isIncluded
-  //   }
-
-  //   const dataInStore = await client.readQuery({
-  //     query: FIND_CONVERSATION,
-  //     variables: { id }
-  //   })
-  //   //console.log("DATA IN STORE", dataInStore)
-  //   if (dataInStore === null) {
-  //     console.log("NO DATA IN STORE")
-  //     // BUG! Continue from here. After refreshing the page, dataInStore returns null even if the data is in the cache.
-  //     //Note, check useQuery documentation. There are some cache options
-  //     // Now the bug seems to have disappeared 2.8.2021
-  //     // But it sometimes occurs, so fix later 26.8.2021
-  //   }
-  //   else if (!includedIn(dataInStore.findConversation.messages, addedMessage)) {
-  //     console.log("LENGTH NOW", dataInStore.findConversation.messages.length)
-  //     client.writeQuery({
-  //       query: FIND_CONVERSATION,
-  //       variables: { id },
-  //       data: { findConversation: dataInStore.findConversation.messages.concat(addedMessage) }
-  //     })
-  //     setNumberOfMessages(numberOfMessages + 1)
-  //   }
-  // }
-
   useSubscription(CONVERSATION_UPDATE, {
     variables: {
       conversationId: id
     },
     onSubscriptionData: async ({ subscriptionData }) => {
+      console.log("CONVERSATION UPDATE", id)
       conversationResult.refetch()
     },
   })
@@ -86,9 +59,6 @@ const Conversation = ({ setShowContacts }: any) => {
     onError: (error) => {
       console.log("ERROR ON SENDING MESSAGE", error)
     }
-    // update: (store, response) => {
-    //   updateCacheWith(response.data.sendMessage)
-    // }
   })
 
   const [messageInput, setMessageInput] = useState('')
@@ -98,7 +68,11 @@ const Conversation = ({ setShowContacts }: any) => {
   }
 
   if (!conversationResult.data) {
-    return <h1>Conversation not found</h1>
+    return (
+      <div className="conversation-container">
+        <h1>Conversation not found</h1>
+      </div>
+    )
   }
 
   const participants = conversationResult.data.findConversation.participants
@@ -117,9 +91,8 @@ const Conversation = ({ setShowContacts }: any) => {
     setMessageInput('')
   }
 
-
   if (!participants.map(p => p.object.id).includes(userContext.sessionId)) {
-    return null
+    return <SelectConversation />
   }
 
   return (
@@ -159,3 +132,34 @@ const Conversation = ({ setShowContacts }: any) => {
 
 export default Conversation
 
+
+
+
+  // const updateCacheWith = async (addedMessage) => {
+  //   const includedIn = (set, object) => {
+  //     const isIncluded = set.map(message => message.id).includes(object.id)
+  //     return isIncluded
+  //   }
+
+  //   const dataInStore = await client.readQuery({
+  //     query: FIND_CONVERSATION,
+  //     variables: { id }
+  //   })
+  //   //console.log("DATA IN STORE", dataInStore)
+  //   if (dataInStore === null) {
+  //     console.log("NO DATA IN STORE")
+  //     // BUG! Continue from here. After refreshing the page, dataInStore returns null even if the data is in the cache.
+  //     //Note, check useQuery documentation. There are some cache options
+  //     // Now the bug seems to have disappeared 2.8.2021
+  //     // But it sometimes occurs, so fix later 26.8.2021
+  //   }
+  //   else if (!includedIn(dataInStore.findConversation.messages, addedMessage)) {
+  //     console.log("LENGTH NOW", dataInStore.findConversation.messages.length)
+  //     client.writeQuery({
+  //       query: FIND_CONVERSATION,
+  //       variables: { id },
+  //       data: { findConversation: dataInStore.findConversation.messages.concat(addedMessage) }
+  //     })
+  //     setNumberOfMessages(numberOfMessages + 1)
+  //   }
+  // }
