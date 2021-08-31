@@ -19,6 +19,8 @@ const Conversation = ({ setShowContacts }: any) => {
     variables: { id }
   })
 
+  console.log("DATA", conversationResult.data)
+
   useEffect(() => {
     if (conversationResult.data) {
       if (!conversationResult.data.findConversation.participants.map(p => p.object.id).includes(userContext.sessionId)) {
@@ -67,11 +69,8 @@ const Conversation = ({ setShowContacts }: any) => {
   }
 
   if (!conversationResult.data) {
-    return (
-      <div className="conversation-container">
-        <h1>Conversation not found</h1>
-      </div>
-    )
+    console.log("NOT FOUND, DATA", conversationResult.data, "with var", id)
+    return <h1>Conversation not found</h1>
   }
 
   const participants = conversationResult.data.findConversation.participants
@@ -91,31 +90,34 @@ const Conversation = ({ setShowContacts }: any) => {
   }
 
   if (!participants.map(p => p.object.id).includes(userContext.sessionId)) {
-    return <SelectConversation />
+    return <SelectConversation setShowContacts={setShowContacts}/>
   }
 
   return (
     <div className="conversation-container">
       <div className="conversation-info">
-        <div className="conversation-usernames">
-          {participants.map(p => {
-            return p.object.id === userContext.sessionId
-              ? <b key={p.object.id}>Me • </b>
-              : <b key={p.object.id}>{p.object.username || p.object.profile.name} • </b>
-          }
-          )}
+        <div className="conversation-participants">
+          {participants.map(p => <b>{p.object.username || p.object.profile.name} • </b>)}
         </div>
         <div onClick={() => setShowContacts(true)} className="show-contacts-toggle"><i className={"fas fa-arrow-down"}></i></div>
       </div>
       <div id='conversation-content' className="conversation-content">
         {messages.map(message => {
           return (
-            <div
-              className={message.sender.object.id === userContext.sessionId ? "message-container user-sent" : "message-container"}
-              key={message.id}>
-              <SmallProfileImage image={message.sender.object.profile.image} />
-              {message.body}
-            </div>
+            message.sender.object.id === userContext.sessionId
+              ? <div
+                className="message-container user-sent"
+                key={message.id}>
+                {message.body}
+                <SmallProfileImage image={message.sender.object.profile.image} />
+              </div>
+              :
+              <div
+                className="message-container"
+                key={message.id}>
+                <SmallProfileImage image={message.sender.object.profile.image} />
+                {message.body}
+              </div>
           )
         })}
       </div>

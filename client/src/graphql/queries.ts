@@ -283,10 +283,10 @@ export const FIND_CONVERSATION = gql`
       participants {
         object {
           ... on User {
-            id
+            id,
             username
           }
-        ... on Group {
+          ... on Group {
             id,
             profile {
               name

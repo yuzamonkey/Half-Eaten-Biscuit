@@ -19,7 +19,7 @@ const Messages = () => {
         <div className="msg-conversation-container">
           <Switch>
             <Route path="/messages/:id" component={() => <Conversation setShowContacts={setShowContacts} />} />
-            <Route path="/messages/" component={SelectConversation} />
+            <Route path="/messages/" component={() => <SelectConversation setShowContacts={setShowContacts} />} />
           </Switch>
         </div>
       </Router>
