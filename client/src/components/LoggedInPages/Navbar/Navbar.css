@@ -87,6 +87,10 @@
   cursor: pointer;
 }
 
+.nav-links.profiledrop {
+  padding: 0.5rem 0;
+}
+
 .fa {
   font-size: 1.4rem;
 }

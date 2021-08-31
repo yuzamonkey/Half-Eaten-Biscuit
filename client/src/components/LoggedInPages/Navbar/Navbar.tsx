@@ -144,7 +144,7 @@ const Navbar = () => {
               <div
                 onClick={handleProfileDrop}
                 tabIndex={0}
-                className="nav-links">
+                className="nav-links profiledrop">
                 {/* <i className="fa fa-user"> ▿ </i> */}
                 <span className="nav-current-session-name">
                   {currentProfileResult.data &&

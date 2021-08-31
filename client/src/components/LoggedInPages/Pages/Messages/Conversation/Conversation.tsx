@@ -98,10 +98,6 @@ const Conversation = ({ setShowContacts }: any) => {
     return <SelectConversation setShowContacts={setShowContacts} />
   }
 
-  const handleStuff = (id) => {
-    console.log("handle stuff called", id)
-    history.push(`/profiles/${id}`)
-  }
 
   return (
     <div className="conversation-container">
@@ -109,7 +105,7 @@ const Conversation = ({ setShowContacts }: any) => {
         <div className="conversation-participants-container">
           {participants.map(p => {
             return (
-              <div className="conversation-participant" onClick={() => handleStuff(p.object.id)}>
+              <div className="conversation-participant" onClick={() => history.push(`/profiles/${p.object.id}`)}>
                 <SmallProfileImage image={p.object.profile.image} />
                 &nbsp;
                 <b>{p.object.username || p.object.profile.name}</b>

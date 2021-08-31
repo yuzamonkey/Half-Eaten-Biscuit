@@ -2,6 +2,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   box-shadow: 0 0 1pt 1pt var(--bg-grey);
 }
 
@@ -69,13 +70,16 @@
   flex-direction: column;
   justify-content: flex-start;
   overflow: scroll;
+  width: 100%;
+  max-width: 900px;
+  box-shadow: 0 0 20pt var(--bg-grey);
 }
 
 .message-container {
   margin: 10px;
   padding: 10px;
   max-width: 60ch;
-  background-color: var(--light-blue);
+  background-color: var(--grey);
   border-radius: 5px;
   display: flex;
   justify-content: center;
@@ -104,6 +108,7 @@
   display: flex;
   justify-content: center;
   box-shadow: 0 -1pt 3pt 1pt var(--bg-grey);
+  width: 100%;
 }
 
 .conversation-input-form {
