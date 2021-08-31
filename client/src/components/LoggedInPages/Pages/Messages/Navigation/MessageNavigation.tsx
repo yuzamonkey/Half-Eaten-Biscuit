@@ -17,7 +17,9 @@ const MessageNavigation = ({ setShowContacts }: any) => {
   })
 
   if (participants.loading) {
-    return <Loading />
+    return (
+      <nav className="msg-navigation"><Loading /></nav>
+    ) 
   }
 
   return (
@@ -33,8 +35,8 @@ const MessageNavigation = ({ setShowContacts }: any) => {
             const linkTo = `/messages/${conversation.id}`
             if (names.toLowerCase().includes(searchInput.toLowerCase())) {
               return (
-                <li className="msg-nav-item" key={conversation.id}>
-                  <NavLink exact to={linkTo} activeClassName="msg-active" className={c.hasUnreadMessages ? "msg-nav-links has-unread-messages" : "msg-nav-links"} onClick={() => setShowContacts(false)}>
+                <li className={c.hasUnreadMessages ? "msg-nav-item has-unread-messages" : "msg-nav-item"} key={conversation.id}>
+                  <NavLink exact to={linkTo} activeClassName="msg-active" className="msg-nav-links" onClick={() => setShowContacts(false)}>
                     {names}
                   </NavLink>
                 </li>

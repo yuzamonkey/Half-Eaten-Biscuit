@@ -141,7 +141,7 @@ const ProfileDropdown = ({ show, setShow, setHasUnseen }: any) => {
                 <SmallProfileImage image={me.data.me.profile.image} />
               </div>
               <p>{me.data.me.profile.name}</p>
-              {hasMessagesOrNotifications(me.data.me.notifications, me.data.me.conversations) ? <div className="alert-dot">•••</div> : <div />}
+              {hasMessagesOrNotifications(me.data.me.notifications, me.data.me.conversations) ? <div className="alert-dot">•</div> : <div />}
             </div>
           }
           {me.data.me.groups.map(group =>
@@ -154,7 +154,7 @@ const ProfileDropdown = ({ show, setShow, setHasUnseen }: any) => {
                 <SmallProfileImage image={group.profile.image} />
               </div>
               <p>{group.profile.name}</p>
-              {hasMessagesOrNotifications(group.notifications, group.conversations) ? <div className="alert-dot">•••</div> : <div />}
+              {hasMessagesOrNotifications(group.notifications, group.conversations) ? <div className="alert-dot">•</div> : <div />}
             </div>
           )}
         </div>

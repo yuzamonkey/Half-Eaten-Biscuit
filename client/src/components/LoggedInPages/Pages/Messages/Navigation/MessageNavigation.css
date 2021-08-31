@@ -28,6 +28,8 @@
   line-height: 4rem;
   text-align: center;
   overflow: hidden;
+  border-top: 1px solid var(--bg-grey);
+  border-bottom: 1px solid var(--bg-grey);
 }
 
 .msg-nav-links {
@@ -47,16 +49,10 @@
 }
 
 .has-unread-messages {
-  position: relative;
+  border-top: 1px solid red;
+  border-bottom: 1px solid red;
 }
 
-.has-unread-messages::after {
-  content: '•••';
-  color: red;
-  position: absolute;
-  right: 0;
-  height: 100%;
-}
 /* 
 @media screen and (max-width: 580px) { 
   .msg-navigation {

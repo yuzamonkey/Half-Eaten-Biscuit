@@ -34,7 +34,7 @@ const Navbar = () => {
     },
     onSubscriptionData: async ({ subscriptionData }) => {
       console.log("SUBSCRIPTION MESSAGE omaa dataa\n", subscriptionData)
-      currentProfileResult.refetch()
+      messageInfo.refetch()
       //setHasUnreadMessages(true)
     },
   })
