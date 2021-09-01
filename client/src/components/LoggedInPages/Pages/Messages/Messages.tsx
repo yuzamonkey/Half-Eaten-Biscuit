@@ -8,7 +8,7 @@ import NoConversationSelected from './Conversation/NoConversationSelected';
 
 
 const Messages = () => {
-  const [showContacts, setShowContacts] = useState(false)
+  const [showContacts, setShowContacts] = useState(true)
 
   return (
     <div className="messages-container">

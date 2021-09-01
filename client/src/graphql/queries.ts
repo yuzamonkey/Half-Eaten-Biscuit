@@ -195,6 +195,7 @@ export const CONVERSATION_PARTICIPANTS_BY_SESSION_ID = gql`
   query conversationParticipantsById ($id: ID!) {
     findUserOrGroup(id: $id) {
       ...on User {
+        id
         username
         conversations {
           hasUnreadMessages
@@ -207,6 +208,7 @@ export const CONVERSATION_PARTICIPANTS_BY_SESSION_ID = gql`
                   kind
                   profile {
                     name
+                    image
                   }
                 }
                 ...on Group {
@@ -214,6 +216,7 @@ export const CONVERSATION_PARTICIPANTS_BY_SESSION_ID = gql`
                   kind
                   profile {
                     name
+                    image
                   }
                 }
               }
@@ -222,6 +225,7 @@ export const CONVERSATION_PARTICIPANTS_BY_SESSION_ID = gql`
         }
       }
       ...on Group {
+        id
         profile {
           name
         }
@@ -238,6 +242,7 @@ export const CONVERSATION_PARTICIPANTS_BY_SESSION_ID = gql`
                   username
                   profile {
                     name
+                    image
                   }
                 }
                 ...on Group {
@@ -245,6 +250,7 @@ export const CONVERSATION_PARTICIPANTS_BY_SESSION_ID = gql`
                   kind
                   profile {
                     name
+                    image
                   }
                 }
               }

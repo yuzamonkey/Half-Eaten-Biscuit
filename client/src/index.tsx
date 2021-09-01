@@ -93,8 +93,8 @@ const cache = new InMemoryCache({
         },
         findUserOrGroup: {
           merge(existing, incoming) {
-            // console.log("findUserOrGroup\nEX: \n", existing, "\nINC:\n", incoming)
-            return incoming
+            //console.log("findUserOrGroup\nEX: \n", existing, "\nINC:\n", incoming)
+            return { ...existing, ...incoming };
           }
         }
       }

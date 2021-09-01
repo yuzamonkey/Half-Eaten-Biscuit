@@ -55,6 +55,26 @@
   border-right: 3px solid red;
 }
 
+.msg-nav-conversation-container {
+  display: flex;
+}
+.msg-nav-conversation-container > * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 40px;
+  white-space: nowrap;
+}
+.msg-nav-images-container {
+  min-width: 20%;
+  max-width: 20%;
+}
+.msg-nav-name-container {
+  width: 100%;
+}
+.msg-nav-filler-div {
+  width: 25%;
+}
 /* 
 @media screen and (max-width: 580px) { 
   .msg-navigation {

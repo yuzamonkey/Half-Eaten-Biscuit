@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { CONVERSATION_PARTICIPANTS_BY_SESSION_ID } from '../../../../../graphql/queries';
 
 import './MessageNavigation.css'
-import { Loading, Searchbar } from '../../../../UtilityComponents/UtilityComponents';
+import { Loading, Searchbar, SmallProfileImage } from '../../../../UtilityComponents/UtilityComponents';
 import { UserContext } from '../../../../UtilityComponents/UserContext';
 
 const MessageNavigation = ({ setShowContacts }: any) => {
@@ -19,7 +19,7 @@ const MessageNavigation = ({ setShowContacts }: any) => {
   if (participants.loading) {
     return (
       <nav className="msg-navigation"><Loading /></nav>
-    ) 
+    )
   }
 
   return (
@@ -37,7 +37,20 @@ const MessageNavigation = ({ setShowContacts }: any) => {
               return (
                 <li className={c.hasUnreadMessages ? "msg-nav-item has-unread-messages" : "msg-nav-item"} key={conversation.id}>
                   <NavLink exact to={linkTo} activeClassName="msg-active" className="msg-nav-links" onClick={() => setShowContacts(false)}>
-                    {names}
+                    {conversation.participants.map(participant => {
+                      // console.log("PARTICIPANT", participant)
+                      return (
+                        <div className="msg-nav-conversation-container" id={participant.object.id}>
+                          <div className="msg-nav-images-container">
+                            <SmallProfileImage image={participant.object.profile.image} />
+                          </div>
+                          <div className="msg-nav-name-container">
+                            {participant.object.profile.name}
+                          </div>
+                          <div className="msg-nav-filler-div"/>
+                        </div>
+                      )
+                    })}
                   </NavLink>
                 </li>
               )

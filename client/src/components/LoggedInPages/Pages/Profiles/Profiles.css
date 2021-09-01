@@ -12,6 +12,10 @@
   padding: 10px;
 }
 
+.profiles-title-and-searchbar-container>h1 {
+  font-weight: 230;
+}
+
 .profiles-searchbar-container {
   width: 30%;
   max-width: 350px;
