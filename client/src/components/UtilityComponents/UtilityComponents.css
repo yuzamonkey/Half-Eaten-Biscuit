@@ -144,7 +144,31 @@
   cursor: pointer;
 }
 
-/* CONTACT BUTTON */
+/* BLUE BUTTON */
+
+.blue-button-container {
+  margin: 10px;
+  height: 30px;
+  width: 100%;
+  white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 0;
+  border-radius: 5px;
+  color: white;
+  border: none;
+  background-color: var(--blue);
+  box-shadow: 0 0 3pt 1pt var(--grey);
+  font-size: 1.1em;
+}
+
+.blue-button-container:hover {
+  background-color: var(--dark-blue);
+  cursor: pointer;
+}
+
+/* CONTACT blue-BUTTON */
 
 .contact-button {
   height: 20px;

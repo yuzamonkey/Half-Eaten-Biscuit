@@ -96,7 +96,7 @@ const ProfileDropdown = ({ show, setShow, setHasUnseen }: any) => {
     </div>
   }
 
-  const handleLogout = async () => {
+  const handleSignOut = async  () => {
     await client.resetStore()
     localStorage.clear()
     sessionStorage.clear()
@@ -161,7 +161,7 @@ const ProfileDropdown = ({ show, setShow, setHasUnseen }: any) => {
       }
       <div className="dropdown-link" onClick={handleNewGroupClick}>New group +</div>
       <div className="dropdown-link" onClick={handleSettingsClick}>Settings</div>
-      <div className="dropdown-link" onClick={handleLogout}>Log out</div>
+      <div className="dropdown-link" onClick={handleSignOut}>Sign out</div>
     </div>
   )
 }

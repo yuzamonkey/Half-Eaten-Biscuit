@@ -32,6 +32,16 @@ export const Button = ({ text, handleClick }) => {
   )
 }
 
+export const BlueButton = ({text, handleClick}) => {
+  return (
+    <div
+      className="blue-button-container"
+      onClick={handleClick}>
+      {text}
+    </div>
+  )
+}
+
 export const ContactButton = ({ handleClick }) => {
   return (
     <div
