@@ -22,6 +22,11 @@ const SettingsNavigation = () => {
                 Groups
               </NavLink>
             </li>
+            <li className="settings-nav-item">
+              <NavLink exact to="/settings/deleteuser/" activeClassName="settings-active" className="settings-nav-links"> 
+                Delete
+              </NavLink>
+            </li>
           </ul>
         </div>
       </nav>

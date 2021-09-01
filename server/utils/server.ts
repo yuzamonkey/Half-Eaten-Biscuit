@@ -5,8 +5,8 @@ const http = require('http')
 const app = express()
 const { ApolloServer } = require('apollo-server-express')
 
-app.use(express.json({limit: '1mb'}));
-app.use(express.urlencoded({limit: '1mb'}));
+app.use(express.json({ limit: '1mb' }));
+app.use(express.urlencoded({ limit: '1mb' }));
 
 const frontendRoutes = [
   '/',
@@ -20,6 +20,10 @@ const frontendRoutes = [
   '/jobmarket/myads',
   '/profiles',
   '/profiles/:id',
+  '/settings/credentials',
+  '/settings/profile',
+  '/settings/groups',
+  '/settings/deleteuser',
   '/settings',
   '/creategroup',
   '/createprofile'

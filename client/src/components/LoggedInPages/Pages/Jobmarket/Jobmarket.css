@@ -107,8 +107,6 @@
   align-items: center;
 }
 
-.image-container {}
-
 .jobad-user-profile-image {
   width: 70px;
   height: 70px;
@@ -151,6 +149,7 @@
 }
 
 /* JOBINFO */
+
 .job-details-container {
   position: fixed;
   left: 100%;
@@ -175,10 +174,12 @@
   border-radius: 5px;
 }
 
-
 @media screen and (max-width: 960px) {
   .job-page {
     flex-direction: column;
+  }
+  .job-pages {
+    height: calc(100vh - var(--navbar-height) - 60px);
   }
   .job-navigation {
     height: 60px;
@@ -187,7 +188,6 @@
     font-size: 1.3rem;
     font-weight: 400;
   }
-  .job-nav-container {}
   .job-nav-menu {
     height: 100%;
     flex-direction: row;
