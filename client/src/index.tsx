@@ -73,6 +73,16 @@ const cache = new InMemoryCache({
         }
       }
     },
+    Group: {
+      fields: {
+        profile: {
+          merge(existing, incoming) {
+            //console.log("profile\nEX: \n", existing, "\nINC:\n", incoming)
+            return { ...existing, ...incoming };
+          }
+        }
+      }
+    },
     Query: {
       fields: {
         findConversation: {
@@ -88,16 +98,7 @@ const cache = new InMemoryCache({
           }
         }
       }
-    },
-    // UserOrGroup: {
-    //   fields: {
-    //     conversations: {
-    //       merge(existing, incoming) {
-    //         console.log("USERorGroup EX", existing, "USERorGroup INC", incoming)
-    //       }
-    //     }
-    //   }
-    // }
+    }
   }
 })
 
