@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import { useMutation, useQuery } from '@apollo/client'
 
@@ -17,20 +17,14 @@ const SignUp = () => {
   const [errorMessage, setErrorMessage] = useState('')
   const [signUpConmpleted, setSignUpCompleted] = useState(false)
 
-  const [signup, result] = useMutation(SIGNUP, {
+  const [signup] = useMutation(SIGNUP, {
     onError: (error) => {
-      console.log("Error at sign up mutation: \n", error.graphQLErrors[0].message)
+      //console.log("Error at sign up mutation: \n", error.graphQLErrors[0].message)
+      setErrorMessage(error.graphQLErrors[0].message)
     }
   })
 
   useQuery(ALL_USERNAMES, { onCompleted: (data) => setAllUsernames(data.allUsers.map(u => u.username)) })
-
-  // useEffect(() => {
-  //   if (result.data) {
-  //     //console.log("(sign up) RESULT DATA USE EFFECT", result.data)
-  //     history.push('/signin')
-  //   }
-  // }, [result.data]) // eslint-disable-line
 
   const validationOk = () => {
     if (firstName.length < 2) {
@@ -55,13 +49,15 @@ const SignUp = () => {
     }
     if (password !== passwordConfirmation) {
       setErrorMessage('Passwords do not match')
+      return false
     }
     console.log("VALIDATION OK")
-    return false
+    return true
   }
 
   const submit = async (event: any) => {
     event.preventDefault()
+    setErrorMessage('')
     if (validationOk()) {
       const signUpResult = await signup({
         variables: {
@@ -72,9 +68,32 @@ const SignUp = () => {
         }
       })
       console.log("SIGN UP RESULT", signUpResult)
+      const resultUsername = signUpResult.data.createUser.username
+      console.log("RESULT USERNAME", resultUsername)
+      setSignUpCompleted(true)
     }
   }
 
+
+  const firstNameInputClassName = () => {
+    if (firstName === '') {
+      return ""
+    } else if (firstName.length < 2) {
+      return "firstname-input invalid"
+    } else {
+      return "firstname-input valid"
+    } 
+  }
+
+  const lastNameInputClassName = () => {
+    if (lastName === '') {
+      return ""
+    } else if (lastName.length < 2) {
+      return "lastname-input invalid"
+    } else {
+      return "lastname-input valid"
+    } 
+  }
 
   const usernameInputClassName = () => {
     if (username === '') {
@@ -84,6 +103,16 @@ const SignUp = () => {
     } else {
       return "username-input valid"
     }
+  }
+
+  const passwordClassName = () => {
+    if (password === '') {
+      return ""
+    } else if (password.length < 5) {
+      return "password-input invalid"
+    } else {
+      return "password-input valid"
+    } 
   }
 
   const passwordConfirmationClassName = () => {
@@ -115,6 +144,7 @@ const SignUp = () => {
               <input
                 value={firstName}
                 onChange={({ target }) => setFirstName(target.value)}
+                className={firstNameInputClassName()}
               />
             </div>
             <br />
@@ -124,6 +154,7 @@ const SignUp = () => {
               <input
                 value={lastName}
                 onChange={({ target }) => setLastName(target.value)}
+                className={lastNameInputClassName()}
               />
             </div>
             <br />
@@ -144,7 +175,7 @@ const SignUp = () => {
                 type='password'
                 value={password}
                 onChange={({ target }) => setPassword(target.value)}
-                className="password-input"
+                className={passwordClassName()}
               />
             </div>
             <br />
@@ -160,7 +191,12 @@ const SignUp = () => {
             </div>
           </div>
           <div className="registration-submit-button-container">
-            <button className="blue-button" type='submit'>Sign up</button>
+            {!signUpConmpleted 
+            ?
+            <button className="signup-form-submit-button blue-button" type='submit'>Sign up</button>
+            :
+            <button className="signup-form-submit-button green-button" onClick={() => history.push('/signin')}>Sign in →</button>
+            }
           </div>
         </form>
         <p className="registration-switch-view-text">

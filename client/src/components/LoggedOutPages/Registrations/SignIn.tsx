@@ -68,7 +68,7 @@ const SignIn = () => {
             </div>
           </div>
           <div className="registration-submit-button-container">
-            <button className="blue-button" type='submit'>Sign in</button>
+            <button className="signup-form-submit-button blue-button" type='submit'>Sign in</button>
           </div>
         </form>
         <p className="registration-switch-view-text">

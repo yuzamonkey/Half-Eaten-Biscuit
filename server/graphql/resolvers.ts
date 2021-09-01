@@ -395,6 +395,7 @@ const resolvers: IResolvers = {
     },
     createUser: async (_root, args) => {
       //Remember to validate
+      //Handle Firstname Lastname capital letters
 
       const username = args.username
       const firstName = args.firstName
