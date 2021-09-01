@@ -57,18 +57,34 @@
   padding: 10px 0;
   margin: 10px 0;
   border-radius: 50px;
-  border: 1px solid var(--grey);
+  border: 1.5px solid var(--grey);
 }
 
 .registration-inputs-container input:focus {
   outline: none;
-  border: 1px solid var(--blue);
+  /* border: 1.5px solid var(--blue); */
 }
 
 .registration-submit-button-container {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.username-input.valid {
+  border: 1.5px solid var(--green);
+}
+
+.username-input.invalid {
+  border: 1.5px solid var(--red);
+}
+
+.password-input.valid {
+  border: 1.5px solid var(--green);
+}
+
+.password-input.invalid {
+  border: 1.5px solid var(--red);
 }
 
 .blue-button {

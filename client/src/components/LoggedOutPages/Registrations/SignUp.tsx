@@ -1,21 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
-import { useMutation } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
+
 import { SIGNUP } from '../../../graphql/mutations'
 import { TitleAndLogo } from '../../UtilityComponents/UtilityComponents';
+import { ALL_USERNAMES } from '../../../graphql/queries';
 
 const SignUp = () => {
   const history = useHistory()
+  const [allUsernames, setAllUsernames] = useState<string[]>([])
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [passwordConfirmation, setPasswordConfirmation] = useState('')
 
   const [signup, result] = useMutation(SIGNUP, {
     onError: (error) => {
       console.log("Error at sign up mutation: \n", error.graphQLErrors[0].message)
     }
   })
+
+  useQuery(ALL_USERNAMES, { onCompleted: (data) => setAllUsernames(data.allUsers.map(u => u.username)) })
 
   useEffect(() => {
     if (result.data) {
@@ -35,6 +41,28 @@ const SignUp = () => {
       }
     })
   }
+
+
+  const usernameInputClassName = () => {
+    if (username === '') {
+      return ""
+    } else if (allUsernames.includes(username)) {
+      return "username-input invalid"
+    } else {
+      return "username-input valid"
+    }
+  }
+
+  const passwordConfirmationClassName = () => {
+    if (passwordConfirmation === '') {
+      return ""
+    } else if (passwordConfirmation !== password) {
+      return "password-input invalid"
+    } else {
+      return "password-input valid"
+    }
+  }
+
 
   return (
     <div className="registration-container">
@@ -69,6 +97,7 @@ const SignUp = () => {
               <input
                 value={username}
                 onChange={({ target }) => setUsername(target.value)}
+                className={usernameInputClassName()}
               />
             </div>
             <br />
@@ -81,14 +110,15 @@ const SignUp = () => {
                 onChange={({ target }) => setPassword(target.value)}
               />
             </div>
-              <br />
+            <br />
             <div>
               Confirm password
               <br />
               <input
                 type='password'
-                value={password}
-                onChange={({ target }) => setPassword(target.value)}
+                value={passwordConfirmation}
+                onChange={({ target }) => setPasswordConfirmation(target.value)}
+                className={passwordConfirmationClassName()}
               />
             </div>
           </div>

@@ -425,6 +425,15 @@ export const ALL_USERS = gql`
   }
 `
 
+export const ALL_USERNAMES = gql`
+  query allUsernames {
+    allUsers {
+      id
+      username
+    }
+  }
+`
+
 export const ALL_USER_PROFILES = gql`
   query allUserProfiles {
     allUserProfiles {
