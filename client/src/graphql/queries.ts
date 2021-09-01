@@ -201,6 +201,7 @@ export const CONVERSATION_PARTICIPANTS_BY_SESSION_ID = gql`
           hasUnreadMessages
           object {
             id
+            lastActive
             participants {
               object {
                 ...on User {
@@ -233,6 +234,7 @@ export const CONVERSATION_PARTICIPANTS_BY_SESSION_ID = gql`
           hasUnreadMessages
           object {
             id
+            lastActive
             participants {
               kind
               object {

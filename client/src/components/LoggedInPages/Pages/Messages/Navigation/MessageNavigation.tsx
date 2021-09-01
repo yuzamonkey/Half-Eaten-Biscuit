@@ -22,6 +22,15 @@ const MessageNavigation = ({ setShowContacts }: any) => {
     )
   }
 
+  const sortByLastActive = (conversations) => {
+    const sorted = [...conversations].sort((c1: any, c2: any) => {
+      const c1date = new Date(c1.object.lastActive).getTime()
+      const c2date = new Date(c2.object.lastActive).getTime()
+      return c2date - c1date
+    })
+    return sorted
+  }
+
   return (
     <nav className="msg-navigation">
       <div className="msg-nav-container">
@@ -29,7 +38,7 @@ const MessageNavigation = ({ setShowContacts }: any) => {
           <Searchbar input={searchInput} setInput={setSearchInput} />
         </div>
         <ul className="msg-nav-menu">
-          {participants.data?.findUserOrGroup.conversations.map(c => {
+          {participants.data && sortByLastActive(participants.data.findUserOrGroup.conversations).map(c => {
             const conversation = c.object
             const names = conversation.participants.map(participant => participant.object.profile.name).join(', ')
             const linkTo = `/messages/${conversation.id}`
