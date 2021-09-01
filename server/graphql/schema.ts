@@ -36,6 +36,7 @@ const typeDefs = gql`
     id: ID!
     participants: [Participant]!
     messages: [Message]!
+    lastActive: Date
   }
 
   type JobAd {

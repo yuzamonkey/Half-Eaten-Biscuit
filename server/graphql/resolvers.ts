@@ -679,6 +679,7 @@ const resolvers: IResolvers = {
 
       try {
         conversation.messages = conversation.messages.concat(newMessage)
+        conversation.lastActive = new Date()
         const messageWithId = conversation.messages[conversation.messages.length - 1]
         await conversation.save()
         pubsub.publish('MESSAGE_ADDED', { messageAdded: conversation })
