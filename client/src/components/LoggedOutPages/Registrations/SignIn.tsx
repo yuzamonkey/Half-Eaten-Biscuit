@@ -17,8 +17,8 @@ const SignIn = () => {
 
   const [login, result] = useMutation(LOGIN, {
     onError: (error) => {
-      //setError(error.graphQLErrors[0].message)
-      console.log("Error at sign in mutation: \n", error.graphQLErrors[0].message)
+      // console.log("Error at sign in mutation: \n", error.graphQLErrors[0].message)
+      setErrorMessage("Wrong credentials")
     }
   })
 
