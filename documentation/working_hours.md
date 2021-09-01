@@ -215,5 +215,5 @@
 | 29.8.  | 3 | Notifications |
 | Week 35 |||   
 | 31.8.  | 7.5 | Messaging subscription handling, bug fixes, css |
-| 1.9.  | 930-1215 |  |
+| 1.9.  | 930-1215, 14- | css |
 | =     | 173.5      |               |
