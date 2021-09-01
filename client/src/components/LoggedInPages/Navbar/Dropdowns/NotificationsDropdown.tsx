@@ -107,7 +107,7 @@ const NotificationsDropdown = ({ show, setShow, hasUnseenNotifications, setHasUn
         <div>
           <ul>
             {notifications.map(n => <li
-              key={n.id}
+              key={n.object.id}
               className="notification-container"
               onClick={() => handleNotificationPress(n)}
             >

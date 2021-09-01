@@ -4,11 +4,11 @@ import { Switch, Route } from "react-router-dom";
 import MessageNavigation from './Navigation/MessageNavigation'
 import Conversation from './Conversation/Conversation';
 import './Messages.css'
-import SelectConversation from './Conversation/SelectConversation';
+import NoConversationSelected from './Conversation/NoConversationSelected';
 
 
 const Messages = () => {
-  const [showContacts, setShowContacts] = useState(true)
+  const [showContacts, setShowContacts] = useState(false)
 
   return (
     <div className="messages-container">
@@ -18,7 +18,7 @@ const Messages = () => {
         <div className="msg-conversation-container">
           <Switch>
             <Route path="/messages/:id" component={() => <Conversation setShowContacts={setShowContacts} />} />
-            <Route path="/messages/" component={() => <SelectConversation setShowContacts={setShowContacts} />} />
+            <Route path="/messages/" component={() => <NoConversationSelected setShowContacts={setShowContacts} text="Select a conversation"/>} />
           </Switch>
         </div>
     </div>

@@ -8,19 +8,23 @@ import { SEND_MESSAGE, SET_CONVERSATION_AS_SEEN } from '../../../../../graphql/m
 import { UserContext } from '../../../../UtilityComponents/UserContext';
 import { Loading, SmallProfileImage } from '../../../../UtilityComponents/UtilityComponents';
 import { CONVERSATION_UPDATE } from '../../../../../graphql/subscriptions';
-import SelectConversation from './SelectConversation';
+import NoConversationSelected from './NoConversationSelected';
 
 const Conversation = ({ setShowContacts }: any) => {
   const history = useHistory()
   const userContext = useContext(UserContext)
   const { id }: any = useParams();
+  const conversationResult = useQuery(FIND_CONVERSATION, { variables: { id } })
   const [setConversationAsSeen] = useMutation(SET_CONVERSATION_AS_SEEN)
 
-  const conversationResult = useQuery(FIND_CONVERSATION, {
-    variables: { id }
-  })
+  const [messageInput, setMessageInput] = useState('')
 
   useEffect(() => {
+    handleSetConversationAsSeen()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [conversationResult.data])
+
+  const handleSetConversationAsSeen = () => {
     if (conversationResult.data) {
       if (!conversationResult.data.findConversation.participants.map(p => p.object.id).includes(userContext.sessionId)) {
         console.log("NOT IN THE CONVERSATION")
@@ -32,10 +36,9 @@ const Conversation = ({ setShowContacts }: any) => {
           }
         })
       }
+      scrollToBottom()
     }
-    scrollToBottom()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [conversationResult.data])
+  }
 
   const scrollToBottom = () => {
     const element = document.getElementById('conversation-content')
@@ -61,8 +64,6 @@ const Conversation = ({ setShowContacts }: any) => {
     }
   })
 
-  const [messageInput, setMessageInput] = useState('')
-
   if (conversationResult.loading) {
     return (
       <div className="conversation-container">
@@ -72,11 +73,15 @@ const Conversation = ({ setShowContacts }: any) => {
   }
 
   if (!conversationResult.data) {
-    console.log("NOT FOUND, DATA", conversationResult.data, "with var", id)
-    return <h1>Conversation not found</h1>
+    return <NoConversationSelected setShowContacts={setShowContacts} text="Conversation not found"/>
   }
 
   const participants = conversationResult.data.findConversation.participants
+
+  if (!participants.map(p => p.object.id).includes(userContext.sessionId)) {
+    return <NoConversationSelected setShowContacts={setShowContacts} text="Select a conversation"/>
+  }
+
   const messages = conversationResult.data.findConversation.messages
   const conversationId = conversationResult.data.findConversation.id
 
@@ -94,18 +99,13 @@ const Conversation = ({ setShowContacts }: any) => {
     }
   }
 
-  if (!participants.map(p => p.object.id).includes(userContext.sessionId)) {
-    return <SelectConversation setShowContacts={setShowContacts} />
-  }
-
-
   return (
     <div className="conversation-container">
       <div className="conversation-info">
         <div className="conversation-participants-container">
           {participants.map(p => {
             return (
-              <div className="conversation-participant" onClick={() => history.push(`/profiles/${p.object.id}`)}>
+              <div key={p.object.id} className="conversation-participant" onClick={() => history.push(`/profiles/${p.object.id}`)}>
                 <SmallProfileImage image={p.object.profile.image} />
                 &nbsp;
                 <b>{p.object.profile.firstName || p.object.profile.name}</b>

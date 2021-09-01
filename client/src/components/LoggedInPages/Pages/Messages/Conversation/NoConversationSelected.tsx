@@ -1,11 +1,11 @@
 import { Button } from '../../../../UtilityComponents/UtilityComponents'
 import './Conversation.css'
 
-const SelectConversation = ({ setShowContacts }) => {
+const NoConversationSelected = ({ setShowContacts, text }) => {
   return (
     <div className="conversation-container">
       <div className="select-conversation-container">
-        <h1>Select a conversation</h1>
+        <h1>{text}</h1>
         <div className="show-contacts-button-container">
           <Button text="Show contacts" handleClick={() => setShowContacts(true)} />
         </div>
@@ -15,4 +15,4 @@ const SelectConversation = ({ setShowContacts }) => {
 
 }
 
-export default SelectConversation
+export default NoConversationSelected
