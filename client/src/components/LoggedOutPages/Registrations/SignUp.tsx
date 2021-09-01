@@ -189,6 +189,7 @@ const SignUp = () => {
                 className={passwordConfirmationClassName()}
               />
             </div>
+            <div className="filler-div" />
           </div>
           <div className="registration-submit-button-container">
             {!signUpConmpleted 

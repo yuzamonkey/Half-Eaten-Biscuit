@@ -43,20 +43,20 @@
   flex-direction: column;
 }
 
+.registration-inputs-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
 .error-message-container {
   color: var(--red);
   text-shadow: 0.5pt 0.5pt 1pt var(--grey);
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 12%;
-}
-
-.registration-inputs-container {
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
 }
 
 .registration-inputs-container input {
@@ -136,6 +136,10 @@
 
 .registration-switch-view-text a:hover {
   color: var(--dark-blue);
+}
+
+.filler-div {
+  height: 100%;
 }
 
 @media screen and (max-width: 580px) {

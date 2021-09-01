@@ -13,6 +13,7 @@ const SignIn = () => {
   const history = useHistory()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
 
   const [login, result] = useMutation(LOGIN, {
     onError: (error) => {
@@ -48,8 +49,11 @@ const SignIn = () => {
         </div>
         <form onSubmit={submit}>
           <div className="registration-inputs-container">
+            <div className="error-message-container">
+              {errorMessage}
+            </div>
             <div>
-              Email or username 
+              Email or username
               <br />
               <input
                 value={username}
@@ -58,7 +62,7 @@ const SignIn = () => {
             </div>
             <br />
             <div>
-              Password 
+              Password
               <br />
               <input
                 type='password'
@@ -66,13 +70,14 @@ const SignIn = () => {
                 onChange={({ target }) => setPassword(target.value)}
               />
             </div>
+            <div className="filler-div" />
           </div>
           <div className="registration-submit-button-container">
             <button className="signup-form-submit-button blue-button" type='submit'>Sign in</button>
           </div>
         </form>
         <p className="registration-switch-view-text">
-        No account? <a href="/signup">Sign up</a>
+          No account? <a href="/signup">Sign up</a>
         </p>
       </div>
     </div>
