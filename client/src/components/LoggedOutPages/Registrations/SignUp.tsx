@@ -51,7 +51,6 @@ const SignUp = () => {
       setErrorMessage('Passwords do not match')
       return false
     }
-    console.log("VALIDATION OK")
     return true
   }
 
@@ -67,7 +66,6 @@ const SignUp = () => {
           password: password
         }
       })
-      console.log("SIGN UP RESULT", signUpResult)
       const resultUsername = signUpResult.data.createUser.username
       console.log("RESULT USERNAME", resultUsername)
       setSignUpCompleted(true)
@@ -98,6 +96,8 @@ const SignUp = () => {
   const usernameInputClassName = () => {
     if (username === '') {
       return ""
+    } else if (username.length < 3) {
+      return "username-input invalid"
     } else if (allUsernames.includes(username)) {
       return "username-input invalid"
     } else {

@@ -197,18 +197,16 @@
     overflow-y: hidden;
   }
   .job-nav-item {
+    width: 100%;
     min-width: 200px;
     height: 100%;
-    /* outline: 1px solid red; */
+    border-right: 1px solid var(--bg-grey);
   }
   .job-nav-links {
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  .job-nav-links:hover {
-    background: var(--dark-blue);
   }
   .card {
     flex-direction: column;

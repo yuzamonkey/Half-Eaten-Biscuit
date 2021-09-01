@@ -24,7 +24,11 @@ const JobAds = () => {
   const [showJobInfo, setShowJobInfo] = useState(false)
 
   if (result.loading) {
-    return <Loading />
+    return (
+      <div className="job-page">
+        <Loading />
+      </div>
+    )
   }
   const handleMoreInfoClick = (q) => {
     //history.push(`/jobmarket/queries/${q.id}`)

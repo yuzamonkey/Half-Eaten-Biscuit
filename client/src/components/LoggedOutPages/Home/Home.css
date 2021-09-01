@@ -61,7 +61,8 @@
 .home-page-musician1-image {
   right: 10%;
   transform: scaleX(-1);
-  filter: invert(100%) sepia(5%) saturate(76%) hue-rotate(323deg) brightness(111%) contrast(88%);
+  /* filter: invert(100%) sepia(5%) saturate(76%) hue-rotate(323deg) brightness(111%) contrast(88%); */
+  filter: invert(41%) sepia(50%) saturate(444%) hue-rotate(140deg) brightness(95%) contrast(82%);
   animation: from-right 1.5s ease-out;
 }
 
