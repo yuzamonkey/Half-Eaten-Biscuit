@@ -8,7 +8,7 @@
 
 .welcome-page-title {
   color: var(--black);
-  font-weight: 300;
+  font-weight: var(--text-font-weight);
   font-size: 3rem;
   padding: 20px;
 }

@@ -30,7 +30,7 @@
 .profile-name {
   font-size: 2em;
   color: var(--black);
-  font-weight: 300;
+  font-weight: var(--text-font-weight);
 }
 
 .secondary-text {
@@ -75,7 +75,7 @@
 .notifications-title {
   font-size: 2em;
   color: var(--black);
-  font-weight: 300;
+  font-weight: var(--text-font-weight);
   padding: 10px 0;
 }
 

@@ -35,7 +35,7 @@
 }
 
 .about-container {
-
+  font-weight: var(--text-font-weight);
 }
 
 .contact-container {

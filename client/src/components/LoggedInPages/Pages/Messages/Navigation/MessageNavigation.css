@@ -39,7 +39,7 @@
   width: 100%;
   transition: background-color 0.2s ease;
   font-size: 1.2em;
-  font-weight: 300;
+  font-weight: var(--text-font-weight);
 }
 
 .msg-nav-links:hover {

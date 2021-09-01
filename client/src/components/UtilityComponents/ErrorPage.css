@@ -13,7 +13,7 @@
 }
 
 .error-page-title-and-image-container>h1 {
-  font-weight: 230;
+  font-weight: var(--h1-font-weight);
   font-size: 3rem;
   text-align: center;
   margin: 30px;

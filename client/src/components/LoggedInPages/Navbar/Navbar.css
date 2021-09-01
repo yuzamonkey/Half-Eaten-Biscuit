@@ -7,7 +7,7 @@
   position: sticky;
   top: 0;
   font-size: 1rem;
-  font-weight: 300;
+  font-weight: var(--text-font-weight);
   z-index: 20;
   box-shadow: 0 1pt 3pt 1pt var(--dark-blue);
 }

@@ -21,3 +21,7 @@ body {
   width: 100vw;
   height: 100vh;
 }
+
+p {
+  font-weight: var(--text-font-weight);
+}

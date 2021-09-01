@@ -16,7 +16,7 @@
   color: var(--grey);
   text-align: center;
   text-shadow: 0.5pt 0.5pt 1pt var(--grey);
-  font-weight: 230;
+  font-weight: var(--h1-font-weight);
   font-size: 4em;
 }
 
@@ -34,7 +34,7 @@
   display: flex;
   justify-content: center;
   font-size: 1.5rem;
-  font-weight: 300;
+  font-weight: var(--text-font-weight);
 }
 
 .settings-nav-container {
