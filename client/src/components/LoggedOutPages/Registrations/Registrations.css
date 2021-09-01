@@ -37,18 +37,27 @@
   font-weight: 250;
 }
 
+
 .registration-container form {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+}
+
+.error-message-container {
+  color: var(--red);
+  text-shadow: 0.5pt 0.5pt 1pt var(--grey);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 12%;
 }
 
 .registration-inputs-container {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .registration-inputs-container input {
@@ -71,19 +80,11 @@
   align-items: center;
 }
 
-.username-input.valid {
+.username-input.valid, .password-confirmation-input.valid {
   border: 1.5px solid var(--green);
 }
 
-.username-input.invalid {
-  border: 1.5px solid var(--red);
-}
-
-.password-input.valid {
-  border: 1.5px solid var(--green);
-}
-
-.password-input.invalid {
+.username-input.invalid, .password-confirmation-input.invalid {
   border: 1.5px solid var(--red);
 }
 

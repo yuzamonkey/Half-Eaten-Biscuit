@@ -394,6 +394,8 @@ const resolvers: IResolvers = {
 
     },
     createUser: async (_root, args) => {
+      //Remember to validate
+
       const username = args.username
       const firstName = args.firstName
       const lastName = args.lastName

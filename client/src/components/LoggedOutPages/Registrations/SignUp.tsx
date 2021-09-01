@@ -14,6 +14,8 @@ const SignUp = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [passwordConfirmation, setPasswordConfirmation] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
+  const [signUpConmpleted, setSignUpCompleted] = useState(false)
 
   const [signup, result] = useMutation(SIGNUP, {
     onError: (error) => {
@@ -23,23 +25,54 @@ const SignUp = () => {
 
   useQuery(ALL_USERNAMES, { onCompleted: (data) => setAllUsernames(data.allUsers.map(u => u.username)) })
 
-  useEffect(() => {
-    if (result.data) {
-      //console.log("(sign up) RESULT DATA USE EFFECT", result.data)
-      history.push('/signin')
+  // useEffect(() => {
+  //   if (result.data) {
+  //     //console.log("(sign up) RESULT DATA USE EFFECT", result.data)
+  //     history.push('/signin')
+  //   }
+  // }, [result.data]) // eslint-disable-line
+
+  const validationOk = () => {
+    if (firstName.length < 2) {
+      setErrorMessage('First name must be at least 2 characters')
+      return false
     }
-  }, [result.data]) // eslint-disable-line
+    if (lastName.length < 2) {
+      setErrorMessage('Last name must be at least 2 characters')
+      return false
+    }
+    if (username.length < 3) {
+      setErrorMessage('Username must be at least 3 characters')
+      return false
+    }
+    if (allUsernames.includes(username)) {
+      setErrorMessage(`Username ${username} is already taken`)
+      return false
+    }
+    if (password.length < 5) {
+      setErrorMessage('Password must be at least 5 characters')
+      return false
+    }
+    if (password !== passwordConfirmation) {
+      setErrorMessage('Passwords do not match')
+    }
+    console.log("VALIDATION OK")
+    return false
+  }
 
   const submit = async (event: any) => {
     event.preventDefault()
-    signup({
-      variables: {
-        firstName: firstName,
-        lastName: lastName,
-        username: username,
-        password: password
-      }
-    })
+    if (validationOk()) {
+      const signUpResult = await signup({
+        variables: {
+          firstName: firstName,
+          lastName: lastName,
+          username: username,
+          password: password
+        }
+      })
+      console.log("SIGN UP RESULT", signUpResult)
+    }
   }
 
 
@@ -57,9 +90,9 @@ const SignUp = () => {
     if (passwordConfirmation === '') {
       return ""
     } else if (passwordConfirmation !== password) {
-      return "password-input invalid"
+      return "password-confirmation-input invalid"
     } else {
-      return "password-input valid"
+      return "password-confirmation-input valid"
     }
   }
 
@@ -73,6 +106,9 @@ const SignUp = () => {
         </div>
         <form onSubmit={submit}>
           <div className="registration-inputs-container">
+            <div className="error-message-container">
+              {errorMessage}
+            </div>
             <div>
               First name
               <br />
@@ -108,6 +144,7 @@ const SignUp = () => {
                 type='password'
                 value={password}
                 onChange={({ target }) => setPassword(target.value)}
+                className="password-input"
               />
             </div>
             <br />
