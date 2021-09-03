@@ -16,7 +16,13 @@ const Skills = ({ categories, setCategories }) => {
   const [currentPath, setCurrentPath] = useState([undefined])
   const { loading, data } = useQuery(ALL_USER_CATEGORIES, { onCompleted: () => setAllCategories(data.allUserCategories) })
 
-  if (loading) return <Loading />
+  if (loading) {
+    return (
+      <div className="category-selection-container">
+        <Loading />
+      </div>
+    )
+  }
 
   return (
     <div className="category-selection-container">

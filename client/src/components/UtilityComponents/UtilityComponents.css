@@ -199,7 +199,6 @@
   width: 30px;
   display: flex;
   justify-content: center;
-  align-items: center;
   padding: 10px;
   background-color: var(--blue);
   border-radius: 30px;
