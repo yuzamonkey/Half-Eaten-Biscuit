@@ -18,12 +18,12 @@
 
 .image-name-and-categories-container>h1 {
   font-size: var(--big-title-font-size);
-  text-shadow: 1pt 1pt 2pt var(--dark-blue);
-  color: var(--dark-blue);
+  color: var(--black);
+  text-shadow: 2pt 2pt 2pt var(--bg-grey);
 }
 
 .image-name-and-categories-container>p {
-  color: var(--dark-blue);
+  color: var(--black);
   font-size: 1.1em;
 }
 
@@ -41,28 +41,57 @@
   width: fit-content;
 }
 
+.users-or-groups-container h1 {
+  text-align: center;
+}
+
 .small-card-container {
   margin: 10px;
 }
 
 .about-container {
-  font-weight: var(--text-font-weight);
+  width: 90vw;
+  margin: 0 20px;
+}
+
+.about-container h1 {
+  text-align: center;
+}
+
+.about-text {
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 10pt 1pt var(--bg-grey);
+  padding: 10px;
+  margin: 10px 0 30px 0;
+  max-height: 85vh;
+  overflow: scroll;
 }
 
 .contact-container {
+  width: fit-content;
+}
+
+.contact-container>h1 {
+  text-align: center;
+}
+
+.contact-button-container {
   display: flex;
   justify-content: center;
   width: fit-content;
-  padding: 0 20px;
+  margin: 10px;
 }
 
 @media screen and (max-width: 960px) {
-  .profile-content-container {
-    flex-direction: column;
+  .image-name-and-categories-container {
+    padding: 20px 0 0 0;
   }
-  .users-or-groups-container>* {
-    display: flex;
-    overflow-x: scroll;
-    max-width: 100vw;
+  .profile-content-container {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+  .contact-container>h1 {
+    display: none;
   }
 }

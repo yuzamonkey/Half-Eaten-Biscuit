@@ -27,6 +27,6 @@
 }
 
 .info:hover {
-  background-color: var(--bg-grey);
+  background-color: var(--grey);
   cursor: pointer;
 }

@@ -51,7 +51,7 @@ const Welcome = () => {
 
       <h1 className="secondary-text">What's new</h1>
       <div className="info">
-        <p>⚠ <b>Disclaimer!</b> This app is a practical work and used for reference.</p>
+        <p>⚠ <b>Disclaimer</b> This app is a practical work and used for reference.</p>
       </div>
     </div>
   )

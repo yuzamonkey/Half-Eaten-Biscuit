@@ -24,7 +24,7 @@ export const dateAsDDMMYYYY = (dateInput) => {
 }
 
 
-export const textAsArray = (text: String): String[] => {
+export const textAsArray = (text: string): string[] => {
   const result = text.split('\n')
   return result
 }

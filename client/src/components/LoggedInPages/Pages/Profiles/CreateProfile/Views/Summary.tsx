@@ -4,11 +4,10 @@ import { useMutation, useQuery } from "@apollo/client"
 import { BlueButton, LargeProfileImage, Loading } from "../../../../../UtilityComponents/UtilityComponents"
 import { CREATE_USER_PROFILE } from "../../../../../../graphql/mutations"
 import { MY_ID } from "../../../../../../graphql/queries"
-import { useHistory } from "react-router-dom"
-import { categoriesWithParentsRemoved } from "../../../../../../utils/utilityFunctions"
+import { categoriesWithParentsRemoved, textAsArray } from "../../../../../../utils/utilityFunctions"
 
 const Summary = ({ name, categories, about, image }) => {
-  const history = useHistory()
+  // const history = useHistory()
   const myId = useQuery(MY_ID, { onCompleted: () => setRedirectAdress(`/profiles/${myId.data.me.id}`) })
   const [submitCompleted, setSubmitCompleted] = useState(false)
   const [redirectAdress, setRedirectAdress] = useState('')
@@ -52,7 +51,7 @@ const Summary = ({ name, categories, about, image }) => {
         {categoriesWithParentsRemoved(categories).map(s => <p key={s.id}>{s.profession}</p>)}
         {/* <br /> */}
         <div className="about-text-container">
-          <p>{about}</p>
+          {textAsArray(about).map((t: string) => <p>{t}<br /></p>)}
         </div>
         <div className="summary-component-button-container">
           <BlueButton text="Submit" handleClick={handleSubmit} />
@@ -62,7 +61,7 @@ const Summary = ({ name, categories, about, image }) => {
       <div className="summary-container">
         <h1>All done!</h1>
         <div className="summary-component-button-container">
-          <BlueButton text="See your profile" handleClick={() => history.push(redirectAdress)} />
+          <BlueButton text="See your profile" handleClick={() => window.location.assign(redirectAdress)} />
         </div>
       </div>
   )

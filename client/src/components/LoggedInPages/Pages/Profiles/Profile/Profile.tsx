@@ -5,7 +5,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import './Profile.css'
 
 import { FIND_USER_OR_GROUP } from '../../../../../graphql/queries';
-import { VeryLargeProfileImage, Loading, SmallProfileCard, ContactButton } from '../../../../UtilityComponents/UtilityComponents';
+import { VeryLargeProfileImage, Loading, SmallProfileCard, ContactButton, DisabledContactButton } from '../../../../UtilityComponents/UtilityComponents';
 import { categoriesWithParentsRemoved, textAsArray } from '../../../../../utils/utilityFunctions';
 import { UserContext } from '../../../../UtilityComponents/UserContext';
 import { NEW_CONVERSATION } from '../../../../../graphql/mutations';
@@ -43,33 +43,54 @@ const Profile = () => {
 
   return (
     <div className="profile-container">
+
       <div className="image-name-and-categories-container">
         <VeryLargeProfileImage image={userOrGroup.profile.image} />
         <h1>{userOrGroup.profile.name}</h1>
         {categories.map(c => <p>{c.profession || c.name}</p>)}
       </div>
+
       <div className="profile-content-container">
+
         <div className="users-or-groups-container">
           {userOrGroup.kind === 'User' &&
             <div>
-              {userOrGroup.groups.map(g => <div className="small-card-container" onClick={() => history.push(`/profiles/${g.id}`)}><SmallProfileCard name={g.profile.name} image={g.profile.image} /></div>)}
+              <h1 className="secondary-text">Groups</h1>
+              {userOrGroup.groups.map(g =>
+                <div className="small-card-container" onClick={() => history.push(`/profiles/${g.id}`)}>
+                  <SmallProfileCard name={g.profile.name} image={g.profile.image} />
+                </div>
+              )}
             </div>}
           {userOrGroup.kind === 'Group' &&
             <div>
-              {userOrGroup.users.map(u => <div className="small-card-container" onClick={() => history.push(`/profiles/${u.id}`)}><SmallProfileCard name={u.profile.name} image={u.profile.image} /></div>)}
+              <h1 className="secondary-text">Members</h1>
+              {userOrGroup.users.map(u =>
+                <div className="small-card-container" onClick={() => history.push(`/profiles/${u.id}`)}>
+                  <SmallProfileCard name={u.profile.name} image={u.profile.image} />
+                </div>
+              )}
             </div>}
         </div>
+        
         <div className="about-container">
-          <p>
-            {textAsArray(userOrGroup.profile.about).map(t => <p>{t}<br/></p>)}
-          </p>
+          <h1 className="secondary-text">About</h1>
+          <div className="about-text">
+            {textAsArray(userOrGroup.profile.about).map(t => <p>{t}<br /></p>)}
+          </div>
         </div>
         <div className="contact-container">
-          {userOrGroup.id !== userContext.sessionId &&
+          <h1 className="secondary-text">&nbsp;</h1>
+          <div className="contact-button-container">
+          {userOrGroup.id !== userContext.sessionId 
+          ?
             <ContactButton handleClick={() => handleContactClick(userOrGroup.id)} />
+          : <DisabledContactButton  />
           }
+          </div>
         </div>
       </div>
+
     </div>
   )
 }

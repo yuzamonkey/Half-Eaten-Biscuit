@@ -67,6 +67,14 @@ export const ContactButton = ({ handleClick }) => {
     </div>
   )
 }
+export const DisabledContactButton = () => {
+  return (
+    <div
+      className="disabled contact-button">
+      Contact &nbsp; <i className="fa fa-comment"></i>
+    </div>
+  )
+}
 
 export const Searchbar = ({ input, setInput }: any) => {
 
