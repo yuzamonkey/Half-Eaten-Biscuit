@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useMutation, useQuery } from "@apollo/client"
 
-import { BlueButton, LargeProfileImage, Loading, VeryLargeProfileImage } from "../../../../../UtilityComponents/UtilityComponents"
+import { BlueButton, LargeProfileImage, Loading } from "../../../../../UtilityComponents/UtilityComponents"
 import { CREATE_USER_PROFILE } from "../../../../../../graphql/mutations"
 import { MY_ID } from "../../../../../../graphql/queries"
 import { useHistory } from "react-router-dom"

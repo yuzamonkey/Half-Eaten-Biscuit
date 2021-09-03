@@ -10,15 +10,17 @@
   --grey: #ccd8db;
   --dark-grey: #777777;
   --black: #242424;
-
+  
   --navbar-height: 60px;
-  --h1-font-weight: 230;
+  
   --p-font-size: 1em;
+  --big-title-font-size: 3rem;
+  
+  --h1-font-weight: 230;
+  --h1-font-weight: 300;
   --text-font-weight: 325;
-
-  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-  sans-serif;
+  
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 }
 
 body {
@@ -29,6 +31,5 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }

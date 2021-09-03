@@ -6,12 +6,12 @@ import './Welcome.css'
 
 import { FIND_USER_OR_GROUP, ME } from '../../../../graphql/queries'
 import { UserContext } from '../../../UtilityComponents/UserContext'
-import { Loading } from '../../../UtilityComponents/UtilityComponents'
+import { Loading, SmallProfileImage } from '../../../UtilityComponents/UtilityComponents'
 
 const Welcome = () => {
   const userContext = useContext(UserContext)
   const meResult = useQuery(ME)
-  const userOrGroup = useQuery(FIND_USER_OR_GROUP, { variables: { id: userContext.sessionId} })
+  const userOrGroup = useQuery(FIND_USER_OR_GROUP, { variables: { id: userContext.sessionId } })
   const history = useHistory()
 
   if (meResult.loading || userOrGroup.loading) {
@@ -35,12 +35,24 @@ const Welcome = () => {
 
   return (
     <div className="welcome-page-container">
-      <h1 className="welcome-page-title">{getTitleByTime()}, {meResult.data.me.profile.firstName}</h1>
+
+      <h1>{getTitleByTime()}, {meResult.data.me.profile.firstName}</h1>
+
       {!meResult.data.me.profile.isEditedByUser &&
         <div className="info" onClick={() => history.push('/createprofile')}><b>⚠ Create your profile</b></div>}
-      <br></br>
-      {userOrGroup.data.findUserOrGroup.__typename === 'Group' && 
-      <div>You are using group profile for <i>{userOrGroup.data.findUserOrGroup.profile.name}</i></div>}
+      <br />
+
+      {userOrGroup.data.findUserOrGroup.__typename === 'Group' &&
+        <div className="info" onClick={() => history.push(`/profiles/${userOrGroup.data.findUserOrGroup.id}`)}>
+          <SmallProfileImage image={userOrGroup.data.findUserOrGroup.profile.image} /> &nbsp;
+          <p>You are using group profile for <i>{userOrGroup.data.findUserOrGroup.profile.name}</i></p>
+        </div>
+      }
+
+      <h1 className="secondary-text">What's new</h1>
+      <div className="info">
+        <p>⚠ <b>Disclaimer!</b> This app is a practical work and used for reference.</p>
+      </div>
     </div>
   )
 }

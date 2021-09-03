@@ -6,7 +6,7 @@ import './Profile.css'
 
 import { FIND_USER_OR_GROUP } from '../../../../../graphql/queries';
 import { VeryLargeProfileImage, Loading, SmallProfileCard, ContactButton } from '../../../../UtilityComponents/UtilityComponents';
-import { categoriesWithParentsRemoved } from '../../../../../utils/utilityFunctions';
+import { categoriesWithParentsRemoved, textAsArray } from '../../../../../utils/utilityFunctions';
 import { UserContext } from '../../../../UtilityComponents/UserContext';
 import { NEW_CONVERSATION } from '../../../../../graphql/mutations';
 
@@ -46,7 +46,7 @@ const Profile = () => {
       <div className="image-name-and-categories-container">
         <VeryLargeProfileImage image={userOrGroup.profile.image} />
         <h1>{userOrGroup.profile.name}</h1>
-        {categories.map(c => <div>{c.profession || c.name}</div>)}
+        {categories.map(c => <p>{c.profession || c.name}</p>)}
       </div>
       <div className="profile-content-container">
         <div className="users-or-groups-container">
@@ -60,7 +60,9 @@ const Profile = () => {
             </div>}
         </div>
         <div className="about-container">
-          {userOrGroup.profile.about}
+          <p>
+            {textAsArray(userOrGroup.profile.about).map(t => <p>{t}<br/></p>)}
+          </p>
         </div>
         <div className="contact-container">
           {userOrGroup.id !== userContext.sessionId &&

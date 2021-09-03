@@ -22,3 +22,9 @@ export const dateAsDDMMYYYY = (dateInput) => {
   const day = date.substring(8, 10)
   return `${day}.${month}.${year}`
 }
+
+
+export const textAsArray = (text: String): String[] => {
+  const result = text.split('\n')
+  return result
+}

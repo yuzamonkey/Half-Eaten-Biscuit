@@ -6,25 +6,27 @@
   align-items: center;
 }
 
-.welcome-page-title {
-  color: var(--black);
+.welcome-page-container > h1 {
   font-weight: var(--text-font-weight);
-  font-size: 3rem;
+  font-size: var(--big-title-font-size);
   padding: 20px;
 }
 
 .info {
   width: 80%;
+  max-width: 500px;
   background-color: white;
-  box-shadow: 0pt 0pt 2pt 1pt var(--blue);
-  padding: 10px;
+  box-shadow: 0pt 0pt 2pt 1pt var(--bg-grey);
+  padding: 20px 10px;
   margin: 10px;
   border-radius: 10px;
-  transition: background-color 250ms ease-in, color 250ms ease-in
+  transition: background-color 250ms ease-in, color 250ms ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .info:hover {
-  background-color: var(--blue);
-  color: white;
+  background-color: var(--bg-grey);
   cursor: pointer;
 }
