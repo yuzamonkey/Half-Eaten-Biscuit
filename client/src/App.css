@@ -29,3 +29,16 @@ h1 {
 p {
   font-weight: var(--text-font-weight);
 }
+
+textarea {
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 3pt 1pt var(--grey);
+  border: none;
+  font-family: var(--font-family);
+  font-size: var(--p-font-size);
+}
+
+textarea:focus {
+  outline: none;
+}

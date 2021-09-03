@@ -42,7 +42,7 @@
   font-size: 1.5em;
 }
 
-/* SKILLS SELECTION */ 
+/* SKILLS SELECTION */
 
 .category-selection-container {
   height: 100%;
@@ -52,7 +52,30 @@
   justify-content: center;
 }
 
-.category-selection-container > h2 {
+.category-selection-container>h2 {
   text-align: center;
   padding: 10px 0;
+}
+
+/* ABOUT */
+
+.write-about-me-text-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: scroll;
+}
+
+.write-about-me-text-container>h2 {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.write-about-me-text-container > textarea {
+  width: 90%;
+  max-width: 700px;
+  height: 90%;
+  max-height: 700px;
 }
