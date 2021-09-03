@@ -191,6 +191,35 @@
   cursor: pointer;
 }
 
+/* FORM NAVIGATION BUTTON */
+
+.form-navigation-button-container {
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background-color: #ccd8db83;
+  border-radius: 30px;
+  font-size: 1.3em;
+  color: var(--dark-blue);
+  text-shadow: 0.5pt 0.5pt 1pt var(--bg-grey);
+  box-shadow: 0 1pt 1pt 1pt var(--bg-grey);
+}
+
+.form-navigation-button-container:hover {
+  background-color: var(--grey);
+  cursor: pointer;
+}
+
+.form-navigation-button-container.next {
+  transform: rotate(90deg);
+}
+.form-navigation-button-container.previous {
+  transform: rotate(-90deg);
+}
+
 /* SEARCHBAR */
 
 .searchbar-container {
@@ -349,6 +378,7 @@
 .medium-upper-container {
   height: 60%;
 }
+
 .medium-lower-container {
   height: 100%;
   display: flex;

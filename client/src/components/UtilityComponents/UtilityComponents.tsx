@@ -32,12 +32,28 @@ export const Button = ({ text, handleClick }) => {
   )
 }
 
-export const BlueButton = ({text, handleClick}) => {
+export const BlueButton = ({ text, handleClick }) => {
   return (
     <div
       className="blue-button-container"
       onClick={handleClick}>
       {text}
+    </div>
+  )
+}
+
+export const FormNavigationButton = ({ previous, handleClick }) => {
+  const getClassName = () => {
+    return previous
+      ? "form-navigation-button-container previous"
+      : "form-navigation-button-container next"
+  }
+
+  return (
+    <div
+      className={getClassName()}
+      onClick={handleClick}>
+        △
     </div>
   )
 }

@@ -9,7 +9,7 @@ import Summary from "./Views/Summary"
 import './CreateProfileForm.css'
 import { useQuery } from "@apollo/client"
 import { ME } from "../../../../../graphql/queries"
-import { Button, Loading } from "../../../../UtilityComponents/UtilityComponents"
+import { FormNavigationButton, Loading } from "../../../../UtilityComponents/UtilityComponents"
 
 interface Category {
   id: string,
@@ -22,14 +22,16 @@ const CreateProfileForm = () => {
   const [categories, setCategories] = useState<Category[]>([])
   const [aboutText, setAboutText] = useState('')
   const [image, setImage] = useState()
-  const { loading, data } = useQuery(ME, { onCompleted: () => {
-    setCategories(data.me.profile.categories)
-    setImage(data.me.profile.image)
-    setAboutText(data.me.profile.about)
-  } })
+  const { loading, data } = useQuery(ME, {
+    onCompleted: () => {
+      setCategories(data.me.profile.categories)
+      setImage(data.me.profile.image)
+      setAboutText(data.me.profile.about)
+    }
+  })
   const [currentView, setCurrentView] = useState(0)
   const views = [
-    <CreateProfileInfo name={data?.me.username}/>,
+    <CreateProfileInfo name={data?.me.username} />,
     <Skills categories={categories} setCategories={setCategories} />,
     <About text={aboutText} setText={setAboutText} />,
     <Image image={image} setImage={setImage} />,
@@ -55,8 +57,8 @@ const CreateProfileForm = () => {
         {views[currentView]}
       </div>
       <div className="profile-edit-switch-view-buttons-container">
-        <Button handleClick={handlePrevPress} text="Prev" />
-        <Button handleClick={handleNextPress} text="Next" />
+        <FormNavigationButton handleClick={handlePrevPress} previous={true} />
+        <FormNavigationButton handleClick={handleNextPress} previous={false} />
       </div>
     </div>
   )
