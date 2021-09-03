@@ -1,0 +1,129 @@
+.dropdown {
+  background-color: var(--grey);
+  position: absolute;
+  width: 300px;
+  height: 450px;
+  top: -500px;
+  right: 0;
+  overflow: scroll;
+  border-radius: 10px;
+  box-shadow: 0 0 1pt 1pt var(--bg-grey);
+  opacity: 0;
+  transition: top 0.4s ease, opacity 0.4s ease;
+}
+
+.dropdown.active {
+  top: calc(var(--navbar-height) - 5px);
+  opacity: 1;
+}
+
+.dropdown-profile {
+  padding: 10px;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-profile:hover {
+  background-color: var(--bg-grey);
+  border-radius: 10px 10px 0 0;
+}
+
+.profile-name {
+  font-size: 2em;
+  color: var(--black);
+  font-weight: var(--text-font-weight);
+}
+
+.secondary-text {
+  color: var(--bg-grey)
+}
+
+.dropdown-link {
+  color: var(--black);
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-link:hover {
+  background-color: var(--bg-grey);
+  cursor: pointer;
+}
+
+.profile-switch-profile-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-switch-profile-link  > * {
+  width: 100%;
+}
+
+.profile-switch-options {
+  border: 1px solid var(--bg-grey);
+  border-radius: 10px;
+}
+
+.title-and-set-all-as-seen-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.notifications-title {
+  font-size: 2em;
+  color: var(--black);
+  font-weight: var(--text-font-weight);
+  padding: 10px 0;
+}
+
+.set-all-notifications-seen-button {
+  border: none;
+  box-shadow: 0 0 2pt 1pt var(--dark-blue);
+  border-radius: 5px;
+  padding: 5px;
+  background-color: var(--blue);
+  color: white;
+  width: 60px;
+}
+
+.set-all-notifications-seen-button:hover {
+  background-color: var(--dark-blue);
+  cursor: pointer;
+}
+
+.notification-container {
+  min-height: 50px;
+  padding: 10px 0;
+  border-top: 1px solid var(--bg-grey);
+  transition: background-color 0.2s ease;
+}
+
+.notification-container:hover {
+  background-color: var(--bg-grey);
+}
+
+.alert-dot {
+  color: red;
+  font-size: 30px;
+  line-height: 0;
+}
+
+@media screen and (max-width: 580px) {
+  .dropdown {
+    background-color: var(--grey);
+    position: absolute;
+    width: 100%;
+    height: calc(100vh - var(--navbar-height));
+    top: -100vh;
+    transform: scale(0.97);
+  }
+
+  .dropdown.active {
+    top: calc(var(--navbar-height) - 5px);
+    opacity: 1;
+  }
+  
+}

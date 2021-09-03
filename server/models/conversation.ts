@@ -24,6 +24,10 @@ const conversationSchema = new mongoose.Schema({
       default: new Date()
     }
   }],
+  lastActive: {
+    type: Date,
+    default: new Date()
+  }
 })
 
 conversationSchema.set('toJSON', {

@@ -18,7 +18,7 @@ const groupProfileSchema = new mongoose.Schema({
     type: String,
     default: 'This is a group profile default text'
   },
-  groupTypes: [{
+  categories: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'GroupCategory'
   }],

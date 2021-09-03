@@ -1,0 +1,184 @@
+.navbar {
+  background-color: var(--blue);
+  height: var(--navbar-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  font-size: 1rem;
+  font-weight: var(--text-font-weight);
+  z-index: 20;
+  box-shadow: 0 1pt 3pt 1pt var(--dark-blue);
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.nav-icon.nav-menu {
+  display: none;
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  text-align: center;
+  width: 100%;
+  height: var(--navbar-height);
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.nav-logo {
+  color: var(--bg-white);
+  justify-content: flex-start;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1.5rem;
+}
+
+.constant-links {
+  justify-content: flex-end;
+}
+
+.hidden-links {
+  justify-content: center;
+}
+
+.nav-item {
+  margin: 0 3px;
+  height: calc(var(--navbar-height) - 20px);
+  min-width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-links {
+  color: var(--bg-white);
+  height: 20px;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  transition: box-shadow 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-links:hover {
+  box-shadow: 0pt 4pt 2pt -2pt var(--dark-blue);
+}
+
+.nav-links.active {
+  box-shadow: 0 0 2pt 1pt var(--dark-blue);
+}
+
+.dropdown-container {
+  position: relative;
+}
+
+.dropdown-container:hover {
+  cursor: pointer;
+}
+
+.nav-links.profiledrop {
+  padding: 0.5rem 0;
+}
+
+.fa {
+  font-size: 1.4rem;
+}
+
+.new-messages, .new-notifications, .new-notifications-on-other-profile {
+  position: relative
+}
+
+.new-messages::after, .new-notifications::after, .new-notifications-on-other-profile::after {
+  content: '•';
+  color: red;
+  text-shadow:
+  -1px -1px 0 var(--blue),
+  1px -1px 0 var(--blue),
+  -1px 1px 0 var(--blue),
+  1px 1px 0 var(--blue);
+  font-size: 40px;
+  position: absolute;
+  bottom: -12px;
+}
+
+.new-messages::after {
+  right: -8px;
+}
+
+.new-notifications::after {
+  right: 2px;
+}
+
+.new-notifications-on-other-profile::after {
+  right: 16px;
+  bottom: -8px;
+}
+
+
+@media screen and (max-width: 960px) {
+  .nav-icon.nav-menu {
+    color: var(--bg-white);
+    display: flex;
+    width: fit-content;
+    font-size: 1.4rem;
+    cursor: pointer;
+  }
+  .nav-logo {
+    display: none;
+  }
+  .nav-menu.hidden-links {
+    padding: 0;
+    /* where does this come from?! */
+    position: absolute;
+    width: 100vw;
+    height: calc(100vh - var(--navbar-height));
+    background-color: var(--dark-blue);
+    top: var(--navbar-height);
+    left: -110%;
+    border-top: 2px solid var(--dark-blue);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    transition: all .4s ease-out;
+  }
+  .nav-menu.hidden-links.active {
+    left: 0;
+    z-index: 20;
+  }
+  .hidden-links .nav-item {
+    width: 100%;
+    height: var(--navbar-height);
+  }
+  .hidden-links .nav-links {
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .hidden-links .nav-links.active {
+    box-shadow: none;
+    background-color: var(--blue);
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .dropdown-container {
+    position: static;
+  }
+  .nav-current-session-name {
+    display: none;
+  }
+}

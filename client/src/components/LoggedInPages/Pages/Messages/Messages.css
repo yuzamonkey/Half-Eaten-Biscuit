@@ -1,0 +1,31 @@
+.messages-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.msg-contacts-container {
+  min-width: 250px;
+  max-width: 250px;
+  height: calc(100vh - var(--navbar-height));
+}
+
+.msg-conversation-container {
+  background-color: var(--bg-white);
+  width: 100%;
+  height: calc(100vh - var(--navbar-height));
+}
+
+@media screen and (max-width: 580px) {
+  .msg-contacts-container {
+    position: absolute;
+    min-width: 100%;
+    max-width: 100%;
+    top: -100%;
+    transition: all 0.5s ease;
+    z-index: 10;
+  }
+
+  .msg-contacts-container.active {
+    top: var(--navbar-height);
+  }
+}

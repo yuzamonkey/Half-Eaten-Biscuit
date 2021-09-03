@@ -207,4 +207,14 @@
 | Week 33 |||   
 | 16.8.  | 2.5 | CSS |
 | 17.8.  | 2 | Miscellaneous |
-| =     | 149.0      |               |
+| Week 34 |||   
+| 25.8.  | 4.5 | Refactoring, notifications, css |
+| 26.8.  | 4 | Messaging notifications, structure changing, caching problems, css |
+| 27.8.  | 2 | Filtering subscriptions, bug fixes |
+| 28.8.  | 2.5 | Organizing component directories, show notification dot on each navbar constant link |
+| 29.8.  | 3 | Notifications |
+| Week 35 |||   
+| 31.8.  | 7.5 | Messaging subscription handling, bug fixes, css |
+| 1.9.  | 4.5 | css, refactoring, settings navigation |
+| 3.9.  | 7 | css |
+| =     | 185.0      |               |

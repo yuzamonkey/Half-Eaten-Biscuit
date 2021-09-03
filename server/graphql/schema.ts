@@ -3,12 +3,12 @@ const { gql } = require('apollo-server')
 const typeDefs = gql`
   scalar Date
 
-  type SkillCategory {
+  type UserCategory {
     id: ID!
     name: String!
     profession: String!
-    parent: SkillCategory
-    children: [SkillCategory]
+    parent: UserCategory
+    children: [UserCategory]
     users: [User]
   }
 
@@ -36,9 +36,10 @@ const typeDefs = gql`
     id: ID!
     participants: [Participant]!
     messages: [Message]!
+    lastActive: Date
   }
 
-  type Jobquery {
+  type JobAd {
     id: ID!
     content: String!
     postedOn: Date!
@@ -46,17 +47,17 @@ const typeDefs = gql`
     endSchedule: Date
     wantedCategories: [WantedCategory!]!
     visible: Boolean!
-    postedBy: JobqueryPostedBy!
+    postedBy: JobAdPostedBy!
     location: String
     salary: String
   }
 
   type WantedCategory {
     kind: String,
-    object: SkillCategoryOrGroupCategory
+    object: UserCategoryOrGroupCategory
   }
 
-  type JobqueryPostedBy {
+  type JobAdPostedBy {
     kind: String,
     object: UserOrGroup
   }
@@ -65,23 +66,33 @@ const typeDefs = gql`
     id: ID!
     username: String!
     passwordHash: String!
-    jobQueries: [Jobquery]!
-    conversations: [Conversation]!
+    jobAds: [JobAd]!
+    conversations: [ConversationObject]!
     profile: UserProfile!
     groups: [Group]!
     available: Boolean!
     kind: String!
-    notifications: [Notification]!
+    notifications: [NotificationObject]!
   }
 
   type Group {
     id: ID!
     users: [User!]!
     profile: GroupProfile!
-    jobQueries: [Jobquery]!
-    conversations: [Conversation]!
+    jobAds: [JobAd]!
+    conversations: [ConversationObject]!
     kind: String!
-    notifications: [Notification]!
+    notifications: [NotificationObject]!
+  }
+
+  type NotificationObject {
+    seen: Boolean
+    object: Notification
+  }
+
+  type ConversationObject {
+    hasUnreadMessages: Boolean
+    object: Conversation
   }
 
   type UserProfile {
@@ -92,7 +103,7 @@ const typeDefs = gql`
     lastName: String!,
     about: String,
     image: String,
-    skills: [SkillCategory],
+    categories: [UserCategory],
     isEditedByUser: Boolean!
   }
 
@@ -102,7 +113,7 @@ const typeDefs = gql`
     name: String!
     about: String
     image: String
-    groupTypes: [GroupCategory]
+    categories: [GroupCategory]
   }
 
   type Notification {
@@ -110,7 +121,8 @@ const typeDefs = gql`
     date: Date
     content: String,
     link: String,
-    relatedObject: NotificationRelatedObject
+    relatedObject: NotificationRelatedObject,
+    receivers: [ID]!
   }
 
   type Token {
@@ -118,15 +130,15 @@ const typeDefs = gql`
     id: ID!
   }
 
-  union NotificationRelatedObject = Jobquery
+  union NotificationRelatedObject = JobAd
 
   union UserOrGroup = User | Group
 
-  union SkillCategoryOrGroupCategory = SkillCategory | GroupCategory
+  union UserCategoryOrGroupCategory = UserCategory | GroupCategory
 
   type Query {
-    allJobqueries: [Jobquery]
-    findJobquery(id: ID!): Jobquery,
+    allJobAds: [JobAd]
+    findJobAd(id: ID!): JobAd,
     allUsers: [User]!
     allUserProfiles: [UserProfile]!
     findUser(id: ID!): User
@@ -136,8 +148,8 @@ const typeDefs = gql`
     findUserOrGroup(id: ID!): UserOrGroup
     allConversations: [Conversation]
     findConversation(id: ID!): Conversation
-    allSkillCategories: [SkillCategory]
-    allGroupSkillCategories: [GroupCategory]
+    allUserCategories: [UserCategory]
+    allGroupCategories: [GroupCategory]
     allNotifications: [Notification]!
     me: User,
   }
@@ -150,7 +162,7 @@ const typeDefs = gql`
       password: String!
     ): User
     createUserProfile(
-      skills: [ID]!,
+      categories: [ID]!,
       about: String!,
       image: String
     ): UserProfile
@@ -166,9 +178,9 @@ const typeDefs = gql`
       users: [ID!]!,
       about: String!,
       image: String,
-      skills: [ID]!
+      categories: [ID]!
     ): Group
-    createJobquery(
+    createJobAd(
       content: String!
       startSchedule: Date!
       endSchedule: Date
@@ -176,21 +188,32 @@ const typeDefs = gql`
       postedBy: ID!
       salary: String!
       location: String!
-    ): Jobquery
+    ): JobAd
     createConversation(
       senderId: ID!
       receiverId: ID!
     ): Conversation
+    setConversationAsSeen(
+      currentProfileId: ID!
+      conversationId: ID!
+    ): UserOrGroup
     sendMessage(
       senderId: ID!
       conversationId: ID!
       body: String!
     ): Message
-    addSkillCategory(
+    setNotificationAsSeen(
+      currentProfileId: ID!
+      notificationId: ID!
+    ): Notification
+    setAllNotificationsAsSeen(
+      currentProfileId: ID!
+    ): [Notification]
+    addUserCategory(
       name: String!
       profession: String!
       parent: String
-    ): SkillCategory
+    ): UserCategory
     addGroupCategory(
       name: String!
       parent: String
@@ -198,8 +221,9 @@ const typeDefs = gql`
   }
 
   type Subscription {
-    messageAdded: Message!
-    notificationAdded: Notification!
+    conversationUpdate(conversationId: ID!): Conversation!
+    messageAdded(userOrGroupIds: [ID]!): Conversation!
+    notificationAdded(userOrGroupIds: [ID]!): Notification!
   }
 `
 

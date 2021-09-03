@@ -1,0 +1,85 @@
+.msg-navigation {
+  /* position: absolute; */
+  background-color: var(--grey);
+  width: 100%;
+  height: calc(100vh - var(--navbar-height));
+  display: flex;
+  justify-content: center;
+  /* Positive z-index makes navbar stay top. E.g. not behind text */
+}
+
+.msg-nav-container {
+  width: 100%;
+}
+
+.messages-filter-container {
+  height: var(--navbar-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.msg-nav-menu {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.msg-nav-item {
+  line-height: 4rem;
+  text-align: center;
+  overflow: hidden;
+  border-bottom: 1px solid var(--bg-grey);
+}
+
+.msg-nav-links {
+  color: var(--black);
+  text-decoration: none;
+  display: table;
+  width: 100%;
+  transition: background-color 0.2s ease;
+  font-size: 1.2em;
+  font-weight: var(--text-font-weight);
+}
+
+.msg-nav-links:hover {
+  background-color: var(--bg-grey);
+}
+
+.msg-active {
+  background-color: var(--dark-blue);
+  color: var(--bg-white);
+}
+
+.has-unread-messages {
+  border-right: 3px solid red;
+}
+
+.msg-nav-conversation-container {
+  display: flex;
+}
+.msg-nav-conversation-container > * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 40px;
+  white-space: nowrap;
+}
+.msg-nav-images-container {
+  min-width: 20%;
+  max-width: 20%;
+}
+.msg-nav-name-container {
+  width: 100%;
+}
+.msg-nav-filler-div {
+  width: 25%;
+}
+/* 
+@media screen and (max-width: 580px) { 
+  .msg-navigation {
+    border-radius: 5px;
+    box-shadow: 0 0 1pt 1pt var(--grey);
+  }
+
+} */

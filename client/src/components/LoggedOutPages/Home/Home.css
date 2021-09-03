@@ -1,0 +1,188 @@
+.home-page-navigation {
+  width: 100vw;
+  height: var(--navbar-height);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  z-index: 20;
+  animation: navigation-animation 0.5s ease-in-out;
+}
+
+.home-page-navigation-links {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.home-navigation-link {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+  padding: 10px;
+  white-space: nowrap;
+}
+
+.sign-link {
+  background-color: hsla(192, 17%, 60%, 0.288);
+  border-radius: 3px;
+  box-shadow: 0pt 0pt 1pt 1pt var(--grey);
+}
+
+.scroll-container {
+  width: 100vw;
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+  overflow-x: hidden;
+}
+
+.scroll-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: white;
+  position: relative;
+  scroll-snap-align: start;
+}
+
+.home-page-image {
+  position: absolute;
+  bottom: 0;
+  height: 90vh;
+  z-index: 5;
+}
+
+.home-page-musician1-image {
+  right: 10%;
+  transform: scaleX(-1);
+  /* filter: invert(100%) sepia(5%) saturate(76%) hue-rotate(323deg) brightness(111%) contrast(88%); */
+  filter: invert(41%) sepia(50%) saturate(444%) hue-rotate(140deg) brightness(95%) contrast(82%);
+  animation: from-right 1.5s ease-out;
+}
+
+.home-page-musician2-image {
+  right: 20px;
+  transform: scaleX(-1);
+  filter: invert(16%) sepia(93%) saturate(6071%) hue-rotate(331deg) brightness(69%) contrast(119%);
+}
+
+.home-page-piano-image {
+  left: 20px;
+  transform: scaleX(-1);
+  filter: invert(41%) sepia(52%) saturate(7500%) hue-rotate(171deg) brightness(94%) contrast(101%);
+}
+
+.title-container {
+  min-width: 300px;
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  animation: from-left 1s ease-in-out;
+}
+
+.title {
+  color: var(--bg-white);
+  text-shadow: 2pt 2pt 5pt var(--dark-blue);
+  font-size: 4em;
+  font-weight: 250;
+}
+
+.title-section {
+  background-image: linear-gradient(#3bc9bd, #3e7f89);
+}
+
+.about-section {
+  background-image: linear-gradient(#ffa500, var(--red));
+}
+
+.features-section {
+  background-image: linear-gradient(var(--dark-blue), var(--blue));
+}
+
+.footer-section {
+  background-image: linear-gradient(#464646, #272727);
+}
+
+.scroll-page-content {
+  z-index: 10;
+}
+
+@media screen and (max-width: 850px) {
+  .title-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: none;
+  }
+  .home-page-musician1-image {
+    filter: invert(41%) sepia(50%) saturate(444%) hue-rotate(140deg) brightness(95%) contrast(82%);
+    animation: none;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .home-hidden-links {
+    display: none;
+  }
+  .home-navigation-link {
+    margin: 0 3px;
+    padding: 10px 5px;
+  }
+  .home-page-musician1-image {
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+  }
+  .home-page-musician2-image {
+    right: -15%;
+  }
+  .home-page-piano-image {
+    height: 60vh;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    bottom: 25%;
+  }
+}
+
+@keyframes navigation-animation {
+  0% {
+    top: -60px;
+  }
+  100% {
+    top: 0;
+  }
+}
+
+@keyframes from-left {
+  0% {
+    left: 10%;
+    opacity: 0
+  }
+  100% {
+    left: 25%;
+    opacity: 1;
+  }
+}
+
+@keyframes from-right {
+  0% {
+    right: 0%;
+    opacity: 0
+  }
+  100% {
+    right: 10%;
+    opacity: 1;
+  }
+}

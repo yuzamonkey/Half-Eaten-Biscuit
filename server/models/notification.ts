@@ -19,7 +19,10 @@ const notificationSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'relatedObject.kind'
     }
-  }
+  },
+  receivers: [{
+    type: mongoose.Schema.Types.ObjectId
+  }]
 })
 
 notificationSchema.set('toJSON', {

@@ -12,7 +12,41 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: red;
+  background-color: rgb(255, 0, 0);
   color: white;
   max-height: 20px;
+}
+
+.app-container {
+  width: 100vw;
+  height: 100vh;
+}
+
+h1 {
+  font-weight: var(--h1-font-weight);
+}
+
+h3 {
+  font-weight: var(--h3-font-weight);
+}
+
+p {
+  font-weight: var(--text-font-weight);
+}
+
+.secondary-text {
+  color: var(--bg-grey)
+}
+
+textarea {
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 3pt 1pt var(--grey);
+  border: none;
+  font-family: var(--font-family);
+  font-size: var(--p-font-size);
+}
+
+textarea:focus {
+  outline: none;
 }

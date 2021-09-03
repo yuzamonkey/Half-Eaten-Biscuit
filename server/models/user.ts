@@ -19,13 +19,19 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: true
   },
-  jobQueries: [{
+  jobAds: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Jobquery'
+    ref: 'JobAd'
   }],
   conversations: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Conversation'
+    hasUnreadMessages: {
+      type: Boolean,
+      default: false
+    },
+    object: { 
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Conversation'
+    }
   }],
   groups: [{
     type: mongoose.Schema.Types.ObjectId,
@@ -36,8 +42,14 @@ const userSchema = new mongoose.Schema({
     ref: 'UserProfile'
   },
   notifications: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Notification'
+    seen: {
+      type: Boolean,
+      default: false
+    },
+    object: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Notification'
+    }
   }],
   kind: {
     type: String,

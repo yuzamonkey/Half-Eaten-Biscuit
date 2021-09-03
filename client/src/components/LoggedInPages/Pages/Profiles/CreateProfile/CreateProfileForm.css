@@ -1,0 +1,141 @@
+/* GENERAL STRUCTURE */
+
+.profile-edit-master-container {
+  height: calc(100vh - var(--navbar-height));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: scroll;
+}
+
+.profile-edit-title-container {
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-edit-title-container>h1 {
+  color: var(--grey);
+  text-shadow: 0.5pt 0.5pt 1pt var(--grey);
+  font-weight: var(--h1-font-weight);
+  font-size: 2.5em;
+}
+
+.profile-edit-current-view {
+  height: 80%;
+}
+
+.profile-edit-switch-view-buttons-container {
+  height: 10%;
+  min-height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-edit-switch-view-buttons-container>* {
+  margin: 0 20px;
+}
+
+/* CREATE PROFILE INFO */
+
+.create-profile-info-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.create-profile-info-container>p {
+  font-size: 1.5em;
+}
+
+/* SKILLS SELECTION */
+
+.category-selection-container {
+  height: 100%;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.category-selection-container>h2 {
+  text-align: center;
+  padding: 10px 0;
+}
+
+/* ABOUT */
+
+.write-about-me-text-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: scroll;
+}
+
+.write-about-me-text-container>h2 {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.write-about-me-text-container>textarea {
+  width: 90%;
+  max-width: 700px;
+  height: 90%;
+  max-height: 700px;
+}
+
+/* IMAGE SELECTION */
+
+.image-selection-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: scroll;
+}
+
+.file-upload-button {
+  width: fit-content;
+  padding: 5px 10px;
+}
+
+.image-selection-container input[type="file"] {
+  display: none;
+}
+
+.image-selection-error-message {
+  color: var(--red);
+  text-shadow: 0.5pt 0.5pt 1pt var(--grey);
+  height: 20px;
+}
+
+/* SUMMARY */
+
+.summary-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: scroll;
+}
+
+.about-text-container {
+  text-align: center;
+  height: 100%;
+  max-width: 60ch;
+  padding: 10px;
+  overflow: scroll;
+}
+
+.summary-component-button-container {
+  width: 150px;
+  padding: 10px;
+}

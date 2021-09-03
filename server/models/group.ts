@@ -7,21 +7,33 @@ const groupSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   }],
-  jobQueries: [{
+  jobAds: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Jobquery'
+    ref: 'JobAd'
   }],
   conversations: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Conversation'
+    hasUnreadMessages: {
+      type: Boolean,
+      default: false
+    },
+    object: { 
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Conversation'
+    }
   }],
   profile: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'GroupProfile'
   },
   notifications: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Notification'
+    seen: {
+      type: Boolean,
+      default: false
+    },
+    object: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Notification'
+    }
   }],
   kind: {
     type: String,

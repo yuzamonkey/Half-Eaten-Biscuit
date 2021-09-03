@@ -7,9 +7,7 @@ import {
   InMemoryCache,
   split
 } from '@apollo/client'
-
 import { setContext } from '@apollo/link-context';
-
 import { getMainDefinition } from '@apollo/client/utilities'
 import { WebSocketLink } from '@apollo/client/link/ws'
 
@@ -69,8 +67,18 @@ const cache = new InMemoryCache({
       fields: {
         profile: {
           merge(existing, incoming) {
-            // console.log("profile\nEX: \n", existing, "\nINC:\n", incoming)
-            return incoming
+            //console.log("profile\nEX: \n", existing, "\nINC:\n", incoming)
+            return { ...existing, ...incoming };
+          }
+        }
+      }
+    },
+    Group: {
+      fields: {
+        profile: {
+          merge(existing, incoming) {
+            //console.log("profile\nEX: \n", existing, "\nINC:\n", incoming)
+            return { ...existing, ...incoming };
           }
         }
       }
@@ -85,21 +93,12 @@ const cache = new InMemoryCache({
         },
         findUserOrGroup: {
           merge(existing, incoming) {
-            // console.log("findUserOrGroup\nEX: \n", existing, "\nINC:\n", incoming)
-            return incoming
+            //console.log("findUserOrGroup\nEX: \n", existing, "\nINC:\n", incoming)
+            return { ...existing, ...incoming };
           }
         }
       }
-    },
-    // UserOrGroup: {
-    //   fields: {
-    //     conversations: {
-    //       merge(existing, incoming) {
-    //         console.log("USERorGroup EX", existing, "USERorGroup INC", incoming)
-    //       }
-    //     }
-    //   }
-    // }
+    }
   }
 })
 

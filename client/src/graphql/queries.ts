@@ -5,7 +5,13 @@ export const ME = gql`
     me {
       id
       username
-      jobQueries {
+      notifications {
+        seen
+      }
+      conversations {
+        hasUnreadMessages
+      }
+      jobAds {
         id, 
         content, 
         postedOn,
@@ -13,14 +19,22 @@ export const ME = gql`
       },
       groups {
         id
+        conversations {
+          hasUnreadMessages
+        }
+        notifications {
+          seen
+        }
         profile {
           name
+          image
         }
       },
       profile {
-        skills {
+        categories {
           id
           name
+          profession
           parent {
             name
           }
@@ -31,6 +45,8 @@ export const ME = gql`
         about
         image
         isEditedByUser
+        name
+        firstName
       }
     }
   }
@@ -45,23 +61,40 @@ export const MY_ID = gql`
   }
 `
 
+export const MY_USER_AND_GROUP_IDS = gql`
+  query myUserAndGroupIds {
+    me {
+      id
+      groups {
+        id
+      }
+    }
+  }
+`
+
 export const GET_NOTIFICATIONS = gql`
   query getNotifications($id: ID!) {
     findUserOrGroup(id: $id) {
         ... on User {
         notifications {
-          id
-          content
-          link
-          date
+          seen
+          object {
+            id
+            content
+            link
+            date
+          }
         }
       }
       ... on Group {
         notifications {
-          id
-          content
-          link
-          date
+          seen
+          object {
+            id
+            content
+            link
+            date
+          }
         }
       }
     }
@@ -96,10 +129,24 @@ export const FIND_USER_OR_GROUP = gql`
         kind
         username
         profile {
-          about,
-          image,
-          firstName,
+          about
+          image
+          firstName
           name
+          categories {
+            parent {
+              name
+            }
+            name
+            profession
+          }
+        }
+        groups {
+          id
+          profile {
+            name
+            image
+          }
         }
       }
       ... on Group {
@@ -107,39 +154,39 @@ export const FIND_USER_OR_GROUP = gql`
         kind
         users {
           id
-          username
+          profile {
+            name
+            image
+          }
         }
         profile {
-          name,
+          name
           image
+          about
+          categories {
+            name
+            parent {
+              name
+            }
+          }
         }
       }
     }
   }
 `
 
-export const MY_CONVERSATIONS_PARTICIPANTS_LIST = gql`
-  query myConversationsParticipantsList {
-      me {
-        username
+export const GET_CONVERSATIONS_SEEN_BY_SESSION_ID = gql`
+  query getConversationsSeenBySessionId ($id: ID!) {
+    findUserOrGroup(id: $id) {
+      ...on User {
         conversations {
-          id,
-          participants {
-            object {
-            ...on User {
-              id,
-              kind,
-              username
-            }
-            ...on Group {
-              id,
-              kind,
-              profile {
-                name
-              }
-            }
-          }
-        }  
+          hasUnreadMessages
+        }
+      }
+      ...on Group {
+        conversations {
+          hasUnreadMessages
+        }
       }
     }
   }
@@ -149,23 +196,30 @@ export const CONVERSATION_PARTICIPANTS_BY_SESSION_ID = gql`
   query conversationParticipantsById ($id: ID!) {
     findUserOrGroup(id: $id) {
       ...on User {
+        id
         username
         conversations {
-          id
-          participants {
-            object {
-              ...on User {
-                id
-                kind
-                profile {
-                  name
+          hasUnreadMessages
+          object {
+            id
+            lastActive
+            participants {
+              object {
+                ...on User {
+                  id
+                  kind
+                  profile {
+                    name
+                    image
+                  }
                 }
-              }
-              ...on Group {
-                id
-                kind
-                profile {
-                  name
+                ...on Group {
+                  id
+                  kind
+                  profile {
+                    name
+                    image
+                  }
                 }
               }
             }
@@ -173,27 +227,34 @@ export const CONVERSATION_PARTICIPANTS_BY_SESSION_ID = gql`
         }
       }
       ...on Group {
+        id
         profile {
           name
         }
         conversations {
-          id
-          participants {
-            kind
-            object {
-              ...on User {
-                id
-                kind
-                username
-                profile {
-                  name
+          hasUnreadMessages
+          object {
+            id
+            lastActive
+            participants {
+              kind
+              object {
+                ...on User {
+                  id
+                  kind
+                  username
+                  profile {
+                    name
+                    image
+                  }
                 }
-              }
-              ...on Group {
-                id
-                kind
-                profile {
-                  name
+                ...on Group {
+                  id
+                  kind
+                  profile {
+                    name
+                    image
+                  }
                 }
               }
             }
@@ -204,18 +265,18 @@ export const CONVERSATION_PARTICIPANTS_BY_SESSION_ID = gql`
   }
 `
 
-export const JOBQUERIES_SENT_BY_SESSION_ID = gql`
-  query jobqueriesBySessionId($id: ID!) {
+export const JOBADS_SENT_BY_SESSION_ID = gql`
+  query jobAdsBySessionId($id: ID!) {
     findUserOrGroup(id: $id) {
         ... on User {
-        jobQueries {
+        jobAds {
           id
           content
           visible
         }
       }
       ... on Group {
-        jobQueries {
+        jobAds {
           id
           content
           visible
@@ -232,13 +293,19 @@ export const FIND_CONVERSATION = gql`
       participants {
         object {
           ... on User {
-            id
+            id,
             username
+            profile {
+              firstName
+              name
+              image
+            }
           }
-        ... on Group {
+          ... on Group {
             id,
             profile {
               name
+              image
             }
           }
         }
@@ -270,9 +337,9 @@ export const FIND_CONVERSATION = gql`
   }
 `
 
-export const FIND_JOBQUERY = gql`
-  query findJobquery($id: ID!) {
-    findJobquery(id: $id) {
+export const FIND_JOBAD = gql`
+  query findJobAd($id: ID!) {
+    findJobAd(id: $id) {
       id,
       content,
       postedOn,
@@ -299,7 +366,7 @@ export const FIND_JOBQUERY = gql`
       }
       wantedCategories {
         object {
-          ...on SkillCategory {
+          ...on UserCategory {
             name
           }
           ... on GroupCategory {
@@ -311,9 +378,9 @@ export const FIND_JOBQUERY = gql`
   }
 `
 
-export const ALL_JOBQUERIES = gql`
-  query allJobqueries {
-    allJobqueries {
+export const ALL_JOBADS = gql`
+  query allJobAds {
+    allJobAds {
       id,
       content,
       postedOn,
@@ -341,7 +408,7 @@ export const ALL_JOBQUERIES = gql`
       }
       wantedCategories {
         object {
-          ...on SkillCategory {
+          ...on UserCategory {
             name
             profession
           }
@@ -361,7 +428,17 @@ export const ALL_USERS = gql`
       username 
       profile {
         image
+        name
       }
+    }
+  }
+`
+
+export const ALL_USERNAMES = gql`
+  query allUsernames {
+    allUsers {
+      id
+      username
     }
   }
 `
@@ -375,7 +452,7 @@ export const ALL_USER_PROFILES = gql`
         username
         }
       about
-      skills {
+      categories {
         id
         name
       }
@@ -384,11 +461,12 @@ export const ALL_USER_PROFILES = gql`
   }
 `
 
-export const ALL_SKILL_CATEGORIES = gql`
-  query allSkillCategories {
-    allSkillCategories {
+export const ALL_USER_CATEGORIES = gql`
+  query allUserCategories {
+    allUserCategories {
       id
       name
+      profession
       parent {
         name
       }
@@ -399,9 +477,9 @@ export const ALL_SKILL_CATEGORIES = gql`
   }
 `
 
-export const ALL_GROUP_SKILL_CATEGORIES = gql`
-  query allGroupSkillCategories {
-    allGroupSkillCategories {
+export const ALL_GROUP_CATEGORIES = gql`
+  query allGroupCategories {
+    allGroupCategories {
       id
       name
       parent {
@@ -425,7 +503,7 @@ export const ALL_USERS_AND_GROUPS = gql`
           name
           about
           image
-          skills {
+          categories {
             id
             name
             profession
@@ -442,7 +520,7 @@ export const ALL_USERS_AND_GROUPS = gql`
           name
           image
           about
-          groupTypes {
+          categories {
             id
             name
             parent {

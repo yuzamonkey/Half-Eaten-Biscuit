@@ -5,8 +5,8 @@ const http = require('http')
 const app = express()
 const { ApolloServer } = require('apollo-server-express')
 
-app.use(express.json({limit: '1mb'}));
-app.use(express.urlencoded({limit: '1mb'}));
+app.use(express.json({ limit: '1mb' }));
+app.use(express.urlencoded({ limit: '1mb' }));
 
 const frontendRoutes = [
   '/',
@@ -14,12 +14,16 @@ const frontendRoutes = [
   '/signup',
   '/messages',
   '/messages/:id',
-  '/jobmarket/queries/:id',
-  '/jobmarket/queries',
-  '/jobmarket/sendquery',
-  '/jobmarket/myqueries',
+  '/jobmarket/jobads/:id',
+  '/jobmarket/jobads',
+  '/jobmarket/sendjobad',
+  '/jobmarket/myads',
   '/profiles',
   '/profiles/:id',
+  '/settings/credentials',
+  '/settings/profile',
+  '/settings/groups',
+  '/settings/deleteuser',
   '/settings',
   '/creategroup',
   '/createprofile'
@@ -32,7 +36,7 @@ app.get('/health', (_req, res) => {
 })
 
 app.get('/version', (_req, res) => {
-  res.send('0.0.4, 17.8.2021 18.26')
+  res.send('0.0.5, 3.9.2021 17.40')
 })
 
 app.get('/log', (_req, res) => {
@@ -43,15 +47,12 @@ app.get('/log', (_req, res) => {
     '2021/08/17 13.10 add css to registration pages',
     '2021/08/17 16.40 filesizelimit, minor ux improvements',
     '2021/08/17 18.25 remove invalid route, caused issue with playground',
+    '2021/09/03 17.40 lots of css',
   ]
   res.send(log)
 })
 
 const server = new ApolloServer(createConfig())
-// server.listen({ port: process.env.PORT || 4000 }).then(({ url, subscriptionsUrl }: any) => {
-//   console.log(`Server ready at ${url}`)
-//   console.log(`Subscriptions ready at ${subscriptionsUrl}`)
-// })
 
 server.applyMiddleware({ app });
 

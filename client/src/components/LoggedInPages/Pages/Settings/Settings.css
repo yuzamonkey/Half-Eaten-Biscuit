@@ -1,0 +1,117 @@
+.settings-page {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - var(--navbar-height));
+}
+
+.settings-not-selected-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.settings-not-selected-container > h1 {
+  color: var(--grey);
+  text-align: center;
+  text-shadow: 0.5pt 0.5pt 1pt var(--grey);
+  font-weight: var(--h1-font-weight);
+  font-size: 4em;
+}
+
+.settings-pages {
+  display: inline;
+  width: 100%;
+  overflow: scroll;
+  box-shadow: 0 0 1pt 1pt var(--bg-grey);
+}
+
+.settings-navigation {
+  background-color: var(--grey);
+  min-width: 250px;
+  height: calc(100vh - var(--navbar-height));
+  display: flex;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: var(--text-font-weight);
+}
+
+.settings-nav-container {
+  width: 100%;
+}
+
+.settings-nav-menu {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.settings-nav-item {
+  line-height: 4rem;
+  text-align: center;
+}
+
+.settings-nav-links {
+  color: var(--black);
+  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  transition: background-color 0.2s ease;
+}
+
+.settings-nav-name {
+  width: 100%;
+}
+
+.settings-nav-icon, .settings-nav-filler-div {
+  color: var(--bg-grey);
+  width: 40%;
+}
+
+.settings-nav-links:hover {
+  background-color: var(--bg-grey);
+}
+
+.settings-active {
+  background-color: var(--dark-blue);
+  color: var(--bg-white);
+}
+
+
+@media screen and (max-width: 960px) {
+  .settings-page {
+    flex-direction: column;
+  }
+  .settings-pages {
+    height: calc(100vh - var(--navbar-height) - 60px);
+  }
+  .settings-navigation {
+    height: 60px;
+    width: 100%;
+    min-width: 320px;
+    font-size: 1.3rem;
+    font-weight: 400;
+  }
+  .settings-nav-menu {
+    height: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
+  .settings-nav-item {
+    width: 100%;
+    min-width: 200px;
+    height: 100%;
+    border-right: 1px solid var(--bg-grey);
+  }
+  .settings-nav-links {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

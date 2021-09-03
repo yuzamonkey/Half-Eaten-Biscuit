@@ -16,9 +16,10 @@ export const SIGNUP = gql`
     }
 }
 `
-export const CREATE_JOBQUERY = gql`
-  mutation createJobquery ($content: String!, $startSchedule: Date!, $endSchedule: Date, $wantedCategories: [ID!]!, $postedBy: ID!, $location: String!, $salary: String!) {
-    createJobquery(content: $content, startSchedule: $startSchedule, endSchedule: $endSchedule, wantedCategories: $wantedCategories, postedBy: $postedBy, location: $location, salary: $salary) {
+
+export const CREATE_JOBAD= gql`
+  mutation createJobAd ($content: String!, $startSchedule: Date!, $endSchedule: Date, $wantedCategories: [ID!]!, $postedBy: ID!, $location: String!, $salary: String!) {
+    createJobAd(content: $content, startSchedule: $startSchedule, endSchedule: $endSchedule, wantedCategories: $wantedCategories, postedBy: $postedBy, location: $location, salary: $salary) {
       id
       content
     }
@@ -42,8 +43,8 @@ export const SEND_MESSAGE = gql`
 `
 
 export const CREATE_GROUP = gql`
-  mutation createGroup($name: String!, $users: [ID!]!, $about: String!, $image: String!, $skills: [ID]!){
-    createGroup(name: $name, users: $users, about: $about, image: $image, skills: $skills) {
+  mutation createGroup($name: String!, $users: [ID!]!, $about: String!, $image: String!, $categories: [ID]!){
+    createGroup(name: $name, users: $users, about: $about, image: $image, categories: $categories) {
       id
       kind
     }
@@ -51,10 +52,40 @@ export const CREATE_GROUP = gql`
 `
 
 export const CREATE_USER_PROFILE = gql`
-  mutation createUserProfile($skills: [ID]!, $about: String!, $image: String){
-    createUserProfile(skills: $skills, about: $about, image: $image) {
+  mutation createUserProfile($categories: [ID]!, $about: String!, $image: String){
+    createUserProfile(categories: $categories, about: $about, image: $image) {
       id
       about
     }
   }
+`
+
+export const SET_CONVERSATION_AS_SEEN = gql`
+  mutation setConversationAsSeen($currentProfileId: ID!, $conversationId: ID!) {
+    setConversationAsSeen(currentProfileId: $currentProfileId, conversationId: $conversationId) {
+      ...on User {
+        id
+      }
+      ...on Group {
+        id
+      }
+    }
+  }
+`
+
+export const SET_NOTIFICATION_AS_SEEN = gql`
+  mutation setNotificationAsSeen($currentProfileId: ID!, $notificationId: ID!) {
+    setNotificationAsSeen(currentProfileId: $currentProfileId, notificationId: $notificationId) {
+      id
+    }
+  }
+`
+
+export const SET_ALL_NOTIFICATIONS_AS_SEEN = gql`
+  mutation setAllNotificationsAsSeen($currentProfileId: ID!) {
+    setAllNotificationsAsSeen(currentProfileId: $currentProfileId) {
+      id
+    }
+  }
+
 `

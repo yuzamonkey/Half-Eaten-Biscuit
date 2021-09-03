@@ -32,11 +32,55 @@ export const Button = ({ text, handleClick }) => {
   )
 }
 
-export const Searchbar = ({input, setInput}: any) => {
+export const BlueButton = ({ text, handleClick }) => {
+  return (
+    <div
+      className="blue-button-container"
+      onClick={handleClick}>
+      {text}
+    </div>
+  )
+}
+
+export const FormNavigationButton = ({ previous, handleClick }) => {
+  const getClassName = () => {
+    return previous
+      ? "form-navigation-button-container previous"
+      : "form-navigation-button-container next"
+  }
+
+  return (
+    <div
+      className={getClassName()}
+      onClick={handleClick}>
+      △
+    </div>
+  )
+}
+
+export const ContactButton = ({ handleClick }) => {
+  return (
+    <div
+      className="contact-button"
+      onClick={handleClick}>
+      Contact &nbsp; <i className="fa fa-comment"></i>
+    </div>
+  )
+}
+export const DisabledContactButton = () => {
+  return (
+    <div
+      className="disabled contact-button">
+      Contact &nbsp; <i className="fa fa-comment"></i>
+    </div>
+  )
+}
+
+export const Searchbar = ({ input, setInput }: any) => {
 
   return (
     <div className="searchbar-container">
-      <div className={input === '' ? "searchbar-outline empty": "searchbar-outline"}>
+      <div className={input === '' ? "searchbar-outline empty" : "searchbar-outline"}>
         <input className="searchbar-input" value={input} onChange={e => setInput(e.target.value)}></input>
         <div className="searchbar-icon-container">
           <div className="searchbar-icon">⚲</div>
@@ -52,31 +96,52 @@ export const SmallProfileImage = ({ image }) => {
   )
 }
 
+export const MediumProfileImage = ({ image }) => {
+  return (
+    <img src={image} alt="profileimg" className="medium-profile-image"></img>
+  )
+}
+
 export const LargeProfileImage = ({ image }) => {
   return (
     <img src={image} alt="profileimg" className="large-profile-image"></img>
   )
 }
 
-export const SmallProfileCard = ({ id, image, name }) => {
+export const VeryLargeProfileImage = ({ image }) => {
   return (
-    <div className="small-profile-card-container">
-      <div className="upper-container">
-        <div className="profile-image-container">
-          <SmallProfileImage image={image} />
-        </div>
-      </div>
-      <div className="lower-container">
-        <div className="name-container">
-          <h3 className="small-profile-name">{name}</h3>
-        </div>
-      </div>
-    </div>
-
+    <img src={image} alt="profileimg" className="very-large-profile-image"></img>
   )
 }
 
-export const LargeProfileCard = ({ id, image, name, skills, url, contactFunction }) => {
+export const SmallProfileCard = ({ name, image }) => {
+  return (
+    <div className="small-profile-card-container">
+      <SmallProfileImage image={image} />
+      <h3 className="small-profile-name">{name}</h3>
+      <div></div>
+    </div>
+  )
+}
+
+export const MediumProfileCard = ({ image, name }) => {
+  return (
+    <div className="medium-profile-card-container">
+      <div className="medium-upper-container">
+        <div className="profile-image-container">
+          <MediumProfileImage image={image} />
+        </div>
+      </div>
+      <div className="medium-lower-container">
+        <div className="name-container">
+          <h3 className="medium-profile-name">{name}</h3>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const LargeProfileCard = ({ id, image, name, categories, url, contactFunction }) => {
   const history = useHistory()
   const userContext = useContext(UserContext)
   return (
@@ -89,8 +154,7 @@ export const LargeProfileCard = ({ id, image, name, skills, url, contactFunction
       <div className="lower-container">
         <div className="name-container">
           <h3 className="profile-name">{name}</h3>
-          {/* {skills?.map(skill => <p key={skill.id}>{skill.profession || skill.name}</p>)} */}
-          {categoriesWithParentsRemoved(skills).map(skill => <p key={skill.id}>{skill.profession || skill.name}</p>)}
+          {categoriesWithParentsRemoved(categories).map(category => <p key={category.id}>{category.profession || category.name}</p>)}
         </div>
         <div className="profiles-buttons-container">
           <Button text='Profile' handleClick={() => history.push(url)} />
@@ -105,11 +169,11 @@ export const LargeProfileCard = ({ id, image, name, skills, url, contactFunction
 }
 
 export const CategorySelection = ({ allCategories, selectedCategories, setSelectedCategories, currentPath, setCurrentPath }) => {
-  
-  const skillsIncludeCategory = (selectedObj) => {
+
+  const categoriesIncludeCategory = (selectedObj) => {
     const objId = selectedObj.id
     let found = false
-    selectedCategories.forEach(skill => (objId === skill.id) && (found = true))
+    selectedCategories.forEach(category => (objId === category.id) && (found = true))
     return found
   }
 
@@ -126,15 +190,15 @@ export const CategorySelection = ({ allCategories, selectedCategories, setSelect
   const handlePathClick = (clickedName) => {
     const obj = allCategories.find(obj => obj.name === clickedName)
     if (obj) {
-      if (!skillsIncludeCategory(obj)) {
+      if (!categoriesIncludeCategory(obj)) {
         obj.children.length && setCurrentPath(currentPath.concat(clickedName))
         setSelectedCategories(selectedCategories.concat(obj))
-      } else if (skillsIncludeCategory(obj)) {
+      } else if (categoriesIncludeCategory(obj)) {
         const removableArray = categoriesToRemove(obj, obj.children, [])
-        const filteredSkills = selectedCategories.filter((category) => {
+        const filteredCategories = selectedCategories.filter((category) => {
           return !removableArray.map(c => c.id).includes(category.id)
         })
-        setSelectedCategories(filteredSkills)
+        setSelectedCategories(filteredCategories)
       }
     }
   }
@@ -144,21 +208,28 @@ export const CategorySelection = ({ allCategories, selectedCategories, setSelect
       setCurrentPath(currentPath.splice(0, currentPath.length - 1))
     }
   }
-  
+
   return (
-    <div className="skills-container">
-      <h3>{currentPath.map(name => <span key={currentPath.indexOf(name)}>{name} → </span>)}</h3>
+    <div className="categories-container">
+      {/* <h3>{currentPath.map(name => <span key={currentPath.indexOf(name)}>{name} → </span>)}</h3> */}
       {allCategories.map(obj => {
         return (
           currentPath[currentPath.length - 1] === obj.parent?.name &&
           <div
-            className={skillsIncludeCategory(obj) ? "skill-container skill-container-selected" : "skill-container"}
             key={obj.id}
-            onClick={() => handlePathClick(obj.name)}>
-            {obj.name} {obj.children.length ? '→' : '☑'}</div>
+            onClick={() => handlePathClick(obj.name)}
+            className={categoriesIncludeCategory(obj) ? "category-container selected" : "category-container"}
+          >
+            <p>
+              {obj.name} {obj.children.length ? '→' : '☑'}
+            </p>
+          </div>
         )
       })}
-      <Button handleClick={() => handlePathChangeToPrevious()} text={`←`} />
+      {currentPath.length > 1
+        &&
+        <Button handleClick={() => handlePathChangeToPrevious()} text={`◁`} />
+      }
     </div>
   )
 }

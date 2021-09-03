@@ -1,0 +1,151 @@
+.registration-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: scroll;
+}
+
+.registration-items-container {
+  background-color: white;
+  padding: 30px;
+  margin: 7vh 0;
+  box-shadow: 0 0 10pt 3pt var(--grey);
+  border-radius: 5px;
+  height: 400px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.registration-items-container.signin {
+  height: 400px;
+}
+
+.registration-items-container.signup {
+  height: 700px;
+}
+
+.registration-title-and-logo-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.registration-title-and-logo-container h2 {
+  font-weight: 250;
+}
+
+.registration-container form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.registration-inputs-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.error-message-container {
+  color: var(--red);
+  text-shadow: 0.5pt 0.5pt 1pt var(--grey);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.registration-inputs-container input {
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+  margin: 10px 0;
+  border-radius: 50px;
+  border: 1.5px solid var(--grey);
+}
+
+.registration-inputs-container input:focus {
+  outline: none;
+}
+
+.registration-submit-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.firstname-input.valid, 
+.lastname-input.valid, 
+.username-input.valid, 
+.password-input.valid, 
+.password-confirmation-input.valid {
+  border: 1.5px solid var(--green);
+}
+
+.firstname-input.invalid, 
+.lastname-input.invalid, 
+.username-input.invalid, 
+.password-input.invalid, 
+.password-confirmation-input.invalid {
+  border: 1.5px solid var(--red);
+}
+
+.signup-form-submit-button {
+  margin: 10px;
+  height: 30px;
+  width: 100%;
+  white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  border-radius: 5px;
+  color: white;
+  border: none;
+  box-shadow: 0 0 3pt 1pt var(--grey);
+  font-size: 1.1em;
+}
+
+.blue-button {
+  background-color: var(--blue);
+}
+
+.blue-button:hover {
+  background-color: var(--dark-blue);
+  cursor: pointer;
+}
+
+.green-button {
+  background-color: var(--green);
+}
+
+.green-button:hover {
+  background-color: var(--dark-green);
+  cursor: pointer;
+}
+
+.registration-switch-view-text, .registration-switch-view-text a {
+  color: var(--bg-grey);
+  text-align: center;
+}
+
+.registration-switch-view-text a:hover {
+  color: var(--dark-blue);
+}
+
+.filler-div {
+  height: 100%;
+}
+
+@media screen and (max-width: 580px) {
+  .registration-items-container {
+    margin: 1vh 0;
+    width: 80vw;
+    height: 80vh;
+    overflow: scroll;
+  }
+}

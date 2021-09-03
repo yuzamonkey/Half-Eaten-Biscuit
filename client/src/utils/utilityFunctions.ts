@@ -1,4 +1,3 @@
-
 interface Category {
   id: string,
   name: string
@@ -22,4 +21,10 @@ export const dateAsDDMMYYYY = (dateInput) => {
   const month = date.substring(5, 7)
   const day = date.substring(8, 10)
   return `${day}.${month}.${year}`
+}
+
+
+export const textAsArray = (text: string): string[] => {
+  const result = text.split('\n')
+  return result
 }
