@@ -55,9 +55,19 @@
 .settings-nav-links {
   color: var(--black);
   text-decoration: none;
-  display: table;
+  display: flex;
+  justify-content: space-between;
   width: 100%;
   transition: background-color 0.2s ease;
+}
+
+.settings-nav-name {
+  width: 100%;
+}
+
+.settings-nav-icon, .settings-nav-filler-div {
+  color: var(--bg-grey);
+  width: 40%;
 }
 
 .settings-nav-links:hover {

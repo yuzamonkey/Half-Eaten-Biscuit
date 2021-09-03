@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from "react-router-dom";
-import '../../Jobmarket/Jobmarket.css'
+import '../../Settings/Settings.css'
 
 const SettingsNavigation = () => {
   return (
@@ -9,22 +9,30 @@ const SettingsNavigation = () => {
           <ul className="settings-nav-menu">
             <li className="settings-nav-item">
               <NavLink exact to="/settings/credentials/" activeClassName="settings-active" className="settings-nav-links"> 
-                Credentials
+                <div className="settings-nav-filler-div"/>
+                <div className="settings-nav-name">Credentials</div>
+                <div className="settings-nav-icon"><i className="fa fa-unlock-alt"></i></div>
               </NavLink>
             </li>
             <li className="settings-nav-item">
               <NavLink exact to="/settings/profile/" activeClassName="settings-active" className="settings-nav-links"> 
-                Profile
+                <div className="settings-nav-filler-div"/>
+                <div className="settings-nav-name">Profile</div>
+                <div className="settings-nav-icon"><i className="fa fa-user"></i></div>
               </NavLink>
             </li>
             <li className="settings-nav-item">
               <NavLink exact to="/settings/groups/" activeClassName="settings-active" className="settings-nav-links"> 
-                Groups
+                <div className="settings-nav-filler-div"/>
+                <div className="settings-nav-name">Groups</div>
+                <div className="settings-nav-icon"><i className="fa fa-users"></i></div>
               </NavLink>
             </li>
             <li className="settings-nav-item">
               <NavLink exact to="/settings/deleteuser/" activeClassName="settings-active" className="settings-nav-links"> 
-                Delete
+                <div className="settings-nav-filler-div"/>
+                <div className="settings-nav-name">Delete</div>
+                <div className="settings-nav-icon"><i className="fa fa-minus-circle"></i></div>
               </NavLink>
             </li>
           </ul>

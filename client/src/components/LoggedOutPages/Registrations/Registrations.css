@@ -70,7 +70,6 @@
 
 .registration-inputs-container input:focus {
   outline: none;
-  /* border: 1.5px solid var(--blue); */
 }
 
 .registration-submit-button-container {

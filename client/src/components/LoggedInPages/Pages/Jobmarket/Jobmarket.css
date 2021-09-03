@@ -75,7 +75,7 @@
 }
 
 .card {
-  margin: 1.3rem;
+  margin: 0.5rem;
   /* padding: 10px; */
   border: 1px solid var(--bg-grey);
   box-shadow: 0 0 10pt 1pt var(--bg-grey);
