@@ -22,6 +22,10 @@ body {
   height: 100vh;
 }
 
+h1 {
+  font-weight: var(--h1-font-weight);
+}
+
 p {
   font-weight: var(--text-font-weight);
 }

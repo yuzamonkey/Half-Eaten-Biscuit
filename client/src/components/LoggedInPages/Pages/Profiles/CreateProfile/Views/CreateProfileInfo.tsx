@@ -2,8 +2,10 @@ import React from "react"
 
 const CreateProfileInfo = ({ name }) => {
   return (
-    <div>
-      Hey <b>{name}</b>, let's create your profile
+    <div className="create-profile-info-container">
+      <p>
+        Hey {name}, let's create your profile
+      </p>
     </div>
   )
 }

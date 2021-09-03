@@ -200,16 +200,16 @@
   justify-content: center;
   align-items: center;
   padding: 10px;
-  background-color: #ccd8db83;
+  background-color: var(--blue);
   border-radius: 30px;
   font-size: 1.3em;
-  color: var(--dark-blue);
-  text-shadow: 0.5pt 0.5pt 1pt var(--bg-grey);
+  color: white;
+  box-shadow: 0 0 3pt 1pt var(--grey);
   box-shadow: 0 1pt 1pt 1pt var(--bg-grey);
 }
 
 .form-navigation-button-container:hover {
-  background-color: var(--grey);
+  background-color: var(--dark-blue);
   cursor: pointer;
 }
 

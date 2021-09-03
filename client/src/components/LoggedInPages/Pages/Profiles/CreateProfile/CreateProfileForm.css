@@ -1,8 +1,18 @@
+/* GENERAL STRUCTURE OF THE FORM */ 
 .profile-edit-master-container {
   height: calc(100vh - var(--navbar-height));
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.profile-edit-master-container > h1{
+  color: var(--grey);
+  text-align: center;
+  text-shadow: 0.5pt 0.5pt 1pt var(--grey);
+  font-weight: var(--h1-font-weight);
+  font-size: 2.5em;
+  padding: 2vh 0;
 }
 
 .profile-edit-current-view {
@@ -15,4 +25,18 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 30px;
+}
+
+/* CREATE PROFILE INFO */ 
+
+.create-profile-info-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.create-profile-info-container > p {
+  font-size: 1.5em;
 }

@@ -31,7 +31,7 @@ const CreateProfileForm = () => {
   })
   const [currentView, setCurrentView] = useState(0)
   const views = [
-    <CreateProfileInfo name={data?.me.username} />,
+    <CreateProfileInfo name={data?.me.profile.firstName} />,
     <Skills categories={categories} setCategories={setCategories} />,
     <About text={aboutText} setText={setAboutText} />,
     <Image image={image} setImage={setImage} />,
@@ -52,13 +52,23 @@ const CreateProfileForm = () => {
 
   return (
     <div className="profile-edit-master-container">
-      <h1>Create your profile/portfolio</h1>
+      <h1>Create your profile</h1>
       <div className="profile-edit-current-view">
         {views[currentView]}
       </div>
       <div className="profile-edit-switch-view-buttons-container">
-        <FormNavigationButton handleClick={handlePrevPress} previous={true} />
-        <FormNavigationButton handleClick={handleNextPress} previous={false} />
+        <div>
+          {currentView > 0
+            &&
+            <FormNavigationButton handleClick={handlePrevPress} previous={true} />
+          }
+        </div>
+        <div>
+          {currentView < (views.length - 1)
+            &&
+            <FormNavigationButton handleClick={handleNextPress} previous={false} />
+          }
+        </div>
       </div>
     </div>
   )
