@@ -7,7 +7,8 @@ import { CategorySelection, Loading } from "../../../../../UtilityComponents/Uti
 interface Category {
   id: string,
   name: String,
-  parent: Category
+  profession: String,
+  parent: Category,
   children: [Category]
 }
 

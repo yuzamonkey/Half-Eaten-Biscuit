@@ -148,7 +148,6 @@
 /* BLUE BUTTON */
 
 .blue-button-container {
-  margin: 10px;
   height: 30px;
   width: 100%;
   white-space: nowrap;
@@ -295,8 +294,10 @@
 /* SMALL_PROFILE_IMAGE */
 
 .small-profile-image {
+  min-width: 30px;
   width: 30px;
   height: 30px;
+  min-height: 30px;
   object-fit: cover;
   border-radius: 50%;
 }
@@ -304,8 +305,10 @@
 /* MEDIUM_PROFILE_IMAGE */
 
 .medium-profile-image {
+  min-width: 100px;
   width: 100px;
   height: 100px;
+  min-height: 100px;
   object-fit: cover;
   border-radius: 50%;
 }
@@ -313,8 +316,10 @@
 /* LARGE_PROFILE_IMAGE */
 
 .large-profile-image {
+  min-width: 150px;
   width: 150px;
   height: 150px;
+  min-height: 150px;
   object-fit: cover;
   border-radius: 50%;
 }
@@ -322,8 +327,10 @@
 /* VERY_LARGE_PROFILE_IMAGE */
 
 .very-large-profile-image {
+  min-width: 250px;
   width: 250px;
   height: 250px;
+  min-height: 250px;
   object-fit: cover;
   border-radius: 50%;
 }

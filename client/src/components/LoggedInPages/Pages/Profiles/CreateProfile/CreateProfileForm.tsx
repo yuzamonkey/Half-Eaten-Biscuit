@@ -14,6 +14,7 @@ import { FormNavigationButton, Loading } from "../../../../UtilityComponents/Uti
 interface Category {
   id: string,
   name: String,
+  profession: String,
   parent: Category
   children: [Category]
 }
@@ -35,7 +36,7 @@ const CreateProfileForm = () => {
     <Skills categories={categories} setCategories={setCategories} />,
     <About text={aboutText} setText={setAboutText} />,
     <Image image={image} setImage={setImage} />,
-    <Summary categories={categories} about={aboutText} image={image} />
+    <Summary name={data?.me.profile.name} categories={categories} about={aboutText} image={image} />
   ]
 
   if (loading) {
@@ -52,10 +53,15 @@ const CreateProfileForm = () => {
 
   return (
     <div className="profile-edit-master-container">
-      <h1>Create profile</h1>
+
+      <div className="profile-edit-title-container">
+        <h1>Create profile</h1>
+      </div>
+
       <div className="profile-edit-current-view">
         {views[currentView]}
       </div>
+      
       <div className="profile-edit-switch-view-buttons-container">
         <div>
           {currentView > 0
@@ -70,6 +76,7 @@ const CreateProfileForm = () => {
           }
         </div>
       </div>
+      
     </div>
   )
 }

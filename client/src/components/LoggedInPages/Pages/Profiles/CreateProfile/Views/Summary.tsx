@@ -1,11 +1,14 @@
 import React, { useState } from "react"
 import { useMutation, useQuery } from "@apollo/client"
 
-import { Button, Loading } from "../../../../../UtilityComponents/UtilityComponents"
+import { BlueButton, LargeProfileImage, Loading, VeryLargeProfileImage } from "../../../../../UtilityComponents/UtilityComponents"
 import { CREATE_USER_PROFILE } from "../../../../../../graphql/mutations"
 import { MY_ID } from "../../../../../../graphql/queries"
+import { useHistory } from "react-router-dom"
+import { categoriesWithParentsRemoved } from "../../../../../../utils/utilityFunctions"
 
-const Summary = ({ categories, about, image }) => {
+const Summary = ({ name, categories, about, image }) => {
+  const history = useHistory()
   const myId = useQuery(MY_ID, { onCompleted: () => setRedirectAdress(`/profiles/${myId.data.me.id}`) })
   const [submitCompleted, setSubmitCompleted] = useState(false)
   const [redirectAdress, setRedirectAdress] = useState('')
@@ -31,24 +34,36 @@ const Summary = ({ categories, about, image }) => {
   }
 
   if (loading) {
-    return <Loading />
+    return (
+      <div className="summary-container">
+        <Loading />
+      </div>
+    )
   }
 
   return (
     !submitCompleted
       ?
-      <div>
-        <h3>Summary</h3>
-        {categories.map(s => <div key={s.id}>{s.name}</div>)}
-        <br></br>
-        {about}
-        <img src={image} alt="" width={200} />
-        <Button text="Submit" handleClick={handleSubmit} />
+      <div className="summary-container">
+        <h2>Summary</h2>
+        {/* <br /> */}
+        <LargeProfileImage image={image} />
+        <h1>{name}</h1>
+        {categoriesWithParentsRemoved(categories).map(s => <p key={s.id}>{s.profession}</p>)}
+        {/* <br /> */}
+        <div className="about-text-container">
+          <p>{about}</p>
+        </div>
+        <div className="summary-component-button-container">
+          <BlueButton text="Submit" handleClick={handleSubmit} />
+        </div>
       </div>
       :
-      <div>
-        <h1>Profile created succesfully</h1>
-        <p>See it <a href={redirectAdress}>here</a></p>
+      <div className="summary-container">
+        <h1>All done!</h1>
+        <div className="summary-component-button-container">
+          <BlueButton text="See your profile" handleClick={() => history.push(redirectAdress)} />
+        </div>
       </div>
   )
 }

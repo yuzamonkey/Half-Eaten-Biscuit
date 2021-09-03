@@ -23,6 +23,7 @@ const Image = ({ image, setImage }) => {
   return (
     <div className="image-selection-container">
       <h2>Select profile image</h2>
+      <br />
       <label className="file-upload-button blue-button-container">
         <input type="file" name="image" accept=".jpg, .jpeg, .png" onChange={e => handleImageChange(e)}></input>
         Select image

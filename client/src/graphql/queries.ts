@@ -34,6 +34,7 @@ export const ME = gql`
         categories {
           id
           name
+          profession
           parent {
             name
           }
@@ -465,6 +466,7 @@ export const ALL_USER_CATEGORIES = gql`
     allUserCategories {
       id
       name
+      profession
       parent {
         name
       }
