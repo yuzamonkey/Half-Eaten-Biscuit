@@ -197,7 +197,7 @@
   color: var(--bg-grey);
 }
 
-.contact-button:hover {
+.disabled.contact-button:hover {
   background-color: var(--grey);
   cursor: initial;
 }

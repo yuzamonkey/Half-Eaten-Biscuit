@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client'
 
+import './SendJobAdForm.css'
+
 import { ALL_GROUP_CATEGORIES, ALL_USER_CATEGORIES } from '../../../../../../graphql/queries';
 import JobAdInfoForm from './Views/JobAdInfoForm';
 import WantedCategoriesSelection from './Views/WantedCategoriesSelection'
 import Summary from './Views/Summary'
-import { Button, Loading } from '../../../../../UtilityComponents/UtilityComponents';
+import { FormNavigationButton, Loading } from '../../../../../UtilityComponents/UtilityComponents';
 
 interface Category {
   id: string,
@@ -14,18 +16,18 @@ interface Category {
 
 const SendJobAdForm = () => {
 
-  const [content, setContent] = useState('Details about everything, detailed schedule, locations and addresses, nature of the project...')
+  const [content, setContent] = useState('Details about everything, schedule, locations and addresses, nature of the project...')
   const [location, setLocation] = useState('')
   const [salary, setSalary] = useState('')
   const [startSchedule, setStartSchedule] = useState('YYYY-MM-DD')
   const [endSchedule, setEndSchedule] = useState('YYYY-MM-DD')
 
-  const [wantedCategories, setWantedCategories] = useState<Category[]>([])
-  const [skillCategories, setSkillCategories] = useState<Category[]>([])
+  const [userCategories, setUserCategories] = useState<Category[]>([])
   const [groupCategories, setGroupCategories] = useState<Category[]>([])
+  const [wantedCategories, setWantedCategories] = useState<Category[]>([])
 
   const userCategoriesResult = useQuery(ALL_USER_CATEGORIES, {
-    onCompleted: () => setSkillCategories(userCategoriesResult.data.allUserCategories)
+    onCompleted: () => setUserCategories(userCategoriesResult.data.allUserCategories)
   })
   const groupCategoriesResult = useQuery(ALL_GROUP_CATEGORIES, {
     onCompleted: () => setGroupCategories(groupCategoriesResult.data.allGroupCategories)
@@ -33,7 +35,7 @@ const SendJobAdForm = () => {
 
   const views = [
     <WantedCategoriesSelection
-      skillCategories={skillCategories}
+      userCategories={userCategories}
       groupCategories={groupCategories}
       wantedCategories={wantedCategories}
       setWantedCategories={setWantedCategories}
@@ -80,15 +82,25 @@ const SendJobAdForm = () => {
 
 
   return (
-    <div>
-      <div>
+    <>
+      <div className="send-job-ad-form-current-view-container">
         {views[currentView]}
       </div>
-      <div className="profile-edit-switch-view-buttons-container">
-        <Button handleClick={handlePrevPress} text="Prev" />
-        <Button handleClick={handleNextPress} text="Next" />
+      <div className="send-job-ad-form-switch-view-buttons-container">
+        <div>
+          {currentView > 0
+            &&
+            <FormNavigationButton previous={true} handleClick={handlePrevPress} />
+          }
+        </div>
+        <div>
+        {currentView < (views.length - 1)
+          &&
+            <FormNavigationButton previous={false} handleClick={handleNextPress} />
+          }
+          </div>
       </div>
-    </div>
+    </>
   )
 };
 

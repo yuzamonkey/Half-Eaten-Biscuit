@@ -2,7 +2,7 @@ import SendJobAdForm from "./SendJobAdForm/SendJobAdForm"
 
 const SendJobAd = () => {
   return (
-    <div>
+    <div className="send-job-ad-form-container">
       <SendJobAdForm />
     </div>
   )

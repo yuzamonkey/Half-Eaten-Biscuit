@@ -226,7 +226,7 @@ export const CategorySelection = ({ allCategories, selectedCategories, setSelect
           </div>
         )
       })}
-      { currentPath.length > 1
+      {currentPath.length > 1
         &&
         <Button handleClick={() => handlePathChangeToPrevious()} text={`◁`} />
       }
