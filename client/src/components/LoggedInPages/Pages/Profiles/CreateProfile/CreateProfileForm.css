@@ -1,4 +1,5 @@
-/* GENERAL STRUCTURE OF THE FORM */ 
+/* GENERAL STRUCTURE */
+
 .profile-edit-master-container {
   height: calc(100vh - var(--navbar-height));
   display: flex;
@@ -6,7 +7,7 @@
   justify-content: space-between;
 }
 
-.profile-edit-master-container > h1{
+.profile-edit-master-container>h1 {
   color: var(--grey);
   text-align: center;
   text-shadow: 0.5pt 0.5pt 1pt var(--grey);
@@ -27,7 +28,7 @@
   padding: 10px 30px;
 }
 
-/* CREATE PROFILE INFO */ 
+/* CREATE PROFILE INFO */
 
 .create-profile-info-container {
   height: 100%;
@@ -37,6 +38,21 @@
   align-items: center;
 }
 
-.create-profile-info-container > p {
+.create-profile-info-container>p {
   font-size: 1.5em;
+}
+
+/* SKILLS SELECTION */ 
+
+.category-selection-container {
+  height: 100%;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.category-selection-container > h2 {
+  text-align: center;
+  padding: 10px 0;
 }

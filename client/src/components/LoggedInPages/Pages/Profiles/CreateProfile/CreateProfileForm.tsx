@@ -52,7 +52,7 @@ const CreateProfileForm = () => {
 
   return (
     <div className="profile-edit-master-container">
-      <h1>Create your profile</h1>
+      <h1>Create profile</h1>
       <div className="profile-edit-current-view">
         {views[currentView]}
       </div>

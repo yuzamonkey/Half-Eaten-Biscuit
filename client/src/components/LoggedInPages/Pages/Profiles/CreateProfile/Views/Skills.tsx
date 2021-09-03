@@ -19,8 +19,8 @@ const Skills = ({ categories, setCategories }) => {
   if (loading) return <Loading />
 
   return (
-    <div>
-      <h2>Select your categories</h2>
+    <div className="category-selection-container">
+      <h2>What do you do?</h2>
       <CategorySelection
         selectedCategories={categories}
         setSelectedCategories={setCategories}
@@ -28,7 +28,7 @@ const Skills = ({ categories, setCategories }) => {
         currentPath={currentPath}
         setCurrentPath={setCurrentPath}
       />
-      {categories.map(s => <div key={s.id}>{s.name}</div>)}
+      {/* {categories.map(s => <div key={s.id}>{s.name}</div>)} */}
     </div>
   )
 }

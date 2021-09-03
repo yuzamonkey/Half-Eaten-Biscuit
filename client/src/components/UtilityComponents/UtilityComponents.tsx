@@ -53,7 +53,7 @@ export const FormNavigationButton = ({ previous, handleClick }) => {
     <div
       className={getClassName()}
       onClick={handleClick}>
-        △
+      △
     </div>
   )
 }
@@ -203,18 +203,25 @@ export const CategorySelection = ({ allCategories, selectedCategories, setSelect
 
   return (
     <div className="categories-container">
-      <h3>{currentPath.map(name => <span key={currentPath.indexOf(name)}>{name} → </span>)}</h3>
+      {/* <h3>{currentPath.map(name => <span key={currentPath.indexOf(name)}>{name} → </span>)}</h3> */}
       {allCategories.map(obj => {
         return (
           currentPath[currentPath.length - 1] === obj.parent?.name &&
           <div
-            className={categoriesIncludeCategory(obj) ? "category-container category-container-selected" : "category-container"}
             key={obj.id}
-            onClick={() => handlePathClick(obj.name)}>
-            {obj.name} {obj.children.length ? '→' : '☑'}</div>
+            onClick={() => handlePathClick(obj.name)}
+            className={categoriesIncludeCategory(obj) ? "category-container selected" : "category-container"}
+          >
+            <p>
+              {obj.name} {obj.children.length ? '→' : '☑'}
+            </p>
+          </div>
         )
       })}
-      <Button handleClick={() => handlePathChangeToPrevious()} text={`←`} />
+      { currentPath.length > 1
+        &&
+        <Button handleClick={() => handlePathChangeToPrevious()} text={`◁`} />
+      }
     </div>
   )
 }

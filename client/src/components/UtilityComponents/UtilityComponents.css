@@ -129,14 +129,15 @@
   margin: 10px;
   height: 30px;
   width: fit-content;
-  min-width: 50px;
+  min-width: 30px;
   white-space: nowrap;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 15px;
+  padding: 10px;
   background-color: #ccd8db83;
   border-radius: 30px;
+  box-shadow: 0 0 2pt 0 var(--bg-grey);
 }
 
 .button-container:hover {
@@ -461,26 +462,37 @@
 /* CATEGORY SELECTION */
 
 .categories-container {
-  height: 100%;
+  /* height: 100%; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .category-container {
   border: 1px solid var(--bg-grey);
+  box-shadow: 0 0 1pt 0 var(--bg-grey);
+  background-color: white;
   border-radius: 5px;
-  padding: 10px;
+  padding: 15px;
   margin: 5px;
-}
-
-.category-container-selected {
-  background-color: lightgreen;
+  transition: background-color 0.2s ease;
+  width: 80%;
+  max-width: 500px;
 }
 
 .category-container:hover {
-  background-color: var(--grey);
+  background-color: var(--light-green);
+  position: relative;
+  cursor: pointer;
 }
 
-.category-container-selected:hover {
-  background-color: lightcoral;
+.category-container.selected {
+  background-color: var(--green);
+  color: white;
+}
+
+.category-container.selected:hover {
+  background-color: var(--red);
 }
 
 /* TITLE AND LOGO */
