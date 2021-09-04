@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client';
 
 import '../Jobmarket.css'
 import { ALL_JOBADS } from '../../../../../graphql/queries';
-import { Button, Loading } from '../../../../UtilityComponents/UtilityComponents';
+import { BlueButton, ContactButton, Loading } from '../../../../UtilityComponents/UtilityComponents';
 import { dateAsDDMMYYYY } from '../../../../../utils/utilityFunctions';
 import JobDetails from './JobDetails';
 
@@ -80,9 +80,8 @@ const JobAds = () => {
                       <img src={q.postedBy.object.profile.image} alt="profileimg" className="jobad-user-profile-image"></img>
                     </div>
                     <p><b>{q.postedBy.object.profile.name}</b> is looking for <br />
-                      {q.wantedCategories.map(category => category.object.profession || category.object.name)}
+                      {q.wantedCategories.map(category => category.object.profession || category.object.name).join(', ')}
                     </p>
-
                   </div>
                   <div className="details-container">
                     <div className="details-item">
@@ -95,13 +94,18 @@ const JobAds = () => {
                     </div>
                     <div className="details-item">
                       <p>Schedule</p>
-                      <p className="details-value">{dateAsDDMMYYYY(q.startSchedule)} - {dateAsDDMMYYYY(q.endSchedule)}</p>
+                      <p className="details-value">
+                        {q.startSchedule === q.endSchedule
+                          ? dateAsDDMMYYYY(q.startSchedule)
+                          : `${dateAsDDMMYYYY(q.startSchedule)} - ${dateAsDDMMYYYY(q.endSchedule)}`
+                        }
+                      </p>
                     </div>
                   </div>
                 </div>
                 <div className="buttons-container">
-                  <Button text={contactText} handleClick={() => console.log("CONTACT SOMEBODY")} />
-                  <Button text="More info" handleClick={() => handleMoreInfoClick(q)} />
+                  <ContactButton handleClick={() => {}} key="123" />
+                  <BlueButton text="More info" handleClick={() => handleMoreInfoClick(q)} />
                 </div>
               </div>
 

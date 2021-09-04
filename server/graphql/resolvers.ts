@@ -477,6 +477,7 @@ const resolvers: IResolvers = {
       const newJobAd = new JobAd({
         content: content,
         postedBy: { _id: postedBy, kind: postedByObject.kind, object: postedByObject },
+        postedOn: new Date(),
         startSchedule: startSchedule,
         endSchedule: endSchedule,
         wantedCategories: wantedCategoryObjects,

@@ -10,6 +10,7 @@
   align-items: center;
   padding: 50px 0;
   background-image: linear-gradient(var(--dark-blue), var(--bg-white));
+  text-align: center;
 }
 
 .image-name-and-categories-container>* {
@@ -38,7 +39,7 @@
 }
 
 .users-or-groups-container {
-  width: fit-content;
+  width: 25%;
 }
 
 .users-or-groups-container h1 {
@@ -69,7 +70,7 @@
 }
 
 .contact-container {
-  width: fit-content;
+  width: 25%;
 }
 
 .contact-container>h1 {
@@ -79,7 +80,6 @@
 .contact-button-container {
   display: flex;
   justify-content: center;
-  width: fit-content;
   margin: 10px;
 }
 
@@ -93,5 +93,11 @@
   }
   .contact-container>h1 {
     display: none;
+  }
+  .contact-container {
+    width: 200px;
+  }
+  .users-or-groups-container {
+    width: fit-content;
   }
 }
