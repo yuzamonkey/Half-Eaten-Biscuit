@@ -217,5 +217,5 @@
 | 31.8.  | 7.5 | Messaging subscription handling, bug fixes, css |
 | 1.9.  | 4.5 | css, refactoring, settings navigation |
 | 3.9.  | 7 | css |
-| 4.9.  | 945-13 | css |
+| 4.9.  | 945-1330, 1530- | css, misc, notifications bug |
 | =     | 185.0      |               |
