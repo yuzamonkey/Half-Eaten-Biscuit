@@ -135,7 +135,7 @@
 }
 
 .buttons-container {
-  min-width: 200px;
+  min-width: 150px;
   padding: 0 10px;
   display: flex;
   flex-direction: column;
@@ -167,6 +167,18 @@
   background-color: white;
   box-shadow: 0 0 10pt 1pt var(--bg-grey);
   border-radius: 5px;
+}
+
+.close-job-details-button {
+  text-align: right;
+  padding: 10px;
+  color: var(--bg-grey);
+  transition: color 0.2s ease;
+}
+
+.close-job-details-button:hover {
+  color: var(--black);
+  cursor: pointer;
 }
 
 @media screen and (max-width: 960px) {
@@ -208,6 +220,9 @@
   }
   .buttons-container {
     flex-direction: row;
+  }
+  .buttons-container > *{
+    margin: 10px 20px;
   }
   .job-details-container {
     height: calc(100vh - var(--navbar-height) - 60px);

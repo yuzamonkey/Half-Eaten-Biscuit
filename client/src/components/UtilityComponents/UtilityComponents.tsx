@@ -37,7 +37,21 @@ export const BlueButton = ({ text, handleClick }) => {
     <div
       className="blue-button-container"
       onClick={handleClick}>
-      {text}
+      <p>
+        {text}
+      </p>
+    </div>
+  )
+}
+
+export const MoreInfoButton = ({ handleClick }) => {
+  return (
+    <div
+      className="blue-button-container"
+      onClick={handleClick}>
+      <p>
+        More info &nbsp; <i className="fa fa-info-circle" />
+      </p>
     </div>
   )
 }
@@ -63,7 +77,9 @@ export const ContactButton = ({ handleClick }) => {
     <div
       className="contact-button"
       onClick={handleClick}>
-      Contact &nbsp; <i className="fa fa-comment"></i>
+      <p>
+        Contact &nbsp; <i className="fa fa-comment"></i>
+      </p>
     </div>
   )
 }

@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client';
 
 import '../Jobmarket.css'
 import { ALL_JOBADS } from '../../../../../graphql/queries';
-import { BlueButton, ContactButton, Loading } from '../../../../UtilityComponents/UtilityComponents';
+import { ContactButton, Loading, MoreInfoButton } from '../../../../UtilityComponents/UtilityComponents';
 import { dateAsDDMMYYYY } from '../../../../../utils/utilityFunctions';
 import JobDetails from './JobDetails';
 
@@ -57,7 +57,7 @@ const JobAds = () => {
     <div>
       <div className={showJobInfo ? "job-details-container active" : "job-details-container"}>
         <div className="job-details-content">
-          <button onClick={() => setShowJobInfo(false)}>Back</button>
+          <div className="close-job-details-button" onClick={() => setShowJobInfo(false)}><i className="fa fa-times"/></div>
           <JobDetails job={selectedJob} />
         </div>
       </div>
@@ -71,7 +71,7 @@ const JobAds = () => {
 
         <ul className="job-cards">
           {orderedQueries.map((q: any) => {
-            const contactText = `Contact ${q.postedBy.object.profile.firstName || q.postedBy.object.profile.name}`
+            // const contactText = `Contact ${q.postedBy.object.profile.firstName || q.postedBy.object.profile.name}`
             return (
               <div className="card" key={q.id}>
                 <div className="general-info-container">
@@ -105,7 +105,7 @@ const JobAds = () => {
                 </div>
                 <div className="buttons-container">
                   <ContactButton handleClick={() => {}} key="123" />
-                  <BlueButton text="More info" handleClick={() => handleMoreInfoClick(q)} />
+                  <MoreInfoButton handleClick={() => handleMoreInfoClick(q)} />
                 </div>
               </div>
 

@@ -16,6 +16,7 @@ const frontendRoutes = [
   '/messages/:id',
   '/jobmarket/jobads/:id',
   '/jobmarket/jobads',
+  '/jobmarket/findartists',
   '/jobmarket/sendjobad',
   '/jobmarket/myads',
   '/profiles',
