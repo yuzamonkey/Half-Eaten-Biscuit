@@ -6,12 +6,14 @@ import { ALL_JOBADS } from '../../../../../graphql/queries';
 import { ContactButton, Loading, MoreInfoButton } from '../../../../UtilityComponents/UtilityComponents';
 import { dateAsDDMMYYYY } from '../../../../../utils/utilityFunctions';
 import JobDetails from './JobDetails';
+import { useHistory } from 'react-router-dom';
 
 interface JobAd {
   postedOn: Date
 }
 
 const JobAds = () => {
+  const history = useHistory()
   const result = useQuery(ALL_JOBADS, {
     onCompleted: (data) => {
       setOrderedQueries([...data.allJobAds].sort((q1, q2) => new Date(q2.postedOn).getTime() - new Date(q1.postedOn).getTime()))
@@ -79,7 +81,7 @@ const JobAds = () => {
                     <div className="image-container">
                       <img src={q.postedBy.object.profile.image} alt="profileimg" className="jobad-user-profile-image"></img>
                     </div>
-                    <p><b>{q.postedBy.object.profile.name}</b> is looking for <br />
+                    <p><b className="posted-by-name" onClick={() => history.push(`/profiles/${q.postedBy.object.id}`)}>{q.postedBy.object.profile.name}</b> is looking for <br />
                       {q.wantedCategories.map(category => category.object.profession || category.object.name).join(', ')}
                     </p>
                   </div>

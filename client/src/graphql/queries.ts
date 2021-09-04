@@ -409,6 +409,7 @@ export const ALL_JOBADS = gql`
         kind 
         object {
           ...on User {
+            id
             profile {
               firstName
               name
@@ -416,6 +417,7 @@ export const ALL_JOBADS = gql`
             }
           }
           ...on Group {
+            id
             profile {
               name
               image

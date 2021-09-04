@@ -90,6 +90,16 @@
   transform: scale(1.025);
 }
 
+.posted-by-name {
+  transition: text-decoration 0.2s ease;
+  text-decoration: underline transparent;
+}
+
+.posted-by-name:hover {
+  cursor: pointer;
+  text-decoration: underline var(--bg-grey);
+}
+
 .general-info-container {
   width: 100%;
   display: flex;
