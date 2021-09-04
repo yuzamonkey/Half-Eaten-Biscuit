@@ -102,12 +102,12 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink exact to="/jobmarket/jobads" activeClassName="active" className="nav-links" onClick={handleClick}>
+              <NavLink to="/jobmarket" activeClassName="active" className="nav-links" onClick={handleClick}>
                 Jobmarket
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink exact to="/profiles" activeClassName="active" className="nav-links" onClick={handleClick}>
+              <NavLink to="/profiles" activeClassName="active" className="nav-links" onClick={handleClick}>
                 Profiles
               </NavLink>
             </li>
@@ -115,7 +115,7 @@ const Navbar = () => {
 
           <ul className="nav-menu constant-links">
             <li className="nav-item">
-              <NavLink exact to="/messages" activeClassName="active" className="nav-links" onClick={handleMessagesView}>
+              <NavLink to="/messages" activeClassName="active" className="nav-links" onClick={handleMessagesView}>
                 {/* Messages */}
                 <i className="fa fa-comment"></i>
                 <span className={hasUnreadMessages ? "new-messages" : ""}></span>
