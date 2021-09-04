@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { categoriesWithParentsRemoved } from "../../../../../../../utils/utilityFunctions"
 import { Button, CategorySelection } from "../../../../../../UtilityComponents/UtilityComponents"
 
 interface Category {
@@ -73,7 +74,13 @@ const WantedCategoriesSelection = ({ userCategories, groupCategories, wantedCate
           </div>
         </div>
       }
-      {wantedCategories.map(c => <div key={c.id}>{c.name}</div>)}
+      {wantedCategories.length > 0 &&
+        <div className="selected-categories">
+          <p><b>Selected categories</b></p>
+          <br />
+          {categoriesWithParentsRemoved(wantedCategories).map(c => <p key={c.id}>{c.profession || c.name}</p>)}
+        </div>
+      }
     </div>
   )
 }

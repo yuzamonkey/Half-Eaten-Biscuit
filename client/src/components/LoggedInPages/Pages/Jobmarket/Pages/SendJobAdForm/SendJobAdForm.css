@@ -38,3 +38,13 @@
   display: flex;
   justify-content: center;
 }
+
+.selected-categories {
+  text-align: center;
+  width: fit-content;
+  padding: 10px;
+  margin: 10px;
+  box-shadow: 0 0 2pt 1pt var(--bg-grey);
+  background-color: white;
+  border-radius: 5px;
+}
