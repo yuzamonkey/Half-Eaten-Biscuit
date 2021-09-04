@@ -8,7 +8,7 @@ import { FIND_USER_OR_GROUP, GET_CONVERSATIONS_SEEN_BY_SESSION_ID } from '../../
 import NotificationsDropdown from './Dropdowns/NotificationsDropdown'
 import ProfileOptionsDropdown from './Dropdowns/ProfileDropdown'
 import { SmallProfileImage } from '../../UtilityComponents/UtilityComponents';
-import { MESSAGE_ADDED, NOTIFICATION_ADDED } from '../../../graphql/subscriptions';
+import { MESSAGE_ADDED } from '../../../graphql/subscriptions';
 
 const Navbar = () => {
   const userContext = useContext(UserContext)
