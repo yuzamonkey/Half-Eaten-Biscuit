@@ -22,7 +22,7 @@ const userProfileSchema = new mongoose.Schema({
   },
   about: {
     type: String,
-    default: 'This is a user profile default text'
+    default: ''
   },
   categories: [{
     type: mongoose.Schema.Types.ObjectId,

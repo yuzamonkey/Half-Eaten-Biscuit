@@ -37,7 +37,33 @@ export const BlueButton = ({ text, handleClick }) => {
     <div
       className="blue-button-container"
       onClick={handleClick}>
-      {text}
+      <p>
+        {text}
+      </p>
+    </div>
+  )
+}
+
+export const MoreInfoButton = ({ handleClick }) => {
+  return (
+    <div
+      className="blue-button-container"
+      onClick={handleClick}>
+      <p>
+        More info <i className="fa fa-info-circle faded-icon "/>
+      </p>
+    </div>
+  )
+}
+
+export const ToProfileButton = ({ handleClick }) => {
+  return (
+    <div
+      className="blue-button-container"
+      onClick={handleClick}>
+      <p>
+        Profile <i className="fa fa-user faded-icon" />
+      </p>
     </div>
   )
 }
@@ -63,7 +89,9 @@ export const ContactButton = ({ handleClick }) => {
     <div
       className="contact-button"
       onClick={handleClick}>
-      Contact &nbsp; <i className="fa fa-comment"></i>
+      <p>
+        Contact <i className="fa fa-comment faded-icon"></i>
+      </p>
     </div>
   )
 }
@@ -71,13 +99,12 @@ export const DisabledContactButton = () => {
   return (
     <div
       className="disabled contact-button">
-      Contact &nbsp; <i className="fa fa-comment"></i>
+      Contact <i className="fa fa-comment faded-icon"></i>
     </div>
   )
 }
 
 export const Searchbar = ({ input, setInput }: any) => {
-
   return (
     <div className="searchbar-container">
       <div className={input === '' ? "searchbar-outline empty" : "searchbar-outline"}>
@@ -157,9 +184,11 @@ export const LargeProfileCard = ({ id, image, name, categories, url, contactFunc
           {categoriesWithParentsRemoved(categories).map(category => <p key={category.id}>{category.profession || category.name}</p>)}
         </div>
         <div className="profiles-buttons-container">
-          <Button text='Profile' handleClick={() => history.push(url)} />
+          {/* <Button text='Profile' handleClick={() => history.push(url)} /> */}
+          <ToProfileButton handleClick={() => history.push(url)} />
           {id !== userContext.sessionId
-            ? <Button text='Contact' handleClick={contactFunction} />
+            // ? <Button text='Contact' handleClick={contactFunction} />
+            ? <ContactButton handleClick={contactFunction} />
             : null
           }
         </div>

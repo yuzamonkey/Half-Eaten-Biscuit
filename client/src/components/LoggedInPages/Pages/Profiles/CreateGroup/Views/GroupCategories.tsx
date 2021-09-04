@@ -14,13 +14,21 @@ interface Category {
 const GroupCategories = ({ categories, setCategories }) => {
   const [allCategories, setAllCategories] = useState<Category[]>([])
   const [currentPath, setCurrentPath] = useState([undefined])
-  const { loading, data } = useQuery(ALL_GROUP_CATEGORIES, { onCompleted: () => setAllCategories(data.allGroupCategories) })
+  const { loading, data } = useQuery(ALL_GROUP_CATEGORIES, {
+    onCompleted: () => setAllCategories(data.allGroupCategories)
+  })
 
-  if (loading) return <Loading />
-  
+  if (loading) {
+    return (
+      <div className="category-selection-container">
+        <Loading />
+      </div>
+    )
+  }
+
   return (
-    <div>
-    <h2>Select your categories</h2>
+    <div className="category-selection-container">
+      <h2 className="secondary-text">Select group type</h2>
       <CategorySelection
         selectedCategories={categories}
         setSelectedCategories={setCategories}
@@ -28,8 +36,7 @@ const GroupCategories = ({ categories, setCategories }) => {
         currentPath={currentPath}
         setCurrentPath={setCurrentPath}
       />
-    {categories.map(s => <div key={s.id}>{s.name}</div>)}
-  </div>
+    </div>
   )
 }
 

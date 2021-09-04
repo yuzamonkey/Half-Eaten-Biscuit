@@ -73,29 +73,14 @@ export const MY_USER_AND_GROUP_IDS = gql`
 `
 
 export const GET_NOTIFICATIONS = gql`
-  query getNotifications($id: ID!) {
-    findUserOrGroup(id: $id) {
-        ... on User {
-        notifications {
-          seen
-          object {
-            id
-            content
-            link
-            date
-          }
-        }
-      }
-      ... on Group {
-        notifications {
-          seen
-          object {
-            id
-            content
-            link
-            date
-          }
-        }
+  query($id: ID!) {
+    userOrGroupsNotifications(id: $id) {
+      seen
+      object {
+        id
+        content
+        link
+        date
       }
     }
   }
@@ -169,6 +154,37 @@ export const FIND_USER_OR_GROUP = gql`
               name
             }
           }
+        }
+      }
+    }
+  }
+`
+
+export const ALL_GROUP_NAMES = gql`
+  query allGroupNames {
+    allGroups {
+      profile {
+        name
+      }
+    }
+  }
+`
+
+export const NAME_AND_IMAGE = gql`
+  query findUserOrGroup($id: ID!) {
+    findUserOrGroup(id: $id) {
+        ... on User {
+        id
+        profile {
+          name
+          image
+        }
+      }
+      ... on Group {
+        id
+        profile {
+          name
+          image
         }
       }
     }
@@ -351,8 +367,8 @@ export const FIND_JOBAD = gql`
         kind 
         object {
           ...on User {
-            username
             profile {
+              name
               image
             }
           }
@@ -367,6 +383,7 @@ export const FIND_JOBAD = gql`
       wantedCategories {
         object {
           ...on UserCategory {
+            profession
             name
           }
           ... on GroupCategory {
@@ -392,6 +409,7 @@ export const ALL_JOBADS = gql`
         kind 
         object {
           ...on User {
+            id
             profile {
               firstName
               name
@@ -399,6 +417,7 @@ export const ALL_JOBADS = gql`
             }
           }
           ...on Group {
+            id
             profile {
               name
               image

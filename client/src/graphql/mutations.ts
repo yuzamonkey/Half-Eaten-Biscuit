@@ -76,7 +76,13 @@ export const SET_CONVERSATION_AS_SEEN = gql`
 export const SET_NOTIFICATION_AS_SEEN = gql`
   mutation setNotificationAsSeen($currentProfileId: ID!, $notificationId: ID!) {
     setNotificationAsSeen(currentProfileId: $currentProfileId, notificationId: $notificationId) {
-      id
+      seen
+      object {
+        id
+        content
+        link
+        date
+      }
     }
   }
 `
@@ -84,7 +90,13 @@ export const SET_NOTIFICATION_AS_SEEN = gql`
 export const SET_ALL_NOTIFICATIONS_AS_SEEN = gql`
   mutation setAllNotificationsAsSeen($currentProfileId: ID!) {
     setAllNotificationsAsSeen(currentProfileId: $currentProfileId) {
-      id
+      seen
+      object {
+        id
+        content
+        link
+        date
+      }
     }
   }
 

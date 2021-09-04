@@ -53,6 +53,25 @@
   color: var(--bg-white);
 }
 
+/* NAV NOT SELECTED */
+
+.job-nav-not-selected-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.job-nav-not-selected-container > h1 {
+  color: var(--grey);
+  text-align: center;
+  text-shadow: 0.5pt 0.5pt 1pt var(--grey);
+  font-weight: var(--h1-font-weight);
+  font-size: 4em;
+}
+
+
 /* JOB ADS */
 
 .jobads-container {
@@ -88,6 +107,16 @@
 
 .card:hover {
   transform: scale(1.025);
+}
+
+.posted-by-name {
+  transition: text-decoration 0.2s ease;
+  text-decoration: underline transparent;
+}
+
+.posted-by-name:hover {
+  cursor: pointer;
+  text-decoration: underline var(--bg-grey);
 }
 
 .general-info-container {
@@ -135,7 +164,7 @@
 }
 
 .buttons-container {
-  min-width: 200px;
+  min-width: 150px;
   padding: 0 10px;
   display: flex;
   flex-direction: column;
@@ -167,6 +196,18 @@
   background-color: white;
   box-shadow: 0 0 10pt 1pt var(--bg-grey);
   border-radius: 5px;
+}
+
+.close-job-details-button {
+  text-align: right;
+  padding: 10px;
+  color: var(--bg-grey);
+  transition: color 0.2s ease;
+}
+
+.close-job-details-button:hover {
+  color: var(--black);
+  cursor: pointer;
 }
 
 @media screen and (max-width: 960px) {
@@ -208,6 +249,9 @@
   }
   .buttons-container {
     flex-direction: row;
+  }
+  .buttons-container > *{
+    margin: 10px 20px;
   }
   .job-details-container {
     height: calc(100vh - var(--navbar-height) - 60px);

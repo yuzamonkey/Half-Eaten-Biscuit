@@ -8,7 +8,7 @@ import { FIND_USER_OR_GROUP, GET_CONVERSATIONS_SEEN_BY_SESSION_ID } from '../../
 import NotificationsDropdown from './Dropdowns/NotificationsDropdown'
 import ProfileOptionsDropdown from './Dropdowns/ProfileDropdown'
 import { SmallProfileImage } from '../../UtilityComponents/UtilityComponents';
-import { MESSAGE_ADDED, NOTIFICATION_ADDED } from '../../../graphql/subscriptions';
+import { MESSAGE_ADDED } from '../../../graphql/subscriptions';
 
 const Navbar = () => {
   const userContext = useContext(UserContext)
@@ -39,16 +39,16 @@ const Navbar = () => {
     },
   })
 
-  useSubscription(NOTIFICATION_ADDED, {
-    variables: {
-      userOrGroupIds: [userContext.sessionId]
-    },
-    onSubscriptionData: async ({ subscriptionData }) => {
-      console.log("SUBSCRIPTION NOTIFICATION ADDED omaa dataa\n", subscriptionData)
-      currentProfileResult.refetch()
-      //setHasUnseenNotifications(true)
-    },
-  })
+  // useSubscription(NOTIFICATION_ADDED, {
+  //   variables: {
+  //     userOrGroupIds: [userContext.sessionId]
+  //   },
+  //   onSubscriptionData: async ({ subscriptionData }) => {
+  //     console.log("SUBSCRIPTION NOTIFICATION ADDED omaa dataa\n", subscriptionData)
+  //     currentProfileResult.refetch()
+  //     //setHasUnseenNotifications(true)
+  //   },
+  // })
 
   const [showMenu, setShowMenu] = useState(false);
   const [showNotification, setShowNotifications] = useState(false)
@@ -102,12 +102,12 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink exact to="/jobmarket/jobads" activeClassName="active" className="nav-links" onClick={handleClick}>
+              <NavLink to="/jobmarket" activeClassName="active" className="nav-links" onClick={handleClick}>
                 Jobmarket
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink exact to="/profiles" activeClassName="active" className="nav-links" onClick={handleClick}>
+              <NavLink to="/profiles" activeClassName="active" className="nav-links" onClick={handleClick}>
                 Profiles
               </NavLink>
             </li>
@@ -115,7 +115,7 @@ const Navbar = () => {
 
           <ul className="nav-menu constant-links">
             <li className="nav-item">
-              <NavLink exact to="/messages" activeClassName="active" className="nav-links" onClick={handleMessagesView}>
+              <NavLink to="/messages" activeClassName="active" className="nav-links" onClick={handleMessagesView}>
                 {/* Messages */}
                 <i className="fa fa-comment"></i>
                 <span className={hasUnreadMessages ? "new-messages" : ""}></span>

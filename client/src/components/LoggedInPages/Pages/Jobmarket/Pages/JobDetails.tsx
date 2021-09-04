@@ -8,13 +8,12 @@ const JobDetails = ({ job }) => {
         <LargeProfileImage image={job.postedBy.object.profile.image} />
         <div className="general-info-container">
           <div className="image-and-name-container">
-
-            <p><b>{job.postedBy.object.username || job.postedBy.object.profile.name}</b> is looking for <br />
-              {job.wantedCategories.map(category => category.object.name)}
+            <p><b>{job.postedBy.object.profile.name}</b> is looking for
+              <br />
+              {job.wantedCategories.map(category => category.object.profession || category.object.name)}
             </p>
-
           </div>
-          {/* <p>{job.content}</p> */}
+
           <div className="details-container">
             <div className="details-item">
               <p>Salary</p>
@@ -30,7 +29,7 @@ const JobDetails = ({ job }) => {
             </div>
           </div>
         </div>
-        {job.content}
+        <p>{job.content}</p>
       </div>
     )
   } else {

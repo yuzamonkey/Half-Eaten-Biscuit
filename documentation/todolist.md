@@ -4,6 +4,7 @@
 - REMEMBER TO UPDATE ROUTES!
 
 ## Fix ❌
+- Notifications not working correctly
 - Testing in deployment pipeline on GitHub
 - Remove hover-effects in mobile view
 

@@ -3,15 +3,17 @@ import { useQuery } from '@apollo/client';
 
 import '../Jobmarket.css'
 import { ALL_JOBADS } from '../../../../../graphql/queries';
-import { Button, Loading } from '../../../../UtilityComponents/UtilityComponents';
+import { ContactButton, Loading, MoreInfoButton } from '../../../../UtilityComponents/UtilityComponents';
 import { dateAsDDMMYYYY } from '../../../../../utils/utilityFunctions';
 import JobDetails from './JobDetails';
+import { useHistory } from 'react-router-dom';
 
 interface JobAd {
   postedOn: Date
 }
 
 const JobAds = () => {
+  const history = useHistory()
   const result = useQuery(ALL_JOBADS, {
     onCompleted: (data) => {
       setOrderedQueries([...data.allJobAds].sort((q1, q2) => new Date(q2.postedOn).getTime() - new Date(q1.postedOn).getTime()))
@@ -57,7 +59,7 @@ const JobAds = () => {
     <div>
       <div className={showJobInfo ? "job-details-container active" : "job-details-container"}>
         <div className="job-details-content">
-          <button onClick={() => setShowJobInfo(false)}>Back</button>
+          <div className="close-job-details-button" onClick={() => setShowJobInfo(false)}><i className="fa fa-times"/></div>
           <JobDetails job={selectedJob} />
         </div>
       </div>
@@ -71,7 +73,7 @@ const JobAds = () => {
 
         <ul className="job-cards">
           {orderedQueries.map((q: any) => {
-            const contactText = `Contact ${q.postedBy.object.profile.firstName || q.postedBy.object.profile.name}`
+            // const contactText = `Contact ${q.postedBy.object.profile.firstName || q.postedBy.object.profile.name}`
             return (
               <div className="card" key={q.id}>
                 <div className="general-info-container">
@@ -79,10 +81,9 @@ const JobAds = () => {
                     <div className="image-container">
                       <img src={q.postedBy.object.profile.image} alt="profileimg" className="jobad-user-profile-image"></img>
                     </div>
-                    <p><b>{q.postedBy.object.profile.name}</b> is looking for <br />
-                      {q.wantedCategories.map(category => category.object.profession || category.object.name)}
+                    <p><b className="posted-by-name" onClick={() => history.push(`/profiles/${q.postedBy.object.id}`)}>{q.postedBy.object.profile.name}</b> is looking for <br />
+                      {q.wantedCategories.map(category => category.object.profession || category.object.name).join(', ')}
                     </p>
-
                   </div>
                   <div className="details-container">
                     <div className="details-item">
@@ -95,13 +96,18 @@ const JobAds = () => {
                     </div>
                     <div className="details-item">
                       <p>Schedule</p>
-                      <p className="details-value">{dateAsDDMMYYYY(q.startSchedule)} - {dateAsDDMMYYYY(q.endSchedule)}</p>
+                      <p className="details-value">
+                        {q.startSchedule === q.endSchedule
+                          ? dateAsDDMMYYYY(q.startSchedule)
+                          : `${dateAsDDMMYYYY(q.startSchedule)} - ${dateAsDDMMYYYY(q.endSchedule)}`
+                        }
+                      </p>
                     </div>
                   </div>
                 </div>
                 <div className="buttons-container">
-                  <Button text={contactText} handleClick={() => console.log("CONTACT SOMEBODY")} />
-                  <Button text="More info" handleClick={() => handleMoreInfoClick(q)} />
+                  <ContactButton handleClick={() => {}} key="123" />
+                  <MoreInfoButton handleClick={() => handleMoreInfoClick(q)} />
                 </div>
               </div>
 

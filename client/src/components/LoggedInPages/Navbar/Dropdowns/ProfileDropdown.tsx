@@ -2,9 +2,10 @@ import React, { useContext, useEffect } from 'react'
 import { useApolloClient, useQuery, useLazyQuery, useSubscription } from "@apollo/client";
 import { useHistory } from 'react-router';
 
+import './Dropdown.css'
+
 import { FIND_USER_OR_GROUP, ME } from '../../../../graphql/queries';
 import { SESSION_TOKEN } from '../../../../utils/constants';
-import './Dropdown.css'
 import { UserContext } from '../../../UtilityComponents/UserContext';
 import { LargeProfileImage, Loading, SmallProfileImage } from '../../../UtilityComponents/UtilityComponents';
 import { MESSAGE_ADDED, NOTIFICATION_ADDED } from '../../../../graphql/subscriptions';
@@ -18,9 +19,9 @@ interface IConversation {
 }
 
 const ProfileDropdown = ({ show, setShow, setHasUnseen }: any) => {
+  const userContext = useContext(UserContext)
   const client = useApolloClient()
   const me = useQuery(ME)
-  const userContext = useContext(UserContext)
   const [findUserOrGroup, { loading, data }] = useLazyQuery(FIND_USER_OR_GROUP)
 
   useEffect(() => {
@@ -64,7 +65,7 @@ const ProfileDropdown = ({ show, setShow, setHasUnseen }: any) => {
       setHasUnseen(false)
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data])
+  }, [data, me.data])
 
   const history = useHistory()
 

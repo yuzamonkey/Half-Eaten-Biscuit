@@ -5,9 +5,11 @@
   display: flex;
   flex-direction: column;
 }
+
 .send-job-ad-form-current-view-container {
   height: 100%;
 }
+
 .send-job-ad-form-switch-view-buttons-container {
   display: flex;
   padding: 20px;
@@ -24,7 +26,7 @@
   align-items: center;
 }
 
-.wanted-category-selection-container >  * {
+.wanted-category-selection-container>* {
   width: 100%;
 }
 
@@ -37,4 +39,104 @@
 .back-to-selection-button-container {
   display: flex;
   justify-content: center;
+}
+
+.selected-categories {
+  text-align: center;
+  width: fit-content;
+  padding: 10px;
+  margin: 10px;
+  box-shadow: 0 0 2pt 1pt var(--bg-grey);
+  background-color: white;
+  border-radius: 5px;
+}
+
+/* INFO FORM */
+
+.job-ad-info-form-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.job-ad-info-form-container .error-message-container {
+  height: var(--p-font-size);
+}
+
+.job-ad-info-form-inputs {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.job-ad-info-form-inputs input, .job-ad-info-form-inputs select {
+  border: none;
+  box-shadow: 0 0 3pt 1pt var(--grey);
+  padding: 5px;
+  border-radius: 5px;
+  font-family: var(--font-family);
+}
+
+.job-ad-info-form-inputs input:focus, .job-ad-info-form-inputs select:focus {
+  outline: none;
+}
+
+.smaller-inputs>* {
+  margin: 10px;
+}
+
+/* SUMMARY */
+
+.job-ad-form-summary-container {
+  height: 100%;
+}
+
+.job-ad-form-summary-items-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.job-ad-form-summary-items-container h1 {
+  text-align: center;
+  height: 40px;
+}
+
+.job-ad-form-summary-items-container .error-message {
+  color: var(--red);
+  text-shadow: 0.5pt 0.5pt 1pt var(--grey);
+}
+
+.submit-button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.submit-button-container>* {
+  width: 80%;
+  max-width: 300px;
+}
+
+.job-ad-submitted-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.job-ad-submitted-container>* {
+  text-align: center;
+  margin: 10px 0;
+  width: 100%;
+}
+
+@media screen and (max-width: 960px) {
+  .job-ad-info-form-inputs {
+    flex-direction: column;
+  }
 }

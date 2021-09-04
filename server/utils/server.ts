@@ -16,6 +16,7 @@ const frontendRoutes = [
   '/messages/:id',
   '/jobmarket/jobads/:id',
   '/jobmarket/jobads',
+  '/jobmarket/findartists',
   '/jobmarket/sendjobad',
   '/jobmarket/myads',
   '/profiles',
@@ -36,7 +37,7 @@ app.get('/health', (_req, res) => {
 })
 
 app.get('/version', (_req, res) => {
-  res.send('0.0.5, 3.9.2021 17.40')
+  res.send('0.0.6, 4.9.2021 19.20')
 })
 
 app.get('/log', (_req, res) => {
@@ -48,6 +49,7 @@ app.get('/log', (_req, res) => {
     '2021/08/17 16.40 filesizelimit, minor ux improvements',
     '2021/08/17 18.25 remove invalid route, caused issue with playground',
     '2021/09/03 17.40 lots of css',
+    '2021/09/04 19.20 lots of css, note: notification bugs',
   ]
   res.send(log)
 })
