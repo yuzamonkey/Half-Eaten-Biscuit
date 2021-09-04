@@ -209,7 +209,7 @@ const typeDefs = gql`
     ): [NotificationObject]
     setAllNotificationsAsSeen(
       currentProfileId: ID!
-    ): [Notification]
+    ): [NotificationObject]
     addUserCategory(
       name: String!
       profession: String!

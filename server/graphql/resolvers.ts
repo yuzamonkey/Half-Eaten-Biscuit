@@ -915,7 +915,6 @@ const resolvers: IResolvers = {
         const notification = currentProfile.notifications.find((n: any) => JSON.stringify(n.object._id) === JSON.stringify(notificationId))
         notification.seen = true
         await currentProfile.save()
-        console.log("CURRENT PROFILE NOTIFICATIONS", currentProfile.notifications)
         return currentProfile.notifications
       } catch (error) {
         throw new Error(error.message)
@@ -931,7 +930,21 @@ const resolvers: IResolvers = {
       const currentProfileId = args.currentProfileId
 
       try {
-        const currentProfile = await User.findOne({ _id: currentProfileId }) || await Group.findOne({ _id: currentProfileId })
+        const currentProfile = await User.findOne({ _id: currentProfileId }).populate({
+          path: 'notifications',
+          populate: {
+            path: 'object'
+          }
+        }) || await Group.findOne({ _id: currentProfileId }).populate({
+          path: 'notifications',
+          populate: {
+            path: 'object'
+          }
+        })
+
+        if (!currentProfile) {
+          throw new Error("NO USER OR GROUP FOUND")
+        }
 
         const notifications = currentProfile.notifications
         for (let n of notifications) {

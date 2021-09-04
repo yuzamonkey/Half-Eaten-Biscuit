@@ -63,6 +63,14 @@ const NotificationsDropdown = ({ show, setShow, hasUnseenNotifications, setHasUn
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notifications])
 
+  const updateCache = async (notifications) => {
+    client.writeQuery({
+      query: GET_NOTIFICATIONS,
+      variables: { id: userContext.sessionId },
+      data: { userOrGroupsNotifications: notifications }
+    })
+  }
+
   const handleNotificationPress = async (notification) => {
     setShow(false)
     history.push(notification.object.link)
@@ -87,21 +95,15 @@ const NotificationsDropdown = ({ show, setShow, hasUnseenNotifications, setHasUn
     // }))
   }
 
-  const updateCache = async (notifications) => {
-    client.writeQuery({
-      query: GET_NOTIFICATIONS,
-      variables: { id: userContext.sessionId },
-      data: { userOrGroupsNotifications: notifications }
-    })
-  }
-
-  const handleSetAll = () => {
-    setAllNotificationsAsSeen({
+  const handleSetAll = async () => {
+    const mutationResult = await setAllNotificationsAsSeen({
       variables: {
         currentProfileId: userContext.sessionId
       }
     })
-    setNotifications(notifications.map(n => { return { ...n, seen: true } }))
+    const updatedNotifications = mutationResult.data.setAllNotificationsAsSeen
+    setNotifications(sortNotifications(updatedNotifications))
+    updateCache(updatedNotifications)
   }
 
   if (notificationsResult.loading) {
