@@ -95,6 +95,7 @@ export const ContactButton = ({ handleClick }) => {
     </div>
   )
 }
+
 export const DisabledContactButton = () => {
   return (
     <div
@@ -110,7 +111,7 @@ export const Searchbar = ({ input, setInput }: any) => {
       <div className={input === '' ? "searchbar-outline empty" : "searchbar-outline"}>
         <input className="searchbar-input" value={input} onChange={e => setInput(e.target.value)}></input>
         <div className="searchbar-icon-container">
-          <div className="searchbar-icon">⚲</div>
+          <div className="searchbar-icon"><i className="fa fa-search"></i></div>
         </div>
       </div>
     </div>

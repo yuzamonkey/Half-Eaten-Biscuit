@@ -283,12 +283,9 @@
   outline: none;
 }
 
-.searchbar-icon {
-  color: var(--searchbar-color);
-  transform: rotate(45deg);
-  font-size: 1.3em;
-  width: 1ch;
-  height: fit-content;
+.searchbar-icon{
+  color: var(--bg-grey);
+  transform: scale(0.7);
 }
 
 .searchbar-container:hover {
