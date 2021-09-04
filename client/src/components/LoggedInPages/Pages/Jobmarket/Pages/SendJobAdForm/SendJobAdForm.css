@@ -48,3 +48,19 @@
   background-color: white;
   border-radius: 5px;
 }
+
+/* INFO FORM */
+
+.job-ad-info-form-container {
+  height: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+@media screen and (max-width: 960px) {
+  .job-ad-info-form-container {
+    flex-direction: column;
+  }
+  
+}
