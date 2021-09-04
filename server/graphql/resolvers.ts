@@ -536,6 +536,7 @@ const resolvers: IResolvers = {
         }
 
         const newNotification = new NotificationModel({
+          date: new Date(),
           content: "New jobad for you: " + content,
           link: `/jobmarket/jobads/${savedJobAd._id}`,
           relatedObject: {
@@ -785,6 +786,7 @@ const resolvers: IResolvers = {
         }
         //notifications
         const newNotification = new NotificationModel({
+          date: new Date(),
           content: "You have been added to a new group " + groupName,
           link: `/profiles/${savedGroup._id}`,
           relatedObject: {

@@ -65,7 +65,7 @@ const ProfileDropdown = ({ show, setShow, setHasUnseen }: any) => {
       setHasUnseen(false)
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data])
+  }, [data, me.data])
 
   const history = useHistory()
 

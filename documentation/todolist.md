@@ -4,7 +4,7 @@
 - REMEMBER TO UPDATE ROUTES!
 
 ## Fix ❌
-- Notifications do not update on session change, and query returns undefined for some reason
+- Notifications not working correctly
 - Testing in deployment pipeline on GitHub
 - Remove hover-effects in mobile view
 

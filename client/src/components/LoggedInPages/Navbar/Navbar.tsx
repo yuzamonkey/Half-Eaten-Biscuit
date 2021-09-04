@@ -39,16 +39,16 @@ const Navbar = () => {
     },
   })
 
-  useSubscription(NOTIFICATION_ADDED, {
-    variables: {
-      userOrGroupIds: [userContext.sessionId]
-    },
-    onSubscriptionData: async ({ subscriptionData }) => {
-      console.log("SUBSCRIPTION NOTIFICATION ADDED omaa dataa\n", subscriptionData)
-      currentProfileResult.refetch()
-      //setHasUnseenNotifications(true)
-    },
-  })
+  // useSubscription(NOTIFICATION_ADDED, {
+  //   variables: {
+  //     userOrGroupIds: [userContext.sessionId]
+  //   },
+  //   onSubscriptionData: async ({ subscriptionData }) => {
+  //     console.log("SUBSCRIPTION NOTIFICATION ADDED omaa dataa\n", subscriptionData)
+  //     currentProfileResult.refetch()
+  //     //setHasUnseenNotifications(true)
+  //   },
+  // })
 
   const [showMenu, setShowMenu] = useState(false);
   const [showNotification, setShowNotifications] = useState(false)
