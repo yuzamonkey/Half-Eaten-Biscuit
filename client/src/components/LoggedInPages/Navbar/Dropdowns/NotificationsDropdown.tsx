@@ -25,7 +25,8 @@ const NotificationsDropdown = ({ show, setShow, hasUnseenNotifications, setHasUn
   const [getNotifications, { data }] = useLazyQuery(GET_NOTIFICATIONS)
   const [setNotificationAsSeen] = useMutation(SET_NOTIFICATION_AS_SEEN)
   const [setAllNotificationsAsSeen] = useMutation(SET_ALL_NOTIFICATIONS_AS_SEEN)
-
+  
+  //NOT WORKING
   useEffect(() => {
     getNotifications({
       variables: { id: userContext.sessionId },
@@ -111,7 +112,7 @@ const NotificationsDropdown = ({ show, setShow, hasUnseenNotifications, setHasUn
               className="notification-container"
               onClick={() => handleNotificationPress(n)}
             >
-              {n.seen ? n.object.content : <b>{n.object.content}</b>} 
+              {n.seen ? n.object.content : <b>{n.object.content}</b>}
             </li>
             )}
           </ul>

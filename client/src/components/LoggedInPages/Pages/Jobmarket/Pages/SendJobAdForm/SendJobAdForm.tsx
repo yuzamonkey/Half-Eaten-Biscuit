@@ -16,11 +16,11 @@ interface Category {
 
 const SendJobAdForm = () => {
 
-  const [content, setContent] = useState('Details about everything, schedule, locations and addresses, nature of the project...')
+  const [content, setContent] = useState('')
   const [location, setLocation] = useState('')
-  const [salary, setSalary] = useState('')
-  const [startSchedule, setStartSchedule] = useState('YYYY-MM-DD')
-  const [endSchedule, setEndSchedule] = useState('YYYY-MM-DD')
+  const [salary, setSalary] = useState('Yes')
+  const [startSchedule, setStartSchedule] = useState('')
+  const [endSchedule, setEndSchedule] = useState('')
 
   const [userCategories, setUserCategories] = useState<Category[]>([])
   const [groupCategories, setGroupCategories] = useState<Category[]>([])

@@ -175,6 +175,27 @@ export const FIND_USER_OR_GROUP = gql`
   }
 `
 
+export const NAME_AND_IMAGE = gql`
+  query findUserOrGroup($id: ID!) {
+    findUserOrGroup(id: $id) {
+        ... on User {
+        id
+        profile {
+          name
+          image
+        }
+      }
+      ... on Group {
+        id
+        profile {
+          name
+          image
+        }
+      }
+    }
+  }
+`
+
 export const GET_CONVERSATIONS_SEEN_BY_SESSION_ID = gql`
   query getConversationsSeenBySessionId ($id: ID!) {
     findUserOrGroup(id: $id) {
@@ -351,8 +372,8 @@ export const FIND_JOBAD = gql`
         kind 
         object {
           ...on User {
-            username
             profile {
+              name
               image
             }
           }
@@ -367,6 +388,7 @@ export const FIND_JOBAD = gql`
       wantedCategories {
         object {
           ...on UserCategory {
+            profession
             name
           }
           ... on GroupCategory {

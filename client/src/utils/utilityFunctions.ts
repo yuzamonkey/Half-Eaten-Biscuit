@@ -15,6 +15,14 @@ export const categoriesWithParentsRemoved = (categories): Category[] => {
   return filtered
 }
 
+export const getTodaysDate = (): string => {
+  const date = new Date();
+  const dd = String(date.getDate()).padStart(2, '0');
+  const mm = String(date.getMonth() + 1).padStart(2, '0');
+  const yyyy = date.getFullYear();
+  return yyyy + '/' + mm + '/' + dd;
+}
+
 export const dateAsDDMMYYYY = (dateInput) => {
   const date = dateInput.substring(0, 10)
   const year = date.substring(0,4)
