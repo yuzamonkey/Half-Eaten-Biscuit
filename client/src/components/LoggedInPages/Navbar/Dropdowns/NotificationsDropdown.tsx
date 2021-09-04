@@ -118,7 +118,9 @@ const NotificationsDropdown = ({ show, setShow, hasUnseenNotifications, setHasUn
     <div className={show ? "dropdown active" : "dropdown"}>
       <div className="title-and-set-all-as-seen-container">
         <h3 className="notifications-title">Notifications</h3>
-        {hasUnseenNotifications && <button onClick={() => handleSetAll()} className="set-all-notifications-seen-button">Set all as seen</button>}
+        {hasUnseenNotifications && 
+        <div onClick={() => handleSetAll()} className="set-all-notifications-seen-button">Set all as seen</div>
+        }
       </div>
       {notifications.length === 0
         ? <div>No notifications</div>
