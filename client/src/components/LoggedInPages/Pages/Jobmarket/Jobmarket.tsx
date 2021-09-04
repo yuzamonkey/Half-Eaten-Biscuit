@@ -14,7 +14,7 @@ const Jobmarket = () => {
       <JobmarketNavigation />
       <div className="job-pages">
         <Switch>
-          <Route path="/jobmarket/findplayers/" component={FindArtists} />
+          <Route path="/jobmarket/findartists/" component={FindArtists} />
           <Route path="/jobmarket/jobads/:id" component={JobInfo} />
           <Route path="/jobmarket/jobads/" component={JobAds} />
           <Route path="/jobmarket/sendjobad/" component={SendJobAd} />
