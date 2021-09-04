@@ -151,6 +151,7 @@ const typeDefs = gql`
     allUserCategories: [UserCategory]
     allGroupCategories: [GroupCategory]
     allNotifications: [Notification]!
+    userOrGroupsNotifications(id: ID!): [NotificationObject]!
     me: User,
   }
 
@@ -205,7 +206,7 @@ const typeDefs = gql`
     setNotificationAsSeen(
       currentProfileId: ID!
       notificationId: ID!
-    ): Notification
+    ): [NotificationObject]
     setAllNotificationsAsSeen(
       currentProfileId: ID!
     ): [Notification]

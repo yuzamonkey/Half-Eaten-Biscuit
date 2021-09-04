@@ -310,6 +310,28 @@ const resolvers: IResolvers = {
         return n2date - n1date
       })
       return sorted
+    },
+    userOrGroupsNotifications: async (_root, args) => {
+      const id = args.id
+      const userOrGroup =
+        await User.findOne({ _id: id }).populate({
+          path: 'notifications',
+          populate: {
+            path: 'object'
+          }
+        })
+        || await Group.findOne({ _id: id }).populate({
+          path: 'notifications',
+          populate: {
+            path: 'object'
+          }
+        })
+      if (userOrGroup) {
+        const notifications = userOrGroup.notifications
+        return notifications
+      } else {
+        throw new Error("Invalid id")
+      }
     }
   },
   UserOrGroup: {
@@ -562,7 +584,7 @@ const resolvers: IResolvers = {
       const receiverId = args.receiverId
 
       if (senderId === receiverId) {
-        throw new Error("Same sender and receiver") 
+        throw new Error("Same sender and receiver")
       }
 
       const sender = await User.findOne({ _id: senderId }) || await Group.findOne({ _id: senderId })
@@ -871,17 +893,30 @@ const resolvers: IResolvers = {
 
       const currentProfileId = args.currentProfileId
       const notificationId = args.notificationId
-      const currentProfile = await User.findOne({ _id: currentProfileId }) || await Group.findOne({ _id: currentProfileId })
-      
+      const currentProfile = await User.findOne({ _id: currentProfileId }).populate({
+        path: 'notifications',
+        populate: {
+          path: 'object'
+        }
+      }) || await Group.findOne({ _id: currentProfileId }).populate({
+        path: 'notifications',
+        populate: {
+          path: 'object'
+        }
+      })
+
       if (!currentProfile) {
         throw new Error("NO USER OR GROUP FOUND")
       }
-      
+
+      console.log("•")
+
       try {
-        const notification = currentProfile.notifications.find((n: any) => JSON.stringify(n.object) === JSON.stringify(notificationId))
+        const notification = currentProfile.notifications.find((n: any) => JSON.stringify(n.object._id) === JSON.stringify(notificationId))
         notification.seen = true
         await currentProfile.save()
-        return notification
+        console.log("CURRENT PROFILE NOTIFICATIONS", currentProfile.notifications)
+        return currentProfile.notifications
       } catch (error) {
         throw new Error(error.message)
       }

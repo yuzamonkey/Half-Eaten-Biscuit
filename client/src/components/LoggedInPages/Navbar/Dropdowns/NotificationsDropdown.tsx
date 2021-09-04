@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useLazyQuery, useMutation, useQuery } from '@apollo/client'
+import { useApolloClient, useMutation, useQuery } from '@apollo/client'
 import { useHistory } from 'react-router-dom'
 
 import './Dropdown.css'
@@ -21,6 +21,7 @@ interface INotification {
 
 const NotificationsDropdown = ({ show, setShow, hasUnseenNotifications, setHasUnseenNotifications }: any) => {
   const history = useHistory()
+  const client = useApolloClient()
   const userContext = useContext(UserContext)
   const [notifications, setNotifications] = useState<INotification[]>([])
 
@@ -30,10 +31,9 @@ const NotificationsDropdown = ({ show, setShow, hasUnseenNotifications, setHasUn
       id: userContext.sessionId
     },
     onCompleted: (data) => {
-      console.log("N", data)
-      //const notifications = data.findUserOrGroup.notifications
-      // const sorted = sortNotifications(notifications)
-      // setNotifications(sorted)
+      console.log("DATA", data)
+      const sorted = sortNotifications(data.userOrGroupsNotifications)
+      setNotifications(sorted)
     }
   })
 
@@ -49,73 +49,50 @@ const NotificationsDropdown = ({ show, setShow, hasUnseenNotifications, setHasUn
     return sorted
   }
 
-  if (notificationsResult.loading) {
-    return (
-      <div className={show ? "dropdown active" : "dropdown"}>
-        <Loading />
-      </div>
-    )
-  }
-  //NOT WORKING
-  // useEffect(() => {
-  //   getNotifications({
-  //     variables: { id: userContext.sessionId },
-  //   })
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [userContext.sessionId])
+  useEffect(() => {
+    if (notifications) {
+      let hasUnseenNotifications = false
+      for (let n of notifications) {
+        if (!n.seen) {
+          hasUnseenNotifications = true
+          break
+        }
+      }
+      setHasUnseenNotifications(hasUnseenNotifications)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [notifications])
 
-
-  // useEffect(() => {
-  //   if (data) {
-  //     const sorted = [...data.findUserOrGroup.notifications].sort((n1: any, n2: any) => {
-  //       const n1date = new Date(n1.object.date).getTime()
-  //       const n2date = new Date(n2.object.date).getTime()
-  //       return n2date - n1date
-  //     })
-  //     setNotifications(sorted)
-  //     // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   }
-  // }, [data])
-
-  // useEffect(() => {
-  //   if (notifications) {
-  //     let hasUnseenNotifications = false
-  //     for (let n of notifications) {
-  //       if (!n.seen) {
-  //         hasUnseenNotifications = true
-  //         break
-  //       }
-  //     }
-  //     setHasUnseenNotifications(hasUnseenNotifications)
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [notifications])
-
-  // useSubscription(NOTIFICATION_ADDED, {
-  //   onSubscriptionData: async ({ subscriptionData }) => {
-  //     // below works, but not optimal
-  //     client.reFetchObservableQueries()
-  //   },
-  // })
-
-
-  const handleNotificationPress = (notification) => {
+  const handleNotificationPress = async (notification) => {
     setShow(false)
-    setNotificationAsSeen({
+    history.push(notification.object.link)
+    //if (!notification.seen) {
+    const mutationResult = await setNotificationAsSeen({
       variables: {
         currentProfileId: userContext.sessionId,
         notificationId: notification.object.id
       }
     })
-    setNotifications(notifications.map(n => {
-      if (n.object.id === notification.object.id) {
-        const updated = { ...n, seen: true }
-        return updated
-      } else {
-        return n
-      }
-    }))
-    history.push(notification.object.link)
+    const updatedNotifications = mutationResult.data.setNotificationAsSeen
+    setNotifications(sortNotifications(updatedNotifications))
+    updateCache(updatedNotifications)
+    //}
+    // setNotifications(notifications.map(n => {
+    //   if (n.object.id === notification.object.id) {
+    //     const updated = { ...n, seen: true }
+    //     return updated
+    //   } else {
+    //     return n
+    //   }
+    // }))
+  }
+
+  const updateCache = async (notifications) => {
+    client.writeQuery({
+      query: GET_NOTIFICATIONS,
+      variables: { id: userContext.sessionId },
+      data: { userOrGroupsNotifications: notifications }
+    })
   }
 
   const handleSetAll = () => {
@@ -125,6 +102,14 @@ const NotificationsDropdown = ({ show, setShow, hasUnseenNotifications, setHasUn
       }
     })
     setNotifications(notifications.map(n => { return { ...n, seen: true } }))
+  }
+
+  if (notificationsResult.loading) {
+    return (
+      <div className={show ? "dropdown active" : "dropdown"}>
+        <Loading />
+      </div>
+    )
   }
 
   return (
