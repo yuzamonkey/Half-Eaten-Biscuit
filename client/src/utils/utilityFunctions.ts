@@ -25,14 +25,22 @@ export const getTodaysDate = (): string => {
 
 export const dateAsDDMMYYYY = (dateInput) => {
   const date = dateInput.substring(0, 10)
-  const year = date.substring(0,4)
+  const year = date.substring(0, 4)
   const month = date.substring(5, 7)
   const day = date.substring(8, 10)
   return `${day}.${month}.${year}`
 }
 
-
 export const textAsArray = (text: string): string[] => {
   const result = text.split('\n')
   return result
+}
+
+export const reverse = (arr) => {
+  // eslint-disable-next-line @typescript-eslint/no-array-constructor
+  var ret = new Array();
+  for (var i = arr.length - 1; i >= 0; i--) {
+    ret.push(arr[i]);
+  }
+  return ret;
 }

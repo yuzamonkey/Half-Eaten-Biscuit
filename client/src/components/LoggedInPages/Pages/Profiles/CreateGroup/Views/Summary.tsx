@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client"
 
-import { Button, Loading } from "../../../../../UtilityComponents/UtilityComponents"
+import { Button, Loading, VeryLargeProfileImage } from "../../../../../UtilityComponents/UtilityComponents"
 import { CREATE_GROUP } from "../../../../../../graphql/mutations"
 import { useState } from "react"
 
@@ -47,7 +47,7 @@ const Summary = ({ selectedUsers, groupName, image, categories, about }) => {
         <h1>Summary</h1>
         USERS: {selectedUsers.map(u => <p>{u.username}</p>)}
         NAME: {groupName}
-        <img src={image} alt="summaryimage"></img>
+        <VeryLargeProfileImage image={image} />
         {categories.map(skill => <p>{skill.name}</p>)}
         ABOUT: {about}
         <Button handleClick={handleSubmit} text='Submit' />

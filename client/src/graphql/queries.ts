@@ -160,6 +160,16 @@ export const FIND_USER_OR_GROUP = gql`
   }
 `
 
+export const ALL_GROUP_NAMES = gql`
+  query allGroupNames {
+    allGroups {
+      profile {
+        name
+      }
+    }
+  }
+`
+
 export const NAME_AND_IMAGE = gql`
   query findUserOrGroup($id: ID!) {
     findUserOrGroup(id: $id) {

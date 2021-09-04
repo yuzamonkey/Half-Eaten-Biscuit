@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Button } from "../../../../UtilityComponents/UtilityComponents"
+import { FormNavigationButton } from "../../../../UtilityComponents/UtilityComponents"
 import About from "./Views/About"
 import GroupCategories from "./Views/GroupCategories"
 import NameAndImage from "./Views/NameAndImage"
@@ -14,16 +14,16 @@ interface User {
 const CreateGroupForm = () => {
   const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
   const [categories, setCategories] = useState<User[]>([]);
-  const [groupName, setGroupName] = useState('Group name')
+  const [groupName, setGroupName] = useState('')
   const [about, setAbout] = useState('')
   const [image, setImage] = useState('')
   const [currentView, setCurrentView] = useState(0)
   const views = [
     <UserSelection selectedUsers={selectedUsers} setSelectedUsers={setSelectedUsers} />,
-    <GroupCategories categories={categories} setCategories={setCategories}/>,
+    <GroupCategories categories={categories} setCategories={setCategories} />,
     <NameAndImage groupName={groupName} setGroupName={setGroupName} image={image} setImage={setImage} />,
     <About text={about} setText={setAbout} />,
-    <Summary selectedUsers={selectedUsers} groupName={groupName} image={image} categories={categories} about={about}/>
+    <Summary selectedUsers={selectedUsers} groupName={groupName} image={image} categories={categories} about={about} />
   ]
 
   const handlePrevPress = () => {
@@ -40,8 +40,18 @@ const CreateGroupForm = () => {
         {views[currentView]}
       </div>
       <div className="create-group-switch-view-buttons-container">
-        <Button handleClick={handlePrevPress} text="Prev" />
-        <Button handleClick={handleNextPress} text="Next" />
+        <div>
+          {currentView > 0
+            &&
+            <FormNavigationButton handleClick={handlePrevPress} previous={true} />
+          }
+        </div>
+        <div>
+          {currentView < (views.length - 1)
+            &&
+            <FormNavigationButton handleClick={handleNextPress} previous={false} />
+          }
+        </div>
       </div>
     </div>
   )

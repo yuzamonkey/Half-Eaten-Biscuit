@@ -11,12 +11,19 @@
 
 .create-group-switch-view-buttons-container {
   height: 75px;
+  margin: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.new-group-container {}
+/* USER SELECTION */
+
+.user-selection-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 
 .small-profile-card-overlay {
   position: absolute;
@@ -41,13 +48,16 @@
   margin: 10px;
   border: 1px solid var(--grey);
   border-radius: 5px;
+  height: 170px;
   display: flex;
-  overflow: scroll;
+  align-items: center;
+  overflow-x: scroll;
 }
 
 .selected-user {
   position: relative;
   margin: 20px;
+  height: fit-content;
 }
 
 .selected-user-overlay {
@@ -59,14 +69,28 @@
   cursor: pointer;
 }
 
+.all-users-searchbar-container {
+  display: flex;
+  justify-content: center;
+}
+
+.all-users-searchbar-container > * {
+  width: 90%;
+  max-width: 300px;
+}
+
 .all-users-container {
   display: flex;
+  justify-content: center;
   overflow: scroll;
+  flex-flow: row wrap;
+  height: 100%;
 }
 
 .all-user-container {
   position: relative;
   margin: 20px;
+  height: fit-content;
 }
 
 .all-user-overlay {
@@ -76,4 +100,45 @@
 .all-user-container:hover .all-user-overlay {
   opacity: 0.95;
   cursor: pointer;
+}
+
+/* CATEGORIES SELECTION */
+
+.category-selection-container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* NAME AND IMAGE */
+
+.group-name-input {
+  border: none;
+  box-shadow: 0 0 3pt 1pt var(--grey);
+  padding: 5px;
+  border-radius: 5px;
+  font-family: var(--font-family);
+  text-align: center;
+}
+
+.group-name-input:focus {
+  outline: none;
+}
+
+/* ABOUT */
+
+.group-about-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.group-about-container textarea {
+  width: 90vw;
+  height: 70vh;
+  max-width: 400px;
+  max-height: 500px;
 }

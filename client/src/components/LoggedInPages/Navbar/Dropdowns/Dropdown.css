@@ -85,7 +85,7 @@
   padding: 10px 0;
   margin-bottom: 10px;
   border-radius: 5px;
-  box-shadow: 0 0 3pt 0 var(--green);
+  box-shadow: 0 0 3pt 0 var(--dark-grey);
   background-color: var(--grey);
 }
 
