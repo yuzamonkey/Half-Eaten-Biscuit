@@ -1,7 +1,19 @@
 # Todolist/bugs
 
-## Do ⏺
+## Do ⏺ (5.9.2021)
 - REMEMBER TO UPDATE ROUTES!
+- Favicon
+- Jobmarket
+  - Filters
+  - My ads
+- Messaging
+  - Mobile bug whe creating new conversations (shows conversation select after routing to conversation)
+  - Delete conversation
+- Settings
+  - Edit username/password
+  - Edit profile
+  - (Change activity)
+- Fix notifications
 
 ## Fix ❌
 - Notifications not working correctly
